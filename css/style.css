@@ -232,7 +232,8 @@ a:hover {
 }
 
 .hero-bg-photo {
-  background-image: url('../png/hero-banner.png');
+  background-image: url('https://images.unsplash.com/photo-1544776193-352f25a2fb46?w=1920&q=90');
+  background-position: center 30%;
 }
 
 .hero-bg-overlay {
@@ -245,6 +246,10 @@ a:hover {
   position: relative;
   z-index: 1;
   text-align: center;
+}
+
+.hero .container {
+  max-width: 1200px;
 }
 
 .hero-eyebrow {
@@ -262,7 +267,7 @@ a:hover {
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.95);
   margin: 0 0 1.5rem;
-  max-width: 640px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
