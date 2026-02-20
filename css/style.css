@@ -232,7 +232,7 @@ a:hover {
 }
 
 .hero-bg-photo {
-  background-image: url('https://images.unsplash.com/photo-1544776193-352f25a2fb46?w=1920&q=90');
+  background-image: url('../png/hero-banner.png');
   background-position: center 30%;
 }
 
