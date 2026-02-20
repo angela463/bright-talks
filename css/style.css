@@ -229,15 +229,16 @@ a:hover {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.5;
 }
 
-.hero-bg-1 {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 30%, #fbbf24 70%, #f59e2e 100%);
+.hero-bg-photo {
+  background-image: url('../png/hero-banner.png');
 }
 
-.hero-bg-2 {
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 255, 255, 0.6), transparent);
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .hero-inner {
@@ -250,19 +251,21 @@ a:hover {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
   line-height: 1.25;
-  color: var(--slate-dark);
+  color: #fff;
   margin: 0 0 1rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .hero-title {
   font-size: 1.05rem;
   font-weight: 500;
   line-height: 1.5;
-  color: var(--slate);
+  color: rgba(255, 255, 255, 0.95);
   margin: 0 0 1.5rem;
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title .no-break {
