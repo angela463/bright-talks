@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Library – Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/video-guides.css" />
+</head>
+<body class="page-video-guides">
+  <header class="site-header site-header-video">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <a href="#signin" class="btn btn-ghost btn-signin">Sign In</a>
+    </div>
+  </header>
+
+  <main class="video-library-main">
+    <div class="container">
+      <h1 class="video-library-title">Video Library</h1>
+
+      <div class="video-filters" role="tablist" aria-label="Filter videos">
+        <button type="button" class="filter-pill active" data-filter="all" aria-pressed="true">All Videos</button>
+        <button type="button" class="filter-pill" data-filter="parents" aria-pressed="false">For Parents</button>
+        <button type="button" class="filter-pill" data-filter="teens" aria-pressed="false">For Teens</button>
+        <button type="button" class="filter-pill" data-filter="family" aria-pressed="false">Family Time</button>
+      </div>
+
+      <div class="video-cards">
+        <article class="video-card" data-category="parents">
+          <div class="video-card-thumb-wrap">
+            <div class="video-card-thumb video-card-thumb-placeholder"></div>
+            <button type="button" class="video-play-btn" aria-label="Play video" data-video-id="M7lc1UVf-VE" data-video-title="Starting Difficult Conversations">
+              <span class="play-icon" aria-hidden="true"></span>
+            </button>
+            <span class="video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 12:34</span>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-badge">Parent</span>
+            <h2 class="video-card-title">Starting Difficult Conversations</h2>
+            <p class="video-card-desc">Learn how to approach sensitive topics with your teenager.</p>
+            <div class="video-card-tags">
+              <span class="tag">Communication</span>
+              <span class="tag">Parenting</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="video-card" data-category="teens">
+          <div class="video-card-thumb-wrap">
+            <div class="video-card-thumb" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80');"></div>
+            <button type="button" class="video-play-btn" aria-label="Play video" data-video-id="M7lc1UVf-VE" data-video-title="Understanding Teen Emotions">
+              <span class="play-icon" aria-hidden="true"></span>
+            </button>
+            <span class="video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 8:45</span>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-badge">Teen</span>
+            <h2 class="video-card-title">Understanding Teen Emotions</h2>
+            <p class="video-card-desc">A guide for teens to express their feelings effectively.</p>
+            <div class="video-card-tags">
+              <span class="tag">Emotions</span>
+              <span class="tag">Self-care</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="video-card" data-category="family">
+          <div class="video-card-thumb-wrap">
+            <div class="video-card-thumb video-card-thumb-placeholder"></div>
+            <button type="button" class="video-play-btn" aria-label="Play video" data-video-id="M7lc1UVf-VE" data-video-title="Family Check-ins That Work">
+              <span class="play-icon" aria-hidden="true"></span>
+            </button>
+            <span class="video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 10:12</span>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-badge">Family</span>
+            <h2 class="video-card-title">Family Check-ins That Work</h2>
+            <p class="video-card-desc">Simple routines to stay connected as a family.</p>
+            <div class="video-card-tags">
+              <span class="tag">Routines</span>
+              <span class="tag">Connection</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">⌂</span>
+      <span>Home</span>
+    </a>
+    <a href="index.html#explore" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">👥</span>
+      <span>Resources</span>
+    </a>
+    <a href="video-guides.html" class="bottom-nav-item active">
+      <span class="bottom-nav-icon" aria-hidden="true">▶</span>
+      <span>Videos</span>
+    </a>
+    <a href="index.html#explore" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">⊞</span>
+      <span>Gallery</span>
+    </a>
+    <a href="index.html#waitlist" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">⊕</span>
+      <span>Family</span>
+    </a>
+  </nav>
+
+  <!-- Video playback modal -->
+  <div id="video-modal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="video-modal-title" hidden>
+    <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+    <div class="video-modal-inner">
+      <button type="button" class="video-modal-close" id="video-modal-close" aria-label="Close">×</button>
+      <h2 id="video-modal-title" class="sr-only">Video playback</h2>
+      <div class="video-modal-player-wrap">
+        <iframe id="video-modal-iframe" title="Video player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/video-guides.js"></script>
+</body>
+</html>
