@@ -170,9 +170,10 @@ a:hover {
   transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-.nav-trigger:hover {
-  background: var(--orange);
-  color: var(--white);
+.nav-trigger:hover,
+.site-header .nav .nav-trigger:hover {
+  background: #f59e2e !important;
+  color: #ffffff !important;
   transform: translateY(-1px);
 }
 
