@@ -29,6 +29,31 @@ body.page-video-guides .video-library-title {
   margin: 0 0 1.25rem;
 }
 
+/* Back-to-home button under the title */
+body.page-video-guides .back-home-btn {
+  display: inline-flex;
+  margin-bottom: 1.5rem;
+}
+
+/* Always-visible Home link in the header nav */
+body.page-video-guides .nav-home-link {
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--slate-dark);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+body.page-video-guides .nav-home-link:hover,
+body.page-video-guides .nav-home-link:focus {
+  background: #f59e2e;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 /* Filter pills – Video Library only: For Parents, For Teens, Family Time turn orange on hover */
 body.page-video-guides .video-filters {
   display: flex;
