@@ -1,23 +1,46 @@
 /**
- * Video Library page – bright white background to match Bright Talks home.
- * Loaded last so it overrides any dim/grey from base styles.
+ * Video Library page – bright white, no dim. Loaded last to override base styles.
  */
 html.page-video-guides,
 html.page-video-guides body,
 body.page-video-guides {
   background: #ffffff !important;
+  background-image: none !important;
 }
 
 body.page-video-guides .site-header,
+body.page-video-guides .site-header .header-inner,
 body.page-video-guides main,
 body.page-video-guides .video-library-main,
 body.page-video-guides .container {
   background: #ffffff !important;
+  background-image: none !important;
 }
 
-/* For Parents, For Teens, For Everyone: turn orange on hover */
+/* Remove header blur so page stays solid white (no dim through header) */
+body.page-video-guides .site-header {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Top nav: For Parents, For Teens, For Everyone – orange on hover/focus */
 body.page-video-guides .site-header .nav .nav-trigger:hover,
-body.page-video-guides .nav-trigger:hover {
+body.page-video-guides .site-header .nav .nav-trigger:focus,
+body.page-video-guides .nav-trigger:hover,
+body.page-video-guides .nav-trigger:focus {
   background: #f59e2e !important;
   color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+body.page-video-guides .site-header .nav .nav-trigger:focus-visible,
+body.page-video-guides .nav-trigger:focus-visible {
+  outline: 2px solid #d97706;
+  outline-offset: 2px;
+}
+
+/* Mobile: orange tap highlight so hover/focus state is visible on tap */
+body.page-video-guides .nav-trigger {
+  -webkit-tap-highlight-color: rgba(245, 158, 46, 0.35);
+  tap-highlight-color: rgba(245, 158, 46, 0.35);
 }
