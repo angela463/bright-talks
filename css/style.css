@@ -157,6 +157,25 @@ a:hover {
   flex-wrap: wrap;
 }
 
+/* Optional explicit Home link in the main nav */
+.nav-home-link {
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--slate-dark);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.nav-home-link:hover,
+.nav-home-link:focus {
+  background: var(--orange);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
 .nav-trigger {
   padding: 0.5rem 0.75rem;
   font-family: var(--font-sans);
