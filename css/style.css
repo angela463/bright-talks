@@ -167,11 +167,18 @@ a:hover {
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .nav-trigger:hover {
-  background: var(--off-white);
-  color: var(--orange);
+  background: rgba(245, 158, 46, 0.12);
+  color: var(--orange-dark);
+  transform: translateY(-1px);
+}
+
+.nav-trigger:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
 }
 
 .nav-panel {
