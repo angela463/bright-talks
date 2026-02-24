@@ -49,8 +49,10 @@
       return;
     }
     var bar = document.getElementById('cookie-bar');
-    var overlay = document.getElementById('cookie-overlay');
     if (!bar) return;
+
+    createOverlay();
+    var overlay = document.getElementById('cookie-overlay');
 
     var acceptBtn = document.getElementById('cookie-accept');
     var declineBtn = document.getElementById('cookie-decline');
@@ -60,13 +62,17 @@
     showCookieBar();
   }
 
+  // Only create the cookie overlay on pages that actually have a cookie bar (home page)
   function createOverlay() {
+    var bar = document.getElementById('cookie-bar');
+    if (!bar) return;
     var overlay = document.getElementById('cookie-overlay');
     if (overlay) return;
     overlay = document.createElement('div');
     overlay.id = 'cookie-overlay';
     overlay.className = 'cookie-overlay';
     overlay.setAttribute('aria-hidden', 'true');
+    overlay.hidden = true;
     document.body.appendChild(overlay);
   }
 
