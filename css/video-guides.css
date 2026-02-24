@@ -29,12 +29,6 @@ body.page-video-guides .video-library-title {
   margin: 0 0 1.25rem;
 }
 
-/* Back-to-home button under the title */
-body.page-video-guides .back-home-btn {
-  display: inline-flex;
-  margin-bottom: 1.5rem;
-}
-
 /* Always-visible Home link in the header nav */
 body.page-video-guides .nav-home-link {
   padding: 0.5rem 0.75rem;
