@@ -15,29 +15,30 @@ body.page-video-guides .site-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.video-library-main {
+/* ========== VIDEO LIBRARY PAGE ONLY – all rules scoped to .page-video-guides ========== */
+
+body.page-video-guides .video-library-main {
   padding: 1.5rem 0 2rem;
 }
 
-.video-library-title {
+body.page-video-guides .video-library-title {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--slate-dark);
   margin: 0 0 1.25rem;
 }
 
-/* Filter pills */
-.video-filters {
+/* Filter pills – Video Library only: For Parents, For Teens, Family Time turn orange on hover */
+body.page-video-guides .video-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
 
-/* Filter pills – For Parents, For Teens, Family Time: turn orange on hover */
-.filter-pill,
-.video-filters .filter-pill,
-button.filter-pill {
+body.page-video-guides .filter-pill,
+body.page-video-guides .video-filters .filter-pill,
+body.page-video-guides button.filter-pill {
   padding: 0.5rem 1rem;
   font-family: var(--font-sans);
   font-size: 0.9rem;
@@ -50,9 +51,9 @@ button.filter-pill {
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-.video-filters .filter-pill:hover,
-button.filter-pill:hover,
-.filter-pill:hover {
+body.page-video-guides .video-filters .filter-pill:hover,
+body.page-video-guides button.filter-pill:hover,
+body.page-video-guides .filter-pill:hover {
   background: #f59e2e !important;
   color: #ffffff !important;
   border-color: #f59e2e !important;
@@ -60,35 +61,35 @@ button.filter-pill:hover,
   box-shadow: 0 2px 12px rgba(245, 158, 46, 0.35);
 }
 
-.filter-pill:focus-visible {
+body.page-video-guides .filter-pill:focus-visible {
   outline: 2px solid #f59e2e;
   outline-offset: 2px;
 }
 
-.filter-pill.active,
-.video-filters .filter-pill.active {
+body.page-video-guides .filter-pill.active,
+body.page-video-guides .video-filters .filter-pill.active {
   background: #f59e2e;
   color: #ffffff;
   border-color: #f59e2e;
 }
 
-.video-filters .filter-pill.active:hover,
-button.filter-pill.active:hover,
-.filter-pill.active:hover {
+body.page-video-guides .video-filters .filter-pill.active:hover,
+body.page-video-guides button.filter-pill.active:hover,
+body.page-video-guides .filter-pill.active:hover {
   background: #d97706 !important;
   color: #ffffff !important;
   border-color: #d97706 !important;
   box-shadow: 0 2px 12px rgba(245, 158, 46, 0.4);
 }
 
-/* Video cards – slightly larger; thumbnail-style like home */
-.video-cards {
+/* Video cards – Video Library only, slightly larger */
+body.page-video-guides .video-cards {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
-.video-card {
+body.page-video-guides .video-card {
   background: #ffffff;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -96,25 +97,25 @@ button.filter-pill.active:hover,
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.video-card-thumb-wrap {
+body.page-video-guides .video-card-thumb-wrap {
   position: relative;
   width: 100%;
   padding-top: 52%;
   background: #f8fafc;
 }
 
-.video-card-thumb {
+body.page-video-guides .video-card-thumb {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
 }
 
-.video-card-thumb-placeholder {
+body.page-video-guides .video-card-thumb-placeholder {
   background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
 }
 
-.video-play-btn {
+body.page-video-guides .video-play-btn {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -132,12 +133,12 @@ button.filter-pill.active:hover,
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.video-play-btn:hover {
+body.page-video-guides .video-play-btn:hover {
   transform: translate(-50%, -50%) scale(1.05);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
 }
 
-.play-icon {
+body.page-video-guides .play-icon {
   width: 0;
   height: 0;
   border-style: solid;
@@ -146,7 +147,7 @@ button.filter-pill.active:hover,
   margin-left: 4px;
 }
 
-.video-duration {
+body.page-video-guides .video-duration {
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
@@ -161,16 +162,16 @@ button.filter-pill.active:hover,
   gap: 0.25rem;
 }
 
-.duration-icon {
+body.page-video-guides .duration-icon {
   font-size: 0.75rem;
 }
 
-.video-card-body {
+body.page-video-guides .video-card-body {
   padding: 1rem 1.25rem;
   position: relative;
 }
 
-.video-card-badge {
+body.page-video-guides .video-card-badge {
   position: absolute;
   top: 1rem;
   right: 1.25rem;
@@ -182,7 +183,7 @@ button.filter-pill.active:hover,
   border-radius: 4px;
 }
 
-.video-card-title {
+body.page-video-guides .video-card-title {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--slate-dark);
@@ -190,20 +191,20 @@ button.filter-pill.active:hover,
   padding-right: 4rem;
 }
 
-.video-card-desc {
+body.page-video-guides .video-card-desc {
   font-size: 0.9rem;
   color: var(--slate);
   line-height: 1.45;
   margin: 0 0 0.75rem;
 }
 
-.video-card-tags {
+body.page-video-guides .video-card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
 
-.video-card-tags .tag {
+body.page-video-guides .video-card-tags .tag {
   padding: 0.2rem 0.6rem;
   font-size: 0.8rem;
   color: var(--slate-dark);
@@ -212,8 +213,7 @@ button.filter-pill.active:hover,
   border-radius: 999px;
 }
 
-/* Hide cards by filter */
-.video-card.hidden-by-filter {
+body.page-video-guides .video-card.hidden-by-filter {
   display: none;
 }
 
@@ -287,22 +287,22 @@ button.filter-pill.active:hover,
 }
 
 @media (min-width: 640px) {
-  .video-library-title {
+  body.page-video-guides .video-library-title {
     font-size: 2rem;
   }
 
-  .video-filters {
+  body.page-video-guides .video-filters {
     flex-wrap: nowrap;
   }
 
-  .video-cards {
+  body.page-video-guides .video-cards {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.75rem;
   }
 }
 
 @media (min-width: 1000px) {
-  .video-cards {
+  body.page-video-guides .video-cards {
     grid-template-columns: repeat(3, 1fr);
   }
 }
