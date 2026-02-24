@@ -1,0 +1,23 @@
+/**
+ * Video Library page – bright white background to match Bright Talks home.
+ * Loaded last so it overrides any dim/grey from base styles.
+ */
+html.page-video-guides,
+html.page-video-guides body,
+body.page-video-guides {
+  background: #ffffff !important;
+}
+
+body.page-video-guides .site-header,
+body.page-video-guides main,
+body.page-video-guides .video-library-main,
+body.page-video-guides .container {
+  background: #ffffff !important;
+}
+
+/* For Parents, For Teens, For Everyone: turn orange on hover */
+body.page-video-guides .site-header .nav .nav-trigger:hover,
+body.page-video-guides .nav-trigger:hover {
+  background: #f59e2e !important;
+  color: #ffffff !important;
+}
