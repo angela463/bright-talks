@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="page-video-guides">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +11,38 @@
   <link rel="stylesheet" href="css/video-guides.css" />
 </head>
 <body class="page-video-guides">
-  <header class="site-header site-header-video">
+  <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo-link">
         <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="logo-img" />
       </a>
-      <a href="#signin" class="btn btn-ghost btn-signin">Sign In</a>
+      <nav class="nav" aria-label="Main">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="menu-parents">For Parents</button>
+          <div id="menu-parents" class="nav-panel" hidden>
+            <a href="index.html#conversation-starters">Conversation Starters</a>
+            <a href="video-guides.html">Video Guides</a>
+            <a href="index.html#expert-advice">Expert Advice</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="menu-teens">For Teens</button>
+          <div id="menu-teens" class="nav-panel" hidden>
+            <a href="index.html#real-stories">Real Stories</a>
+            <a href="index.html#ask-answer">Ask & Answer</a>
+            <a href="index.html#safe-spaces">Safe Spaces</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="menu-everyone">For Everyone</button>
+          <div id="menu-everyone" class="nav-panel" hidden>
+            <a href="index.html#resource-library">Resource Library</a>
+            <a href="index.html#workshops">Workshops</a>
+            <a href="index.html#faq">FAQs</a>
+          </div>
+        </div>
+      </nav>
+      <a href="index.html#waitlist" class="btn btn-primary">Join the Waitlist</a>
     </div>
   </header>
 
@@ -82,29 +108,6 @@
       </div>
     </div>
   </main>
-
-  <nav class="bottom-nav" aria-label="Main">
-    <a href="index.html" class="bottom-nav-item">
-      <span class="bottom-nav-icon" aria-hidden="true">⌂</span>
-      <span>Home</span>
-    </a>
-    <a href="index.html#explore" class="bottom-nav-item">
-      <span class="bottom-nav-icon" aria-hidden="true">👥</span>
-      <span>Resources</span>
-    </a>
-    <a href="video-guides.html" class="bottom-nav-item active">
-      <span class="bottom-nav-icon" aria-hidden="true">▶</span>
-      <span>Videos</span>
-    </a>
-    <a href="index.html#explore" class="bottom-nav-item">
-      <span class="bottom-nav-icon" aria-hidden="true">⊞</span>
-      <span>Gallery</span>
-    </a>
-    <a href="index.html#waitlist" class="bottom-nav-item">
-      <span class="bottom-nav-icon" aria-hidden="true">⊕</span>
-      <span>Family</span>
-    </a>
-  </nav>
 
   <!-- Video playback modal -->
   <div id="video-modal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="video-modal-title" hidden>
