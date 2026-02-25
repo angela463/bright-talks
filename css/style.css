@@ -366,9 +366,18 @@ a:hover {
   max-width: 640px;
 }
 
+/* Box around strip text so it pops and is easier to read */
+.strip-content-box {
+  background: rgba(255, 255, 255, 0.92);
+  padding: 1.75rem 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
 .strip-label {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--orange-dark) !important;
@@ -376,7 +385,10 @@ a:hover {
 }
 
 .strip-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: var(--slate-dark) !important;
+  font-weight: 500;
   text-shadow: none;
   margin: 0;
 }
