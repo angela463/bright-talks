@@ -1,0 +1,86 @@
+/* Teen Corner page */
+.page-teen-corner {
+  background: #ffffff;
+}
+
+.teen-corner-main {
+  padding: 2rem 0 4rem;
+}
+
+.teen-corner-title {
+  text-align: left;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--slate-dark);
+  margin: 0 0 0.75rem;
+}
+
+.teen-corner-hero-img {
+  width: 100%;
+  max-width: 720px;
+  height: 280px;
+  margin: 0 0 1.5rem;
+  border-radius: var(--radius-lg);
+  background: url('../teen-corner-hero.png') center/cover no-repeat;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+.teen-corner-intro {
+  text-align: left;
+  font-size: 1.05rem;
+  color: var(--slate);
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 0 1.75rem;
+}
+
+/* Tabs for audience toggle */
+.teen-corner-tabs {
+  display: inline-flex;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.25rem;
+  background: var(--off-white);
+  margin: 0 0 1.75rem;
+}
+
+.teen-tab {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--slate-dark);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.teen-tab.active {
+  background: #f59e2e;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.teen-panel {
+  margin-top: 0.25rem;
+}
+
+.teen-panel--hidden {
+  display: none;
+}
+
+.tc-card-meta {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--slate-light);
+  margin: 0 0 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .teen-corner-main {
+    padding: 2.5rem 0 4rem;
+  }
+}
+

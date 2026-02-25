@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teen Corner – Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/parent-resources.css" />
+  <link rel="stylesheet" href="css/teen-corner.css" />
+</head>
+<body class="page-teen-corner">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html" class="nav-home-link">Home</a>
+        <a href="parent-resources.html" class="nav-link">Parent resources</a>
+        <a href="teen-corner.html" class="nav-link">Teen corner</a>
+        <a href="video-guides.html" class="nav-link">Family videos</a>
+        <a href="index.html#benefits" class="nav-link">Sex education</a>
+      </nav>
+      <a href="index.html#waitlist" class="btn btn-primary">Join the Waitlist</a>
+    </div>
+  </header>
+
+  <main class="teen-corner-main">
+    <div class="container">
+      <h1 class="teen-corner-title">Teen Corner</h1>
+      <div class="teen-corner-hero-img" role="img" aria-label="Teen learning online at a desk"></div>
+      <p class="teen-corner-intro">Short reads to help you and your teen navigate feelings, friendships, and sex ed together.</p>
+
+      <div class="teen-corner-tabs" role="tablist" aria-label="Teen corner audience">
+        <button type="button" class="teen-tab active" role="tab" aria-selected="true" aria-controls="teen-panel" data-target="teens">For Teens</button>
+        <button type="button" class="teen-tab" role="tab" aria-selected="false" aria-controls="parent-panel" data-target="parents">For Parents</button>
+      </div>
+
+      <!-- Teens view -->
+      <section id="teen-panel" class="teen-panel" role="tabpanel" aria-labelledby="tab-teens">
+        <div class="resource-cards">
+          <article class="resource-card">
+            <p class="tc-card-meta">For teens · 4 min read</p>
+            <h2 class="resource-card-title">Feeling overwhelmed? Talking about stress & anxiety</h2>
+            <p class="resource-card-desc">Learn simple ways to check in with yourself, explain what you’re feeling, and ask for support when life feels like too much.</p>
+            <div class="resource-card-actions">
+              <a href="#" class="btn btn-read">Read</a>
+              <a href="#" class="resource-download" aria-label="Download article">
+                <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="sr-only">Download</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <p class="tc-card-meta">For teens · 5 min read</p>
+            <h2 class="resource-card-title">Your changing body, identity, and feelings</h2>
+            <p class="resource-card-desc">What’s normal as you grow, how to spot red flags, and how to talk with a trusted adult when you’re unsure about what you’re experiencing.</p>
+            <div class="resource-card-actions">
+              <a href="#" class="btn btn-read">Read</a>
+              <a href="#" class="resource-download" aria-label="Download article">
+                <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="sr-only">Download</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <p class="tc-card-meta">For teens · 3 min read</p>
+            <h2 class="resource-card-title">Boundaries, consent, and being safe online</h2>
+            <p class="resource-card-desc">How to say no, set limits on DMs and photos, and know what healthy respect looks like—in person and on your phone.</p>
+            <div class="resource-card-actions">
+              <a href="#" class="btn btn-read">Read</a>
+              <a href="#" class="resource-download" aria-label="Download article">
+                <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="sr-only">Download</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Parents view -->
+      <section id="parent-panel" class="teen-panel teen-panel--hidden" role="tabpanel">
+        <div class="resource-cards">
+          <article class="resource-card">
+            <p class="tc-card-meta">For parents · 4 min read</p>
+            <h2 class="resource-card-title">Checking in without shutting teens down</h2>
+            <p class="resource-card-desc">Questions and phrases that invite teens to open up about mood, school, and friendships—without feeling judged or cornered.</p>
+            <div class="resource-card-actions">
+              <a href="#" class="btn btn-read">Read</a>
+              <a href="#" class="resource-download" aria-label="Download article">
+                <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="sr-only">Download</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <p class="tc-card-meta">For parents · 6 min read</p>
+            <h2 class="resource-card-title">Supporting mental health without overstepping</h2>
+            <p class="resource-card-desc">Learn how to spot signs your teen might be struggling, what to say first, and when to bring in professional help.</p>
+            <div class="resource-card-actions">
+              <a href="#" class="btn btn-read">Read</a>
+              <a href="#" class="resource-download" aria-label="Download article">
+                <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="sr-only">Download</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <p class="tc-card-meta">For parents · 5 min read</p>
+            <h2 class="resource-card-title">Sex ed: what teens wish parents would say</h2>
+            <p class="resource-card-desc">Real questions teens ask, plus language you can use to talk about bodies, consent, and relationships in a way that feels honest and safe.</p>
+            <div class="resource-card-actions">
+              <a href="#" class="btn btn-read">Read</a>
+              <a href="#" class="resource-download" aria-label="Download article">
+                <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="sr-only">Download</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a href="index.html" class="footer-back">Return to Home</a>
+      <div class="footer-brand">
+        <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="footer-logo" />
+      </div>
+      <p class="footer-copy">© 2025 Bright Talks. All rights reserved.</p>
+      <p class="footer-privacy" id="privacy-policy"><strong>We Value Your Privacy</strong> — We use cookies to enhance your experience, analyze site usage, and personalize content. By continuing to use our website, you consent to our cookie policy.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/teen-corner.js"></script>
+</body>
+</html>
+
