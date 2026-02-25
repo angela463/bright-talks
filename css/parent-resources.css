@@ -12,6 +12,7 @@
   font-weight: 700;
   color: var(--slate-dark);
   margin: 0 0 1rem;
+  text-align: center;
 }
 
 .parent-resources-hero-img {
@@ -29,7 +30,8 @@
   color: var(--slate);
   line-height: 1.6;
   max-width: 640px;
-  margin: 0 0 2rem;
+  margin: 0 auto 2rem;
+  text-align: center;
 }
 
 .resource-cards {
