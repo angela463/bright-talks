@@ -480,7 +480,7 @@ a:hover {
 
 /* Benefits */
 .benefits {
-  padding: 4rem 1.5rem;
+  padding: 2.5rem 1.5rem;
   background: var(--white);
 }
 
@@ -537,7 +537,7 @@ a:hover {
 }
 
 .benefit-list {
-  margin: 2rem auto 0;
+  margin: 1.25rem auto 0;
   padding-left: 1.5rem;
   font-size: 0.95rem;
   color: var(--slate);
@@ -548,7 +548,7 @@ a:hover {
 }
 
 .benefit-list li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 /* CTA block */
