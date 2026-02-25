@@ -23,15 +23,26 @@
     var bar = document.getElementById('cookie-bar');
     if (!bar) return;
     var overlay = document.getElementById('cookie-overlay');
-    bar.hidden = false;
-    if (overlay) overlay.hidden = false;
+    bar.removeAttribute('hidden');
+    bar.style.display = '';
+    if (overlay) {
+      overlay.removeAttribute('hidden');
+      overlay.style.display = '';
+    }
   }
 
   function hideCookieBar() {
     var bar = document.getElementById('cookie-bar');
-    if (bar) bar.hidden = true;
+    if (bar) {
+      bar.setAttribute('hidden', '');
+      bar.style.display = 'none';
+    }
     var overlay = document.getElementById('cookie-overlay');
-    if (overlay) overlay.hidden = true;
+    if (overlay) {
+      overlay.setAttribute('hidden', '');
+      overlay.style.display = 'none';
+    }
+    document.body.style.overflow = '';
   }
 
   function acceptCookies() {
@@ -56,8 +67,18 @@
 
     var acceptBtn = document.getElementById('cookie-accept');
     var declineBtn = document.getElementById('cookie-decline');
-    if (acceptBtn) acceptBtn.addEventListener('click', acceptCookies);
-    if (declineBtn) declineBtn.addEventListener('click', declineCookies);
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        acceptCookies();
+      });
+    }
+    if (declineBtn) {
+      declineBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        declineCookies();
+      });
+    }
 
     showCookieBar();
   }
