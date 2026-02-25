@@ -18,10 +18,10 @@
 .teen-corner-hero-img {
   width: 100%;
   max-width: 720px;
-  height: 280px;
+  height: 260px;
   margin: 0 0 1.5rem;
   border-radius: var(--radius-lg);
-  background: url('../teen-corner-hero.png') center/cover no-repeat;
+  background: url('../teen-corner-hero.png') center 30%/cover no-repeat;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
