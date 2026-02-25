@@ -478,12 +478,122 @@ a:hover {
   margin: 0 1.25rem 1.25rem;
 }
 
-/* Benefits */
+/* Benefits – hiking vector scene + clear type hierarchy */
 .benefits {
-  padding: 2.5rem 1.5rem;
-  background: var(--white);
+  position: relative;
+  padding: 4rem 1.5rem;
+  overflow: hidden;
 }
 
+/* Hiking / landscape vector-style scene (layered hills) */
+.benefits-scene {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 28%, #fef3c7 65%, #fde68a 100%);
+  z-index: 0;
+}
+
+.benefits-mountains {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  pointer-events: none;
+}
+
+.benefits-hill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.benefits-hill--back {
+  background: linear-gradient(180deg, rgba(253, 230, 138, 0.4) 0%, rgba(251, 191, 36, 0.25) 100%);
+  transform: scale(1.4) translateY(15%);
+  opacity: 0.9;
+}
+
+.benefits-hill--mid {
+  background: linear-gradient(180deg, rgba(254, 243, 199, 0.7) 0%, rgba(245, 158, 46, 0.2) 100%);
+  transform: scale(1.15) translateY(25%);
+  opacity: 0.95;
+}
+
+.benefits-hill--front {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 250, 252, 0.9) 100%);
+  transform: translateY(40%);
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Content sits above scene */
+.benefits-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.benefits-headline {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--slate-dark);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.benefits-intro {
+  font-size: 1.1rem;
+  color: var(--slate);
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  line-height: 1.55;
+}
+
+.benefit-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 680px;
+  text-align: left;
+}
+
+.benefit-item {
+  display: block;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.75rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.benefit-item:hover {
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.benefit-item-title {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--orange-dark);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.benefit-item-desc {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--slate);
+  line-height: 1.6;
+}
+
+/* Legacy benefit grid (unused in current markup) */
 .benefit-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -530,25 +640,6 @@ a:hover {
 
 .benefit-card-no-img h3 {
   margin-top: 0;
-}
-
-.benefits .container {
-  text-align: center;
-}
-
-.benefit-list {
-  margin: 1.25rem auto 0;
-  padding-left: 1.5rem;
-  font-size: 0.95rem;
-  color: var(--slate);
-  line-height: 1.6;
-  max-width: 640px;
-  display: inline-block;
-  text-align: left;
-}
-
-.benefit-list li {
-  margin-bottom: 0.5rem;
 }
 
 /* CTA block */
