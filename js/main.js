@@ -104,7 +104,17 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = (form.querySelector('input[name="email"]') || {}).value;
-      if (!email) return;
+      var privacyChecked = (form.querySelector('input[name="privacy"]') || {}).checked;
+      if (!email) {
+        messageEl.textContent = 'Please enter your email.';
+        messageEl.className = 'form-note error';
+        return;
+      }
+      if (!privacyChecked) {
+        messageEl.textContent = 'Please agree to the privacy policy to join the waitlist.';
+        messageEl.className = 'form-note error';
+        return;
+      }
       messageEl.textContent = 'Thank you! Your submission has been received.';
       messageEl.className = 'form-note success';
       form.reset();
