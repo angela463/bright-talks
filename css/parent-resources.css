@@ -1,0 +1,148 @@
+/* Parent resources page – aligned with Bright Talks / Figma */
+.page-parent-resources {
+  background: #ffffff;
+}
+
+.parent-resources-main {
+  padding: 2rem 0 4rem;
+}
+
+.parent-resources-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--slate-dark);
+  margin: 0 0 1rem;
+}
+
+.parent-resources-hero-img {
+  width: 100%;
+  max-width: 720px;
+  height: 280px;
+  margin: 0 auto 1.5rem;
+  border-radius: var(--radius-lg);
+  background: url('../teen-laptop-couch.png') center/cover no-repeat;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+.parent-resources-intro {
+  font-size: 1.05rem;
+  color: var(--slate);
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 0 2rem;
+}
+
+.resource-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 720px;
+}
+
+.resource-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.resource-card:hover {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  border-color: rgba(245, 158, 46, 0.25);
+}
+
+.resource-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+}
+
+.resource-card-desc {
+  font-size: 0.95rem;
+  color: var(--slate);
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+}
+
+.resource-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Read button – hover state */
+.btn-read {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--orange);
+  border: 2px solid var(--orange);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-read:hover,
+.btn-read:focus {
+  background: var(--orange-dark);
+  color: var(--white);
+  border-color: var(--orange-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 46, 0.35);
+}
+
+.btn-read:focus-visible {
+  outline: 2px solid var(--orange-dark);
+  outline-offset: 2px;
+}
+
+/* Download icon link */
+.resource-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  color: var(--slate);
+  border: 2px solid var(--slate-light);
+  background: transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.resource-download:hover,
+.resource-download:focus {
+  color: var(--orange-dark);
+  border-color: var(--orange);
+  background: rgba(245, 158, 46, 0.08);
+  transform: translateY(-1px);
+}
+
+.resource-download:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.download-icon {
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .parent-resources-main {
+    padding: 2.5rem 0 4rem;
+  }
+
+  .resource-card {
+    padding: 1.75rem 2rem;
+  }
+}
