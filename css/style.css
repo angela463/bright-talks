@@ -661,15 +661,19 @@ a:hover {
 }
 
 .waitlist-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
   max-width: 420px;
   margin: 1.5rem auto 0;
 }
 
-.waitlist-form input {
+.waitlist-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.waitlist-form input[type="email"] {
   flex: 1;
   min-width: 200px;
   padding: 0.75rem 1rem;
@@ -681,14 +685,42 @@ a:hover {
   color: var(--white);
 }
 
-.waitlist-form input::placeholder {
+.waitlist-form input[type="email"]::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.waitlist-form input:focus {
+.waitlist-form input[type="email"]:focus {
   outline: none;
   border-color: var(--orange);
   background: rgba(255, 255, 255, 0.15);
+}
+
+.waitlist-privacy-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.waitlist-privacy-label input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+.waitlist-privacy-label a {
+  color: var(--orange-light);
+  text-decoration: underline;
+}
+
+.waitlist-privacy-label a:hover {
+  color: var(--white);
 }
 
 .form-note {

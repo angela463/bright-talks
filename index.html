@@ -173,9 +173,15 @@
         <h2 class="section-headline">Join the Waitlist</h2>
         <p class="section-text">Be the first to know when Bright Talks launches. We'll send you updates and early access.</p>
         <form class="waitlist-form" action="#" method="post">
-          <label for="email" class="sr-only">Email</label>
-          <input type="email" id="email" name="email" placeholder="Your email" required />
-          <button type="submit" class="btn btn-primary">Join</button>
+          <div class="waitlist-form-row">
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your email" required />
+            <button type="submit" class="btn btn-primary">Join</button>
+          </div>
+          <label class="waitlist-privacy-label">
+            <input type="checkbox" name="privacy" id="privacy" value="1" required />
+            <span>I agree to the <a href="#privacy-policy">privacy policy</a> and want to receive updates from Bright Talks.</span>
+          </label>
         </form>
         <p class="form-note" id="form-message" aria-live="polite"></p>
       </div>
@@ -189,7 +195,7 @@
         <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="footer-logo" />
       </div>
       <p class="footer-copy">© 2025 Bright Talks. All rights reserved.</p>
-      <p class="footer-privacy"><strong>We Value Your Privacy</strong> — We use cookies to enhance your experience, analyze site usage, and personalize content. By continuing to use our website, you consent to our cookie policy.</p>
+      <p class="footer-privacy" id="privacy-policy"><strong>We Value Your Privacy</strong> — We use cookies to enhance your experience, analyze site usage, and personalize content. By continuing to use our website, you consent to our cookie policy.</p>
     </div>
   </footer>
 
