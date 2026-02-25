@@ -350,6 +350,7 @@ a:hover {
   width: 100%;
   height: 320px;
   background: var(--strip-bg) center/cover no-repeat;
+  background-position: center 30%;
 }
 
 .strip-overlay {
