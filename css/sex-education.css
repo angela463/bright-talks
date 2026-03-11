@@ -11,11 +11,11 @@
 }
 
 .sex-page-title {
-  font-size: clamp(2.1rem, 4.8vw, 2.8rem);
+  font-size: clamp(2.4rem, 5.4vw, 3.1rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--slate-dark);
-  margin: 0 0 1rem;
+  margin: 0.25rem 0 1.2rem;
 }
 
 /* Back link */
