@@ -166,32 +166,6 @@
     });
   }
 
-  // Tabs for additional Parent Resources guides (mental health, development)
-  function initParentResourceTabs() {
-    if (!document.body.classList.contains('page-parent-resources')) return;
-    var tabs = document.querySelectorAll('.resource-tab');
-    var panels = document.querySelectorAll('.resource-tab-panel');
-    if (!tabs.length || !panels.length) return;
-
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var targetId = tab.getAttribute('data-target');
-        if (!targetId) return;
-
-        tabs.forEach(function (t) {
-          var isActive = t === tab;
-          t.classList.toggle('active', isActive);
-          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        });
-
-        panels.forEach(function (panel) {
-          var show = panel.id === targetId;
-          panel.classList.toggle('resource-tab-panel--hidden', !show);
-        });
-      });
-    });
-  }
-
   createOverlay();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -199,13 +173,11 @@
       initNav();
       initWaitlistForm();
       initParentResourceMore();
-      initParentResourceTabs();
     });
   } else {
     initCookieBar();
     initNav();
     initWaitlistForm();
     initParentResourceMore();
-    initParentResourceTabs();
   }
 })();
