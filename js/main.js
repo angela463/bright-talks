@@ -142,16 +142,42 @@
     });
   }
 
+  // Expand and collapse longer copy on the Parent Resources page
+  function initParentResourceMore() {
+    if (!document.body.classList.contains('page-parent-resources')) return;
+    var toggles = document.querySelectorAll('.resource-more-toggle');
+    toggles.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var card = btn.closest('.resource-card');
+        if (!card) return;
+        var more = card.querySelector('.resource-card-more');
+        if (!more) return;
+        var isHidden = more.hasAttribute('hidden');
+        if (isHidden) {
+          more.removeAttribute('hidden');
+          btn.textContent = 'Show less';
+          btn.setAttribute('aria-expanded', 'true');
+        } else {
+          more.setAttribute('hidden', '');
+          btn.textContent = 'Read more';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
   createOverlay();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initCookieBar();
       initNav();
       initWaitlistForm();
+      initParentResourceMore();
     });
   } else {
     initCookieBar();
     initNav();
     initWaitlistForm();
+    initParentResourceMore();
   }
 })();

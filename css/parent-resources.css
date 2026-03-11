@@ -70,6 +70,37 @@
   margin: 0 0 1.25rem;
 }
 
+.resource-more-toggle {
+  padding: 0;
+  margin: 0 0 0.75rem;
+  border: none;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--orange-dark);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resource-more-toggle:hover,
+.resource-more-toggle:focus {
+  color: var(--orange);
+}
+
+.resource-card-more {
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.resource-card-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
 .resource-card-actions {
   display: flex;
   align-items: center;
