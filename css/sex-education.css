@@ -1,0 +1,48 @@
+.page-sex-education {
+  background: #ffffff;
+}
+
+.sex-education-main {
+  padding: 2rem 0 4rem;
+}
+
+.sex-education-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--slate-dark);
+  margin: 0 0 0.75rem;
+  text-align: left;
+}
+
+.sex-education-hero-img {
+  width: 100%;
+  max-width: 720px;
+  height: 260px;
+  margin: 0 0 1.5rem;
+  border-radius: var(--radius-lg);
+  background: url('../sex-education-hero.png') center 40%/cover no-repeat;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+.sex-education-intro {
+  font-size: 1.05rem;
+  color: var(--slate);
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 0 2rem;
+  text-align: left;
+}
+
+.sex-card-meta {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--slate-light);
+  margin: 0 0 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .sex-education-main {
+    padding: 2.5rem 0 4rem;
+  }
+}
+
