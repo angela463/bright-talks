@@ -41,6 +41,45 @@
   max-width: 720px;
 }
 
+/* Secondary guides as tabs under the main sex education card */
+.resource-tabs {
+  margin-top: 0.5rem;
+}
+
+.resource-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+}
+
+.resource-tab {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--off-white);
+  color: var(--slate-dark);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.resource-tab.active {
+  background: var(--orange);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.resource-tab-panel {
+  margin-top: 0.25rem;
+}
+
+.resource-tab-panel--hidden {
+  display: none;
+}
+
 .resource-card {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
