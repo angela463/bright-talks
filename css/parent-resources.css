@@ -15,6 +15,14 @@
   text-align: left;
 }
 
+.pr-article-title {
+  font-size: clamp(2.1rem, 4.8vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--slate-dark);
+  margin: 0.5rem 0 1.25rem;
+}
+
 .parent-resources-hero-img {
   width: 100%;
   max-width: 720px;
