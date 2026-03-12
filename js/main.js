@@ -173,6 +173,9 @@
     var panels = document.querySelectorAll('.pr-panel');
     if (!tabs.length || !panels.length) return;
 
+    var hash = window.location.hash;
+    var initialTarget = hash === '#pr-panel-videos' ? 'videos' : 'guide';
+
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         var target = tab.getAttribute('data-target');
@@ -191,6 +194,15 @@
         });
       });
     });
+
+    var defaultTab = null;
+    tabs.forEach(function (tab) {
+      if (tab.getAttribute('data-target') === initialTarget) {
+        defaultTab = tab;
+      }
+    });
+    if (!defaultTab) defaultTab = tabs[0];
+    if (defaultTab) defaultTab.click();
   }
 
   createOverlay();

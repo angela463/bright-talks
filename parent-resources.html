@@ -36,7 +36,7 @@
 
       <div class="parent-resources-tabs" role="tablist" aria-label="Parent resources sections">
         <button type="button" class="pr-tab active" role="tab" aria-selected="true" aria-controls="pr-panel-guide" data-target="guide">Guide</button>
-        <button type="button" class="pr-tab" role="tab" aria-selected="false" aria-controls="pr-panel-videos" data-target="videos">Videos</button>
+        <button type="button" class="pr-tab" role="tab" aria-selected="false" aria-controls="pr-panel-videos" data-target="videos">Family videos</button>
       </div>
 
       <section id="pr-panel-guide" class="pr-panel" role="tabpanel" aria-labelledby="pr-tab-guide">
@@ -98,69 +98,78 @@
         </div>
       </section>
 
-      <section id="pr-panel-videos" class="pr-panel pr-panel--hidden" role="tabpanel" aria-labelledby="pr-tab-videos">
-        <h2 class="pr-article-title">Video library for parents and teens</h2>
+      <section id="pr-panel-videos" class="pr-panel pr-panel--hidden" role="tabpanel">
+        <div class="pr-video-library">
+          <h2 class="video-library-title">Video Library</h2>
 
-        <div class="pr-video-grid">
-          <article class="pr-video-card">
-            <div class="pr-video-thumb-wrap">
-              <div class="pr-video-thumb" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80');"></div>
-              <button type="button" class="video-play-btn" aria-label="Play video"
-                data-video-id="M7lc1UVf-VE" data-video-title="Starting Difficult Conversations">
-                <span class="play-icon" aria-hidden="true"></span>
-              </button>
-              <span class="pr-video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 12:34</span>
-            </div>
-            <div class="pr-video-body">
-              <span class="pr-video-badge">Parent</span>
-              <h3 class="pr-video-title">Starting Difficult Conversations</h3>
-              <p class="pr-video-desc">Learn how to approach sensitive topics with your teenager.</p>
-              <div class="pr-video-tags">
-                <span class="tag">Communication</span>
-                <span class="tag">Parenting</span>
-              </div>
-            </div>
-          </article>
+          <div class="video-filters" role="tablist" aria-label="Filter videos">
+            <button type="button" class="filter-pill active" data-filter="all" aria-pressed="true">All Videos</button>
+            <button type="button" class="filter-pill" data-filter="parents" aria-pressed="false">For Parents</button>
+            <button type="button" class="filter-pill" data-filter="teens" aria-pressed="false">For Teens</button>
+            <button type="button" class="filter-pill" data-filter="family" aria-pressed="false">Family Time</button>
+          </div>
 
-          <article class="pr-video-card">
-            <div class="pr-video-thumb-wrap">
-              <div class="pr-video-thumb" style="background-image: url('dad-teen-understanding-teens.png');"></div>
-              <button type="button" class="video-play-btn" aria-label="Play video"
-                data-video-id="M7lc1UVf-VE" data-video-title="Understanding Teen Emotions">
-                <span class="play-icon" aria-hidden="true"></span>
-              </button>
-              <span class="pr-video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 8:45</span>
-            </div>
-            <div class="pr-video-body">
-              <span class="pr-video-badge">Teen</span>
-              <h3 class="pr-video-title">Understanding Teen Emotions</h3>
-              <p class="pr-video-desc">A guide for teens to express their feelings effectively.</p>
-              <div class="pr-video-tags">
-                <span class="tag">Emotions</span>
-                <span class="tag">Self-care</span>
+          <div class="video-cards">
+            <article class="video-card" data-category="parents">
+              <div class="video-card-thumb-wrap">
+                <div class="video-card-thumb" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80');"></div>
+                <button type="button" class="video-play-btn" aria-label="Play video"
+                  data-video-id="M7lc1UVf-VE" data-video-title="Starting Difficult Conversations">
+                  <span class="play-icon" aria-hidden="true"></span>
+                </button>
+                <span class="video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 12:34</span>
               </div>
-            </div>
-          </article>
+              <div class="video-card-body">
+                <span class="video-card-badge">Parent</span>
+                <h3 class="video-card-title">Starting Difficult Conversations</h3>
+                <p class="video-card-desc">Learn how to approach sensitive topics with your teenager.</p>
+                <div class="video-card-tags">
+                  <span class="tag">Communication</span>
+                  <span class="tag">Parenting</span>
+                </div>
+              </div>
+            </article>
 
-          <article class="pr-video-card">
-            <div class="pr-video-thumb-wrap">
-              <div class="pr-video-thumb" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80');"></div>
-              <button type="button" class="video-play-btn" aria-label="Play video"
-                data-video-id="M7lc1UVf-VE" data-video-title="Family Check-ins That Work">
-                <span class="play-icon" aria-hidden="true"></span>
-              </button>
-              <span class="pr-video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 10:12</span>
-            </div>
-            <div class="pr-video-body">
-              <span class="pr-video-badge">Family</span>
-              <h3 class="pr-video-title">Family Check-ins That Work</h3>
-              <p class="pr-video-desc">Simple routines to stay connected as a family.</p>
-              <div class="pr-video-tags">
-                <span class="tag">Routines</span>
-                <span class="tag">Connection</span>
+            <article class="video-card" data-category="teens">
+              <div class="video-card-thumb-wrap">
+                <div class="video-card-thumb" style="background-image: url('dad-teen-understanding-teens.png');"></div>
+                <button type="button" class="video-play-btn" aria-label="Play video"
+                  data-video-id="M7lc1UVf-VE" data-video-title="Understanding Teen Emotions">
+                  <span class="play-icon" aria-hidden="true"></span>
+                </button>
+                <span class="video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 8:45</span>
               </div>
-            </div>
-          </article>
+              <div class="video-card-body">
+                <span class="video-card-badge">Teen</span>
+                <h3 class="video-card-title">Understanding Teen Emotions</h3>
+                <p class="video-card-desc">A guide for teens to express their feelings effectively.</p>
+                <div class="video-card-tags">
+                  <span class="tag">Emotions</span>
+                  <span class="tag">Self-care</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="video-card" data-category="family">
+              <div class="video-card-thumb-wrap">
+                <div class="video-card-thumb" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80');"></div>
+                <button type="button" class="video-play-btn" aria-label="Play video"
+                  data-video-id="M7lc1UVf-VE" data-video-title="Family Check-ins That Work">
+                  <span class="play-icon" aria-hidden="true"></span>
+                </button>
+                <span class="video-duration"><span class="duration-icon" aria-hidden="true">🕐</span> 10:12</span>
+              </div>
+              <div class="video-card-body">
+                <span class="video-card-badge">Family</span>
+                <h3 class="video-card-title">Family Check-ins That Work</h3>
+                <p class="video-card-desc">Simple routines to stay connected as a family.</p>
+                <div class="video-card-tags">
+                  <span class="tag">Routines</span>
+                  <span class="tag">Connection</span>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </div>
