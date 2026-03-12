@@ -28,9 +28,9 @@
   width: 100%;
   max-width: 720px;
   height: 260px;
-  margin: 0 0 1.5rem;
+  margin: 0;
   border-radius: var(--radius-lg);
-  background: url('../teen-corner-hero.png') center 55%/cover no-repeat;
+  background: url('../teen-corner-hero.png') center 62%/cover no-repeat;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
