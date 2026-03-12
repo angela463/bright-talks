@@ -201,6 +201,194 @@
   flex-shrink: 0;
 }
 
+/* Tabs for guide / videos */
+.parent-resources-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  margin: 0 0 1.5rem;
+  border-radius: 999px;
+  background: #f9fafb;
+}
+
+.pr-tab {
+  border: none;
+  border-radius: 999px;
+  padding: 0.4rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--slate);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.pr-tab.active {
+  background: var(--orange);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(245, 158, 46, 0.35);
+  transform: translateY(-1px);
+}
+
+.pr-tab:hover,
+.pr-tab:focus {
+  background: rgba(248, 187, 134, 0.25);
+}
+
+.pr-tab.active:hover,
+.pr-tab.active:focus {
+  background: var(--orange-dark);
+}
+
+.pr-tab:focus-visible {
+  outline: 2px solid var(--orange-dark);
+  outline-offset: 2px;
+}
+
+.pr-panel {
+  margin-top: 0.5rem;
+}
+
+.pr-panel--hidden {
+  display: none;
+}
+
+/* Video grid inside Parent Resources */
+.pr-video-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 720px;
+}
+
+.pr-video-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.pr-video-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+  border-color: rgba(245, 158, 46, 0.25);
+}
+
+.pr-video-thumb-wrap {
+  position: relative;
+  padding-top: 52%;
+  overflow: hidden;
+}
+
+.pr-video-thumb {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.pr-video-duration {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.pr-video-body {
+  padding: 1rem 1.25rem 1.1rem;
+}
+
+.pr-video-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--orange-dark);
+  background: rgba(248, 187, 134, 0.2);
+  margin-bottom: 0.5rem;
+}
+
+.pr-video-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+  margin: 0 0 0.35rem;
+}
+
+.pr-video-desc {
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.pr-video-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.pr-video-tags .tag {
+  font-size: 0.75rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.15rem 0.5rem;
+}
+
+/* Reuse play button styling from video page */
+.video-play-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.45);
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.video-play-btn .play-icon {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid #ffffff;
+  margin-left: 2px;
+}
+
+.video-play-btn:hover,
+.video-play-btn:focus {
+  background: rgba(248, 187, 134, 0.98);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.video-play-btn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
 @media (min-width: 640px) {
   .parent-resources-main {
     padding: 2.5rem 0 4rem;
@@ -208,5 +396,9 @@
 
   .resource-card {
     padding: 1.75rem 2rem;
+  }
+
+  .pr-video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

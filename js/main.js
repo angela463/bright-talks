@@ -166,6 +166,33 @@
     });
   }
 
+  // Tabs on Parent Resources page (Guide / Videos)
+  function initParentResourceTabs() {
+    if (!document.body.classList.contains('page-parent-resources')) return;
+    var tabs = document.querySelectorAll('.parent-resources-tabs .pr-tab');
+    var panels = document.querySelectorAll('.pr-panel');
+    if (!tabs.length || !panels.length) return;
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = tab.getAttribute('data-target');
+
+        tabs.forEach(function (t) {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+        });
+
+        panels.forEach(function (panel) {
+          var panelId = panel.id || '';
+          var isGuide = target === 'guide' && panelId === 'pr-panel-guide';
+          var isVideos = target === 'videos' && panelId === 'pr-panel-videos';
+          var show = isGuide || isVideos;
+          panel.classList.toggle('pr-panel--hidden', !show);
+        });
+      });
+    });
+  }
+
   createOverlay();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -173,11 +200,13 @@
       initNav();
       initWaitlistForm();
       initParentResourceMore();
+      initParentResourceTabs();
     });
   } else {
     initCookieBar();
     initNav();
     initWaitlistForm();
     initParentResourceMore();
+    initParentResourceTabs();
   }
 })();
