@@ -166,15 +166,12 @@
     });
   }
 
-  // Tabs on Parent Resources page (Guide / Videos)
+  // Tabs on Parent Resources page (currently just Guide)
   function initParentResourceTabs() {
     if (!document.body.classList.contains('page-parent-resources')) return;
     var tabs = document.querySelectorAll('.parent-resources-tabs .pr-tab');
     var panels = document.querySelectorAll('.pr-panel');
     if (!tabs.length || !panels.length) return;
-
-    var hash = window.location.hash;
-    var initialTarget = hash === '#pr-panel-videos' ? 'videos' : 'guide';
 
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
@@ -196,12 +193,7 @@
     });
 
     var defaultTab = null;
-    tabs.forEach(function (tab) {
-      if (tab.getAttribute('data-target') === initialTarget) {
-        defaultTab = tab;
-      }
-    });
-    if (!defaultTab) defaultTab = tabs[0];
+    defaultTab = tabs[0];
     if (defaultTab) defaultTab.click();
   }
 
