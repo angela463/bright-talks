@@ -6,14 +6,14 @@
   <title>Bright Talks – Open conversations for parents and teens</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="page-home" id="top">
   <header class="site-header">
     <div class="header-inner">
-      <a href="/" class="logo-link" aria-label="Bright Talks Home">
-        <span class="brand-text">Bright Talks</span>
+      <a href="/" class="logo-link">
+        <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="logo-img" />
       </a>
       <nav class="nav" aria-label="Main">
         <a href="index.html" class="nav-home-link">Home</a>
@@ -25,25 +25,27 @@
     </div>
   </header>
 
-  <main>
+  <main class="home-main">
     <section class="hero">
       <div class="hero-bg">
         <div class="hero-bg-img hero-bg-photo" role="img" aria-label="Parent and teen together"></div>
         <div class="hero-bg-overlay" aria-hidden="true"></div>
       </div>
       <div class="container hero-inner">
-        <div class="hero-card">
-          <p class="hero-eyebrow">Start real conversations now</p>
-          <h1 class="hero-title">Discover tools and tips to make every talk with your family easier, warmer, <span class="no-break">and more meaningful.</span></h1>
-          <a href="#explore" class="btn btn-secondary">Explore</a>
+        <p class="hero-kicker">Trusted sex education resources for families</p>
+        <h1 class="hero-title">Discover tools and tips to make every talk with your family easier, warmer, <span class="no-break">and more meaningful.</span></h1>
+        <p class="hero-eyebrow">Start real conversations now</p>
+        <div class="hero-actions">
+          <a href="#explore" class="btn btn-secondary">Explore resources</a>
+          <a href="#waitlist" class="btn btn-primary btn-ghost-on-hero">Join the waitlist</a>
         </div>
       </div>
     </section>
 
-    <section class="intro">
-      <div class="container">
+    <section class="intro section-home" aria-labelledby="intro-heading">
+      <div class="container intro-inner">
         <p class="intro-label">Welcome to open conversations starting with</p>
-        <h2 class="intro-headline">Brighter talks.<br />Stronger bonds.</h2>
+        <h2 class="intro-headline" id="intro-heading">Brighter talks.<br />Stronger bonds.</h2>
         <p class="intro-text">Open up the tough stuff—sex ed, growing up, and everything in between. Find videos, guides, and real talk to help you and your teen connect, learn, and laugh together.</p>
         <a href="#waitlist" class="btn btn-primary">Join now</a>
       </div>
@@ -59,27 +61,27 @@
       </div>
     </section>
 
-    <section class="features" id="explore">
+    <section class="features section-home" id="explore">
       <div class="container">
         <h2 class="section-headline">Real talk, brighter futures</h2>
         <p class="section-text">Open the door to honest, judgment-free conversations about growing up, relationships, and everything in between. Find tools, tips, and support for every step together.</p>
-        <div class="feature-grid">
-          <article class="feature-card">
+        <div class="feature-grid" role="list">
+          <article class="feature-card" role="listitem">
             <div class="feature-img" style="--bg: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&q=80')"></div>
             <h3>Expert video guides</h3>
             <p>Watch short, expert-led videos with your teen or on your own. Each lesson is crafted to spark real conversations and answer the questions that matter most.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" role="listitem">
             <div class="feature-img" style="--bg: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&q=80')"></div>
             <h3>Easy conversation prompts</h3>
             <p>Kick off meaningful chats with fun, thoughtful prompts and activities. No awkward silences, just real talk, made simple.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" role="listitem">
             <div class="feature-img" style="--bg: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&q=80')"></div>
             <h3>Curated resource hub</h3>
             <p>Browse articles, tips, and handpicked content for every topic. Get the right words and support, whenever you need them.</p>
           </article>
-          <article class="feature-card">
+          <article class="feature-card" role="listitem">
             <div class="feature-img" style="--bg: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80')"></div>
             <h3>Journey milestones</h3>
             <p>Track your progress with easy-to-use tools that celebrate wins, encourage consistency, and keep everyone motivated along the way.</p>
@@ -88,7 +90,7 @@
       </div>
     </section>
 
-    <section class="benefits" id="benefits" aria-labelledby="benefits-heading">
+    <section class="benefits section-home" id="benefits" aria-labelledby="benefits-heading">
       <div class="benefits-scene">
         <div class="benefits-mountains" aria-hidden="true">
           <span class="benefits-hill benefits-hill--back"></span>
@@ -120,14 +122,14 @@
       </div>
     </section>
 
-    <section class="cta-block">
+    <section class="cta-block section-home">
       <div class="container">
         <h2 class="section-headline">Real talk, real connection</h2>
         <p class="section-text">Dive into expert resources, relatable stories, and practical tools to help you and your teen have open, honest conversations—no matter the topic.</p>
         <div class="cta-features">
           <div class="cta-feature">
             <div class="cta-feature-img" style="--bg: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&q=80')"></div>
-            <span><strong>Watch & Learn</strong> — Short, expert-led videos to guide your next talk.</span>
+            <span><strong>Watch &amp; learn</strong> — Short, expert-led videos to guide your next talk.</span>
           </div>
           <div class="cta-feature">
             <div class="cta-feature-img" style="--bg: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=80')"></div>
@@ -135,7 +137,7 @@
           </div>
           <div class="cta-feature">
             <div class="cta-feature-img" style="--bg: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80')"></div>
-            <span><strong>Stories from teens</strong> — Hear real experiences and advice from teens.</span>
+            <span><strong>Content for teens</strong> — Reading and tools designed with teens in mind.</span>
           </div>
           <div class="cta-feature">
             <div class="cta-feature-img" style="--bg: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80')"></div>
@@ -145,7 +147,7 @@
       </div>
     </section>
 
-    <section class="faq" id="faq">
+    <section class="faq section-home" id="faq">
       <div class="container">
         <h2 class="section-headline">Real questions, honest answers</h2>
         <p class="section-text">We're here to help you navigate those tricky conversations. Find answers to the most common questions parents and teens have as they explore these important topics together.</p>
@@ -156,7 +158,7 @@
           </details>
           <details class="accordion-item">
             <summary>What if my teen asks something I don't know?</summary>
-            <p>It's totally fine not to have every answer. Tell your teen you'll figure it out together, and use the resources in the app to learn more. Showing you're willing to learn together makes a big difference.</p>
+            <p>It's totally fine not to have every answer. Tell your teen you'll figure it out together, and use the resources here to learn more. Showing you're willing to learn together makes a big difference.</p>
           </details>
           <details class="accordion-item">
             <summary>How can I make these talks less uncomfortable?</summary>
@@ -170,7 +172,7 @@
       </div>
     </section>
 
-    <section class="waitlist" id="waitlist">
+    <section class="waitlist section-home" id="waitlist">
       <div class="container">
         <h2 class="section-headline">Join the Waitlist</h2>
         <p class="section-text">Be the first to know when Bright Talks launches. We'll send you updates and early access.</p>
@@ -194,7 +196,7 @@
     <div class="container">
       <a href="#top" class="footer-back">Return to Top</a>
       <div class="footer-brand">
-        <span class="footer-logo-text">Bright Talks</span>
+        <img src="png/bright-talks-with-drop-shadow.png" alt="Bright Talks" class="footer-logo" />
       </div>
       <p class="footer-copy">© 2025 Bright Talks. All rights reserved.</p>
       <p class="footer-privacy" id="privacy-policy"><strong>We Value Your Privacy</strong> — We use cookies to enhance your experience, analyze site usage, and personalize content. By continuing to use our website, you consent to our cookie policy.</p>

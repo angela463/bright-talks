@@ -1,5 +1,5 @@
 .page-sex-education {
-  background: #fdf7ef;
+  background: var(--cream, #fffbf6);
 }
 
 .sex-education-main {
@@ -11,8 +11,9 @@
 }
 
 .sex-page-title {
+  font-family: var(--font-display, Georgia, serif);
   font-size: clamp(2.4rem, 5.4vw, 3.1rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--slate-dark);
   margin: 0.25rem 0 1.2rem;
