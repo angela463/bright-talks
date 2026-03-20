@@ -1,6 +1,7 @@
 /* Teen Corner page */
 .page-teen-corner {
-  background: #ffffff;
+  background: transparent;
+  min-height: 100vh;
 }
 
 .teen-corner-main {
@@ -16,8 +17,9 @@
   position: absolute;
   left: 1.5rem;
   bottom: 1.2rem;
+  font-family: var(--font-display, Georgia, serif);
   font-size: clamp(1.35rem, 3.2vw, 1.75rem);
-  font-weight: 700;
+  font-weight: 600;
   color: #ffffff;
   margin: 0;
   text-align: left;

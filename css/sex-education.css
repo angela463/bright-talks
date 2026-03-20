@@ -1,5 +1,6 @@
 .page-sex-education {
-  background: var(--cream, #fffbf6);
+  background: transparent;
+  min-height: 100vh;
 }
 
 .sex-education-main {
