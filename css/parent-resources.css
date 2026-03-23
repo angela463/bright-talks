@@ -298,15 +298,15 @@
 .page-parent-resources .pr-video-thumb--zoom {
   transform-origin: center;
   will-change: transform;
-  animation: prThumbZoomIn 16s ease-in-out 1 both;
+  animation: prThumbKenBurns 22s ease-in-out infinite alternate;
 }
 
-@keyframes prThumbZoomIn {
+@keyframes prThumbKenBurns {
   from {
-    transform: scale(1);
+    transform: scale(1.04) translate3d(0%, 0%, 0);
   }
   to {
-    transform: scale(1.08);
+    transform: scale(1.15) translate3d(-2.2%, -1.2%, 0);
   }
 }
 
