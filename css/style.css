@@ -281,6 +281,15 @@ a:hover {
     0 0 0 1px rgba(255, 235, 197, 0.52) inset;
 }
 
+/* Explicit white waitlist CTA variant for header + hero */
+.btn-waitlist-white,
+.btn-waitlist-white:hover,
+.btn-waitlist-white:focus {
+  background: var(--white);
+  color: var(--slate-dark);
+  border: 2px solid rgba(255, 255, 255, 0.98);
+}
+
 @keyframes waitlistCtaPulse {
   0%, 100% {
     box-shadow:
