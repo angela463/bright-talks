@@ -295,6 +295,27 @@
   background-position: center;
 }
 
+.page-parent-resources .pr-video-thumb--zoom {
+  transform-origin: center;
+  will-change: transform;
+  animation: prThumbZoomIn 16s ease-in-out 1 both;
+}
+
+@keyframes prThumbZoomIn {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-parent-resources .pr-video-thumb--zoom {
+    animation: none;
+  }
+}
+
 .page-parent-resources .pr-video-duration {
   position: absolute;
   right: 0.75rem;
