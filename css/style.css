@@ -88,6 +88,10 @@ body > footer {
   z-index: 1;
 }
 
+.page-courses .courses-main {
+  position: relative;
+}
+
 /* Homepage: layered section flow */
 .page-home .home-main {
   position: relative;
@@ -1291,6 +1295,11 @@ a:hover {
   outline: 2px solid var(--orange);
   outline-offset: 2px;
   border-radius: 6px;
+}
+
+.nav-link--minimal[aria-current='page'] {
+  color: var(--orange-dark);
+  font-weight: 600;
 }
 
 .lp-section {
