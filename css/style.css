@@ -69,6 +69,10 @@ body {
     background-attachment: scroll;
   }
 
+  body.page-courses {
+    background-attachment: scroll;
+  }
+
   .btn-primary-hero-focus {
     animation: none;
   }
@@ -76,6 +80,10 @@ body {
 
 @media (max-width: 768px) {
   body {
+    background-attachment: scroll;
+  }
+
+  body.page-courses {
     background-attachment: scroll;
   }
 }
@@ -86,6 +94,16 @@ body > main,
 body > footer {
   position: relative;
   z-index: 1;
+}
+
+/* Courses page: tiled plaster texture (nav + footer keep their own backgrounds) */
+body.page-courses {
+  background-color: var(--cream);
+  background-image: url('../png/courses-bg-texture.png');
+  background-repeat: repeat;
+  background-size: auto;
+  background-position: 0 0;
+  background-attachment: fixed;
 }
 
 .page-courses .courses-main {
