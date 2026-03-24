@@ -132,7 +132,7 @@
         return;
       }
       if (!privacyChecked) {
-        messageEl.textContent = 'Please agree to the privacy policy to join the waitlist.';
+        messageEl.textContent = 'Please agree to the privacy policy to join our courses.';
         messageEl.className = 'form-note error';
         return;
       }
