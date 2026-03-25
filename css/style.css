@@ -699,6 +699,15 @@ a:hover {
   text-align: center;
 }
 
+.page-home h1,
+.page-home h2,
+.page-home h3,
+.page-home .section-headline,
+.page-home .intro-headline,
+.page-home .benefits-headline {
+  text-align: center;
+}
+
 .page-home .features .container > .section-headline,
 .page-home .cta-block .container > .section-headline {
   text-align: center;
