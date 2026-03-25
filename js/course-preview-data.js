@@ -2,8 +2,36 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
   {
     "title": "Module 1: Understanding Ages 3 to 5",
     "lessons": [
-      "How Children Ages 3 to 5 Actually Think",
-      "Why Curiosity About Bodies Is Completely Normal",
+      {
+        "title": "How Children Ages 3 to 5 Actually Think",
+        "unlocked": true,
+        "durationMinutes": 8,
+        "video": {
+          "youtubeId": "pjoyBZYk2zI",
+          "label": "Play in Early Childhood: The Role of Play in Any Setting (Harvard Center on the Developing Child)"
+        },
+        "summary": "See how play, responsive relationships, and repetition wire the brain in early childhood—then use the reflection prompts to connect the ideas to your own child.",
+        "bullets": [
+          "What’s going on in the brain when young children play and explore",
+          "Why short, warm back-and-forth moments matter more than a “perfect talk”",
+          "How to notice your child’s thinking style without labeling them"
+        ]
+      },
+      {
+        "title": "Why Curiosity About Bodies Is Completely Normal",
+        "unlocked": true,
+        "durationMinutes": 3,
+        "video": {
+          "youtubeId": "gRK49oSgcDA",
+          "label": "Supporting early learning (Centre for Early Childhood explainer)"
+        },
+        "summary": "This short overview explains how adults scaffold learning—meeting children where they are and building skills step by step. Pair it with the body-positive scripts below for conversations at home.",
+        "bullets": [
+          "Normalize curiosity: it’s information-seeking, not misbehavior",
+          "Use clear, calm language that matches your family’s values",
+          "Offer a simple script: “It’s okay to wonder—let’s use the real names for body parts.”"
+        ]
+      },
       "The Difference Between Innocent Curiosity and Concerning Behavior",
       "How Young Kids Understand Privacy",
       "Why Repetition Is the Key to Learning at This Age",

@@ -12,11 +12,134 @@
       .replace(/"/g, '&quot;');
   }
 
+  function lessonTitle(lesson) {
+    if (typeof lesson === 'string') return lesson;
+    if (lesson && typeof lesson.title === 'string') return lesson.title;
+    return '';
+  }
+
+  function lessonUnlocked(lesson) {
+    return lesson && typeof lesson === 'object' && lesson.unlocked === true;
+  }
+
   var LOCK_SVG =
     '<svg class="course-lesson-lock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 11V8a5 5 0 0110 0v3M6 11h12v10H6V11z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   var CHEVRON_SVG =
-    '<svg class="course-acc-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    '<svg class="course-acc-chevron course-lesson-chevron-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  var PLAY_SVG =
+    '<svg class="lesson-video-play-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="rgba(255,251,246,0.95)" stroke="rgba(232,149,74,0.45)" stroke-width="1.5"/><path d="M10 8.5l7 3.5-7 3.5V8.5z" fill="#c26a2e"/></svg>';
+
+  function renderLockedLesson(modIdx, lessonIdx, title) {
+    var label = 'L' + (lessonIdx + 1);
+    return (
+      '<li class="course-lesson-item">' +
+        '<button type="button" class="course-lesson-row course-lesson-row--locked" data-module-idx="' +
+        modIdx +
+        '" data-lesson-idx="' +
+        lessonIdx +
+        '" aria-label="' +
+        escapeHtml(label + ': ' + title + ', locked') +
+        '">' +
+        '<span class="course-lesson-label">' +
+        escapeHtml(label) +
+        '</span>' +
+        '<span class="course-lesson-title">' +
+        escapeHtml(title) +
+        '</span>' +
+        '<span class="course-lesson-lock-wrap">' +
+        LOCK_SVG +
+        '<span class="course-lesson-locked-text">Locked</span>' +
+        '</span>' +
+        '</button>' +
+        '</li>'
+    );
+  }
+
+  function renderUnlockedLesson(modIdx, lessonIdx, lesson) {
+    var title = lessonTitle(lesson);
+    var label = 'L' + (lessonIdx + 1);
+    var panelId = 'lesson-detail-m' + modIdx + '-l' + lessonIdx;
+    var btnId = panelId + '-btn';
+    var youtubeId = lesson.video && lesson.video.youtubeId ? String(lesson.video.youtubeId) : '';
+    var poster = youtubeId
+      ? 'https://img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg'
+      : '';
+    var duration =
+      lesson.durationMinutes != null ? '~' + lesson.durationMinutes + ' min' : '';
+    var videoLabel = lesson.video && lesson.video.label ? lesson.video.label : title;
+    var bulletsHtml = '';
+    if (lesson.bullets && lesson.bullets.length) {
+      bulletsHtml =
+        '<ul class="lesson-detail-bullets">' +
+        lesson.bullets
+          .map(function (b) {
+            return '<li>' + escapeHtml(b) + '</li>';
+          })
+          .join('') +
+        '</ul>';
+    }
+
+    return (
+      '<li class="course-lesson-item course-lesson-item--unlocked">' +
+        '<div class="course-lesson-expandable">' +
+        '<button type="button" class="course-lesson-row course-lesson-row--unlocked" data-module-idx="' +
+        modIdx +
+        '" data-lesson-idx="' +
+        lessonIdx +
+        '" aria-expanded="false" aria-controls="' +
+        panelId +
+        '" id="' +
+        btnId +
+        '">' +
+        '<span class="course-lesson-label">' +
+        escapeHtml(label) +
+        '</span>' +
+        '<span class="course-lesson-title-wrap">' +
+        '<span class="course-lesson-title">' +
+        escapeHtml(title) +
+        '</span>' +
+        (duration
+          ? '<span class="course-lesson-duration">' + escapeHtml(duration) + '</span>'
+          : '') +
+        '</span>' +
+        '<span class="course-lesson-chevron" aria-hidden="true">' +
+        CHEVRON_SVG +
+        '</span>' +
+        '</button>' +
+        '<div class="course-lesson-detail" id="' +
+        panelId +
+        '" hidden role="region" aria-labelledby="' +
+        btnId +
+        '">' +
+        '<div class="lesson-video-card">' +
+        '<div class="lesson-video-poster" ' +
+        (poster ? 'style="background-image:url(\'' + escapeHtml(poster) + '\')"' : '') +
+        '>' +
+        '<button type="button" class="lesson-video-play" data-youtube-id="' +
+        escapeHtml(youtubeId) +
+        '" aria-label="Play video: ' +
+        escapeHtml(videoLabel) +
+        '">' +
+        PLAY_SVG +
+        '</button>' +
+        '</div>' +
+        '<div class="lesson-video-frame" hidden>' +
+        '<iframe class="lesson-video-iframe" title="' +
+        escapeHtml(videoLabel) +
+        '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>' +
+        '</div>' +
+        '</div>' +
+        (lesson.summary
+          ? '<p class="lesson-detail-summary">' + escapeHtml(lesson.summary) + '</p>'
+          : '') +
+        bulletsHtml +
+        '</div>' +
+        '</div>' +
+        '</li>'
+    );
+  }
 
   function renderModules(modules) {
     var parts = [];
@@ -28,29 +151,12 @@
       var lessons = mod.lessons || [];
       var lessonRows = [];
       for (var j = 0; j < lessons.length; j++) {
-        var label = 'L' + (j + 1);
-        lessonRows.push(
-          '<li class="course-lesson-item">' +
-            '<button type="button" class="course-lesson-row" data-module-idx="' +
-            i +
-            '" data-lesson-idx="' +
-            j +
-            '" aria-label="' +
-            escapeHtml(label + ': ' + lessons[j] + ', locked') +
-            '">' +
-            '<span class="course-lesson-label">' +
-            escapeHtml(label) +
-            '</span>' +
-            '<span class="course-lesson-title">' +
-            escapeHtml(lessons[j]) +
-            '</span>' +
-            '<span class="course-lesson-lock-wrap">' +
-            LOCK_SVG +
-            '<span class="course-lesson-locked-text">Locked</span>' +
-            '</span>' +
-            '</button>' +
-            '</li>'
-        );
+        var lesson = lessons[j];
+        if (lessonUnlocked(lesson)) {
+          lessonRows.push(renderUnlockedLesson(i, j, lesson));
+        } else {
+          lessonRows.push(renderLockedLesson(i, j, lessonTitle(lesson)));
+        }
       }
       parts.push(
         '<div class="course-acc-item" data-acc-index="' +
@@ -152,6 +258,47 @@
     });
   }
 
+  function initUnlockedLessonInteractions(root) {
+    root.addEventListener('click', function (e) {
+      var playBtn = e.target.closest('.lesson-video-play');
+      if (playBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = playBtn.getAttribute('data-youtube-id');
+        if (!id) return;
+        var card = playBtn.closest('.lesson-video-card');
+        if (!card) return;
+        var frameWrap = card.querySelector('.lesson-video-frame');
+        var iframe = card.querySelector('.lesson-video-iframe');
+        var poster = card.querySelector('.lesson-video-poster');
+        if (iframe && frameWrap) {
+          iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0';
+          frameWrap.removeAttribute('hidden');
+          if (poster) poster.setAttribute('hidden', '');
+        }
+        return;
+      }
+
+      var toggle = e.target.closest('.course-lesson-row--unlocked');
+      if (!toggle) return;
+      e.preventDefault();
+      var panelId = toggle.getAttribute('aria-controls');
+      var panel = panelId && document.getElementById(panelId);
+      if (!panel) return;
+      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      var item = toggle.closest('.course-lesson-item');
+      if (isOpen) {
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('hidden', '');
+        if (item) item.classList.remove('is-open');
+      } else {
+        toggle.setAttribute('aria-expanded', 'true');
+        panel.removeAttribute('hidden');
+        if (item) item.classList.add('is-open');
+      }
+    });
+  }
+
   function initLessonModal(modules) {
     var modal = document.getElementById('lesson-locked-modal');
     if (!modal) return;
@@ -165,7 +312,7 @@
       if (!m || !m.lessons || !m.lessons[lessonIdx]) return;
       var nameEl = modal.querySelector('.lesson-locked-modal__lesson-name');
       if (nameEl) {
-        nameEl.textContent = m.lessons[lessonIdx];
+        nameEl.textContent = lessonTitle(m.lessons[lessonIdx]);
       }
       modal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
@@ -180,7 +327,7 @@
     }
 
     document.addEventListener('click', function (e) {
-      var row = e.target.closest('.course-lesson-row');
+      var row = e.target.closest('.course-lesson-row--locked');
       if (!row) return;
       e.preventDefault();
       var mi = parseInt(row.getAttribute('data-module-idx'), 10);
@@ -214,6 +361,7 @@
 
     root.innerHTML = renderModules(modules);
     initAccordion(root, modules);
+    initUnlockedLessonInteractions(root);
     initLessonModal(modules);
   }
 
