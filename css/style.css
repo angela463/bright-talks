@@ -1640,6 +1640,12 @@ a:hover {
   background: transparent;
 }
 
+.lp-section--outcomes .section-headline {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .outcome-list {
   list-style: none;
   margin: 2rem auto 0;
