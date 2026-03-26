@@ -1535,6 +1535,84 @@ a:hover {
   margin: 0 0 1.5rem;
 }
 
+/* Courses: 4 tiled image boxes */
+.courses-session-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.05rem;
+  margin-top: 1.25rem;
+}
+
+.courses-session-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(220, 200, 180, 0.45);
+  box-shadow: var(--shadow-sm);
+  min-height: 190px;
+  background-size: cover;
+  background-position: center;
+}
+
+.courses-session-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 22, 20, 0.18);
+  pointer-events: none;
+}
+
+.courses-session-card-inner {
+  position: relative;
+  z-index: 1;
+  padding: 1.2rem 1.15rem 1.25rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.courses-session-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--white);
+  margin: 0 0 0.6rem;
+}
+
+.courses-session-blurb {
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 1rem;
+  line-height: 1.6;
+  font-size: 0.98rem;
+}
+
+.courses-session-card .btn {
+  align-self: flex-start;
+}
+
+.courses-session-card--1 {
+  background-image: url('../images/home-hero-yellow-1.jpg');
+}
+
+.courses-session-card--2 {
+  background-image: url('../images/home-hero-yellow-2.jpg');
+}
+
+.courses-session-card--3 {
+  background-image: url('../images/home-hero-yellow-3.jpg');
+}
+
+.courses-session-card--4 {
+  background-image: url('../images/home-hero-yellow-1.jpg');
+}
+
+@media (max-width: 768px) {
+  .courses-session-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Courses intro: tiled images (re-uses home visuals) */
 .courses-intro-mosaic {
   display: grid;

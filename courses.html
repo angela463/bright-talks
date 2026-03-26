@@ -18,6 +18,7 @@
       </a>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <a href="courses.html" class="nav-link nav-link--minimal" aria-current="page">Courses</a>
         <a href="children-courses.html" class="nav-link nav-link--minimal">Children courses</a>
         <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
         <a href="index.html#about" class="nav-link nav-link--minimal">About</a>
@@ -33,33 +34,42 @@
         <p class="section-kicker">The course</p>
         <div class="course-overview-card">
           <p class="course-badge">Bright Talks courses</p>
-          <p class="course-overview-lead">Short, family-friendly lessons you can explore in the order that fits your life.</p>
-          <p class="course-overview-body">Each lesson is under ten minutes, so you can press play, listen, and learn right alongside your child. Clear guidance, practical scripts, and genuinely fun moments—so conversations feel lighter.</p>
+          <p class="course-overview-lead">Ages 3 to 5: short, family-friendly lessons about bodies, privacy, consent, and safety.</p>
+          <p class="course-overview-body">Each lesson is under ten minutes—press play, listen, and learn together with your child. Clear guidance, practical scripts, and genuinely fun moments.</p>
 
-        <div class="courses-intro-mosaic" aria-hidden="true">
-          <div class="courses-intro-tile courses-intro-tile--1"></div>
-          <div class="courses-intro-tile courses-intro-tile--2"></div>
-          <div class="courses-intro-tile courses-intro-tile--3"></div>
-          <div class="courses-intro-tile courses-intro-tile--4"></div>
-          <div class="courses-intro-tile courses-intro-tile--5"></div>
-          <div class="courses-intro-tile courses-intro-tile--6"></div>
-        </div>
+          <div class="courses-session-grid" aria-label="Children course options">
+            <article class="courses-session-card courses-session-card--1">
+              <div class="courses-session-card-inner">
+                <h3 class="courses-session-title">Quick start</h3>
+                <p class="courses-session-blurb">Begin with a short lesson you can use right away.</p>
+                <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
+              </div>
+            </article>
 
-          <div class="course-age-preview-cta">
-            <button type="button" id="ages-3-5-toggle" class="btn btn-primary" aria-expanded="false" aria-controls="ages-3-5-preview">
-              Show Ages 3 to 5 preview
-            </button>
+            <article class="courses-session-card courses-session-card--2">
+              <div class="courses-session-card-inner">
+                <h3 class="courses-session-title">Body safety basics</h3>
+                <p class="courses-session-blurb">Build confidence with clear, age-appropriate guidance.</p>
+                <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
+              </div>
+            </article>
+
+            <article class="courses-session-card courses-session-card--3">
+              <div class="courses-session-card-inner">
+                <h3 class="courses-session-title">Learn as you go</h3>
+                <p class="courses-session-blurb">Jump in where your child is today—and keep it easy.</p>
+                <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
+              </div>
+            </article>
+
+            <article class="courses-session-card courses-session-card--4">
+              <div class="courses-session-card-inner">
+                <h3 class="courses-session-title">Practice together</h3>
+                <p class="courses-session-blurb">Use scripts and tips during real everyday moments.</p>
+                <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
+              </div>
+            </article>
           </div>
-
-          <div id="ages-3-5-preview" class="course-age-preview" hidden>
-            <div class="course-age-preview-media" aria-hidden="true"></div>
-            <p class="course-badge">Course · Ages 3 to 5</p>
-            <h2 class="course-overview-title">Bodies, Boundaries &amp; Body Safety</h2>
-            <p class="course-overview-lead">A structured path for parents of young children: one course, multiple modules, eighteen lessons per module, so you always know where you are in the journey.</p>
-            <p class="course-overview-body">From first talks to ongoing dialogue: age-appropriate education that fits your family’s values and helps kids see you as a credible, trusted source.</p>
-          </div>
-
-          <a href="children-courses.html" class="btn btn-primary course-age-preview-modules-btn">Explore children courses</a>
         </div>
       </div>
     </section>
@@ -72,6 +82,7 @@
       </div>
       <nav class="footer-landing-nav" aria-label="Footer">
         <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
         <a href="children-courses.html">Children courses</a>
         <a href="faq.html">FAQs</a>
         <a href="index.html#about">About</a>
@@ -95,37 +106,5 @@
   </div>
 
   <script src="js/main.js"></script>
-  <script>
-    (function () {
-      'use strict';
-
-      function initAgesPreviewToggle() {
-        var toggle = document.getElementById('ages-3-5-toggle');
-        var panel = document.getElementById('ages-3-5-preview');
-        if (!toggle || !panel) return;
-
-        toggle.addEventListener('click', function (e) {
-          e.preventDefault();
-          var expanded = toggle.getAttribute('aria-expanded') === 'true';
-
-          if (expanded) {
-            panel.setAttribute('hidden', '');
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.textContent = 'Show Ages 3 to 5 preview';
-          } else {
-            panel.removeAttribute('hidden');
-            toggle.setAttribute('aria-expanded', 'true');
-            toggle.textContent = 'Hide Ages 3 to 5 preview';
-          }
-        });
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAgesPreviewToggle);
-      } else {
-        initAgesPreviewToggle();
-      }
-    })();
-  </script>
 </body>
 </html>
