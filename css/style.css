@@ -1531,6 +1531,29 @@ a:hover {
   margin: 0 0 1.5rem;
 }
 
+.course-age-preview-cta {
+  margin: 1rem 0 0;
+}
+
+.course-age-preview {
+  margin-top: 1.25rem;
+}
+
+.course-age-preview-media {
+  width: 100%;
+  height: 220px;
+  border-radius: var(--radius-lg);
+  background-image: url('../images/home-hero-yellow-2.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: 0 0 1rem;
+  border: 1px solid rgba(220, 200, 180, 0.35);
+}
+
+.course-age-preview-modules-btn {
+  margin-top: 0.75rem;
+}
+
 /* Module journey */
 .lp-section--modules {
   background: linear-gradient(180deg, rgba(253, 232, 220, 0.25) 0%, transparent 45%);
