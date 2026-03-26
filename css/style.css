@@ -150,17 +150,37 @@ body.page-courses {
 }
 
 .page-home .hero-bg-photo {
-  background-image:
-    url('../images/home-hero-yellow-1.jpg'),
-    url('../images/home-hero-yellow-2.jpg'),
-    url('../images/home-hero-yellow-3.jpg');
-  background-position: left center, center center, right center;
-  background-size: auto 100%, auto 100%, auto 100%;
-  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-image: none;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  transform: none;
 }
 
 .page-home .hero-bg-overlay {
   background: none;
+}
+
+.page-home .hero-strip-image {
+  flex: 1 1 33.333%;
+  min-width: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.page-home .hero-strip-image--1 {
+  background-image: url('../images/home-hero-yellow-1.jpg');
+  background-position: center;
+}
+
+.page-home .hero-strip-image--2 {
+  background-image: url('../images/home-hero-yellow-2.jpg');
+  background-position: center;
+}
+
+.page-home .hero-strip-image--3 {
+  background-image: url('../images/home-hero-yellow-3.jpg');
+  background-position: center;
 }
 
 /* Section rhythm – organic dividers (Bloom-like flow, not a copy) */
