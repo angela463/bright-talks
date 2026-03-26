@@ -18,7 +18,7 @@
       </a>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
-        <a href="courses.html" class="nav-link nav-link--minimal" aria-current="page">Courses</a>
+        <a href="children-courses.html" class="nav-link nav-link--minimal">Children courses</a>
         <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
         <a href="index.html#about" class="nav-link nav-link--minimal">About</a>
       </nav>
@@ -36,6 +36,15 @@
           <p class="course-overview-lead">Short, family-friendly lessons you can explore in the order that fits your life.</p>
           <p class="course-overview-body">Each lesson is under ten minutes, so you can press play, listen, and learn right alongside your child. Clear guidance, practical scripts, and genuinely fun moments—so conversations feel lighter.</p>
 
+        <div class="courses-intro-mosaic" aria-hidden="true">
+          <div class="courses-intro-tile courses-intro-tile--1"></div>
+          <div class="courses-intro-tile courses-intro-tile--2"></div>
+          <div class="courses-intro-tile courses-intro-tile--3"></div>
+          <div class="courses-intro-tile courses-intro-tile--4"></div>
+          <div class="courses-intro-tile courses-intro-tile--5"></div>
+          <div class="courses-intro-tile courses-intro-tile--6"></div>
+        </div>
+
           <div class="course-age-preview-cta">
             <button type="button" id="ages-3-5-toggle" class="btn btn-primary" aria-expanded="false" aria-controls="ages-3-5-preview">
               Show Ages 3 to 5 preview
@@ -50,39 +59,11 @@
             <p class="course-overview-body">From first talks to ongoing dialogue: age-appropriate education that fits your family’s values and helps kids see you as a credible, trusted source.</p>
           </div>
 
-          <a href="#course-library" class="btn btn-primary course-age-preview-modules-btn">See modules</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Full course library (accordion preview) -->
-    <section class="lp-section lp-section--library" id="course-library" aria-labelledby="course-library-heading">
-      <div class="container course-library-inner">
-        <p class="section-kicker">Course library</p>
-        <h2 class="section-headline" id="course-library-heading">Explore the Full Course Library</h2>
-        <p class="section-text section-text--center course-library-subtitle">Preview every module and lesson title so you can see exactly what's included in Bright Talks.</p>
-        <p class="course-library-helper">Open Module 1 to try <strong>L1</strong> and <strong>L2</strong>: each includes a short video (under 10 minutes) and lesson notes—tap the row to expand. Other lessons stay locked until purchase.</p>
-        <div id="course-library-root" class="course-library-accordion" data-course-library-root></div>
-        <div class="course-library-bottom-cta">
-          <h3 class="course-library-bottom-cta__title">Unlock the Full Bright Talks Library</h3>
-          <p class="course-library-bottom-cta__text">Access every lesson, practical scripts, and step-by-step guidance designed to help you lead hard conversations with clarity, confidence, and peace.</p>
-          <a href="index.html#waitlist" class="btn btn-primary course-library-bottom-cta__btn">Get Started</a>
-          <p class="course-library-bottom-cta__note">Built for Christian parents of kids ages 3 to 17</p>
+          <a href="children-courses.html" class="btn btn-primary course-age-preview-modules-btn">Explore children courses</a>
         </div>
       </div>
     </section>
   </main>
-
-  <div id="lesson-locked-modal" class="lesson-locked-modal" hidden role="dialog" aria-modal="true" aria-labelledby="lesson-modal-title">
-    <div class="lesson-locked-modal__backdrop" tabindex="-1"></div>
-    <div class="lesson-locked-modal__panel">
-      <button type="button" class="lesson-locked-modal__close" aria-label="Close dialog">&times;</button>
-      <h2 id="lesson-modal-title" class="lesson-locked-modal__title">This lesson is included in the full course</h2>
-      <p class="lesson-locked-modal__lesson-name" aria-live="polite"></p>
-      <p class="lesson-locked-modal__body">Unlock guided scripts, expert teaching, and practical conversation tools for every stage.</p>
-      <a href="index.html#waitlist" class="btn btn-primary lesson-locked-modal__cta">Get Started</a>
-    </div>
-  </div>
 
   <footer class="site-footer site-footer--landing">
     <div class="container footer-landing-inner">
@@ -91,7 +72,7 @@
       </div>
       <nav class="footer-landing-nav" aria-label="Footer">
         <a href="index.html">Home</a>
-        <a href="courses.html">Courses</a>
+        <a href="children-courses.html">Children courses</a>
         <a href="faq.html">FAQs</a>
         <a href="index.html#about">About</a>
         <a href="index.html#waitlist">Join our courses</a>
@@ -113,8 +94,6 @@
     </div>
   </div>
 
-  <script src="js/course-preview-data.js"></script>
-  <script src="js/course-preview.js"></script>
   <script src="js/main.js"></script>
   <script>
     (function () {
