@@ -111,12 +111,47 @@ body.page-courses {
 }
 
 /* Homepage: layered section flow */
+.page-home {
+  --orange: #f0a43a;
+  --orange-light: #ffd36a;
+  --orange-dark: #d37b18;
+  --peach: #ffe8b6;
+  --peach-muted: #ffdca0;
+  --cream: #fffbe9;
+  --cream-deep: #fff5d4;
+  --butter: #fff7bf;
+  --yellow-soft: #ffef9d;
+}
+
+.page-home {
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(ellipse 100% 58% at 50% -15%, rgba(255, 225, 130, 0.58) 0%, transparent 55%),
+    radial-gradient(ellipse 75% 48% at 98% 40%, rgba(255, 205, 92, 0.3) 0%, transparent 45%),
+    radial-gradient(ellipse 58% 36% at 2% 78%, rgba(255, 236, 150, 0.35) 0%, transparent 40%),
+    linear-gradient(180deg, rgba(255, 251, 232, 0.98) 0%, rgba(255, 245, 205, 0.99) 48%, rgba(255, 249, 226, 1) 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.05) 1px,
+      rgba(255, 255, 255, 0.05) 2px
+    ),
+    var(--texture-fine),
+    var(--texture-paper);
+}
+
 .page-home .home-main {
   position: relative;
 }
 
 .page-home .section-home {
   position: relative;
+}
+
+.page-home .hero-bg-photo {
+  background-image: url('../images/pexels-freestockpro-316820.jpg');
+  background-position: center 34%;
 }
 
 /* Section rhythm – organic dividers (Bloom-like flow, not a copy) */
