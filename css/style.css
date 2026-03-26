@@ -150,8 +150,13 @@ body.page-courses {
 }
 
 .page-home .hero-bg-photo {
-  background-image: url('../images/pexels-freestockpro-316820.jpg');
-  background-position: center 34%;
+  background-image:
+    url('../images/home-hero-yellow-1.jpg'),
+    url('../images/home-hero-yellow-2.jpg'),
+    url('../images/home-hero-yellow-3.jpg');
+  background-position: left center, center center, right center;
+  background-size: 33.333% 100%, 33.333% 100%, 33.333% 100%;
+  background-repeat: no-repeat, no-repeat, no-repeat;
 }
 
 /* Section rhythm – organic dividers (Bloom-like flow, not a copy) */
