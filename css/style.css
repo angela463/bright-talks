@@ -159,6 +159,10 @@ body.page-courses {
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 
+.page-home .hero-bg-overlay {
+  background: none;
+}
+
 /* Section rhythm – organic dividers (Bloom-like flow, not a copy) */
 .section-divider {
   display: block;
