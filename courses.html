@@ -41,7 +41,7 @@
             <article class="courses-session-card courses-session-card--1">
               <div class="courses-session-card-inner">
                 <h3 class="courses-session-title">Quick start</h3>
-                <p class="courses-session-blurb">Begin with a short lesson you can use right away.</p>
+                <p class="courses-session-blurb">For ages 3–5. Short lessons under 10 minutes so you can press play, listen, and learn with your child.</p>
                 <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
               </div>
             </article>
@@ -49,7 +49,7 @@
             <article class="courses-session-card courses-session-card--2">
               <div class="courses-session-card-inner">
                 <h3 class="courses-session-title">Body safety basics</h3>
-                <p class="courses-session-blurb">Build confidence with clear, age-appropriate guidance.</p>
+                <p class="courses-session-blurb">For ages 3–5. Learn confidence-building body safety in under 10 minutes—clear, calm, and practical.</p>
                 <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
               </div>
             </article>
@@ -57,7 +57,7 @@
             <article class="courses-session-card courses-session-card--3">
               <div class="courses-session-card-inner">
                 <h3 class="courses-session-title">Learn as you go</h3>
-                <p class="courses-session-blurb">Jump in where your child is today—and keep it easy.</p>
+                <p class="courses-session-blurb">For ages 3–5. Jump in whenever it fits—each lesson is under 10 minutes so it stays easy and fun.</p>
                 <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
               </div>
             </article>
@@ -65,7 +65,7 @@
             <article class="courses-session-card courses-session-card--4">
               <div class="courses-session-card-inner">
                 <h3 class="courses-session-title">Practice together</h3>
-                <p class="courses-session-blurb">Use scripts and tips during real everyday moments.</p>
+                <p class="courses-session-blurb">For ages 3–5. Use scripts and tips during real moments—under 10 minutes to press play and keep going.</p>
                 <a href="children-courses.html" class="btn btn-primary">Open children courses</a>
               </div>
             </article>
@@ -73,7 +73,35 @@
         </div>
       </div>
     </section>
+
+    <!-- Full course library (accordion preview) -->
+    <section class="lp-section lp-section--library" id="course-library" aria-labelledby="course-library-heading">
+      <div class="container course-library-inner">
+        <p class="section-kicker">Course library</p>
+        <h2 class="section-headline" id="course-library-heading">Explore the Full Course Library</h2>
+        <p class="section-text section-text--center course-library-subtitle">Preview every module and lesson title so you can see exactly what's included in Bright Talks.</p>
+        <p class="course-library-helper">Open Module 1 to try <strong>L1</strong> and <strong>L2</strong>: each includes a short video (under 10 minutes) and lesson notes—tap the row to expand. Other lessons stay locked until purchase.</p>
+        <div id="course-library-root" class="course-library-accordion" data-course-library-root></div>
+        <div class="course-library-bottom-cta">
+          <h3 class="course-library-bottom-cta__title">Unlock the Full Bright Talks Library</h3>
+          <p class="course-library-bottom-cta__text">Access every lesson, practical scripts, and step-by-step guidance designed to help you lead hard conversations with clarity, confidence, and peace.</p>
+          <a href="index.html#waitlist" class="btn btn-primary course-library-bottom-cta__btn">Get Started</a>
+          <p class="course-library-bottom-cta__note">Built for Christian parents of kids ages 3 to 17</p>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div id="lesson-locked-modal" class="lesson-locked-modal" hidden role="dialog" aria-modal="true" aria-labelledby="lesson-modal-title">
+    <div class="lesson-locked-modal__backdrop" tabindex="-1"></div>
+    <div class="lesson-locked-modal__panel">
+      <button type="button" class="lesson-locked-modal__close" aria-label="Close dialog">&times;</button>
+      <h2 id="lesson-modal-title" class="lesson-locked-modal__title">This lesson is included in the full course</h2>
+      <p class="lesson-locked-modal__lesson-name" aria-live="polite"></p>
+      <p class="lesson-locked-modal__body">Unlock guided scripts, expert teaching, and practical conversation tools for every stage.</p>
+      <a href="index.html#waitlist" class="btn btn-primary lesson-locked-modal__cta">Get Started</a>
+    </div>
+  </div>
 
   <footer class="site-footer site-footer--landing">
     <div class="container footer-landing-inner">
@@ -105,6 +133,8 @@
     </div>
   </div>
 
+  <script src="js/course-preview-data.js"></script>
+  <script src="js/course-preview.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

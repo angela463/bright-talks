@@ -1558,7 +1558,7 @@ a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(26, 22, 20, 0.18);
+  background: transparent; /* keep tile images 100% bright */
   pointer-events: none;
 }
 
