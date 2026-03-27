@@ -1451,7 +1451,7 @@ a:hover {
   margin-right: auto;
 }
 
-/* Value proposition grid */
+/* Value proposition grid — homepage: warm orange section (replaces cream/off-white) */
 .lp-section--value {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 251, 246, 0.5) 100%),
@@ -1460,13 +1460,7 @@ a:hover {
   border-bottom: 1px solid rgba(220, 200, 180, 0.15);
 }
 
-/* Orange intro panel: full-width box, #e8894a behind content; text white */
-.page-home .value-intro-panel {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto 2rem;
-  padding: clamp(1.75rem, 4vw, 2.25rem) clamp(1.5rem, 4vw, 2.25rem);
-  border-radius: var(--radius-lg);
+.page-home .lp-section--value {
   background-color: #e8894a;
   background-image:
     linear-gradient(
@@ -1477,31 +1471,25 @@ a:hover {
     linear-gradient(
       165deg,
       #e88a42 0%,
-      #e8894a 40%,
+      #e8894a 42%,
       #d9773a 100%
     );
-  background-origin: border-box;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow:
-    0 10px 32px rgba(160, 75, 30, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(200, 95, 45, 0.35);
+  border-bottom-color: rgba(180, 85, 40, 0.3);
 }
 
-.page-home .value-intro-panel .section-kicker {
+.page-home .lp-section--value > .container > .section-kicker {
   color: rgba(255, 255, 255, 0.92);
-  margin-bottom: 0.75rem;
 }
 
-.page-home .value-intro-panel #value-heading,
-.page-home .value-intro-panel .section-headline {
+.page-home .lp-section--value > .container > #value-heading {
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
-.page-home .value-intro-panel .section-text {
-  color: rgba(255, 255, 255, 0.96);
+.page-home .lp-section--value > .container > .section-text {
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
-  margin-bottom: 0;
 }
 
 .value-grid {
