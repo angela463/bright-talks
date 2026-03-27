@@ -4,6 +4,12 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Bodies, Boundaries & Body Safety',
     ageGroup: 'Ages 3-5',
     description: 'A gentle, practical course to help parents introduce body safety, privacy, and consent with calm confidence.',
+    learningPoints: [
+      'Clear, age-right language for bodies, privacy, and safe boundaries',
+      'Simple ways to invite questions so home feels like the safest place to ask',
+      'Scripts and cues you can reuse in everyday moments—not just “the big talk”',
+      'Confidence to spot teachable moments without shame or fear'
+    ],
     image: 'images/home-hero-yellow-1.jpg',
     modules: window.BRIGHT_TALKS_COURSE_MODULES || []
   },
@@ -12,6 +18,12 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Growing Up with Confidence',
     ageGroup: 'Ages 6-8',
     description: 'Build healthy language around boundaries, body awareness, and trust through short, parent-led lessons.',
+    learningPoints: [
+      'Words that match how school-age kids think about fairness, friends, and rules',
+      'Practices that reinforce body autonomy and “no means no” in kid-sized ways',
+      'Ways to stay connected when peers or screens introduce new ideas',
+      'A steadier rhythm of check-ins that doesn’t feel like a lecture'
+    ],
     image: 'images/home-hero-yellow-2.jpg',
     modules: []
   },
@@ -20,6 +32,12 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Curiosity, Safety & Respect',
     ageGroup: 'Ages 9-11',
     description: 'Support preteens with clear guidance on changing bodies, emotional safety, and family values.',
+    learningPoints: [
+      'Framing for puberty changes, crushes, and awkward moments without embarrassment',
+      'Tools for digital boundaries, privacy, and what to do when something feels off',
+      'Language that honors your values while leaving room for your child’s questions',
+      'Skills to keep trust high as independence grows'
+    ],
     image: 'images/home-hero-yellow-3.jpg',
     modules: []
   },
@@ -28,6 +46,12 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Early Teen Conversations',
     ageGroup: 'Ages 12-14',
     description: 'Navigate boundaries, online influences, and identity conversations with warmth and clarity.',
+    learningPoints: [
+      'Approaches that respect teens’ need for privacy while staying in the loop',
+      'Grounded talk about consent, respect, and healthy relationships',
+      'Support for navigating media, peers, and identity with less defensiveness',
+      'Phrases that help you stay calm when the topic gets tense'
+    ],
     image: 'images/home-hero-yellow-1.jpg',
     modules: []
   },
@@ -36,6 +60,12 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Relationship Readiness',
     ageGroup: 'Ages 15-17',
     description: 'Equip teens and parents for mature conversations on respect, consent, and healthy choices.',
+    learningPoints: [
+      'Clear expectations for respectful relationships and boundaries',
+      'Ways to discuss consent, safety, and values without sounding preachy',
+      'Guidance for health, readiness, and where to get help when needed',
+      'Conversation habits that keep the door open as teens prepare for adulthood'
+    ],
     image: 'images/home-hero-yellow-2.jpg',
     modules: []
   }

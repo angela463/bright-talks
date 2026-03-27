@@ -73,9 +73,16 @@
     var title = byId('course-detail-title');
     var desc = byId('course-detail-description');
     var age = byId('course-detail-age');
+    var bullets = byId('course-detail-bullets');
     if (title) title.textContent = course.title;
     if (desc) desc.textContent = course.description;
     if (age) age.textContent = course.ageGroup;
+    if (bullets) {
+      var points = course.learningPoints || [];
+      bullets.innerHTML = points.map(function (line) {
+        return '<li>' + safe(line) + '</li>';
+      }).join('');
+    }
 
     root.innerHTML = (course.modules || []).map(function (m, idx) {
       var lessons = (m.lessons || []);
