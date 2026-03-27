@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Browse Bright Talks courses by age group, with elegant filtering and clear module pathways." />
-  <title>Courses: Bright Talks</title>
+  <meta name="description" content="View course modules and structure for Bright Talks." />
+  <title>Course Modules: Bright Talks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
@@ -19,7 +19,7 @@
       </a>
       <nav class="nav" aria-label="Main">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="courses.html" class="nav-link" aria-current="page">Courses</a>
+        <a href="courses.html" class="nav-link">Courses</a>
         <a href="children-courses.html" class="nav-link">Children courses</a>
         <a href="index.html#about" class="nav-link">About</a>
         <a href="faq.html" class="nav-link">FAQs</a>
@@ -29,29 +29,23 @@
   </header>
 
   <main class="page-shell">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a> / <a href="courses.html">Courses</a> / <span>Course Modules</span>
+    </div>
+
     <section class="hero-panel">
-      <h1>Course Library</h1>
-      <p>Browse age-based course collections with polished, easy-to-scan cards and clear pathways into modules.</p>
+      <span id="course-detail-age" class="chip">Ages 3-5</span>
+      <h1 id="course-detail-title">Bodies, Boundaries &amp; Body Safety</h1>
+      <p id="course-detail-description">Module overview and learning structure for this course.</p>
     </section>
 
     <section>
       <div class="section-header">
-        <span class="eyebrow">Browse</span>
-        <h2>Find the right course</h2>
-        <p>Filter by age group or search by topic to quickly find your next learning path.</p>
+        <span class="eyebrow">Course Structure</span>
+        <h2>Modules</h2>
+        <p>Open any module to view lesson details and continue your pathway.</p>
       </div>
-      <div class="course-search-row">
-        <input id="course-search" type="search" placeholder="Search courses..." aria-label="Search courses" />
-        <select id="course-age-filter" aria-label="Filter by age group">
-          <option value="">All age groups</option>
-          <option>Ages 3-5</option>
-          <option>Ages 6-8</option>
-          <option>Ages 9-11</option>
-          <option>Ages 12-14</option>
-          <option>Ages 15-17</option>
-        </select>
-      </div>
-      <div id="course-grid-root" class="course-grid"></div>
+      <div id="module-list-root" class="module-list"></div>
     </section>
   </main>
 
@@ -64,7 +58,6 @@
   <script src="js/course-preview-data.js"></script>
   <script src="js/course-data.js"></script>
   <script src="js/platform.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>
 
