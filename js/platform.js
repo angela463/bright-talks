@@ -122,7 +122,7 @@
           '<h3>' + safe(lessonTitle(l)) + '</h3>' +
           '<p>' + safe(unlocked ? 'Includes short video + practical parent notes.' : 'Available in the full course library.') + '</p>' +
           '<div class="lesson-meta"><span class="tag">' + safe(dur) + '</span></div>' +
-          '<a class="btn btn-primary" href="children-courses.html">' + (unlocked ? 'Start lesson' : 'View lesson') + '</a>' +
+          '<a class="btn btn-primary" href="courses.html">' + (unlocked ? 'Start lesson' : 'View lesson') + '</a>' +
         '</article>'
       );
     }).join('');

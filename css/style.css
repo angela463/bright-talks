@@ -69,8 +69,7 @@ body {
     background-attachment: scroll;
   }
 
-  body.page-courses,
-  body.page-children-courses {
+  body.page-courses {
     background-attachment: scroll;
   }
 
@@ -84,8 +83,7 @@ body {
     background-attachment: scroll;
   }
 
-  body.page-courses,
-  body.page-children-courses {
+  body.page-courses {
     background-attachment: scroll;
   }
 }
@@ -99,8 +97,7 @@ body > footer {
 }
 
 /* Courses page: tiled plaster texture (nav + footer keep their own backgrounds) */
-body.page-courses,
-body.page-children-courses {
+body.page-courses {
   background-color: var(--cream);
   background-image: url('../png/courses-bg-texture.png');
   background-repeat: repeat;
@@ -109,8 +106,7 @@ body.page-children-courses {
   background-attachment: fixed;
 }
 
-.page-courses .courses-main,
-.page-children-courses .courses-main {
+.page-courses .courses-main {
   position: relative;
 }
 
