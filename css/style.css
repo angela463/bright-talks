@@ -1558,7 +1558,7 @@ a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(26, 22, 20, 0.22) 0%, rgba(26, 22, 20, 0.5) 100%);
+  background: linear-gradient(180deg, rgba(18, 14, 12, 0.35) 0%, rgba(18, 14, 12, 0.62) 100%);
   pointer-events: none;
 }
 
@@ -1569,6 +1569,7 @@ a:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, rgba(24, 19, 16, 0.16) 0%, rgba(24, 19, 16, 0.26) 100%);
 }
 
 .courses-session-title {
