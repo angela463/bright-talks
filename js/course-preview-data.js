@@ -10,10 +10,10 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
           "youtubeId": "pjoyBZYk2zI",
           "label": "Play in Early Childhood: The Role of Play in Any Setting (Harvard Center on the Developing Child)"
         },
-        "summary": "See how play, responsive relationships, and repetition wire the brain in early childhood—then use the reflection prompts to connect the ideas to your own child.",
+        "summary": "See how play, responsive relationships, and repetition wire the brain in early childhood, then use the reflection prompts to connect the ideas to your own child.",
         "bullets": [
           "What’s going on in the brain when young children play and explore",
-          "Why short, warm back-and-forth moments matter more than a “perfect talk”",
+          "Why short, warm back and forth moments matter more than a “perfect talk”",
           "How to notice your child’s thinking style without labeling them"
         ]
       },
@@ -25,11 +25,11 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
           "youtubeId": "gRK49oSgcDA",
           "label": "Supporting early learning (Centre for Early Childhood explainer)"
         },
-        "summary": "This short overview explains how adults scaffold learning—meeting children where they are and building skills step by step. Pair it with the body-positive scripts below for conversations at home.",
+        "summary": "This short overview explains how adults scaffold learning, meeting children where they are and building skills step by step. Pair it with the body positive scripts below for conversations at home.",
         "bullets": [
-          "Normalize curiosity: it’s information-seeking, not misbehavior",
+          "Normalize curiosity: it’s information seeking, not misbehavior",
           "Use clear, calm language that matches your family’s values",
-          "Offer a simple script: “It’s okay to wonder—let’s use the real names for body parts.”"
+          "Offer a simple script: “It’s okay to wonder, let’s use the real names for body parts.”"
         ]
       },
       "The Difference Between Innocent Curiosity and Concerning Behavior",
@@ -38,7 +38,7 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
       "How Kids Learn Through Observation",
       "Why Your Discomfort Matters More Than You Think",
       "Breaking the Cycle: How Your Upbringing Shapes Your Parenting",
-      "Moving From Fear-Based to Confidence-Based Parenting",
+      "Moving From Fear Based to Confidence Based Parenting",
       "Why Avoiding the Topic Can Create More Risk",
       "You Don't Need \"The Talk,\" You Need Many Small Conversations",
       "How Kids This Age Understand Boundaries",
@@ -82,7 +82,7 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
       "How Kids Interpret What They See",
       "How to Explain the Difference Between Boys' and Girls' Bodies",
       "Using Simple, Accurate Language to Describe Bodies",
-      "Keeping Explanations Age-Appropriate",
+      "Keeping Explanations Age Appropriate",
       "Teaching That Bodies Are Different but Equal in Value",
       "Why Does He Have That and I Don't?",
       "Why Do Girls Look Different?",
@@ -135,8 +135,8 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
       "Helping Kids Understand \"This Is Not Okay\"",
       "What \"Confusing Touch\" Means",
       "Teaching Kids to Trust Their Feelings",
-      "Explaining \"Uh-Oh\" Feelings in a Way Kids Understand",
-      "Teaching the 3-Step Rule: Say No, Get Away, Tell an Adult",
+      "Explaining \"Uh Oh\" Feelings in a Way Kids Understand",
+      "Teaching the 3 Step Rule: Say No, Get Away, Tell an Adult",
       "Practicing What to Do",
       "Reassuring Kids They Will Never Be in Trouble for Telling",
       "Identifying Trusted Adults and Safe People"
@@ -172,7 +172,7 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
       "The \"Answer Simply\" Rule: Why Less Is More at Ages 3 to 5",
       "How to Stay Calm When You Feel Caught Off Guard",
       "Why Your Reaction Matters More Than Your Words",
-      "How to Give Short, Age-Appropriate Answers",
+      "How to Give Short, Age Appropriate Answers",
       "Letting Your Child Lead the Conversation",
       "When to Answer and When to Pause",
       "How to Buy Time Without Avoiding the Question",

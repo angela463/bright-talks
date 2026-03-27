@@ -86,7 +86,7 @@
 
     root.innerHTML = (course.modules || []).map(function (m, idx) {
       var lessons = (m.lessons || []);
-      var summary = 'Explore foundational concepts and parent-ready language for this stage.';
+      var summary = 'Explore foundational concepts and parent ready language for this stage.';
       return (
         '<article class="module-card">' +
           '<div class="module-top"><span class="module-index">Module ' + (idx + 1) + '</span><span class="tag">' + lessons.length + ' lessons</span></div>' +
