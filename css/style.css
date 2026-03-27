@@ -1177,9 +1177,24 @@ a:hover {
 
 .waitlist .waitlist-form,
 .waitlist .form-note,
-.waitlist .section-kicker {
+.waitlist .section-kicker,
+.waitlist .waitlist-back-to-top {
   position: relative;
   z-index: 1;
+}
+
+.waitlist .waitlist-back-to-top {
+  display: inline-block;
+  margin: 1.75rem 0 0;
+  margin-bottom: 0;
+  color: var(--orange-light);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.waitlist .waitlist-back-to-top:hover {
+  color: var(--white);
+  text-decoration: underline;
 }
 
 .waitlist-form {
