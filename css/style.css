@@ -1460,6 +1460,41 @@ a:hover {
   border-bottom: 1px solid rgba(220, 200, 180, 0.15);
 }
 
+/* Orange intro panel: “Clear support…” block */
+.page-home .value-intro-panel {
+  max-width: 44rem;
+  margin: 0 auto 2rem;
+  padding: clamp(1.5rem, 4vw, 2rem) clamp(1.35rem, 4vw, 2rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    165deg,
+    #e88a42 0%,
+    #df7a34 45%,
+    #d06a28 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 10px 32px rgba(160, 75, 30, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.page-home .value-intro-panel .section-kicker {
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 0.75rem;
+}
+
+.page-home .value-intro-panel #value-heading,
+.page-home .value-intro-panel .section-headline {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.page-home .value-intro-panel .section-text {
+  color: rgba(255, 255, 255, 0.94);
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
 .value-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
