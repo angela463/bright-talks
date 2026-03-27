@@ -2121,7 +2121,8 @@ a:hover {
   margin-top: 0.5rem;
 }
 
-.page-faq .faq-main {
+.page-faq .faq-main,
+.page-about .about-main {
   position: relative;
   min-height: 50vh;
 }
