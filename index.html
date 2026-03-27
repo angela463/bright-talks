@@ -3,106 +3,205 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Bright Talks helps parents lead the conversations that matter most with calm, age-appropriate guidance." />
-  <title>Bright Talks</title>
+  <meta name="description" content="Bright Talks is parent-focused education for ages 3 to 5: bodies, privacy, consent, and safety. It is structured as a course with modules and lessons, plus trusted guides and conversation support." />
+  <title>Bright Talks: Parent education for confident conversations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/platform.css" />
 </head>
-<body class="page-home" id="top">
-  <header class="site-header">
-    <div class="header-inner">
+<body class="page-home page-landing" id="top">
+  <header class="site-header site-header--landing">
+    <div class="header-inner header-inner--landing">
       <a href="index.html" class="logo-link">
         <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
       </a>
-      <nav class="nav" aria-label="Main">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="courses.html" class="nav-link">Courses</a>
-        <a href="children-courses.html" class="nav-link">Children courses</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="faq.html" class="nav-link">FAQs</a>
+      <nav class="nav nav--landing" aria-label="Main">
+        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <a href="courses.html" class="nav-link nav-link--minimal">Courses</a>
+        <a href="children-courses.html" class="nav-link nav-link--minimal">Children courses</a>
+        <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
+        <a href="#about" class="nav-link nav-link--minimal">About</a>
       </nav>
-      <a href="#waitlist" class="btn btn-primary">Join</a>
+      <a href="#waitlist" class="btn btn-primary">Join our courses</a>
     </div>
   </header>
 
-  <main class="page-shell">
-    <section class="hero-panel">
-      <h1>Helping parents lead the conversations that matter most.</h1>
-      <p>Confident, age-appropriate courses for family conversations about bodies, boundaries, safety, and growing up—delivered in short, practical lessons.</p>
-      <div class="hero-actions">
-        <a href="courses.html" class="btn btn-primary">Browse courses</a>
-        <a href="#about" class="btn btn-ghost">Learn more</a>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-header">
-        <span class="eyebrow">What Bright Talks offers</span>
-        <h2>A calm learning platform for modern parents</h2>
-        <p>Everything is designed for clarity: short lessons, practical scripts, and guided progression from course to module to lesson.</p>
-      </div>
-      <div class="trust-grid">
-        <article class="info-card">
-          <h3>Short, usable lessons</h3>
-          <p>Most lessons are under 10 minutes so parents can learn and apply in real life.</p>
-        </article>
-        <article class="info-card">
-          <h3>Age-appropriate pathways</h3>
-          <p>Browse by age group and start where your child is today.</p>
-        </article>
-        <article class="info-card">
-          <h3>Warm and trustworthy</h3>
-          <p>A family-centered approach with practical language and grounded guidance.</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-header">
-        <span class="eyebrow">Featured paths</span>
-        <h2>Course pathways by age</h2>
-        <p>Start with foundational guidance and progress through modules at your pace.</p>
-      </div>
-      <div class="paths-grid">
-        <article class="info-card"><h3>Ages 3-5</h3><p>Bodies, boundaries, and early safety language.</p></article>
-        <article class="info-card"><h3>Ages 6-8</h3><p>Growing confidence, privacy, and body awareness.</p></article>
-        <article class="info-card"><h3>Ages 9-11</h3><p>Preteen curiosity, safety, and respect.</p></article>
-      </div>
-      <div class="hero-actions">
-        <a href="courses.html" class="btn btn-primary">Browse all courses</a>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="section-header">
-        <span class="eyebrow">Trust</span>
-        <h2>Built for families who want warmth and clarity</h2>
-        <p>Bright Talks combines editorial-quality learning design with practical parent support so conversations feel less overwhelming and more connected.</p>
-      </div>
-    </section>
-
-    <section class="hero-panel" id="waitlist">
-      <h2>Join Bright Talks</h2>
-      <p>Get updates, early access, and new course releases.</p>
-      <form class="waitlist-form" action="#" method="post">
-        <div class="waitlist-form-row">
-          <label for="email" class="sr-only">Email</label>
-          <input type="email" id="email" name="email" placeholder="Your email" required />
-          <button type="submit" class="btn btn-primary">Join</button>
+  <main class="home-main">
+    <!-- 1. Hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-bg">
+        <div class="hero-bg-img hero-bg-photo" role="img" aria-label="Bright yellow lifestyle collage">
+          <div class="hero-strip-image hero-strip-image--1" aria-hidden="true"></div>
+          <div class="hero-strip-image hero-strip-image--2" aria-hidden="true"></div>
+          <div class="hero-strip-image hero-strip-image--3" aria-hidden="true"></div>
         </div>
-      </form>
-      <p class="form-note" id="form-message" aria-live="polite"></p>
+        <div class="hero-bg-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="container hero-inner">
+        <h1 class="hero-title" id="hero-heading">Bright Talks helps you teach young kids about bodies, privacy, consent, and safety, with confidence.</h1>
+        <p class="hero-eyebrow">Trusted, age-appropriate guidance for parents and caregivers. Clear tools so you can lead conversations many of us never had growing up so you can feel steadier, sooner.</p>
+        <div class="hero-actions">
+          <a href="courses.html" class="btn btn-primary btn-primary-hero-focus btn-waitlist-white">Start learning</a>
+          <a href="courses.html#course-library" class="btn btn-ghost-on-hero">Explore the course</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider section-divider--wave" aria-hidden="true"></div>
+
+    <!-- 2. Problem → trust -->
+    <section class="lp-section lp-section--trust" aria-labelledby="trust-heading">
+      <div class="container lp-narrow">
+        <p class="section-kicker">Why this matters</p>
+        <h2 class="section-headline" id="trust-heading">This topic can feel hard, and that’s normal</h2>
+        <p class="section-text lp-lead">Open up the tough stuff: sex ed, growing up, and everything in between. Find videos, guides, and conversation support to help you and your teen connect, learn, and laugh together, without the taboo.</p>
+        <p class="section-text">When you want a safe place to learn and a consistent message between home, school, and media, start here. Expert-informed guides, stories, and videos that make honest talks easier. Build trust and grow together, one conversation at a time.</p>
+      </div>
+    </section>
+
+    <!-- 3. Value proposition -->
+    <section class="lp-section lp-section--value" aria-labelledby="value-heading">
+      <div class="container">
+        <p class="section-kicker">What you gain</p>
+        <h2 class="section-headline" id="value-heading">Support designed for real parents</h2>
+        <p class="section-text section-text--center">Judgment-free tools that meet families where they are: affordable, accessible resources you can return to again and again.</p>
+        <div class="value-grid" role="list">
+          <article class="value-card" role="listitem">
+            <h3 class="value-card-title">Break the ice with ease</h3>
+            <p class="value-card-text">Start age-appropriate sex education conversations with prompts and scripts designed for parents and teens. We help you open the door without the awkwardness.</p>
+          </article>
+          <article class="value-card" role="listitem">
+            <h3 class="value-card-title">Handle tough questions smoothly</h3>
+            <p class="value-card-text">Get clear, honest language and expert-backed answers for the questions teens actually ask about bodies, relationships, and consent, so you're ready when they are.</p>
+          </article>
+          <article class="value-card" role="listitem">
+            <h3 class="value-card-title">Create trust, step by step</h3>
+            <p class="value-card-text">Build a safe space for ongoing sex ed talks with tools that keep dialogue open, respectful, and aligned with your family's values.</p>
+          </article>
+          <article class="value-card" role="listitem">
+            <h3 class="value-card-title">Support for every step</h3>
+            <p class="value-card-text">Find videos, guides, and conversation starters for every stage of development, from early puberty through young adulthood.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. How it works -->
+    <section class="lp-section lp-section--how" aria-labelledby="how-heading">
+      <div class="container">
+        <p class="section-kicker">How it works</p>
+        <h2 class="section-headline" id="how-heading">Simple steps, steady progress</h2>
+        <ol class="steps-grid" role="list">
+          <li class="steps-item">
+            <span class="steps-num" aria-hidden="true">1</span>
+            <h3 class="steps-title">Learn</h3>
+            <p class="steps-text">Watch short, expert-led videos with your child or on your own. Each lesson is crafted to spark real conversations and answer the questions that matter most.</p>
+          </li>
+          <li class="steps-item">
+            <span class="steps-num" aria-hidden="true">2</span>
+            <h3 class="steps-title">Apply</h3>
+            <p class="steps-text">Kick off meaningful chats with fun, thoughtful prompts and activities. Real talk, made simple.</p>
+          </li>
+          <li class="steps-item">
+            <span class="steps-num" aria-hidden="true">3</span>
+            <h3 class="steps-title">Talk with your child</h3>
+            <p class="steps-text">Build a safe space for ongoing sex ed talks with tools that keep dialogue open, respectful, and aligned with your family's values.</p>
+          </li>
+          <li class="steps-item">
+            <span class="steps-num" aria-hidden="true">4</span>
+            <h3 class="steps-title">Build confidence</h3>
+            <p class="steps-text">Browse articles, tips, and handpicked content for every topic. Get the right words and support, whenever you need them.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 5. Outcomes -->
+    <section class="lp-section lp-section--outcomes" aria-labelledby="outcomes-heading">
+      <div class="container">
+        <p class="section-kicker">What changes</p>
+        <h2 class="section-headline" id="outcomes-heading">After using Bright Talks</h2>
+        <p class="section-text section-text--center">Grounded outcomes: no hype, just the support parents say they need.</p>
+        <ul class="outcome-list">
+          <li class="outcome-item">
+            <strong class="outcome-item-label">Break the ice with ease</strong>
+            <span class="outcome-item-text">Start age-appropriate sex education conversations with prompts and scripts designed for parents and teens. We help you open the door without the awkwardness.</span>
+          </li>
+          <li class="outcome-item">
+            <strong class="outcome-item-label">Handle tough questions smoothly</strong>
+            <span class="outcome-item-text">Get clear, honest language and expert-backed answers for the questions teens actually ask about bodies, relationships, and consent, so you're ready when they are.</span>
+          </li>
+          <li class="outcome-item">
+            <strong class="outcome-item-label">Create trust, step by step</strong>
+            <span class="outcome-item-text">Build a safe space for ongoing sex ed talks with tools that keep dialogue open, respectful, and aligned with your family's values.</span>
+          </li>
+          <li class="outcome-item">
+            <strong class="outcome-item-label">Support for every step</strong>
+            <span class="outcome-item-text">Find videos, guides, and conversation starters for every stage of development, from early puberty through young adulthood.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. About -->
+    <section class="lp-section lp-section--about" id="about" aria-labelledby="about-heading">
+      <div class="container lp-narrow">
+        <p class="section-kicker">About Bright Talks</p>
+        <h2 class="section-headline" id="about-heading">A resource hub for families</h2>
+        <p class="section-text"><strong>Brighter talks. Stronger bonds.</strong> Bright Talks brings together practical tools and relatable content so you can have open, honest conversations at your pace, on your terms. Browse articles, tips, and handpicked content when you need the right words.</p>
+        <p class="section-text">Explore more on <a href="courses.html">courses</a>, <a href="faq.html">FAQs</a>, <a href="teen-corner.html">teen corner</a>, and <a href="sex-education.html">sex education</a> when you’re ready to go deeper.</p>
+      </div>
+    </section>
+
+    <!-- 7. CTA + waitlist -->
+    <section class="waitlist section-home lp-waitlist" id="waitlist">
+      <div class="container">
+        <p class="section-kicker section-kicker--inverse">Start when you’re ready</p>
+        <h2 class="section-headline">Join our courses</h2>
+        <p class="section-text">Be the first to know when Bright Talks launches. We'll send you updates and early access.</p>
+        <form class="waitlist-form" action="#" method="post">
+          <div class="waitlist-form-row">
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your email" required />
+            <button type="submit" class="btn btn-primary">Join</button>
+          </div>
+          <label class="waitlist-privacy-label">
+            <input type="checkbox" name="privacy" id="privacy" value="1" required />
+            <span>I agree to the <a href="#privacy-policy">privacy policy</a> and want to receive updates from Bright Talks.</span>
+          </label>
+        </form>
+        <p class="form-note" id="form-message" aria-live="polite"></p>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
+  <footer class="site-footer site-footer--landing">
+    <div class="container footer-landing-inner">
+      <nav class="footer-landing-nav" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="children-courses.html">Children courses</a>
+        <a href="faq.html">FAQs</a>
+        <a href="#about">About</a>
+        <a href="#waitlist">Join our courses</a>
+      </nav>
       <p class="footer-copy">© 2025 Bright Talks. All rights reserved.</p>
+      <p class="footer-privacy" id="privacy-policy"><strong>We Value Your Privacy.</strong> We use cookies to enhance your experience, analyze site usage, and personalize content. By continuing to use our website, you consent to our cookie policy.</p>
+      <a href="#top" class="footer-back">Return to Top</a>
     </div>
   </footer>
+
+  <div id="cookie-overlay" class="cookie-overlay" aria-hidden="true" hidden></div>
+  <div id="cookie-bar" class="cookie-bar" role="dialog" aria-label="Cookie consent" aria-live="polite" hidden>
+    <div class="cookie-bar-inner">
+      <p class="cookie-text">We use cookies to improve your experience, analyze site usage, and personalize content. Choose your preference below.</p>
+      <div class="cookie-actions">
+        <button type="button" id="cookie-decline" class="btn btn-ghost">Decline</button>
+        <button type="button" id="cookie-accept" class="btn btn-primary">Accept</button>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
