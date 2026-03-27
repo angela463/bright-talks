@@ -1549,7 +1549,7 @@ a:hover {
   overflow: hidden;
   border: 1px solid rgba(220, 200, 180, 0.45);
   box-shadow: var(--shadow-sm);
-  min-height: 245px;
+  min-height: 190px;
   background-size: cover;
   background-position: center;
 }
@@ -1558,37 +1558,66 @@ a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: transparent; /* keep tile images 100% bright */
+  background: linear-gradient(180deg, rgba(26, 22, 20, 0.24) 0%, rgba(26, 22, 20, 0.38) 100%);
   pointer-events: none;
 }
 
 .courses-session-card-inner {
   position: relative;
   z-index: 1;
-  padding: 1.35rem 1.25rem 1.4rem;
+  padding: 1rem 1rem 1.05rem;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
+.courses-session-meta {
+  margin: 0 0 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.94);
+}
+
 .courses-session-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.1;
   color: var(--white);
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.75rem;
 }
 
-.courses-session-blurb {
+.courses-session-host {
   color: rgba(255, 255, 255, 0.88);
-  margin: 0 0 1rem;
-  line-height: 1.6;
-  font-size: 0.98rem;
+  margin: 0 0 0.8rem;
+  line-height: 1.25;
+  font-size: 0.9rem;
+  max-width: 16ch;
 }
 
-.courses-session-card .btn {
+.courses-session-cta {
   align-self: flex-start;
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: #d8a26a;
+  border-color: #d8a26a;
+  color: #fff;
+}
+
+.courses-session-cta:hover {
+  background: #c9935c;
+  border-color: #c9935c;
+  text-decoration: none;
 }
 
 .courses-session-card--1 {
