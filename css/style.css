@@ -114,6 +114,16 @@ body.page-children-courses {
   position: relative;
 }
 
+/* Improve readability over the yellow textured background */
+body.page-courses::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 250, 238, 0.52);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Homepage: layered section flow */
 .page-home {
   --orange: #f0a43a;
