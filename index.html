@@ -7,6 +7,7 @@
   <title>Bright Talks | Parent led conversations at home</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -44,7 +45,7 @@
           <div class="hero-actions">
             <a href="courses.html" class="btn btn-primary btn-primary-hero-focus btn-waitlist-white">Browse courses</a>
             <a href="#how-heading" class="btn btn-ghost-on-hero">Learn how it works</a>
-            <a href="#explainer" class="btn btn-ghost-on-hero hero-cta-explainer">Watch intro</a>
+            <a href="#promo-video" class="btn btn-ghost-on-hero hero-cta-explainer">Watch intro</a>
           </div>
         </div>
       </div>
@@ -52,28 +53,33 @@
 
     <div class="section-divider section-divider--wave" aria-hidden="true"></div>
 
-    <!-- Explainer (slides + optional voiceover) -->
-    <section class="lp-section lp-section--explainer" id="explainer" aria-labelledby="explainer-heading">
+    <!-- Promotional slide video (no voiceover; soft music + imagery) -->
+    <section class="lp-section lp-section--promo" id="promo-video" aria-labelledby="promo-heading">
       <div class="container">
         <p class="section-kicker">See Bright Talks</p>
-        <h2 class="section-headline" id="explainer-heading">A gentle intro for busy parents</h2>
-        <p class="section-text section-text--center explainer-intro">
-          Press play for a short walkthrough with on-screen text. Voiceover uses your browser’s built-in voice (you can mute or watch silently).
+        <h2 class="section-headline" id="promo-heading">A short intro for busy parents</h2>
+        <p class="section-text section-text--center promo-intro">
+          Press play for a gentle slide sequence with on-screen text and soft instrumental music. No narration — you can mute music anytime.
         </p>
-        <div class="explainer-video" id="explainer-root">
-          <div class="explainer-stage" aria-live="polite">
-            <p class="explainer-kicker" data-explainer-kicker></p>
-            <p class="explainer-main" data-explainer-main></p>
-            <p class="explainer-sub" data-explainer-sub></p>
+        <div class="promo-video" id="promo-root">
+          <div class="promo-stage" aria-live="polite">
+            <div class="promo-bg" aria-hidden="true">
+              <div class="promo-bg__layer is-visible" data-promo-layer="0"></div>
+              <div class="promo-bg__layer" data-promo-layer="1"></div>
+              <div class="promo-bg__scrim"></div>
+            </div>
+            <p class="promo-caption">
+              <span class="promo-caption__text" data-promo-caption></span>
+            </p>
           </div>
-          <div class="explainer-toolbar" role="group" aria-label="Explainer playback">
-            <button type="button" class="btn btn-primary explainer-btn-play" data-explainer-play>Play with narration</button>
-            <button type="button" class="btn btn-ghost explainer-btn-pause" data-explainer-pause hidden>Pause</button>
-            <button type="button" class="btn btn-ghost" data-explainer-replay>Replay</button>
-            <button type="button" class="btn btn-ghost" data-explainer-mute aria-pressed="false">Mute voice</button>
+          <div class="promo-toolbar" role="group" aria-label="Promo playback">
+            <button type="button" class="btn btn-primary" data-promo-play>Play</button>
+            <button type="button" class="btn btn-ghost" data-promo-pause hidden>Pause</button>
+            <button type="button" class="btn btn-ghost" data-promo-replay>Replay</button>
+            <button type="button" class="btn btn-ghost" data-promo-mute aria-pressed="false">Mute music</button>
           </div>
-          <div class="explainer-progress" data-explainer-progress role="tablist" aria-label="Scene"></div>
-          <p class="explainer-status" data-explainer-status></p>
+          <div class="promo-progress" data-promo-progress role="tablist" aria-label="Slides"></div>
+          <p class="promo-status" data-promo-status></p>
         </div>
       </div>
     </section>
@@ -217,7 +223,7 @@
     </div>
   </div>
 
-  <script src="js/explainer-video.js"></script>
+  <script src="js/promo-slideshow.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
