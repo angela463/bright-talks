@@ -43,11 +43,38 @@
         <div class="hero-actions">
           <a href="courses.html" class="btn btn-primary btn-primary-hero-focus btn-waitlist-white">Browse courses</a>
           <a href="#how-heading" class="btn btn-ghost-on-hero">Learn how it works</a>
+          <a href="#explainer" class="btn btn-ghost-on-hero hero-cta-explainer">Watch intro</a>
         </div>
       </div>
     </section>
 
     <div class="section-divider section-divider--wave" aria-hidden="true"></div>
+
+    <!-- Explainer (slides + optional voiceover) -->
+    <section class="lp-section lp-section--explainer" id="explainer" aria-labelledby="explainer-heading">
+      <div class="container">
+        <p class="section-kicker">See Bright Talks</p>
+        <h2 class="section-headline" id="explainer-heading">A gentle intro for busy parents</h2>
+        <p class="section-text section-text--center explainer-intro">
+          Press play for a short walkthrough with on-screen text. Voiceover uses your browser’s built-in voice (you can mute or watch silently).
+        </p>
+        <div class="explainer-video" id="explainer-root">
+          <div class="explainer-stage" aria-live="polite">
+            <p class="explainer-kicker" data-explainer-kicker></p>
+            <p class="explainer-main" data-explainer-main></p>
+            <p class="explainer-sub" data-explainer-sub></p>
+          </div>
+          <div class="explainer-toolbar" role="group" aria-label="Explainer playback">
+            <button type="button" class="btn btn-primary explainer-btn-play" data-explainer-play>Play with narration</button>
+            <button type="button" class="btn btn-ghost explainer-btn-pause" data-explainer-pause hidden>Pause</button>
+            <button type="button" class="btn btn-ghost" data-explainer-replay>Replay</button>
+            <button type="button" class="btn btn-ghost" data-explainer-mute aria-pressed="false">Mute voice</button>
+          </div>
+          <div class="explainer-progress" data-explainer-progress role="tablist" aria-label="Scene"></div>
+          <p class="explainer-status" data-explainer-status></p>
+        </div>
+      </div>
+    </section>
 
     <!-- 2. Problem → trust -->
     <section class="lp-section lp-section--trust" aria-labelledby="trust-heading">
@@ -188,6 +215,7 @@
     </div>
   </div>
 
+  <script src="js/explainer-video.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
