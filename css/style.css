@@ -221,13 +221,14 @@ body.page-courses::before {
   background-repeat: no-repeat;
 }
 
+/* Strip 1 = laptop scene; strip 2 = flower (swapped from file numbers for layout) */
 .page-home .hero-strip-image--1 {
-  background-image: url('../images/home-hero-yellow-1.jpg');
+  background-image: url('../images/home-hero-yellow-2.jpg');
   background-position: center;
 }
 
 .page-home .hero-strip-image--2 {
-  background-image: url('../images/home-hero-yellow-2.jpg');
+  background-image: url('../images/home-hero-yellow-1.jpg');
   background-position: center;
 }
 
