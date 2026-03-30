@@ -1,4 +1,4 @@
-Bright Talks — homepage promo music
+Bright Talks homepage promo music
 
 The slideshow uses this file (referenced in js/promo-slideshow.js):
 

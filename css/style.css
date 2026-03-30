@@ -1508,6 +1508,7 @@ a:hover {
 .promo-intro {
   max-width: 40rem;
   color: var(--slate);
+  text-wrap: balance;
 }
 
 .promo-video {
@@ -1726,7 +1727,7 @@ a:hover {
   }
 }
 
-/* Value proposition grid — homepage: warm orange section (replaces cream/off-white) */
+/* Value proposition grid: homepage warm orange section (replaces cream/off-white) */
 .lp-section--value {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 251, 246, 0.5) 100%),
@@ -2151,7 +2152,7 @@ a:hover {
   border-radius: 999px;
 }
 
-/* How it works — family photo + soft overlay (homepage) */
+/* How it works: family photo + soft overlay (homepage) */
 .page-home .lp-section--how {
   position: relative;
   overflow: hidden;
@@ -2240,7 +2241,7 @@ a:hover {
   line-height: 1.6;
 }
 
-/* Outcomes — warm orange band, high-contrast cards */
+/* Outcomes: warm orange band, high-contrast cards */
 .lp-section--outcomes {
   position: relative;
   overflow: hidden;

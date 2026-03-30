@@ -33,7 +33,7 @@
       duration: 5000,
       image: 'images/home-hero-yellow-2.jpg',
       text:
-        'Bright Talks helps you guide age-appropriate conversations about bodies, boundaries, and safety.'
+        'Bright Talks helps you guide age appropriate conversations about bodies, boundaries, and safety.'
     },
     {
       duration: 4000,
@@ -48,7 +48,7 @@
     {
       duration: 5000,
       image: 'images/home-hero-yellow-2.jpg',
-      text: 'Bright Talks — Start the conversation at home.'
+      text: 'Bright Talks. Start the conversation at home.'
     }
   ];
 
