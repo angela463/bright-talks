@@ -58,9 +58,12 @@
   var layerEls = root.querySelectorAll('[data-promo-layer]');
   var captionEl = root.querySelector('[data-promo-caption]');
   var progressEl = root.querySelector('[data-promo-progress]');
+  var btnPlay = root.querySelector('[data-promo-play]');
   var btnPause = root.querySelector('[data-promo-pause]');
   var btnReplay = root.querySelector('[data-promo-replay]');
   var btnMute = root.querySelector('[data-promo-mute]');
+  var muteIconOn = btnMute ? btnMute.querySelector('.promo-mute-on') : null;
+  var muteIconOff = btnMute ? btnMute.querySelector('.promo-mute-off') : null;
 
   var idx = 0;
   var prevIdx = -1;
@@ -237,23 +240,6 @@
     }
   }
 
-  /** Browsers often block audio until a gesture; first tap/key resumes track or pad */
-  function wireAudioUnlock() {
-    var done = false;
-    function unlock() {
-      if (done) return;
-      done = true;
-      if (bgAudio && bgAudio.paused) {
-        bgAudio.play().catch(function () {});
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume().catch(function () {});
-      }
-    }
-    document.addEventListener('pointerdown', unlock, { once: true, passive: true });
-    document.addEventListener('keydown', unlock, { once: true });
-  }
-
   function advance() {
     if (!playing) return;
     if (idx >= scenes.length - 1) {
@@ -273,6 +259,7 @@
   function startSequence() {
     clearSlideTimer();
     playing = true;
+    if (btnPlay) btnPlay.hidden = true;
     if (btnPause) btnPause.hidden = false;
     applyScene(0, true);
     startMusic();
@@ -285,6 +272,7 @@
     if (!atEnd) {
       stopMusic();
     }
+    if (btnPlay) btnPlay.hidden = false;
     if (btnPause) btnPause.hidden = true;
   }
 
@@ -296,12 +284,25 @@
     applyScene(i, false);
     if (wasPlaying) {
       playing = true;
+      if (btnPlay) btnPlay.hidden = true;
       if (btnPause) btnPause.hidden = false;
       startMusic();
       scheduleAdvance();
     }
   }
 
+  function syncMuteIcons() {
+    if (!btnMute) return;
+    btnMute.setAttribute('aria-label', musicMuted ? 'Unmute music' : 'Mute music');
+    if (muteIconOn) muteIconOn.hidden = musicMuted;
+    if (muteIconOff) muteIconOff.hidden = !musicMuted;
+  }
+
+  if (btnPlay) {
+    btnPlay.addEventListener('click', function () {
+      startSequence();
+    });
+  }
   if (btnPause) {
     btnPause.addEventListener('click', function () {
       stopSequence(false);
@@ -317,7 +318,7 @@
     btnMute.addEventListener('click', function () {
       musicMuted = !musicMuted;
       btnMute.setAttribute('aria-pressed', musicMuted ? 'true' : 'false');
-      btnMute.textContent = musicMuted ? 'Unmute music' : 'Mute music';
+      syncMuteIcons();
       if (bgAudio) {
         bgAudio.muted = musicMuted;
         bgAudio.volume = musicMuted ? 0 : 0.32;
@@ -332,10 +333,10 @@
         }
       }
     });
+    syncMuteIcons();
   }
 
   document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
 
-  wireAudioUnlock();
-  startSequence();
+  applyScene(0, true);
 })();

@@ -1607,19 +1607,78 @@ a:hover {
   transform: translateY(0);
 }
 
-.promo-toolbar {
+/* Promo: icon control bar (play / pause / replay / mute) */
+.promo-controls {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 0.75rem;
   justify-content: center;
   align-items: center;
-  margin-top: 1.25rem;
+  margin-top: 1.35rem;
 }
 
-.promo-toolbar .btn {
+.promo-controls-inner {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.65rem;
+  background: rgba(255, 251, 246, 0.95);
+  border: 1px solid rgba(220, 200, 180, 0.45);
   border-radius: 999px;
-  font-size: 0.9rem;
-  padding: 0.55rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.promo-icobtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--slate-dark);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.promo-icobtn:hover {
+  background: rgba(194, 106, 46, 0.12);
+  color: var(--orange-dark);
+}
+
+.promo-icobtn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.promo-icobtn:active {
+  transform: scale(0.96);
+}
+
+.promo-icobtn .promo-ico {
+  width: 1.4rem;
+  height: 1.4rem;
+  display: block;
+  flex-shrink: 0;
+}
+
+.promo-icobtn--primary {
+  background: var(--orange);
+  color: #fff;
+}
+
+.promo-icobtn--primary:hover {
+  background: var(--orange-dark);
+  color: #fff;
+}
+
+.promo-icobtn--primary:focus-visible {
+  outline-color: var(--orange-dark);
 }
 
 .promo-progress {
