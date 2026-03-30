@@ -7,7 +7,7 @@
   /* Instrumental track for the promo (path is URI-encoded for spaces / punctuation) */
   var PROMO_AUDIO_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
 
-  /* Promo photography: images/promo/ (six assets, cycled across eight scenes) */
+  /* Promo photography: images/promo/ (promo-06 laptop/couch removed; teen desk + family walk added) */
   var scenes = [
     {
       duration: 4000,
@@ -37,12 +37,12 @@
     },
     {
       duration: 4000,
-      image: 'images/promo/promo-06-laptop-couch.png',
+      image: 'images/promo/promo-08-teen-desk.png',
       text: 'Build trust. Create safety. Stay connected.'
     },
     {
       duration: 4000,
-      image: 'images/promo/promo-01-family-tent.png',
+      image: 'images/promo/promo-07-family-walk.png',
       text: 'So your child always has a safe place to ask.'
     },
     {

@@ -32,9 +32,11 @@ Files live in `images/promo/` (PNG). Scene order in `js/promo-slideshow.js`:
 | 3 | Parent tension / path | `promo-03-hiking.png` |
 | 4 | Reframe / learning | `promo-04-classroom.png` |
 | 5 | Solution | `promo-05-tablet-learning.png` |
-| 6 | Benefit | `promo-06-laptop-couch.png` |
-| 7 | Emotional outcome | `promo-01-family-tent.png` (repeat) |
-| 8 | Closing CTA | `promo-02-family-bed.png` (repeat) |
+| 6 | Benefit | `promo-08-teen-desk.png` |
+| 7 | Emotional outcome | `promo-07-family-walk.png` |
+| 8 | Closing CTA | `promo-02-family-bed.png` |
+
+The older `promo-06-laptop-couch.png` was removed (overlapped the teen-at-desk mood).
 
 Slides use **local files only** (no external image CDN) so the promo works offline and when opening the site from disk.
 
