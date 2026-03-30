@@ -40,8 +40,7 @@ Slides use **local files only** (no external image CDN) so the promo works offli
 
 ## Audio
 
-- **Track:** `audio files/Warm Windows, Open Minds.mp3` (loaded by the promo slideshow).
-- **Fallback:** if that file is missing or blocked, the page uses a very gentle built-in ambient pad (Web Audio) after **Play** (browser autoplay rules still require a user click).
+- **Track:** `audio files/Warm Windows, Open Minds.mp3` (the only promo music; no synthesized fallback).
 
 ---
 

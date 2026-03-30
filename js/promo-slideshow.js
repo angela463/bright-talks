@@ -1,5 +1,5 @@
 /**
- * Bright Talks homepage promo: local image slides + text overlays (optional MP3 or Web Audio pad).
+ * Bright Talks homepage promo: local image slides + text overlays (MP3 only).
  */
 (function () {
   'use strict';
@@ -72,8 +72,6 @@
   var musicMuted = false;
   var slideTimer = null;
   var bgAudio = null;
-  var padStop = null;
-  var audioCtx = null;
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fadeMs = prefersReducedMotion ? 180 : 900;
@@ -155,89 +153,39 @@
     }
   }
 
-  function stopPad() {
-    if (typeof padStop === 'function') {
-      padStop();
-      padStop = null;
-    }
-    if (audioCtx && audioCtx.state !== 'closed') {
-      try {
-        audioCtx.suspend();
-      } catch (e) {}
-    }
-  }
-
-  function stopMusic() {
+  /** Pause the promo track without unloading (so Play resumes your file, not a fallback). */
+  function pauseMusic() {
     if (bgAudio) {
       bgAudio.pause();
-      bgAudio.src = '';
-      bgAudio = null;
     }
-    stopPad();
   }
 
-  function startWebPad() {
-    if (padStop || musicMuted) return;
-    try {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      var o1 = audioCtx.createOscillator();
-      var o2 = audioCtx.createOscillator();
-      var o3 = audioCtx.createOscillator();
-      var g = audioCtx.createGain();
-      var filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 720;
-      o1.type = 'sine';
-      o2.type = 'sine';
-      o3.type = 'sine';
-      o1.frequency.value = 196;
-      o2.frequency.value = 246.94;
-      o3.frequency.value = 293.66;
-      g.gain.value = 0.018;
-      o1.connect(filter);
-      o2.connect(filter);
-      o3.connect(filter);
-      filter.connect(g);
-      g.connect(audioCtx.destination);
-      o1.start();
-      o2.start();
-      o3.start();
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().catch(function () {});
-      }
-      padStop = function () {
-        try {
-          o1.stop();
-          o2.stop();
-          o3.stop();
-        } catch (e) {}
-        try {
-          g.disconnect();
-          filter.disconnect();
-        } catch (e) {}
-      };
-    } catch (e) {
-      padStop = null;
+  /** Stop and unload audio (replay, or full reset). */
+  function releaseMusic() {
+    if (bgAudio) {
+      bgAudio.pause();
+      try {
+        bgAudio.src = '';
+      } catch (e) {}
+      bgAudio = null;
     }
   }
 
   function startMusic() {
-    stopMusic();
+    if (bgAudio) {
+      bgAudio.loop = true;
+      bgAudio.volume = musicMuted ? 0 : 0.32;
+      bgAudio.muted = musicMuted;
+      var pr = bgAudio.play();
+      if (pr && pr.catch) pr.catch(function () {});
+      return;
+    }
     bgAudio = new Audio(PROMO_AUDIO_SRC);
     bgAudio.loop = true;
     bgAudio.volume = musicMuted ? 0 : 0.32;
     bgAudio.muted = musicMuted;
-    function usePad() {
-      bgAudio = null;
-      if (!musicMuted) startWebPad();
-    }
-    bgAudio.addEventListener('error', usePad, { once: true });
     var p = bgAudio.play();
-    if (p && p.catch) {
-      p.catch(function () {
-        usePad();
-      });
-    }
+    if (p && p.catch) p.catch(function () {});
   }
 
   function advance() {
@@ -270,7 +218,7 @@
     playing = false;
     clearSlideTimer();
     if (!atEnd) {
-      stopMusic();
+      pauseMusic();
     }
     if (btnPlay) btnPlay.hidden = false;
     if (btnPause) btnPause.hidden = true;
@@ -280,13 +228,11 @@
     if (i === idx) return;
     var wasPlaying = playing;
     clearSlideTimer();
-    if (wasPlaying) stopMusic();
     applyScene(i, false);
     if (wasPlaying) {
       playing = true;
       if (btnPlay) btnPlay.hidden = true;
       if (btnPause) btnPause.hidden = false;
-      startMusic();
       scheduleAdvance();
     }
   }
@@ -310,7 +256,11 @@
   }
   if (btnReplay) {
     btnReplay.addEventListener('click', function () {
-      stopSequence(false);
+      clearSlideTimer();
+      playing = false;
+      releaseMusic();
+      if (btnPlay) btnPlay.hidden = false;
+      if (btnPause) btnPause.hidden = true;
       startSequence();
     });
   }
@@ -323,14 +273,10 @@
         bgAudio.muted = musicMuted;
         bgAudio.volume = musicMuted ? 0 : 0.32;
       }
-      if (musicMuted) {
-        stopPad();
-      } else if (playing) {
-        if (bgAudio) {
-          bgAudio.play().catch(function () {});
-        } else {
-          startWebPad();
-        }
+      if (playing && bgAudio) {
+        bgAudio.play().catch(function () {});
+      } else if (playing && !bgAudio && !musicMuted) {
+        startMusic();
       }
     });
     syncMuteIcons();
