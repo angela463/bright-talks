@@ -18,6 +18,8 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Growing Up with Confidence',
     ageGroup: 'Ages 6 to 8',
     description: 'Build healthy language around boundaries, body awareness, and trust through short, parent led lessons.',
+    moduleTotal: 7,
+    lessonTotal: 18,
     learningPoints: [
       'Words that match how school age kids think about fairness, friends, and rules',
       'Practices that reinforce body autonomy and “no means no” in kid sized ways',
@@ -67,6 +69,20 @@ window.BRIGHT_TALKS_COURSES = [
       'Conversation habits that keep the door open as teens prepare for adulthood'
     ],
     image: 'images/home-hero-yellow-2.jpg',
+    modules: []
+  },
+  {
+    id: 'ages-0-2',
+    title: 'Early Foundations for Families',
+    ageGroup: 'Ages 0 to 2',
+    description: 'Build calm routines for body safety, care, and early trust from the very beginning.',
+    learningPoints: [
+      'Simple language for body awareness in daily care moments',
+      'Early habits that support trust, connection, and secure attachment',
+      'Clear boundaries in caregiving spaces with warmth and consistency',
+      'Practical ways to model respect and safety from day one'
+    ],
+    image: 'images/home-hero-yellow-3.jpg',
     modules: []
   }
 ];

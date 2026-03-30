@@ -39,10 +39,12 @@
     function draw() {
       var items = getFiltered();
       root.innerHTML = items.map(function (c) {
-        var moduleCount = (c.modules || []).length;
-        var lessonCount = (c.modules || []).reduce(function (acc, m) {
+        var computedModuleCount = (c.modules || []).length;
+        var computedLessonCount = (c.modules || []).reduce(function (acc, m) {
           return acc + ((m.lessons || []).length || 0);
         }, 0);
+        var moduleCount = typeof c.moduleTotal === 'number' ? c.moduleTotal : computedModuleCount;
+        var lessonCount = typeof c.lessonTotal === 'number' ? c.lessonTotal : computedLessonCount;
         return (
           '<article class="course-card">' +
             '<div class="course-cover" style="background-image:url(\'' + safe(c.image) + '\')"></div>' +
