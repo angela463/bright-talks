@@ -7,47 +7,47 @@
   /* Instrumental track for the promo (path is URI-encoded for spaces / punctuation) */
   var PROMO_AUDIO_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
 
-  /* All paths are local to the site so slides work offline, file://, and without third-party CDNs */
+  /* Promo photography: images/promo/ (six assets, cycled across eight scenes) */
   var scenes = [
     {
       duration: 4000,
-      image: 'images/home-hero-yellow-3.jpg',
+      image: 'images/promo/promo-01-family-tent.png',
       text: 'Some conversations matter more than others.'
     },
     {
       duration: 4000,
-      image: 'images/home-hero-yellow-1.jpg',
+      image: 'images/promo/promo-02-family-bed.png',
       text: 'Kids are curious… and they’re learning from somewhere.'
     },
     {
       duration: 4000,
-      image: 'images/home-hero-yellow-2.jpg',
+      image: 'images/promo/promo-03-hiking.png',
       text: 'But many parents don’t know how to start.'
     },
     {
       duration: 4000,
-      image: 'images/home-hero-yellow-3.jpg',
+      image: 'images/promo/promo-04-classroom.png',
       text: 'What if those conversations started with you?'
     },
     {
       duration: 5000,
-      image: 'images/home-hero-yellow-2.jpg',
+      image: 'images/promo/promo-05-tablet-learning.png',
       text:
         'Bright Talks helps you guide age appropriate conversations about bodies, boundaries, and safety.'
     },
     {
       duration: 4000,
-      image: 'images/home-hero-yellow-1.jpg',
+      image: 'images/promo/promo-06-laptop-couch.png',
       text: 'Build trust. Create safety. Stay connected.'
     },
     {
       duration: 4000,
-      image: 'images/home-hero-yellow-3.jpg',
+      image: 'images/promo/promo-01-family-tent.png',
       text: 'So your child always has a safe place to ask.'
     },
     {
       duration: 5000,
-      image: 'images/home-hero-yellow-2.jpg',
+      image: 'images/promo/promo-02-family-bed.png',
       text: 'Bright Talks. Start the conversation at home.'
     }
   ];

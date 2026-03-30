@@ -21,20 +21,22 @@ Short promotional sequence: **visual slides only** (no voiceover), **looping ins
 
 ---
 
-## Suggested image types (implemented assets)
+## Promo images (implemented assets)
 
-| # | Suggested image type | Current implementation |
-|---|----------------------|-------------------------|
-| 1 | Warm family moment at home (connection, calm) | `images/home-hero-yellow-3.jpg` |
-| 2 | Soft, warm detail / calm visual | `images/home-hero-yellow-1.jpg` |
-| 3 | Calm home / learning space | `images/home-hero-yellow-2.jpg` |
-| 4 | Family warmth | `images/home-hero-yellow-3.jpg` |
-| 5 | Home + learning | `images/home-hero-yellow-2.jpg` |
-| 6 | Warm natural tone | `images/home-hero-yellow-1.jpg` |
-| 7 | Family connection | `images/home-hero-yellow-3.jpg` |
-| 8 | Closing / home | `images/home-hero-yellow-2.jpg` |
+Files live in `images/promo/` (PNG). Scene order in `js/promo-slideshow.js`:
 
-Slides use **local files only** (no external image CDN) so the promo works offline and when opening the site from disk. Swap paths in `js/promo-slideshow.js` or add new assets under `images/` when you have custom photography.
+| # | Scene | File |
+|---|--------|------|
+| 1 | Opening | `promo-01-family-tent.png` |
+| 2 | Child curiosity | `promo-02-family-bed.png` |
+| 3 | Parent tension / path | `promo-03-hiking.png` |
+| 4 | Reframe / learning | `promo-04-classroom.png` |
+| 5 | Solution | `promo-05-tablet-learning.png` |
+| 6 | Benefit | `promo-06-laptop-couch.png` |
+| 7 | Emotional outcome | `promo-01-family-tent.png` (repeat) |
+| 8 | Closing CTA | `promo-02-family-bed.png` (repeat) |
+
+Slides use **local files only** (no external image CDN) so the promo works offline and when opening the site from disk.
 
 ---
 
