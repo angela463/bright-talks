@@ -1,10 +1,10 @@
 /**
- * Bright Talks homepage promo: image slides, text overlays, optional MP3 or Web Audio pad.
+ * Bright Talks homepage promo: local image slides + text overlays (optional MP3 or Web Audio pad).
  */
 (function () {
   'use strict';
 
-  var U = 'https://images.unsplash.com';
+  /* All paths are local to the site so slides work offline, file://, and without third-party CDNs */
   var scenes = [
     {
       duration: 4000,
@@ -13,17 +13,17 @@
     },
     {
       duration: 4000,
-      image: U + '/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1920&q=82',
+      image: 'images/home-hero-yellow-1.jpg',
       text: 'Kids are curious… and they’re learning from somewhere.'
     },
     {
       duration: 4000,
-      image: U + '/photo-1604881991720-f57add518bed?auto=format&fit=crop&w=1920&q=82',
+      image: 'images/home-hero-yellow-2.jpg',
       text: 'But many parents don’t know how to start.'
     },
     {
       duration: 4000,
-      image: U + '/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1920&q=82',
+      image: 'images/home-hero-yellow-3.jpg',
       text: 'What if those conversations started with you?'
     },
     {
@@ -34,17 +34,17 @@
     },
     {
       duration: 4000,
-      image: U + '/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1920&q=82',
+      image: 'images/home-hero-yellow-1.jpg',
       text: 'Build trust. Create safety. Stay connected.'
     },
     {
       duration: 4000,
-      image: U + '/photo-1609220258503-2e9e5e29e1d5?auto=format&fit=crop&w=1920&q=82',
+      image: 'images/home-hero-yellow-3.jpg',
       text: 'So your child always has a safe place to ask.'
     },
     {
       duration: 5000,
-      image: U + '/photo-1542037104757-49f0a0fae2fd?auto=format&fit=crop&w=1920&q=82',
+      image: 'images/home-hero-yellow-2.jpg',
       text: 'Bright Talks — Start the conversation at home.'
     }
   ];
@@ -78,8 +78,13 @@
     if (statusEl) statusEl.textContent = t;
   }
 
-  function imgUrl(path) {
-    return 'url("' + path.replace(/"/g, '\\"') + '")';
+  function setLayerImage(layerEl, path) {
+    var img = layerEl.querySelector('.promo-bg__img');
+    if (img) {
+      img.src = path;
+    } else {
+      layerEl.style.backgroundImage = 'url("' + path.replace(/"/g, '\\"') + '")';
+    }
   }
 
   function renderDots() {
@@ -111,7 +116,7 @@
     if (forceReset) prevIdx = -1;
     if (!forceReset && i === prevIdx) return;
     if (prevIdx < 0) {
-      layerEls[0].style.backgroundImage = imgUrl(scenes[i].image);
+      setLayerImage(layerEls[0], scenes[i].image);
       layerEls[0].classList.add('is-visible');
       layerEls[1].classList.remove('is-visible');
       activeLayer = 0;
@@ -121,7 +126,7 @@
     var next = 1 - activeLayer;
     var el = layerEls[next];
     var prev = layerEls[activeLayer];
-    el.style.backgroundImage = imgUrl(scenes[i].image);
+    setLayerImage(el, scenes[i].image);
     el.classList.add('is-visible');
     prev.classList.remove('is-visible');
     activeLayer = next;
@@ -322,5 +327,5 @@
   document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
 
   applyScene(0, true);
-  setStatus('Press play for slides and soft music (add audio/promo-ambient.mp3 for richer sound).');
+  setStatus('Press play for slides and soft music (add audio/promo-ambient.mp3 when you have a track).');
 })();

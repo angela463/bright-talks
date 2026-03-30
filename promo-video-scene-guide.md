@@ -25,16 +25,16 @@ Short promotional sequence: **visual slides only** (no voiceover), **soft instru
 
 | # | Suggested image type | Current implementation |
 |---|----------------------|-------------------------|
-| 1 | Warm family moment at home (connection, calm) | Local: `images/home-hero-yellow-3.jpg` |
-| 2 | Child playing / exploring (curiosity) | Unsplash (diverse, natural light) |
-| 3 | Parent + child learning together (homework, table) | Unsplash |
-| 4 | Tender parent–infant moment (bonding) | Unsplash |
-| 5 | Calm home, laptop / learning space | Local: `images/home-hero-yellow-2.jpg` |
-| 6 | Parent and child together (trust) | Unsplash |
-| 7 | Parent–child closeness (safety, listening) | Unsplash |
-| 8 | Family / home warmth (closing, hopeful) | Unsplash |
+| 1 | Warm family moment at home (connection, calm) | `images/home-hero-yellow-3.jpg` |
+| 2 | Soft, warm detail / calm visual | `images/home-hero-yellow-1.jpg` |
+| 3 | Calm home / learning space | `images/home-hero-yellow-2.jpg` |
+| 4 | Family warmth | `images/home-hero-yellow-3.jpg` |
+| 5 | Home + learning | `images/home-hero-yellow-2.jpg` |
+| 6 | Warm natural tone | `images/home-hero-yellow-1.jpg` |
+| 7 | Family connection | `images/home-hero-yellow-3.jpg` |
+| 8 | Closing / home | `images/home-hero-yellow-2.jpg` |
 
-Replace any Unsplash URL in `js/promo-slideshow.js` with your own licensed photography when ready. Unsplash photos are subject to the [Unsplash License](https://unsplash.com/license).
+Slides use **local files only** (no external image CDN) so the promo works offline and when opening the site from disk. Swap paths in `js/promo-slideshow.js` or add new assets under `images/` when you have custom photography.
 
 ---
 

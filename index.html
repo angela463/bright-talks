@@ -7,7 +7,7 @@
   <title>Bright Talks | Parent led conversations at home</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="https://images.unsplash.com" />
+  <link rel="preload" href="images/home-hero-yellow-3.jpg" as="image" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -64,12 +64,24 @@
         <div class="promo-video" id="promo-root">
           <div class="promo-stage" aria-live="polite">
             <div class="promo-bg" aria-hidden="true">
-              <div class="promo-bg__layer is-visible" data-promo-layer="0"></div>
-              <div class="promo-bg__layer" data-promo-layer="1"></div>
+              <div class="promo-bg__layer is-visible" data-promo-layer="0">
+                <img
+                  class="promo-bg__img"
+                  src="images/home-hero-yellow-3.jpg"
+                  alt=""
+                  width="1920"
+                  height="1080"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </div>
+              <div class="promo-bg__layer" data-promo-layer="1">
+                <img class="promo-bg__img" src="images/home-hero-yellow-1.jpg" alt="" width="1920" height="1080" decoding="async" />
+              </div>
               <div class="promo-bg__scrim"></div>
             </div>
             <p class="promo-caption">
-              <span class="promo-caption__text" data-promo-caption></span>
+              <span class="promo-caption__text is-entering" data-promo-caption="true">Some conversations matter more than others.</span>
             </p>
           </div>
           <div class="promo-toolbar" role="group" aria-label="Promo playback">
