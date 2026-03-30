@@ -1,6 +1,6 @@
 # Bright Talks — homepage promo slideshow (scene guide)
 
-Short promotional sequence: **visual slides only** (no voiceover), **soft instrumental music**, **crossfade** between images, **1–2 lines** of text per slide. Total runtime ≈ **34 seconds** of slide time plus transition overlap.
+Short promotional sequence: **visual slides only** (no voiceover), **looping instrumental music** (“Warm Windows, Open Minds”), **crossfade** between images, **1–2 lines** of text per slide. Slides **autoplay** on load; **Pause / Replay / Mute** remain. Total runtime ≈ **34 seconds** of slide time plus transition overlap.
 
 ---
 

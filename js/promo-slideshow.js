@@ -58,11 +58,9 @@
   var layerEls = root.querySelectorAll('[data-promo-layer]');
   var captionEl = root.querySelector('[data-promo-caption]');
   var progressEl = root.querySelector('[data-promo-progress]');
-  var btnPlay = root.querySelector('[data-promo-play]');
   var btnPause = root.querySelector('[data-promo-pause]');
   var btnReplay = root.querySelector('[data-promo-replay]');
   var btnMute = root.querySelector('[data-promo-mute]');
-  var statusEl = root.querySelector('[data-promo-status]');
 
   var idx = 0;
   var prevIdx = -1;
@@ -76,10 +74,6 @@
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fadeMs = prefersReducedMotion ? 180 : 900;
-
-  function setStatus(t) {
-    if (statusEl) statusEl.textContent = t;
-  }
 
   function setLayerImage(layerEl, path) {
     var img = layerEl.querySelector('.promo-bg__img');
@@ -236,7 +230,28 @@
     }
     bgAudio.addEventListener('error', usePad, { once: true });
     var p = bgAudio.play();
-    if (p && p.catch) p.catch(usePad);
+    if (p && p.catch) {
+      p.catch(function () {
+        usePad();
+      });
+    }
+  }
+
+  /** Browsers often block audio until a gesture; first tap/key resumes track or pad */
+  function wireAudioUnlock() {
+    var done = false;
+    function unlock() {
+      if (done) return;
+      done = true;
+      if (bgAudio && bgAudio.paused) {
+        bgAudio.play().catch(function () {});
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(function () {});
+      }
+    }
+    document.addEventListener('pointerdown', unlock, { once: true, passive: true });
+    document.addEventListener('keydown', unlock, { once: true });
   }
 
   function advance() {
@@ -258,9 +273,7 @@
   function startSequence() {
     clearSlideTimer();
     playing = true;
-    if (btnPlay) btnPlay.hidden = true;
     if (btnPause) btnPause.hidden = false;
-    setStatus('Playing');
     applyScene(0, true);
     startMusic();
     scheduleAdvance();
@@ -269,10 +282,10 @@
   function stopSequence(atEnd) {
     playing = false;
     clearSlideTimer();
-    stopMusic();
-    if (btnPlay) btnPlay.hidden = false;
+    if (!atEnd) {
+      stopMusic();
+    }
     if (btnPause) btnPause.hidden = true;
-    setStatus(atEnd ? 'Finished. Replay anytime.' : 'Paused');
   }
 
   function jumpTo(i) {
@@ -283,18 +296,12 @@
     applyScene(i, false);
     if (wasPlaying) {
       playing = true;
-      if (btnPlay) btnPlay.hidden = true;
       if (btnPause) btnPause.hidden = false;
       startMusic();
       scheduleAdvance();
     }
   }
 
-  if (btnPlay) {
-    btnPlay.addEventListener('click', function () {
-      startSequence();
-    });
-  }
   if (btnPause) {
     btnPause.addEventListener('click', function () {
       stopSequence(false);
@@ -329,6 +336,6 @@
 
   document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
 
-  applyScene(0, true);
-  setStatus('Press play for slides and music (Warm Windows, Open Minds).');
+  wireAudioUnlock();
+  startSequence();
 })();

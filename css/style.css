@@ -1651,13 +1651,6 @@ a:hover {
   border-color: var(--orange-dark);
 }
 
-.promo-status {
-  margin: 0.85rem 0 0;
-  font-size: 0.82rem;
-  color: var(--slate-light);
-  text-align: center;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .promo-bg__layer {
     transition: opacity 0.15s ease;
