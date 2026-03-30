@@ -40,8 +40,8 @@ Slides use **local files only** (no external image CDN) so the promo works offli
 
 ## Audio
 
-- **Preferred:** add a soft instrumental loop as `audio/promo-ambient.mp3` (see `audio/README.txt`).
-- **Fallback:** if the file is missing, the page uses a very gentle built-in ambient pad (Web Audio) so music still plays after **Play** (requires a user click for browser autoplay policies).
+- **Track:** `audio files/Warm Windows, Open Minds.mp3` (loaded by the promo slideshow).
+- **Fallback:** if that file is missing or blocked, the page uses a very gentle built-in ambient pad (Web Audio) after **Play** (browser autoplay rules still require a user click).
 
 ---
 

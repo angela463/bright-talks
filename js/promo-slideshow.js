@@ -4,6 +4,9 @@
 (function () {
   'use strict';
 
+  /* Instrumental track for the promo (path is URI-encoded for spaces / punctuation) */
+  var PROMO_AUDIO_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
+
   /* All paths are local to the site so slides work offline, file://, and without third-party CDNs */
   var scenes = [
     {
@@ -223,7 +226,7 @@
 
   function startMusic() {
     stopMusic();
-    bgAudio = new Audio('audio/promo-ambient.mp3');
+    bgAudio = new Audio(PROMO_AUDIO_SRC);
     bgAudio.loop = true;
     bgAudio.volume = musicMuted ? 0 : 0.32;
     bgAudio.muted = musicMuted;
@@ -327,5 +330,5 @@
   document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
 
   applyScene(0, true);
-  setStatus('Press play for slides and soft music (add audio/promo-ambient.mp3 when you have a track).');
+  setStatus('Press play for slides and music (Warm Windows, Open Minds).');
 })();

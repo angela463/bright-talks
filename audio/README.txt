@@ -1,11 +1,7 @@
-Bright Talks — optional background music for the homepage promo slideshow
+Bright Talks — homepage promo music
 
-Place a soft instrumental loop here as:
+The slideshow uses this file (referenced in js/promo-slideshow.js):
 
-  promo-ambient.mp3
+  audio files/Warm Windows, Open Minds.mp3
 
-Suggested sources (review licenses before use):
-  • Mixkit — https://mixkit.co/free-stock-music/
-  • Pixabay — https://pixabay.com/music/
-
-The site will fall back to a gentle synthesized pad if this file is not present.
+Keep that path and filename if you replace the track, or update PROMO_AUDIO_SRC in js/promo-slideshow.js.
