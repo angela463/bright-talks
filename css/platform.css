@@ -66,7 +66,45 @@ body {
   color: var(--text-muted);
 }
 
-/* Course detail: calm overview (age as small label; soft headline; scannable bullets) */
+/* Course detail: premium hero over photography with protected reading panel */
+.course-detail-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(430px, 56vw, 560px);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1.2rem, 2vw, 1.6rem);
+  background:
+    linear-gradient(90deg, rgba(23, 20, 18, 0.78) 0%, rgba(23, 20, 18, 0.52) 42%, rgba(23, 20, 18, 0.16) 72%, rgba(23, 20, 18, 0.08) 100%),
+    linear-gradient(0deg, rgba(18, 16, 15, 0.2), rgba(18, 16, 15, 0.2)),
+    url('../images/course-detail-chalk-art.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.course-detail-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(15, 14, 13, 0.12) 0%, rgba(15, 14, 13, 0.42) 100%);
+  pointer-events: none;
+}
+
+.course-detail-hero-panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 44rem);
+  padding: clamp(1.15rem, 3vw, 1.8rem);
+  border-radius: 24px;
+  background: rgba(252, 248, 242, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  box-shadow: 0 18px 44px rgba(15, 14, 13, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
 .course-detail-hero .course-detail-eyebrow {
   margin: 0 0 0.5rem;
   font-size: 0.72rem;
@@ -114,8 +152,8 @@ body {
   margin: 0;
   padding: 1rem 1.05rem 1.05rem;
   border-radius: var(--radius-md);
-  background: var(--surface-soft);
-  border: 1px solid rgba(232, 225, 217, 0.9);
+  background: rgba(255, 252, 247, 0.82);
+  border: 1px solid rgba(232, 225, 217, 0.72);
   text-align: left;
 }
 
@@ -665,6 +703,10 @@ body {
   .lesson-card-art {
     min-height: 110px;
   }
+
+  .course-detail-hero {
+    background-position: center;
+  }
 }
 
 @media (max-width: 640px) {
@@ -672,6 +714,21 @@ body {
   .trust-grid,
   .paths-grid {
     grid-template-columns: 1fr;
+  }
+
+  .course-detail-hero {
+    min-height: 420px;
+    align-items: flex-end;
+    background:
+      linear-gradient(180deg, rgba(23, 20, 18, 0.42) 0%, rgba(23, 20, 18, 0.68) 100%),
+      url('../images/course-detail-chalk-art.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .course-detail-hero-panel {
+    width: 100%;
+    padding: 1rem;
   }
 
   .module-detail-meta {
