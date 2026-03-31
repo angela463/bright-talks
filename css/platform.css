@@ -76,8 +76,8 @@ body {
   justify-content: flex-end;
   padding: clamp(1.35rem, 2.4vw, 2rem);
   background:
-    linear-gradient(115deg, rgba(17, 15, 13, 0.74) 0%, rgba(17, 15, 13, 0.48) 36%, rgba(17, 15, 13, 0.16) 66%, rgba(17, 15, 13, 0.08) 100%),
-    linear-gradient(0deg, rgba(18, 16, 15, 0.26), rgba(18, 16, 15, 0.26)),
+    linear-gradient(115deg, rgba(17, 15, 13, 0.2) 0%, rgba(17, 15, 13, 0.08) 36%, rgba(17, 15, 13, 0.02) 66%, rgba(17, 15, 13, 0) 100%),
+    linear-gradient(0deg, rgba(18, 16, 15, 0.04), rgba(18, 16, 15, 0.04)),
     url('../images/course-detail-chalk-art.png');
   background-size: cover;
   background-position: center;
@@ -89,8 +89,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.1), transparent 26%),
-    linear-gradient(180deg, rgba(15, 14, 13, 0.08) 0%, rgba(15, 14, 13, 0.28) 52%, rgba(15, 14, 13, 0.46) 100%);
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(15, 14, 13, 0.05) 52%, rgba(15, 14, 13, 0.12) 100%);
   pointer-events: none;
 }
 
@@ -784,7 +784,7 @@ body {
     align-items: flex-end;
     justify-content: stretch;
     background:
-      linear-gradient(180deg, rgba(23, 20, 18, 0.32) 0%, rgba(23, 20, 18, 0.7) 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(23, 20, 18, 0.16) 100%),
       url('../images/course-detail-chalk-art.png');
     background-size: cover;
     background-position: center;
