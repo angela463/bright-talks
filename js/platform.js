@@ -104,6 +104,21 @@
     return typeof lesson === 'string' ? lesson : (lesson && lesson.title) || '';
   }
 
+  function countUnlockedLessons(lessons) {
+    return (lessons || []).reduce(function (acc, lesson) {
+      return acc + ((typeof lesson === 'object' && lesson && lesson.unlocked === true) ? 1 : 0);
+    }, 0);
+  }
+
+  function totalLessonMinutes(lessons) {
+    return (lessons || []).reduce(function (acc, lesson) {
+      if (typeof lesson === 'object' && lesson && lesson.durationMinutes) {
+        return acc + lesson.durationMinutes;
+      }
+      return acc + 8;
+    }, 0);
+  }
+
   function renderModuleDetail() {
     var root = byId('lesson-list-root');
     if (!root) return;
@@ -118,20 +133,60 @@
 
     var t = byId('module-detail-title');
     var intro = byId('module-detail-description');
+    var courseChip = byId('module-course-chip');
+    var ageChip = byId('module-age-chip');
+    var courseLink = byId('module-course-link');
+    var meta = byId('module-detail-meta');
+    var previewList = byId('module-preview-list');
+    var safeModuleIdx = Math.max(0, modules.indexOf(module));
+    var lessons = module.lessons || [];
+    var unlockedCount = countUnlockedLessons(lessons);
+    var totalMinutes = totalLessonMinutes(lessons);
+
     if (t) t.textContent = module.title || 'Module';
     if (intro) intro.textContent = 'Short, practical lessons designed to help you learn and apply with confidence.';
+    if (courseChip) courseChip.textContent = course.title || 'Course';
+    if (ageChip) ageChip.textContent = course.ageGroup || 'Ages';
+    if (courseLink) {
+      courseLink.href = 'course-detail.html?course=' + encodeURIComponent(course.id);
+      courseLink.textContent = course.title || 'Course Modules';
+    }
+    if (meta) {
+      meta.innerHTML =
+        '<div class="module-stat"><span class="module-stat-label">Position</span><strong>Module ' + (safeModuleIdx + 1) + ' of ' + modules.length + '</strong></div>' +
+        '<div class="module-stat"><span class="module-stat-label">Lessons</span><strong>' + lessons.length + ' total</strong></div>' +
+        '<div class="module-stat"><span class="module-stat-label">Available now</span><strong>' + unlockedCount + ' unlocked</strong></div>' +
+        '<div class="module-stat"><span class="module-stat-label">Estimated time</span><strong>~' + totalMinutes + ' min</strong></div>';
+    }
+    if (previewList) {
+      previewList.innerHTML = lessons.slice(0, 3).map(function (lesson, idx) {
+        var unlocked = typeof lesson === 'object' && lesson && lesson.unlocked === true;
+        return (
+          '<article class="module-preview-item">' +
+            '<span class="module-preview-index">0' + (idx + 1) + '</span>' +
+            '<div class="module-preview-copy">' +
+              '<h3>' + safe(lessonTitle(lesson)) + '</h3>' +
+              '<p>' + safe(unlocked ? 'Ready to start now' : 'Included in the full pathway') + '</p>' +
+            '</div>' +
+          '</article>'
+        );
+      }).join('');
+    }
 
-    var lessons = module.lessons || [];
     root.innerHTML = lessons.map(function (l, idx) {
       var unlocked = typeof l === 'object' && l && l.unlocked === true;
       var dur = (typeof l === 'object' && l && l.durationMinutes) ? ('~' + l.durationMinutes + ' min') : '~8 min';
+      var summary = unlocked ? 'Includes a short video, a quick parent takeaway, and clear next-step guidance.' : 'Part of the complete module sequence, available inside the full course library.';
       return (
         '<article class="lesson-card">' +
-          '<div class="lesson-top"><span class="lesson-index">L' + (idx + 1) + '</span><span class="tag ' + (unlocked ? '' : 'locked') + '">' + (unlocked ? 'Unlocked' : 'Locked') + '</span></div>' +
-          '<h3>' + safe(lessonTitle(l)) + '</h3>' +
-          '<p>' + safe(unlocked ? 'Includes short video + practical parent notes.' : 'Available in the full course library.') + '</p>' +
-          '<div class="lesson-meta"><span class="tag">' + safe(dur) + '</span></div>' +
-          '<a class="btn btn-primary" href="courses.html">' + (unlocked ? 'Start lesson' : 'View lesson') + '</a>' +
+          '<div class="lesson-card-art" aria-hidden="true"><span class="lesson-index">Lesson ' + (idx + 1) + '</span></div>' +
+          '<div class="lesson-card-body">' +
+            '<div class="lesson-top"><span class="tag">' + safe(dur) + '</span><span class="tag ' + (unlocked ? 'tag-live' : 'locked') + '">' + (unlocked ? 'Available now' : 'Locked') + '</span></div>' +
+            '<h3>' + safe(lessonTitle(l)) + '</h3>' +
+            '<p>' + safe(summary) + '</p>' +
+            '<div class="lesson-meta"><span class="lesson-sequence">Part ' + (idx + 1) + ' of ' + lessons.length + '</span></div>' +
+            '<a class="btn btn-primary" href="courses.html">' + (unlocked ? 'Start lesson' : 'Preview lesson') + '</a>' +
+          '</div>' +
         '</article>'
       );
     }).join('');
