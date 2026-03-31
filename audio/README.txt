@@ -1,7 +1,8 @@
-Bright Talks homepage promo music
+Bright Talks homepage promo audio
 
-The slideshow uses this file (referenced in js/promo-slideshow.js):
+The slideshow uses these files (referenced in `js/promo-slideshow.js`):
 
   audio files/Warm Windows, Open Minds.mp3
+  audio/Recording.m4a
 
-Keep that path and filename if you replace the track, or update PROMO_AUDIO_SRC in js/promo-slideshow.js.
+If you replace either track, keep the same path and filename or update the matching constants in `js/promo-slideshow.js`.

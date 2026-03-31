@@ -1,11 +1,12 @@
 /**
- * Bright Talks homepage promo: local image slides + text overlays (MP3 only).
+ * Bright Talks homepage promo: local image slides + layered music + voiceover.
  */
 (function () {
   'use strict';
 
-  /* Instrumental track for the promo (path is URI-encoded for spaces / punctuation) */
-  var PROMO_AUDIO_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
+  /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
+  var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
+  var PROMO_VOICEOVER_SRC = encodeURI('audio/Recording.m4a');
 
   /* Promo photography: images/promo/ (promo-06 laptop/couch removed; teen desk + family walk added) */
   var scenes = [
@@ -71,7 +72,8 @@
   var playing = false;
   var musicMuted = false;
   var slideTimer = null;
-  var bgAudio = null;
+  var bgMusic = null;
+  var voiceoverAudio = null;
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fadeMs = prefersReducedMotion ? 180 : 900;
@@ -153,39 +155,64 @@
     }
   }
 
-  /** Pause the promo track without unloading (so Play resumes your file, not a fallback). */
-  function pauseMusic() {
-    if (bgAudio) {
-      bgAudio.pause();
+  /** Pause the promo audio without unloading so Play resumes in-place. */
+  function pauseAudio() {
+    if (bgMusic) {
+      bgMusic.pause();
+    }
+    if (voiceoverAudio) {
+      voiceoverAudio.pause();
     }
   }
 
-  /** Stop and unload audio (replay, or full reset). */
-  function releaseMusic() {
-    if (bgAudio) {
-      bgAudio.pause();
+  /** Stop and unload promo audio (replay, or full reset). */
+  function releaseAudio() {
+    if (bgMusic) {
+      bgMusic.pause();
       try {
-        bgAudio.src = '';
+        bgMusic.src = '';
       } catch (e) {}
-      bgAudio = null;
+      bgMusic = null;
+    }
+    if (voiceoverAudio) {
+      voiceoverAudio.pause();
+      try {
+        voiceoverAudio.src = '';
+      } catch (e2) {}
+      voiceoverAudio = null;
     }
   }
 
-  function startMusic() {
-    if (bgAudio) {
-      bgAudio.loop = true;
-      bgAudio.volume = musicMuted ? 0 : 0.32;
-      bgAudio.muted = musicMuted;
-      var pr = bgAudio.play();
+  function startAudio() {
+    if (bgMusic) {
+      bgMusic.loop = true;
+      bgMusic.volume = musicMuted ? 0 : 0.18;
+      bgMusic.muted = musicMuted;
+      var pr = bgMusic.play();
       if (pr && pr.catch) pr.catch(function () {});
+    } else {
+      bgMusic = new Audio(PROMO_MUSIC_SRC);
+      bgMusic.loop = true;
+      bgMusic.volume = musicMuted ? 0 : 0.18;
+      bgMusic.muted = musicMuted;
+      var p = bgMusic.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+
+    if (voiceoverAudio) {
+      voiceoverAudio.volume = musicMuted ? 0 : 1;
+      voiceoverAudio.muted = musicMuted;
+      var vr = voiceoverAudio.play();
+      if (vr && vr.catch) vr.catch(function () {});
       return;
     }
-    bgAudio = new Audio(PROMO_AUDIO_SRC);
-    bgAudio.loop = true;
-    bgAudio.volume = musicMuted ? 0 : 0.32;
-    bgAudio.muted = musicMuted;
-    var p = bgAudio.play();
-    if (p && p.catch) p.catch(function () {});
+
+    voiceoverAudio = new Audio(PROMO_VOICEOVER_SRC);
+    voiceoverAudio.loop = false;
+    voiceoverAudio.volume = musicMuted ? 0 : 1;
+    voiceoverAudio.muted = musicMuted;
+    var vp = voiceoverAudio.play();
+    if (vp && vp.catch) vp.catch(function () {});
   }
 
   function advance() {
@@ -210,7 +237,7 @@
     if (btnPlay) btnPlay.hidden = true;
     if (btnPause) btnPause.hidden = false;
     applyScene(0, true);
-    startMusic();
+    startAudio();
     scheduleAdvance();
   }
 
@@ -218,7 +245,7 @@
     playing = false;
     clearSlideTimer();
     if (!atEnd) {
-      pauseMusic();
+      pauseAudio();
     }
     if (btnPlay) btnPlay.hidden = false;
     if (btnPause) btnPause.hidden = true;
@@ -258,7 +285,7 @@
     btnReplay.addEventListener('click', function () {
       clearSlideTimer();
       playing = false;
-      releaseMusic();
+      releaseAudio();
       if (btnPlay) btnPlay.hidden = false;
       if (btnPause) btnPause.hidden = true;
       startSequence();
@@ -269,14 +296,19 @@
       musicMuted = !musicMuted;
       btnMute.setAttribute('aria-pressed', musicMuted ? 'true' : 'false');
       syncMuteIcons();
-      if (bgAudio) {
-        bgAudio.muted = musicMuted;
-        bgAudio.volume = musicMuted ? 0 : 0.32;
+      if (bgMusic) {
+        bgMusic.muted = musicMuted;
+        bgMusic.volume = musicMuted ? 0 : 0.18;
       }
-      if (playing && bgAudio) {
-        bgAudio.play().catch(function () {});
-      } else if (playing && !bgAudio && !musicMuted) {
-        startMusic();
+      if (voiceoverAudio) {
+        voiceoverAudio.muted = musicMuted;
+        voiceoverAudio.volume = musicMuted ? 0 : 1;
+      }
+      if (playing && (bgMusic || voiceoverAudio)) {
+        if (bgMusic) bgMusic.play().catch(function () {});
+        if (voiceoverAudio) voiceoverAudio.play().catch(function () {});
+      } else if (playing && (!bgMusic || !voiceoverAudio) && !musicMuted) {
+        startAudio();
       }
     });
     syncMuteIcons();
