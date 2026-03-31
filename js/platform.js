@@ -119,6 +119,20 @@
     }, 0);
   }
 
+  function lessonArtwork(idx) {
+    var art = [
+      'images/pexels-max-fischer-5212331.jpg',
+      'images/pexels-emma-bauso-1183828-2253879.jpg',
+      'images/pexels-julia-m-cameron-4144531.jpg',
+      'images/pexels-antonius-ferret-5274618.jpg',
+      'images/pexels-karola-g-5478103.jpg',
+      'images/pexels-julia-m-cameron-4144230.jpg',
+      'images/pexels-bohlemedia-963713.jpg',
+      'images/pexels-olgalioncat-7245594.jpg'
+    ];
+    return art[idx % art.length];
+  }
+
   function renderModuleDetail() {
     var root = byId('lesson-list-root');
     if (!root) return;
@@ -176,16 +190,21 @@
     root.innerHTML = lessons.map(function (l, idx) {
       var unlocked = typeof l === 'object' && l && l.unlocked === true;
       var dur = (typeof l === 'object' && l && l.durationMinutes) ? ('~' + l.durationMinutes + ' min') : '~8 min';
-      var summary = unlocked ? 'Includes a short video, a quick parent takeaway, and clear next-step guidance.' : 'Part of the complete module sequence, available inside the full course library.';
+      var creator = unlocked ? 'with Bright Talks guided audio' : 'with Bright Talks library access';
+      var image = lessonArtwork(idx);
       return (
         '<article class="lesson-card">' +
-          '<div class="lesson-card-art" aria-hidden="true"><span class="lesson-index">Lesson ' + (idx + 1) + '</span></div>' +
+          '<a class="lesson-card-media" href="courses.html" aria-label="' + (unlocked ? 'Open audio for ' : 'Preview audio for ') + safe(lessonTitle(l)) + '">' +
+            '<div class="lesson-card-art" style="background-image:url(\'' + safe(image) + '\')">' +
+              '<span class="lesson-index">Lesson ' + (idx + 1) + '</span>' +
+              '<span class="lesson-play-button" aria-hidden="true"><span class="lesson-play-triangle"></span></span>' +
+            '</div>' +
+          '</a>' +
           '<div class="lesson-card-body">' +
-            '<div class="lesson-top"><span class="tag">' + safe(dur) + '</span><span class="tag ' + (unlocked ? 'tag-live' : 'locked') + '">' + (unlocked ? 'Available now' : 'Locked') + '</span></div>' +
+            '<div class="lesson-top"><span class="tag">' + safe(dur) + '</span><span class="tag ' + (unlocked ? 'tag-live' : 'locked') + '">' + (unlocked ? 'Audio ready' : 'Locked') + '</span></div>' +
             '<h3>' + safe(lessonTitle(l)) + '</h3>' +
-            '<p>' + safe(summary) + '</p>' +
+            '<p class="lesson-byline">' + safe(creator) + '</p>' +
             '<div class="lesson-meta"><span class="lesson-sequence">Part ' + (idx + 1) + ' of ' + lessons.length + '</span></div>' +
-            '<a class="btn btn-primary" href="courses.html">' + (unlocked ? 'Start lesson' : 'Preview lesson') + '</a>' +
           '</div>' +
         '</article>'
       );

@@ -593,17 +593,19 @@ body {
 }
 
 .module-page-shell .lesson-list {
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.05rem;
 }
 
 .module-page-shell .lesson-card {
-  display: grid;
-  grid-template-columns: minmax(140px, 190px) minmax(0, 1fr);
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   padding: 0;
   border: 1px solid rgba(232, 225, 217, 0.96);
   box-shadow: 0 16px 36px rgba(35, 30, 26, 0.08);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .module-page-shell .lesson-card:hover {
@@ -611,12 +613,19 @@ body {
   box-shadow: 0 20px 44px rgba(35, 30, 26, 0.11);
 }
 
+.lesson-card-media {
+  display: block;
+  text-decoration: none;
+}
+
 .lesson-card-art {
   position: relative;
-  min-height: 100%;
+  min-height: 220px;
   background:
-    linear-gradient(160deg, rgba(199, 131, 88, 0.9), rgba(183, 109, 63, 0.68)),
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.24), transparent 30%);
+    linear-gradient(180deg, rgba(17, 15, 14, 0.1), rgba(17, 15, 14, 0.28)),
+    var(--surface-soft);
+  background-size: cover;
+  background-position: center;
 }
 
 .lesson-card-art::before {
@@ -624,28 +633,59 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, transparent 0 35%, rgba(255, 255, 255, 0.1) 35% 38%, transparent 38% 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 45%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 38%, rgba(12, 10, 9, 0.3) 100%);
 }
 
 .module-page-shell .lesson-index {
   position: absolute;
-  left: 1rem;
-  bottom: 1rem;
+  left: 0.85rem;
+  top: 0.85rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 0.7rem;
+  padding: 0.32rem 0.58rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(16, 14, 13, 0.45);
   color: #fff5ee;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
 }
 
+.lesson-play-button {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 28px rgba(17, 15, 14, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.lesson-play-triangle {
+  width: 0;
+  height: 0;
+  margin-left: 0.2rem;
+  border-top: 0.6rem solid transparent;
+  border-bottom: 0.6rem solid transparent;
+  border-left: 0.95rem solid #a96842;
+}
+
+.lesson-card:hover .lesson-play-button,
+.lesson-card:focus-within .lesson-play-button {
+  transform: translate(-50%, -50%) scale(1.05);
+  background: #fff;
+}
+
 .lesson-card-body {
-  padding: 1.2rem 1.25rem;
+  padding: 1rem 1rem 1.15rem;
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 }
 
 .module-page-shell .lesson-top {
@@ -654,19 +694,21 @@ body {
 }
 
 .module-page-shell .lesson-card h3 {
-  margin: 0.7rem 0 0.45rem;
-  font-size: clamp(1.05rem, 2vw, 1.22rem);
-  line-height: 1.3;
+  margin: 0.55rem 0 0.2rem;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.35;
 }
 
-.module-page-shell .lesson-card p {
-  font-size: 0.95rem;
-  line-height: 1.55;
+.module-page-shell .lesson-byline {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 .module-page-shell .lesson-meta {
-  margin-top: 0.9rem;
-  margin-bottom: 0.2rem;
+  margin-top: 0.45rem;
+  margin-bottom: 0;
 }
 
 .lesson-sequence {
@@ -696,12 +738,16 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .module-page-shell .lesson-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .module-page-shell .lesson-card {
-    grid-template-columns: 1fr;
+    min-height: 100%;
   }
 
   .lesson-card-art {
-    min-height: 110px;
+    min-height: 200px;
   }
 
   .course-detail-hero {
@@ -713,6 +759,10 @@ body {
   .course-grid,
   .trust-grid,
   .paths-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .module-page-shell .lesson-list {
     grid-template-columns: 1fr;
   }
 
@@ -737,6 +787,10 @@ body {
 
   .lesson-card-body {
     padding: 1rem;
+  }
+
+  .lesson-card-art {
+    min-height: 210px;
   }
 }
 
