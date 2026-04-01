@@ -1207,7 +1207,6 @@ a:hover {
 }
 
 .waitlist .waitlist-form,
-.waitlist .waitlist-embed-wrap,
 .waitlist .form-note,
 .waitlist .section-kicker,
 .waitlist .waitlist-back-to-top {
@@ -1232,36 +1231,6 @@ a:hover {
 .waitlist-form {
   max-width: 420px;
   margin: 1.5rem auto 0;
-}
-
-.waitlist-embed-wrap {
-  position: relative;
-  max-width: 800px;
-  margin: 1.75rem auto 0;
-  padding: 0.65rem;
-  border-radius: 24px;
-  background:
-    linear-gradient(180deg, rgba(246, 202, 72, 0.38), rgba(224, 164, 35, 0.24)),
-    rgba(255, 232, 153, 0.16);
-  border: 1px solid rgba(244, 194, 82, 0.46);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  overflow: hidden;
-}
-
-.waitlist-embed {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  min-height: 560px;
-  border: 0 !important;
-  border-radius: 18px;
-  background: rgba(239, 191, 73, 0.95) !important;
-  overflow: hidden;
-  margin-right: -14px;
-  width: calc(100% + 14px);
 }
 
 .waitlist-form-row {

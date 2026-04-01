@@ -229,19 +229,18 @@
         <p class="section-kicker section-kicker--inverse">Start when you’re ready</p>
         <h2 class="section-headline">Bring these conversations home, starting now</h2>
         <p class="section-text">You don’t have to figure it out alone. Explore the courses, choose a place to begin, and build the kind of openness that protects children through connection, not fear. Join the list for updates and early access.</p>
-        <div class="waitlist-embed-wrap">
-          <iframe
-            class="airtable-embed waitlist-embed"
-            src="https://airtable.com/embed/appGEoOGNyEywkeEA/pagzNpceOxvBfdFZw/form"
-            frameborder="0"
-            onmousewheel=""
-            width="100%"
-            height="560"
-            scrolling="no"
-            style="background: rgba(237, 183, 58, 0.92); border: 1px solid rgba(214, 146, 32, 0.34);"
-            title="Bright Talks sign up form"
-          ></iframe>
-        </div>
+        <form class="waitlist-form" action="#" method="post">
+          <div class="waitlist-form-row">
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your email" required />
+            <button type="submit" class="btn btn-primary">Join</button>
+          </div>
+          <label class="waitlist-privacy-label">
+            <input type="checkbox" name="privacy" id="privacy" value="1" required />
+            <span>I agree to the <a href="#privacy-policy">privacy policy</a> and want to receive updates from Bright Talks.</span>
+          </label>
+        </form>
+        <p class="form-note" id="form-message" aria-live="polite"></p>
         <a href="#top" class="footer-back waitlist-back-to-top">Return to Top</a>
       </div>
     </section>
