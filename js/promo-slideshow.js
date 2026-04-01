@@ -6,7 +6,7 @@
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
-  var PROMO_VOICEOVER_SRC = encodeURI('audio/Recording.m4a');
+  var PROMO_VOICEOVER_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
 
   /* Promo photography: images/promo/ (promo-06 laptop/couch removed; teen desk + family walk added) */
   var scenes = [
