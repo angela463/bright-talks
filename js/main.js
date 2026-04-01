@@ -121,6 +121,7 @@
     var form = document.querySelector('.waitlist-form');
     var messageEl = document.getElementById('form-message');
     if (!form || !messageEl) return;
+    var airtableUrl = form.getAttribute('data-airtable-url') || form.getAttribute('action');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -136,9 +137,11 @@
         messageEl.className = 'form-note error';
         return;
       }
-      messageEl.textContent = 'Thank you! Your submission has been received.';
+      messageEl.textContent = 'Opening the Bright Talks sign up form...';
       messageEl.className = 'form-note success';
-      form.reset();
+      if (airtableUrl) {
+        window.open(airtableUrl, '_blank', 'noopener');
+      }
     });
   }
 
