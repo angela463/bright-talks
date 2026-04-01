@@ -1235,6 +1235,7 @@ a:hover {
 }
 
 .waitlist-embed-wrap {
+  position: relative;
   max-width: 800px;
   margin: 1.75rem auto 0;
   padding: 0.65rem;
@@ -1249,7 +1250,21 @@ a:hover {
   overflow: hidden;
 }
 
+.waitlist-embed-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0.65rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(246, 202, 72, 0.18), rgba(224, 164, 35, 0.14)),
+    rgba(239, 191, 73, 0.08);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .waitlist-embed {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   min-height: 560px;
