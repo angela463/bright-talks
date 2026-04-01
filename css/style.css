@@ -1240,9 +1240,9 @@ a:hover {
   padding: 0.7rem;
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(255, 248, 240, 0.2), rgba(255, 241, 229, 0.14)),
-    rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(244, 194, 122, 0.32);
+    linear-gradient(180deg, rgba(255, 214, 102, 0.34), rgba(232, 149, 74, 0.2)),
+    rgba(255, 241, 196, 0.12);
+  border: 1px solid rgba(244, 194, 122, 0.44);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -1254,7 +1254,7 @@ a:hover {
   min-height: 533px;
   border: 0 !important;
   border-radius: 18px;
-  background: rgba(255, 249, 242, 0.98) !important;
+  background: rgba(244, 194, 122, 0.94) !important;
   overflow: hidden;
 }
 
