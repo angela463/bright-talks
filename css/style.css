@@ -486,14 +486,10 @@ a:hover {
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--slate-dark);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 5.75rem;
-  min-height: 2.5rem;
   border-radius: var(--radius);
   text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  box-shadow: inset 0 -2px 0 transparent;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .nav-home-link:hover,
@@ -509,14 +505,10 @@ a:hover {
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--slate-dark);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 5.75rem;
-  min-height: 2.5rem;
   border-radius: var(--radius);
   text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  box-shadow: inset 0 -2px 0 transparent;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .nav-link:hover,
@@ -534,7 +526,6 @@ a:hover {
 .nav-home-link[aria-current='page'],
 .nav-link[aria-current='page'] {
   color: var(--orange-dark);
-  background: rgba(232, 149, 74, 0.1);
   box-shadow: inset 0 -2px 0 rgba(194, 106, 46, 0.9);
   font-weight: 500;
   transform: none;
@@ -1422,11 +1413,6 @@ a:hover {
     justify-content: center;
   }
 
-  .nav-home-link,
-  .nav-link {
-    min-width: 0;
-  }
-
   .hero-actions {
     flex-direction: column;
     width: 100%;
@@ -1482,7 +1468,6 @@ a:hover {
 
 .nav-link--minimal[aria-current='page'] {
   color: var(--orange-dark);
-  background: rgba(232, 149, 74, 0.08);
   box-shadow: inset 0 -2px 0 rgba(194, 106, 46, 0.9);
   font-weight: 500;
 }
