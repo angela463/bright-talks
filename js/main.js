@@ -97,44 +97,37 @@
     document.body.appendChild(overlay);
   }
 
-  function closeAllNavPanels() {
-    document.querySelectorAll('.nav-panel').forEach(function (p) {
-      p.hidden = true;
-    });
-    document.querySelectorAll('.nav-trigger').forEach(function (b) {
-      b.setAttribute('aria-expanded', 'false');
-    });
-  }
-
   function initNav() {
-    document.querySelectorAll('.nav-trigger').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var expanded = this.getAttribute('aria-expanded') === 'true';
-        var panelId = this.getAttribute('aria-controls');
-        var panel = panelId ? document.getElementById(panelId) : null;
-        document.querySelectorAll('.nav-panel').forEach(function (p) {
-          p.hidden = true;
-        });
-        document.querySelectorAll('.nav-trigger').forEach(function (b) {
-          b.setAttribute('aria-expanded', 'false');
-        });
-        if (!expanded && panel) {
-          panel.hidden = false;
-          this.setAttribute('aria-expanded', 'true');
+    document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
+      var btn = dd.querySelector('.nav-trigger');
+      var panel = dd.querySelector('.nav-panel');
+      if (!btn || !panel) return;
+
+      function setOpen(open) {
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+
+      dd.addEventListener('mouseenter', function () {
+        setOpen(true);
+      });
+      dd.addEventListener('mouseleave', function () {
+        setOpen(false);
+      });
+      dd.addEventListener('focusin', function () {
+        setOpen(true);
+      });
+      dd.addEventListener('focusout', function (e) {
+        if (!dd.contains(e.relatedTarget)) {
+          setOpen(false);
         }
       });
     });
 
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest || !e.target.closest('.nav-dropdown')) {
-        closeAllNavPanels();
-      }
-    });
-
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        closeAllNavPanels();
+      if (e.key !== 'Escape') return;
+      var dd = document.activeElement && document.activeElement.closest('.nav-dropdown');
+      if (dd && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
       }
     });
   }

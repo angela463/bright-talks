@@ -579,6 +579,17 @@ a:hover {
   z-index: 20;
 }
 
+/* Hover bridge so the pointer can move from "Courses" to the panel without losing hover */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+  z-index: 19;
+}
+
 button.nav-link.nav-trigger {
   border: none;
   background: transparent;
@@ -587,9 +598,44 @@ button.nav-link.nav-trigger {
   font-family: var(--font-sans);
 }
 
+/* Courses control: no orange fill; accent text only when pointer is on the label itself */
+.nav-dropdown:hover > .nav-link.nav-trigger,
+.nav-dropdown:focus-within > .nav-link.nav-trigger {
+  background: transparent;
+  color: var(--slate-dark);
+  transform: none;
+}
+
+.nav-dropdown > .nav-link.nav-trigger:hover,
+.nav-dropdown > .nav-link.nav-trigger:focus-visible {
+  background: transparent;
+  color: var(--orange-dark);
+  transform: none;
+}
+
+.nav-dropdown > .nav-link.nav-link--minimal.nav-trigger:hover,
+.nav-dropdown > .nav-link.nav-link--minimal.nav-trigger:focus-visible {
+  background: transparent;
+  color: var(--orange-dark);
+  transform: none;
+}
+
 .nav-panel--courses {
   min-width: 200px;
   text-align: left;
+  z-index: 21;
+  margin-top: 0;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-dropdown:hover .nav-panel--courses,
+.nav-dropdown:focus-within .nav-panel--courses {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Hero – premium, clear hierarchy */
