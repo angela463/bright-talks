@@ -1592,11 +1592,10 @@ button.nav-link.nav-trigger {
   background: #2d2824;
 }
 
-/* Homepage promo: slightly wider frame = less vertical height, images still object-fit: cover */
+/* Homepage promo: wider frame than 16:9 = less vertical height; slides stay cover-cropped */
 .page-home .promo-stage {
   aspect-ratio: 21 / 9;
   min-height: 220px;
-  max-height: min(42vw, 420px);
 }
 
 .promo-bg {
