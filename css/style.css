@@ -641,6 +641,17 @@ button.nav-link.nav-trigger {
   overflow: hidden;
 }
 
+/* Homepage: sit the hero panel just under the nav instead of vertically centered */
+.page-home .hero {
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: clamp(0.75rem, 2vw, 1.5rem);
+  padding-bottom: clamp(2.5rem, 7vw, 4.5rem);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  min-height: min(68vh, 600px);
+}
+
 .hero-bg {
   position: absolute;
   inset: 0;
