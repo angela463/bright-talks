@@ -113,14 +113,6 @@
       dd.addEventListener('mouseleave', function () {
         setOpen(false);
       });
-      dd.addEventListener('focusin', function () {
-        setOpen(true);
-      });
-      dd.addEventListener('focusout', function (e) {
-        if (!dd.contains(e.relatedTarget)) {
-          setOpen(false);
-        }
-      });
     });
 
     document.addEventListener('keydown', function (e) {
