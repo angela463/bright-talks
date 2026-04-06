@@ -97,9 +97,19 @@
     document.body.appendChild(overlay);
   }
 
+  function closeAllNavPanels() {
+    document.querySelectorAll('.nav-panel').forEach(function (p) {
+      p.hidden = true;
+    });
+    document.querySelectorAll('.nav-trigger').forEach(function (b) {
+      b.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   function initNav() {
     document.querySelectorAll('.nav-trigger').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
         var expanded = this.getAttribute('aria-expanded') === 'true';
         var panelId = this.getAttribute('aria-controls');
         var panel = panelId ? document.getElementById(panelId) : null;
@@ -114,6 +124,18 @@
           this.setAttribute('aria-expanded', 'true');
         }
       });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest || !e.target.closest('.nav-dropdown')) {
+        closeAllNavPanels();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeAllNavPanels();
+      }
     });
   }
 

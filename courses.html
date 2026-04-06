@@ -19,7 +19,13 @@
       </a>
       <nav class="nav" aria-label="Main">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="courses.html" class="nav-link" aria-current="page">Courses</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="nav-courses-menu" id="nav-courses-btn">Courses</button>
+          <div id="nav-courses-menu" class="nav-panel nav-panel--courses" role="menu" hidden>
+            <a href="courses.html" role="menuitem" aria-current="page">Course library</a>
+            <a href="course-detail.html" role="menuitem">Course modules</a>
+          </div>
+        </div>
         <a href="faq.html" class="nav-link">FAQs</a>
         <a href="about.html" class="nav-link">About</a>
       </nav>

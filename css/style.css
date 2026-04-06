@@ -576,6 +576,20 @@ a:hover {
 
 .nav-dropdown {
   position: relative;
+  z-index: 20;
+}
+
+button.nav-link.nav-trigger {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-family: var(--font-sans);
+}
+
+.nav-panel--courses {
+  min-width: 200px;
+  text-align: left;
 }
 
 /* Hero – premium, clear hierarchy */
