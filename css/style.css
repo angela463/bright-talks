@@ -646,10 +646,11 @@ button.nav-link.nav-trigger {
   align-items: flex-start;
   justify-content: center;
   padding-top: clamp(0.75rem, 2vw, 1.5rem);
-  padding-bottom: clamp(2.5rem, 7vw, 4.5rem);
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  min-height: min(68vh, 600px);
+  /* Shorter hero band: photos stay cover-cropped, not stretched */
+  min-height: min(52vh, 480px);
 }
 
 .hero-bg {
@@ -1589,6 +1590,13 @@ button.nav-link.nav-trigger {
   border: 1px solid rgba(220, 200, 180, 0.4);
   box-shadow: var(--shadow-sm), 0 20px 50px rgba(45, 40, 36, 0.12);
   background: #2d2824;
+}
+
+/* Homepage promo: slightly wider frame = less vertical height, images still object-fit: cover */
+.page-home .promo-stage {
+  aspect-ratio: 21 / 9;
+  min-height: 220px;
+  max-height: min(42vw, 420px);
 }
 
 .promo-bg {
