@@ -1573,7 +1573,7 @@ button.nav-link.nav-trigger {
 }
 
 .promo-video {
-  max-width: min(60rem, 100%);
+  max-width: min(46rem, 100%);
   margin: 1.75rem auto 0;
 }
 
@@ -1589,10 +1589,9 @@ button.nav-link.nav-trigger {
   background: #2d2824;
 }
 
-/* Homepage promo: wider frame than 16:9 = less vertical height; slides stay cover-cropped */
+/* Homepage promo: inherits 16:9 (taller than old 21:9); min height keeps small screens usable */
 .page-home .promo-stage {
-  aspect-ratio: 21 / 9;
-  min-height: 220px;
+  min-height: 240px;
 }
 
 .promo-bg {
