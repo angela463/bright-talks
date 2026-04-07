@@ -1845,18 +1845,72 @@ button.nav-link.nav-trigger {
   margin-right: auto;
 }
 
-.value-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem 1.35rem;
-  border: 1px solid rgba(220, 200, 180, 0.35);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+/* Value cards: 3D flip — title on front, detail on back (hover or keyboard focus) */
+.value-card--flip {
+  perspective: 1100px;
+  min-height: 280px;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.value-card:hover {
+.value-card--flip:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 4px;
+  border-radius: var(--radius-lg);
+}
+
+.value-card--flip:hover {
+  transform: translateY(-3px);
+}
+
+.value-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.value-card--flip:hover .value-card__inner,
+.value-card--flip:focus-within .value-card__inner {
+  transform: rotateY(180deg);
+}
+
+.value-card__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem 1.35rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(220, 200, 180, 0.35);
+  box-shadow: var(--shadow-sm);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--white);
+}
+
+.value-card--flip:hover .value-card__face,
+.value-card--flip:focus-within .value-card__face {
   box-shadow: var(--shadow);
-  transform: translateY(-2px);
+}
+
+.value-card__face--back {
+  transform: rotateY(180deg);
+  background: #fffefb;
+  border-color: rgba(194, 106, 46, 0.22);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .value-card-title {
@@ -1864,8 +1918,22 @@ button.nav-link.nav-trigger {
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--orange-dark);
-  margin: 0 0 0.5rem;
+  margin: 0;
   letter-spacing: -0.02em;
+}
+
+.value-card--flip .value-card__face--front .value-card-title {
+  margin-bottom: 0.65rem;
+}
+
+.value-card-hint {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(211, 123, 24, 0.72);
 }
 
 .value-card-text {
@@ -1873,6 +1941,48 @@ button.nav-link.nav-trigger {
   font-size: 0.9375rem;
   color: var(--slate);
   line-height: 1.6;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* No hover (touch): show title + body stacked — flip is hover/desktop */
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .value-card--flip {
+    cursor: default;
+    transform: none;
+  }
+
+  .value-card--flip:hover {
+    transform: none;
+  }
+
+  .value-card__inner {
+    transform: none !important;
+    transform-style: flat;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .value-card__face {
+    position: relative;
+    inset: auto;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    transform: none !important;
+    overflow: visible;
+    flex: 0 0 auto;
+  }
+
+  .value-card__face--back {
+    background: var(--white);
+    border-color: rgba(220, 200, 180, 0.35);
+  }
+
+  .value-card-hint {
+    display: none;
+  }
 }
 
 /* Course overview */
