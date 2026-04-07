@@ -1573,7 +1573,7 @@ button.nav-link.nav-trigger {
 }
 
 .promo-video {
-  max-width: 52rem;
+  max-width: min(60rem, 100%);
   margin: 1.75rem auto 0;
 }
 
