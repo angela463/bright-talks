@@ -1845,7 +1845,7 @@ button.nav-link.nav-trigger {
   margin-right: auto;
 }
 
-/* Value cards: 3D flip — title on front, detail on back (hover or keyboard focus) */
+/* Value cards: 3D flip — title on front, detail on back (hover only; :focus-within removed so tab focus + hover can’t flip two cards at once) */
 .value-card--flip {
   perspective: 1100px;
   min-height: 280px;
@@ -1857,12 +1857,6 @@ button.nav-link.nav-trigger {
   outline: none;
   cursor: pointer;
   transition: transform 0.2s ease;
-}
-
-.value-card--flip:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.95);
-  outline-offset: 4px;
-  border-radius: var(--radius-lg);
 }
 
 .value-card--flip:hover {
@@ -1878,8 +1872,7 @@ button.nav-link.nav-trigger {
   transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.value-card--flip:hover .value-card__inner,
-.value-card--flip:focus-within .value-card__inner {
+.value-card--flip:hover .value-card__inner {
   transform: rotateY(180deg);
 }
 
@@ -1900,8 +1893,7 @@ button.nav-link.nav-trigger {
   background: var(--white);
 }
 
-.value-card--flip:hover .value-card__face,
-.value-card--flip:focus-within .value-card__face {
+.value-card--flip:hover .value-card__face {
   box-shadow: var(--shadow);
 }
 
