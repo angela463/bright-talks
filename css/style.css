@@ -1838,15 +1838,16 @@ button.nav-link.nav-trigger {
 .value-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: clamp(1.5rem, 3vw, 2rem);
+  gap: clamp(1.75rem, 3.5vw, 2.25rem);
   margin-top: 2rem;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  isolation: isolate;
 }
 
-/* Value cards: 3D flip — .is-flipped is set by JS on fine-pointer hover devices only.
-   Clip layer keeps transforms inside exact card bounds; z-index raises the active card above neighbors. */
+/* Value cards: interaction is scoped to .value-card__clip only (article is non-interactive).
+   .is-flipped lives on the clip; :has() lifts the article for z-index. */
 .value-card--flip {
   position: relative;
   z-index: 1;
@@ -1858,10 +1859,10 @@ button.nav-link.nav-trigger {
   background: transparent;
   box-shadow: none;
   outline: none;
-  cursor: pointer;
+  pointer-events: none;
 }
 
-.value-card--flip.is-flipped {
+.value-card--flip:has(.value-card__clip.is-flipped) {
   z-index: 10;
 }
 
@@ -1875,9 +1876,11 @@ button.nav-link.nav-trigger {
   perspective: 1100px;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.2s ease;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
-.value-card--flip.is-flipped .value-card__clip {
+.value-card__clip.is-flipped {
   box-shadow: var(--shadow);
 }
 
@@ -1890,7 +1893,7 @@ button.nav-link.nav-trigger {
   transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.value-card--flip.is-flipped .value-card__inner {
+.value-card__clip.is-flipped .value-card__inner {
   transform: rotateY(180deg);
 }
 
@@ -1925,11 +1928,11 @@ button.nav-link.nav-trigger {
   pointer-events: auto;
 }
 
-.value-card--flip.is-flipped .value-card__face--front {
+.value-card__clip.is-flipped .value-card__face--front {
   pointer-events: none;
 }
 
-.value-card--flip.is-flipped .value-card__face--back {
+.value-card__clip.is-flipped .value-card__face--back {
   pointer-events: auto;
 }
 
@@ -1968,11 +1971,11 @@ button.nav-link.nav-trigger {
 /* No hover (touch) / reduced motion: stacked layout; clip + flip state neutralized */
 @media (prefers-reduced-motion: reduce), (hover: none) {
   .value-card--flip {
-    cursor: default;
+    pointer-events: auto;
     z-index: auto;
   }
 
-  .value-card--flip.is-flipped {
+  .value-card--flip:has(.value-card__clip.is-flipped) {
     z-index: auto;
   }
 
@@ -1982,9 +1985,10 @@ button.nav-link.nav-trigger {
     min-height: auto;
     height: auto;
     box-shadow: none;
+    cursor: default;
   }
 
-  .value-card--flip.is-flipped .value-card__clip {
+  .value-card__clip.is-flipped {
     box-shadow: none;
   }
 
@@ -2016,8 +2020,8 @@ button.nav-link.nav-trigger {
   /* Override .is-flipped face pointer rules when stacked (both faces visible) */
   .value-card__face--front,
   .value-card__face--back,
-  .value-card--flip.is-flipped .value-card__face--front,
-  .value-card--flip.is-flipped .value-card__face--back {
+  .value-card__clip.is-flipped .value-card__face--front,
+  .value-card__clip.is-flipped .value-card__face--back {
     pointer-events: auto;
   }
 

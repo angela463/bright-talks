@@ -204,21 +204,21 @@
     if (defaultTab) defaultTab.click();
   }
 
-  /** Homepage value cards: single flipped card at a time; hover area is the article (grid cell). */
+  /** Homepage value cards: hover + .is-flipped only on .value-card__clip (not the article grid). */
   function initValueFlipCards() {
     if (!window.matchMedia('(hover: hover)').matches) return;
-    var cards = document.querySelectorAll('.value-card--flip');
-    if (!cards.length) return;
+    var clips = document.querySelectorAll('.value-grid .value-card__clip');
+    if (!clips.length) return;
 
-    cards.forEach(function (card) {
-      card.addEventListener('mouseenter', function () {
-        cards.forEach(function (c) {
+    clips.forEach(function (clip) {
+      clip.addEventListener('mouseenter', function () {
+        clips.forEach(function (c) {
           c.classList.remove('is-flipped');
         });
-        card.classList.add('is-flipped');
+        clip.classList.add('is-flipped');
       });
-      card.addEventListener('mouseleave', function () {
-        card.classList.remove('is-flipped');
+      clip.addEventListener('mouseleave', function () {
+        clip.classList.remove('is-flipped');
       });
     });
   }
