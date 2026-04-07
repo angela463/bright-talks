@@ -1845,8 +1845,11 @@ button.nav-link.nav-trigger {
   margin-right: auto;
 }
 
-/* Value cards: 3D flip — title on front, detail on back (hover only; :focus-within removed so tab focus + hover can’t flip two cards at once) */
+/* Value cards: 3D flip — title on front, detail on back (hover only).
+   Hidden backfaces don’t get hit-testing; pointer-events on faces stops “hover bleed” to the card behind. */
 .value-card--flip {
+  position: relative;
+  isolation: isolate;
   perspective: 1100px;
   min-height: 280px;
   height: 100%;
@@ -1897,12 +1900,27 @@ button.nav-link.nav-trigger {
   box-shadow: var(--shadow);
 }
 
+/* Back starts non-interactive so the front receives the pointer (see hover rules below). */
 .value-card__face--back {
   transform: rotateY(180deg);
   background: #fffefb;
   border-color: rgba(194, 106, 46, 0.22);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  pointer-events: none;
+}
+
+/* Only the facing side captures the pointer; avoids pass-through to the next grid card */
+.value-card__face--front {
+  pointer-events: auto;
+}
+
+.value-card--flip:hover .value-card__face--front {
+  pointer-events: none;
+}
+
+.value-card--flip:hover .value-card__face--back {
+  pointer-events: auto;
 }
 
 .value-card-title {
@@ -1970,6 +1988,11 @@ button.nav-link.nav-trigger {
   .value-card__face--back {
     background: var(--white);
     border-color: rgba(220, 200, 180, 0.35);
+  }
+
+  .value-card__face--front,
+  .value-card__face--back {
+    pointer-events: auto;
   }
 
   .value-card-hint {
