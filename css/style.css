@@ -1838,32 +1838,47 @@ button.nav-link.nav-trigger {
 .value-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
+  gap: clamp(1.5rem, 3vw, 2rem);
   margin-top: 2rem;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Value cards: 3D flip — title on front, detail on back (hover only).
-   Hidden backfaces don’t get hit-testing; pointer-events on faces stops “hover bleed” to the card behind. */
+/* Value cards: 3D flip — .is-flipped is set by JS on fine-pointer hover devices only.
+   Clip layer keeps transforms inside exact card bounds; z-index raises the active card above neighbors. */
 .value-card--flip {
   position: relative;
-  isolation: isolate;
-  perspective: 1100px;
+  z-index: 1;
   min-height: 280px;
   height: 100%;
   padding: 0;
+  margin: 0;
   border: none;
   background: transparent;
   box-shadow: none;
   outline: none;
   cursor: pointer;
-  transition: transform 0.2s ease;
 }
 
-.value-card--flip:hover {
-  transform: translateY(-3px);
+.value-card--flip.is-flipped {
+  z-index: 10;
+}
+
+.value-card__clip {
+  position: relative;
+  min-height: 280px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  isolation: isolate;
+  perspective: 1100px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+}
+
+.value-card--flip.is-flipped .value-card__clip {
+  box-shadow: var(--shadow);
 }
 
 .value-card__inner {
@@ -1875,7 +1890,7 @@ button.nav-link.nav-trigger {
   transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.value-card--flip:hover .value-card__inner {
+.value-card--flip.is-flipped .value-card__inner {
   transform: rotateY(180deg);
 }
 
@@ -1890,17 +1905,13 @@ button.nav-link.nav-trigger {
   padding: 1.5rem 1.35rem;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(220, 200, 180, 0.35);
-  box-shadow: var(--shadow-sm);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   background: var(--white);
 }
 
-.value-card--flip:hover .value-card__face {
-  box-shadow: var(--shadow);
-}
-
-/* Back starts non-interactive so the front receives the pointer (see hover rules below). */
+/* Back starts non-interactive so the front receives the pointer (see .is-flipped rules below). */
 .value-card__face--back {
   transform: rotateY(180deg);
   background: #fffefb;
@@ -1910,16 +1921,15 @@ button.nav-link.nav-trigger {
   pointer-events: none;
 }
 
-/* Only the facing side captures the pointer; avoids pass-through to the next grid card */
 .value-card__face--front {
   pointer-events: auto;
 }
 
-.value-card--flip:hover .value-card__face--front {
+.value-card--flip.is-flipped .value-card__face--front {
   pointer-events: none;
 }
 
-.value-card--flip:hover .value-card__face--back {
+.value-card--flip.is-flipped .value-card__face--back {
   pointer-events: auto;
 }
 
@@ -1955,15 +1965,27 @@ button.nav-link.nav-trigger {
   text-wrap: balance;
 }
 
-/* No hover (touch): show title + body stacked — flip is hover/desktop */
+/* No hover (touch) / reduced motion: stacked layout; clip + flip state neutralized */
 @media (prefers-reduced-motion: reduce), (hover: none) {
   .value-card--flip {
     cursor: default;
-    transform: none;
+    z-index: auto;
   }
 
-  .value-card--flip:hover {
-    transform: none;
+  .value-card--flip.is-flipped {
+    z-index: auto;
+  }
+
+  .value-card__clip {
+    overflow: visible;
+    perspective: none;
+    min-height: auto;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .value-card--flip.is-flipped .value-card__clip {
+    box-shadow: none;
   }
 
   .value-card__inner {
@@ -1983,6 +2005,7 @@ button.nav-link.nav-trigger {
     transform: none !important;
     overflow: visible;
     flex: 0 0 auto;
+    box-shadow: var(--shadow-sm);
   }
 
   .value-card__face--back {
@@ -1990,8 +2013,11 @@ button.nav-link.nav-trigger {
     border-color: rgba(220, 200, 180, 0.35);
   }
 
+  /* Override .is-flipped face pointer rules when stacked (both faces visible) */
   .value-card__face--front,
-  .value-card__face--back {
+  .value-card__face--back,
+  .value-card--flip.is-flipped .value-card__face--front,
+  .value-card--flip.is-flipped .value-card__face--back {
     pointer-events: auto;
   }
 

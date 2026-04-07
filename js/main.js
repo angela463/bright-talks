@@ -204,6 +204,25 @@
     if (defaultTab) defaultTab.click();
   }
 
+  /** Homepage value cards: single flipped card at a time; hover area is the article (grid cell). */
+  function initValueFlipCards() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var cards = document.querySelectorAll('.value-card--flip');
+    if (!cards.length) return;
+
+    cards.forEach(function (card) {
+      card.addEventListener('mouseenter', function () {
+        cards.forEach(function (c) {
+          c.classList.remove('is-flipped');
+        });
+        card.classList.add('is-flipped');
+      });
+      card.addEventListener('mouseleave', function () {
+        card.classList.remove('is-flipped');
+      });
+    });
+  }
+
   createOverlay();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -212,6 +231,7 @@
       initWaitlistForm();
       initParentResourceMore();
       initParentResourceTabs();
+      initValueFlipCards();
     });
   } else {
     initCookieBar();
@@ -219,5 +239,6 @@
     initWaitlistForm();
     initParentResourceMore();
     initParentResourceTabs();
+    initValueFlipCards();
   }
 })();
