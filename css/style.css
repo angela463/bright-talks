@@ -2572,25 +2572,172 @@ button.nav-link.nav-trigger {
   max-width: 1100px;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.85rem, 2.2vw, 1.25rem);
+  gap: clamp(1rem, 2.4vw, 1.35rem);
 }
 
 .our-people-card {
+  position: relative;
   margin: 0;
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow: clip;
   background: #fff;
   border: 1px solid rgba(220, 200, 180, 0.35);
   box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.our-people-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .our-people-card img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   object-position: center;
+}
+
+.our-people-card__trigger {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 4.15rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(240, 164, 58, 0.9);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #9a4a16;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 8px 20px rgba(44, 40, 37, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.our-people-card__trigger::before {
+  content: '+';
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.our-people-card__trigger:hover {
+  transform: scale(1.05);
+  background: var(--orange);
+  color: #fff;
+}
+
+.our-people-card__trigger:focus-visible {
+  outline: 2px solid var(--orange-dark);
+  outline-offset: 2px;
+}
+
+.our-people-card__caption {
+  margin: 0;
+  padding: 0.75rem 0.85rem 0.85rem;
+  background: #fffefb;
+  border-top: 1px solid rgba(220, 200, 180, 0.25);
+  display: grid;
+  gap: 0.2rem;
+}
+
+.our-people-card__caption strong {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  color: var(--slate-dark);
+}
+
+.our-people-card__caption span {
+  font-size: 0.84rem;
+  color: var(--slate-light);
+}
+
+.our-people-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.our-people-modal[hidden] {
+  display: none !important;
+}
+
+.our-people-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(28, 24, 22, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.our-people-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  padding: 2rem 1.8rem 1.75rem;
+  background: #fff;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(220, 200, 180, 0.45);
+  box-shadow: 0 24px 64px rgba(28, 24, 22, 0.2);
+  text-align: left;
+}
+
+.our-people-modal__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: rgba(250, 244, 235, 0.9);
+  color: var(--slate);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.our-people-modal__close:hover {
+  background: var(--peach);
+  color: var(--slate-dark);
+}
+
+.our-people-modal__close:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.our-people-modal__role {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-dark);
+}
+
+.our-people-modal__name {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3.2vw, 1.55rem);
+  color: var(--slate-dark);
+}
+
+.our-people-modal__bio {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--slate);
 }
 
 @media (max-width: 1100px) {
@@ -2602,6 +2749,16 @@ button.nav-link.nav-trigger {
 @media (max-width: 700px) {
   .our-people-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .our-people-card__trigger {
+    bottom: 4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .our-people-modal__panel {
+    padding: 1.75rem 1.2rem 1.2rem;
   }
 }
 

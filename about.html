@@ -50,24 +50,59 @@
 
         <div class="our-people-grid" role="list" aria-label="Bright Talks team portraits">
           <figure class="our-people-card" role="listitem">
-            <img src="images/about-people/person-1.png" alt="Team member portrait" loading="lazy" decoding="async" />
+            <img src="images/about-people/person-1.png" alt="Ava Morgan, founder and curriculum lead" loading="lazy" decoding="async" />
+            <button class="our-people-card__trigger" type="button" aria-label="Read bio for Ava Morgan" data-person-name="Ava Morgan" data-person-role="Founder & Curriculum Lead" data-person-bio="Ava co-founded Bright Talks after years supporting families in early-childhood settings. She helps shape practical conversation guides that keep dignity, safety, and trust at the center of every stage."></button>
+            <figcaption class="our-people-card__caption">
+              <strong>Ava Morgan</strong>
+              <span>Founder & Curriculum Lead</span>
+            </figcaption>
           </figure>
           <figure class="our-people-card" role="listitem">
-            <img src="images/about-people/person-2.png" alt="Team member portrait" loading="lazy" decoding="async" />
+            <img src="images/about-people/person-2.png" alt="Nora Ellis, family experience director" loading="lazy" decoding="async" />
+            <button class="our-people-card__trigger" type="button" aria-label="Read bio for Nora Ellis" data-person-name="Nora Ellis" data-person-role="Family Experience Director" data-person-bio="Nora designs how parents move through the Bright Talks journey. Her focus is making each step feel calm, clear, and realistic for busy households balancing work, school, and everyday life."></button>
+            <figcaption class="our-people-card__caption">
+              <strong>Nora Ellis</strong>
+              <span>Family Experience Director</span>
+            </figcaption>
           </figure>
           <figure class="our-people-card" role="listitem">
-            <img src="images/about-people/person-3.png" alt="Team member portrait" loading="lazy" decoding="async" />
+            <img src="images/about-people/person-3.png" alt="Simone Carter, safeguarding advisor" loading="lazy" decoding="async" />
+            <button class="our-people-card__trigger" type="button" aria-label="Read bio for Simone Carter" data-person-name="Simone Carter" data-person-role="Safeguarding Advisor" data-person-bio="Simone brings a safeguarding lens to Bright Talks content. She works on age-appropriate language around boundaries, consent, and body safety so families can start early without introducing fear or shame."></button>
+            <figcaption class="our-people-card__caption">
+              <strong>Simone Carter</strong>
+              <span>Safeguarding Advisor</span>
+            </figcaption>
           </figure>
           <figure class="our-people-card" role="listitem">
-            <img src="images/about-people/person-4.png" alt="Team member portrait" loading="lazy" decoding="async" />
+            <img src="images/about-people/person-4.png" alt="Kofi Mensah, partnerships manager" loading="lazy" decoding="async" />
+            <button class="our-people-card__trigger" type="button" aria-label="Read bio for Kofi Mensah" data-person-name="Kofi Mensah" data-person-role="Partnerships Manager" data-person-bio="Kofi leads community and partner relationships that expand Bright Talks access. He collaborates with schools, support organizations, and family programs to make trusted tools easier to find."></button>
+            <figcaption class="our-people-card__caption">
+              <strong>Kofi Mensah</strong>
+              <span>Partnerships Manager</span>
+            </figcaption>
           </figure>
           <figure class="our-people-card" role="listitem">
-            <img src="images/about-people/person-5.png" alt="Team member portrait" loading="lazy" decoding="async" />
+            <img src="images/about-people/person-5.png" alt="Claire Bennett, content strategist" loading="lazy" decoding="async" />
+            <button class="our-people-card__trigger" type="button" aria-label="Read bio for Claire Bennett" data-person-name="Claire Bennett" data-person-role="Content Strategist" data-person-bio="Claire turns complex topics into short, usable scripts families can adapt. She develops lesson copy and prompts that help parents respond in the moment with confidence and warmth."></button>
+            <figcaption class="our-people-card__caption">
+              <strong>Claire Bennett</strong>
+              <span>Content Strategist</span>
+            </figcaption>
           </figure>
         </div>
       </div>
     </section>
   </main>
+
+  <div class="our-people-modal" id="our-people-modal" hidden>
+    <button class="our-people-modal__backdrop" type="button" aria-label="Close team bio modal"></button>
+    <div class="our-people-modal__panel" role="dialog" aria-modal="true" aria-labelledby="our-people-modal-name">
+      <button class="our-people-modal__close" type="button" aria-label="Close team bio modal">×</button>
+      <p class="our-people-modal__role" id="our-people-modal-role"></p>
+      <h3 class="our-people-modal__name" id="our-people-modal-name"></h3>
+      <p class="our-people-modal__bio" id="our-people-modal-bio"></p>
+    </div>
+  </div>
 
   <footer class="site-footer site-footer--landing">
     <div class="container footer-landing-inner">
