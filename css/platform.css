@@ -482,13 +482,13 @@ body {
 .module-detail-experience {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.85rem;
   margin-bottom: 0.5rem;
 }
 
 .module-detail-sun-logo {
-  width: 44px;
-  height: 44px;
+  width: clamp(56px, 12vw, 72px);
+  height: clamp(56px, 12vw, 72px);
   object-fit: contain;
   flex-shrink: 0;
 }
