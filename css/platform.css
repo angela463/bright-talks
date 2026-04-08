@@ -479,6 +479,24 @@ body {
   z-index: 1;
 }
 
+.module-detail-experience {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.module-detail-sun-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.module-detail-experience .module-detail-eyebrow {
+  margin: 0;
+}
+
 .module-detail-eyebrow {
   margin: 0 0 0.5rem;
   font-size: 0.72rem;
