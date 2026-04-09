@@ -166,14 +166,37 @@ body.page-courses::before {
 
 .page-home .hero-bg-photo {
   background-image: none;
-  display: flex;
-  align-items: stretch;
+  display: block;
   overflow: hidden;
   transform: none;
 }
 
+.page-home .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+/* Darken video slightly so headline panel stays readable */
 .page-home .hero-bg-overlay {
-  background: none;
+  background:
+    linear-gradient(180deg, rgba(44, 40, 37, 0.32) 0%, rgba(44, 40, 37, 0.48) 45%, rgba(30, 26, 22, 0.66) 100%),
+    radial-gradient(ellipse 90% 70% at 50% 18%, rgba(232, 149, 74, 0.1) 0%, transparent 55%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-home .hero-video {
+    display: none;
+  }
+
+  .page-home .hero-bg-photo {
+    background-color: #3a3530;
+    background-image: linear-gradient(165deg, #4a433c 0%, #2d2824 55%, #25211e 100%);
+  }
 }
 
 /* Single panel behind headline, supporting copy, and CTAs for legibility on bright imagery */
@@ -207,29 +230,6 @@ body.page-courses::before {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
-}
-
-.page-home .hero-strip-image {
-  flex: 1 1 33.333%;
-  min-width: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/* Strip 1 = laptop scene; strip 2 = flower (swapped from file numbers for layout) */
-.page-home .hero-strip-image--1 {
-  background-image: url('../images/home-hero-yellow-2.jpg');
-  background-position: center;
-}
-
-.page-home .hero-strip-image--2 {
-  background-image: url('../images/home-hero-yellow-1.jpg');
-  background-position: center;
-}
-
-.page-home .hero-strip-image--3 {
-  background-image: url('../images/home-hero-yellow-3.jpg');
-  background-position: center;
 }
 
 /* Section rhythm – organic dividers (Bloom-like flow, not a copy) */
