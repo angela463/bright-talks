@@ -25,3 +25,11 @@ ffmpeg -i source.mp4 -an -vf "scale=1280:-2" -c:v libx264 -crf 26 -preset medium
 ```
 
 Then commit **`videos/hero-home-loop.mp4`** and point `index.html` at it (already wired).
+
+## If the video doesn’t show after merge/deploy
+
+1. **Pull latest on your machine** — `git pull origin main` so you have `videos/hero-home-loop.mp4` locally.
+2. **Confirm the file is in the repo** — `git ls-files videos/hero-home-loop.mp4` should print that path.
+3. **Hosted site** — open DevTools → **Network**, reload, filter by **media** or the filename. A **404** means the `videos/` folder wasn’t deployed (redeploy, or check the host isn’t excluding `*.mp4`).
+4. **macOS / iOS “Reduce motion”** — System Settings → Accessibility → **Display** → *Reduce motion*. When on, the hero uses a **static image** instead of the looping video (by design).
+5. **Open via local server** — e.g. `python3 -m http.server` in the project folder, then visit `http://localhost:8000/` — opening `index.html` as `file://` can block video in some browsers.

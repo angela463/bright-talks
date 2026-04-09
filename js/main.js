@@ -204,6 +204,46 @@
     if (defaultTab) defaultTab.click();
   }
 
+  /** Homepage hero: ensure muted looping background plays (autoplay policies) and surface load errors. */
+  function initHeroBackgroundVideo() {
+    if (!document.body.classList.contains('page-home')) return;
+    var video = document.querySelector('.hero .hero-video');
+    if (!video) return;
+
+    video.muted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    if (video.playsInline !== undefined) {
+      video.playsInline = true;
+    }
+
+    function tryPlay() {
+      var p = video.play();
+      if (p && typeof p.then === 'function') {
+        p.catch(function () {
+          /* Autoplay blocked or decode issue — first frame may still show after interaction */
+        });
+      }
+    }
+
+    if (video.readyState >= 2) {
+      tryPlay();
+    } else {
+      video.addEventListener('loadeddata', tryPlay, { once: true });
+      video.addEventListener('canplay', tryPlay, { once: true });
+    }
+
+    video.addEventListener(
+      'error',
+      function () {
+        if (typeof console !== 'undefined' && console.warn) {
+          console.warn('Hero video failed to load. Check that videos/hero-home-loop.mp4 exists and is deployed.');
+        }
+      },
+      false
+    );
+  }
+
   /** Homepage value cards: hover + .is-flipped only on .value-card__clip (not the article grid). */
   function initValueFlipCards() {
     if (!window.matchMedia('(hover: hover)').matches) return;
@@ -287,6 +327,7 @@
       initParentResourceTabs();
       initValueFlipCards();
       initOurPeopleModal();
+      initHeroBackgroundVideo();
     });
   } else {
     initCookieBar();
@@ -296,5 +337,6 @@
     initParentResourceTabs();
     initValueFlipCards();
     initOurPeopleModal();
+    initHeroBackgroundVideo();
   }
 })();
