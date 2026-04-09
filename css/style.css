@@ -2021,6 +2021,7 @@ button.nav-link.nav-trigger {
 
 .value-card__face--front {
   pointer-events: auto;
+  gap: 0.5rem;
 }
 
 .value-card__clip.is-flipped .value-card__face--front {
@@ -2041,17 +2042,46 @@ button.nav-link.nav-trigger {
 }
 
 .value-card--flip .value-card__face--front .value-card-title {
-  margin-bottom: 0.65rem;
+  margin-bottom: 0;
 }
 
-.value-card-hint {
+.value-card-attribution {
   margin: 0;
+  max-width: 100%;
   font-family: var(--font-sans);
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(211, 123, 24, 0.72);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: rgba(120, 95, 75, 0.92);
+}
+
+.value-card-flip-cue {
+  margin: 0.15rem 0 0;
+  line-height: 1;
+}
+
+.value-card-flip-arrow {
+  display: inline-block;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: rgba(211, 123, 24, 0.82);
+  transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.value-card__clip:hover .value-card-flip-arrow {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value-card-flip-arrow {
+    transition: none;
+  }
+
+  .value-card__clip:hover .value-card-flip-arrow {
+    transform: none;
+  }
 }
 
 .value-card-text {
@@ -2120,7 +2150,7 @@ button.nav-link.nav-trigger {
     pointer-events: auto;
   }
 
-  .value-card-hint {
+  .value-card-flip-cue {
     display: none;
   }
 }
