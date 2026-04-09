@@ -189,12 +189,13 @@ body.page-courses::before {
   background: #2a2622;
 }
 
-/* Darken video slightly so headline panel stays readable */
+/* Light wash so background video stays visible; no heavy dim or blur */
 .page-home .hero-bg-overlay {
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(44, 40, 37, 0.32) 0%, rgba(44, 40, 37, 0.48) 45%, rgba(30, 26, 22, 0.66) 100%),
-    radial-gradient(ellipse 90% 70% at 50% 18%, rgba(232, 149, 74, 0.1) 0%, transparent 55%);
+    linear-gradient(180deg, rgba(255, 252, 246, 0.08) 0%, rgba(44, 40, 37, 0.14) 42%, rgba(30, 26, 22, 0.28) 100%),
+    radial-gradient(ellipse 95% 75% at 50% 15%, rgba(255, 200, 120, 0.06) 0%, transparent 52%);
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -213,36 +214,109 @@ body.page-courses::before {
   }
 }
 
-/* Single panel behind headline, supporting copy, and CTAs for legibility on bright imagery */
+/* Compact headline-only panel: readable type, minimal footprint, no backdrop blur */
+.page-home .hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.15rem, 3vw, 1.5rem);
+}
+
 .page-home .hero-content-panel {
-  display: inline-block;
+  display: block;
   width: 100%;
-  max-width: min(52rem, 100%);
+  max-width: min(38rem, 100%);
   margin: 0 auto;
-  padding: clamp(1.15rem, 3.2vw, 1.85rem) clamp(1rem, 3.5vw, 2rem) clamp(1.25rem, 3vw, 1.65rem);
+  padding: clamp(0.65rem, 2vw, 0.85rem) clamp(0.85rem, 2.5vw, 1.15rem);
   text-align: center;
-  background: rgba(26, 22, 20, 0.52);
-  border-radius: 18px;
-  box-shadow:
-    0 12px 40px rgba(26, 22, 20, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(20, 18, 16, 0.22);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 28px rgba(20, 16, 14, 0.12);
+}
+
+.page-home .hero-content-panel .hero-title {
+  margin: 0;
 }
 
 .page-home #hero-heading {
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  color: #fffefd;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.45),
+    0 2px 16px rgba(0, 0, 0, 0.25);
 }
 
-.page-home .hero-content-panel .hero-actions {
-  margin-top: 0.25rem;
+.page-home .hero-cta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 22rem;
+}
+
+/* Single conversion CTA — solid warm brand */
+.page-home .hero-cta-primary {
+  width: 100%;
+  max-width: 18rem;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.92rem 1.75rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fffefd !important;
+  text-decoration: none !important;
+  background: linear-gradient(165deg, var(--orange) 0%, var(--orange-dark) 100%);
+  border: none;
+  box-shadow:
+    0 6px 22px rgba(200, 110, 45, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.2) inset;
+}
+
+.page-home .hero-cta-primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  color: #fffefd !important;
+}
+
+.page-home .hero-cta-primary:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 3px;
+}
+
+.page-home .hero-actions-sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.page-home .hero-actions-sub a {
+  color: rgba(255, 252, 248, 0.88);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.page-home .hero-actions-sub a:hover {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.55);
+}
+
+.page-home .hero-actions-sub__sep {
+  color: rgba(255, 255, 255, 0.45);
+  user-select: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-home .hero-content-panel {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+  .page-home .hero-cta-primary:hover {
+    transform: none;
   }
 }
 
@@ -1488,6 +1562,14 @@ button.nav-link.nav-trigger {
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  .page-home .hero-cta-stack {
+    max-width: 100%;
+  }
+
+  .page-home .hero-cta-primary {
+    max-width: 100%;
   }
 }
 
