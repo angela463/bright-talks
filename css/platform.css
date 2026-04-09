@@ -363,6 +363,21 @@ body {
   padding: 0.56rem 0.75rem;
 }
 
+.course-card-cta--soon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: auto;
+  border: 1px dashed var(--border);
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
 .breadcrumbs {
   font-size: 0.85rem;
   color: var(--text-muted);

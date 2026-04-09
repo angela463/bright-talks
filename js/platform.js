@@ -19,6 +19,13 @@
 
   var courses = window.BRIGHT_TALKS_COURSES || [];
 
+  /** Course library: only these show “View modules”; others are coming soon. */
+  var COURSE_LIBRARY_OPEN_IDS = ['ages-3-5', 'ages-6-8'];
+
+  function courseLibraryIsOpen(course) {
+    return COURSE_LIBRARY_OPEN_IDS.indexOf(course.id) >= 0;
+  }
+
   function renderCourses() {
     var root = byId('course-grid-root');
     if (!root) return;
@@ -45,6 +52,9 @@
         }, 0);
         var moduleCount = typeof c.moduleTotal === 'number' ? c.moduleTotal : computedModuleCount;
         var lessonCount = typeof c.lessonTotal === 'number' ? c.lessonTotal : computedLessonCount;
+        var ctaHtml = courseLibraryIsOpen(c)
+          ? '<a class="btn btn-primary" href="course-detail.html?course=' + encodeURIComponent(c.id) + '">View modules</a>'
+          : '<span class="btn course-card-cta course-card-cta--soon" role="status">Coming soon</span>';
         return (
           '<article class="course-card">' +
             '<div class="course-cover" style="background-image:url(\'' + safe(c.image) + '\')"></div>' +
@@ -53,7 +63,7 @@
               '<h3>' + safe(c.title) + '</h3>' +
               '<p>' + safe(c.description) + '</p>' +
               '<div class="course-meta">' + moduleCount + ' modules · ' + lessonCount + ' lessons</div>' +
-              '<a class="btn btn-primary" href="course-detail.html?course=' + encodeURIComponent(c.id) + '">View modules</a>' +
+              ctaHtml +
             '</div>' +
           '</article>'
         );
