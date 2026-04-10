@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Watch a Bright Talks lesson — prototype player experience." />
+  <title>Lesson · Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/platform.css" />
+</head>
+<body class="page-courses page-lesson-player" id="top">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="nav-courses-menu" id="nav-courses-btn">Courses</button>
+          <div id="nav-courses-menu" class="nav-panel nav-panel--courses" role="menu">
+            <a href="courses.html" role="menuitem">Course library</a>
+            <a href="course-detail.html" role="menuitem">Course modules</a>
+          </div>
+        </div>
+        <a href="faq.html" class="nav-link">FAQs</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <a href="index.html#waitlist" class="btn btn-primary">Join</a>
+    </div>
+  </header>
+
+  <main class="page-shell module-page-shell lesson-player-shell">
+    <div id="lesson-player-error" class="lesson-player-error hero-panel" hidden role="alert">
+      <h1 class="lesson-player-error__title">Lesson not found</h1>
+      <p class="lesson-player-error__text">Check the link or return to your course.</p>
+      <p><a class="btn btn-primary" href="courses.html">Browse courses</a></p>
+    </div>
+
+    <div id="lesson-player-root" hidden>
+      <div class="breadcrumbs lesson-player-breadcrumbs">
+        <a href="index.html">Home</a> / <a href="courses.html">Courses</a> /
+        <a id="lesson-bc-course" href="course-detail.html">Course</a> /
+        <a id="lesson-bc-module" href="module-detail.html">Module</a> /
+        <span id="lesson-bc-lesson">Lesson</span>
+      </div>
+
+      <header class="lesson-player-header" aria-labelledby="lesson-player-title">
+        <p class="lesson-player-eyebrow">Lesson video · prototype</p>
+        <div class="lesson-player-kickers">
+          <span id="lesson-player-course-chip" class="chip">Course</span>
+          <span id="lesson-player-age-chip" class="chip">Ages</span>
+          <span id="lesson-player-lesson-chip" class="chip chip-lesson-num">Lesson</span>
+        </div>
+        <h1 id="lesson-player-title" class="lesson-player-title">Lesson</h1>
+        <p id="lesson-player-summary" class="lesson-player-summary"></p>
+      </header>
+
+      <div class="lesson-sim" id="lesson-sim">
+        <div class="lesson-sim__frame">
+          <div class="lesson-sim__poster" id="lesson-sim-poster"></div>
+          <div class="lesson-sim__ambient" id="lesson-sim-ambient" hidden aria-hidden="true"></div>
+
+          <div class="lesson-sim__locked" id="lesson-sim-locked" hidden>
+            <div class="lesson-sim__locked-inner">
+              <p class="lesson-sim__locked-title">Locked lesson</p>
+              <p class="lesson-sim__locked-text">This lesson is included in the full pathway. In the prototype, open an unlocked lesson to preview the video flow.</p>
+              <a class="btn btn-primary" id="lesson-sim-back-locked" href="#">Back to module</a>
+            </div>
+          </div>
+
+          <button type="button" class="lesson-sim__big-play" id="lesson-sim-big-play" aria-label="Play lesson video">
+            <span class="lesson-sim__big-play-icon" aria-hidden="true"></span>
+          </button>
+
+          <div class="lesson-sim__ended" id="lesson-sim-ended" hidden>
+            <p class="lesson-sim__ended-label">Lesson complete</p>
+            <button type="button" class="btn btn-primary lesson-sim__replay-btn" id="lesson-sim-replay">Watch again</button>
+          </div>
+        </div>
+
+        <div class="lesson-sim__controls" id="lesson-sim-controls" hidden>
+          <button type="button" class="lesson-sim__play-toggle" id="lesson-sim-toggle" aria-pressed="true" aria-label="Pause">Pause</button>
+          <div class="lesson-sim__progress-wrap">
+            <div
+              class="lesson-sim__progress"
+              id="lesson-sim-progress"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              aria-label="Playback progress"
+            >
+              <div class="lesson-sim__progress-fill" id="lesson-sim-fill"></div>
+            </div>
+            <div class="lesson-sim__times">
+              <span id="lesson-sim-elapsed">0:00</span>
+              <span class="lesson-sim__times-sep" aria-hidden="true">/</span>
+              <span id="lesson-sim-total">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="lesson-sim__prototype-note" id="lesson-sim-note">
+          Prototype: playback is simulated to preview the learning flow — no real video is streamed.
+        </p>
+      </div>
+
+      <div class="lesson-player-next-wrap">
+        <a class="btn btn-secondary lesson-player-back" id="lesson-player-back-module" href="#">← Back to module lessons</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-copy">© 2026 Bright Talks. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/course-preview-data.js"></script>
+  <script src="js/course-data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/lesson-player.js"></script>
+</body>
+</html>

@@ -202,9 +202,16 @@
       var dur = (typeof l === 'object' && l && l.durationMinutes) ? ('~' + l.durationMinutes + ' min') : '~8 min';
       var creator = unlocked ? 'with Bright Talks guided audio' : 'with Bright Talks library access';
       var image = lessonArtwork(idx);
+      var lessonPlayerHref =
+        'lesson-player.html?course=' +
+        encodeURIComponent(course.id) +
+        '&module=' +
+        safeModuleIdx +
+        '&lesson=' +
+        idx;
       return (
         '<article class="lesson-card lesson-card--' + (unlocked ? 'unlocked' : 'locked') + '">' +
-          '<a class="lesson-card-media" href="courses.html" aria-label="' + (unlocked ? 'Open audio for ' : 'Preview audio for ') + safe(lessonTitle(l)) + '">' +
+          '<a class="lesson-card-media" href="' + lessonPlayerHref + '" aria-label="' + (unlocked ? 'Open lesson: ' : 'Open lesson (locked preview): ') + safe(lessonTitle(l)) + '">' +
             '<div class="lesson-card-art" style="background-image:url(\'' + safe(image) + '\')">' +
               '<span class="lesson-index">Lesson ' + (idx + 1) + '</span>' +
               '<span class="lesson-play-button" aria-hidden="true"><span class="lesson-play-triangle"></span></span>' +
@@ -212,7 +219,7 @@
           '</a>' +
           '<div class="lesson-card-body">' +
             '<div class="lesson-top"><span class="tag">' + safe(dur) + '</span><span class="tag ' + (unlocked ? 'tag-live' : 'locked') + '">' + (unlocked ? 'Audio ready' : 'Locked') + '</span></div>' +
-            '<h3>' + safe(lessonTitle(l)) + '</h3>' +
+            '<h3><a class="lesson-card-title-link" href="' + lessonPlayerHref + '">' + safe(lessonTitle(l)) + '</a></h3>' +
             '<p class="lesson-byline">' + safe(creator) + '</p>' +
             '<div class="lesson-meta"><span class="lesson-sequence">Part ' + (idx + 1) + ' of ' + lessons.length + '</span></div>' +
           '</div>' +

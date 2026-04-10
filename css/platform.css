@@ -787,6 +787,16 @@ body {
   line-height: 1.35;
 }
 
+.module-page-shell .lesson-card-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.module-page-shell .lesson-card-title-link:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
 .module-page-shell .lesson-byline {
   font-size: 0.84rem;
   line-height: 1.45;
@@ -891,6 +901,310 @@ body {
 
   .lesson-card-art {
     min-height: 210px;
+  }
+}
+
+/* —— Lesson player (prototype simulated video) —— */
+.lesson-player-shell {
+  max-width: 900px;
+}
+
+.lesson-player-breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.lesson-player-error {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.lesson-player-error__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.lesson-player-error__text {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+}
+
+.lesson-player-header {
+  margin-bottom: 1.5rem;
+}
+
+.lesson-player-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.lesson-player-kickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+
+.chip-lesson-num {
+  color: #6d4b37;
+  border-color: #e6c3ae;
+  background: #fff1e8;
+}
+
+.lesson-player-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.45rem, 3.5vw, 2rem);
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.lesson-player-summary {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-size: 0.98rem;
+}
+
+.lesson-sim {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(232, 225, 217, 0.96);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 36px rgba(35, 30, 26, 0.08);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.lesson-sim__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1a1816;
+}
+
+.lesson-sim__poster {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.45s ease;
+}
+
+.lesson-sim__poster[data-playing='true'] {
+  opacity: 0.2;
+}
+
+.lesson-sim__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    125deg,
+    #2a2420 0%,
+    #3d342e 25%,
+    #25211e 50%,
+    #3a322c 75%,
+    #221e1c 100%
+  );
+  background-size: 240% 240%;
+  animation: lesson-sim-ambient-move 14s ease-in-out infinite;
+}
+
+@keyframes lesson-sim-ambient-move {
+  0%,
+  100% {
+    background-position: 0% 40%;
+  }
+  50% {
+    background-position: 100% 60%;
+  }
+}
+
+.lesson-sim__locked {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(18, 15, 13, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lesson-sim__locked-inner {
+  max-width: 28rem;
+  text-align: center;
+  color: #fff8f3;
+}
+
+.lesson-sim__locked-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.lesson-sim__locked-text {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(255, 248, 243, 0.88);
+}
+
+.lesson-sim--locked .lesson-sim__frame {
+  min-height: 220px;
+}
+
+.lesson-sim__big-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 32px rgba(17, 15, 14, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.lesson-sim__big-play:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: #fff;
+}
+
+.lesson-sim__big-play:focus-visible {
+  outline: 3px solid rgba(199, 131, 88, 0.85);
+  outline-offset: 3px;
+}
+
+.lesson-sim__big-play-icon {
+  width: 0;
+  height: 0;
+  margin-left: 0.2rem;
+  border-style: solid;
+  border-width: 0.65rem 0 0.65rem 1.05rem;
+  border-color: transparent transparent transparent #a96842;
+}
+
+.lesson-sim__ended {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  background: rgba(14, 12, 11, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.lesson-sim__ended-label {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff8f3;
+}
+
+.lesson-sim__replay-btn {
+  border-radius: 999px;
+}
+
+.lesson-sim__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.lesson-sim__play-toggle {
+  flex-shrink: 0;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.lesson-sim__play-toggle:hover {
+  background: var(--surface-soft);
+}
+
+.lesson-sim__progress-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.lesson-sim__progress {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(232, 225, 217, 0.95);
+  overflow: hidden;
+}
+
+.lesson-sim__progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  transition: width 0.08s linear;
+}
+
+.lesson-sim__times {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.lesson-sim__prototype-note {
+  margin: 0.85rem 0 0;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.lesson-player-next-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.lesson-player-back {
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .lesson-sim__controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lesson-sim__play-toggle {
+    width: 100%;
   }
 }
 
