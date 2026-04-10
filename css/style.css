@@ -220,6 +220,7 @@ body.page-courses::before {
   flex-direction: column;
   align-items: center;
   gap: clamp(1.15rem, 3vw, 1.5rem);
+  transform: translateY(clamp(-0.65rem, -1.75vh, -0.2rem));
 }
 
 .page-home .hero-content-panel {
@@ -740,11 +741,11 @@ button.nav-link.nav-trigger {
   overflow: hidden;
 }
 
-/* Homepage: headline + CTAs sit above center on the video (read as headline-first, not vertically middle) */
+/* Homepage: headline + CTAs hug the upper third so type doesn’t sit over the main subject in the loop */
 .page-home .hero {
   align-items: center;
   justify-content: flex-start;
-  padding: clamp(2rem, 7vh, 4.5rem) 1.5rem clamp(1.25rem, 4vw, 2.5rem);
+  padding: clamp(0.35rem, 1.75vh, 1.25rem) 1.5rem clamp(1.25rem, 4vw, 2.5rem);
   /* Taller band so the loop fills the viewport strip; avoids cream body showing at edges */
   min-height: min(84vh, 820px);
   /* Solid base so body cream never shows through gaps around the video stack */
