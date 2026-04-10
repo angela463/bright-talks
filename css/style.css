@@ -336,10 +336,13 @@ body.page-courses::before {
   clip-path: ellipse(120% 100% at 50% 0%);
 }
 
-/* Homepage: wave sits under the hero video — top of divider must stay dark or cream “peeks” below the loop */
+/* Homepage: pull the wave up so it meets the bottom of the video band; keep fill simple (dark → cream at the very bottom only) */
 .page-home .section-divider--wave {
-  background:
-    linear-gradient(180deg, rgba(26, 24, 22, 1) 0%, rgba(42, 38, 34, 0.55) 28%, rgba(255, 251, 233, 0.97) 72%, var(--cream) 100%);
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(-3rem, -7vw, -1.75rem);
+  height: clamp(28px, 5vw, 36px);
+  background: linear-gradient(180deg, #1a1816 0%, #1a1816 62%, var(--cream) 100%);
   clip-path: ellipse(120% 100% at 50% 0%);
 }
 
