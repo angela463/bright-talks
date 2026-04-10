@@ -336,13 +336,13 @@ body.page-courses::before {
   clip-path: ellipse(120% 100% at 50% 0%);
 }
 
-/* Homepage: pull the wave up so it meets the bottom of the video band; keep fill simple (dark → cream at the very bottom only) */
+/* Homepage: pull the wave up tight to the hero video; short bar, dark → cream only at the bottom edge */
 .page-home .section-divider--wave {
   position: relative;
   z-index: 2;
-  margin-top: clamp(-3rem, -7vw, -1.75rem);
-  height: clamp(28px, 5vw, 36px);
-  background: linear-gradient(180deg, #1a1816 0%, #1a1816 62%, var(--cream) 100%);
+  margin-top: clamp(-3.75rem, -9vw, -2.25rem);
+  height: clamp(22px, 3.5vw, 28px);
+  background: linear-gradient(180deg, #1a1816 0%, #1a1816 58%, var(--cream) 100%);
   clip-path: ellipse(120% 100% at 50% 0%);
 }
 
