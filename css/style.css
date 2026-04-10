@@ -740,11 +740,11 @@ button.nav-link.nav-trigger {
   overflow: hidden;
 }
 
-/* Homepage: headline + CTAs vertically centered on the photo strip */
+/* Homepage: headline + CTAs sit above center on the video (read as headline-first, not vertically middle) */
 .page-home .hero {
   align-items: center;
-  justify-content: center;
-  padding: clamp(1.25rem, 4vw, 2.5rem) 1.5rem;
+  justify-content: flex-start;
+  padding: clamp(2rem, 7vh, 4.5rem) 1.5rem clamp(1.25rem, 4vw, 2.5rem);
   /* Taller band so the loop fills the viewport strip; avoids cream body showing at edges */
   min-height: min(84vh, 820px);
   /* Solid base so body cream never shows through gaps around the video stack */
