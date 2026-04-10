@@ -214,7 +214,7 @@ body.page-courses::before {
   }
 }
 
-/* Compact headline-only panel: readable type, minimal footprint, no backdrop blur */
+/* Headline sits directly on the video — no card; type relies on shadow for contrast */
 .page-home .hero-inner {
   display: flex;
   flex-direction: column;
@@ -227,12 +227,12 @@ body.page-courses::before {
   width: 100%;
   max-width: min(38rem, 100%);
   margin: 0 auto;
-  padding: clamp(0.65rem, 2vw, 0.85rem) clamp(0.85rem, 2.5vw, 1.15rem);
+  padding: 0 clamp(0.5rem, 2vw, 1rem);
   text-align: center;
-  background: rgba(20, 18, 16, 0.22);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 28px rgba(20, 16, 14, 0.12);
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .page-home .hero-content-panel .hero-title {
@@ -242,8 +242,9 @@ body.page-courses::before {
 .page-home #hero-heading {
   color: #fffefd;
   text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.45),
-    0 2px 16px rgba(0, 0, 0, 0.25);
+    0 1px 3px rgba(0, 0, 0, 0.65),
+    0 2px 24px rgba(0, 0, 0, 0.45),
+    0 0 40px rgba(0, 0, 0, 0.2);
 }
 
 .page-home .hero-cta-stack {
