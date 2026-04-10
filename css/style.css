@@ -189,13 +189,39 @@ body.page-courses::before {
   background: #2a2622;
 }
 
-/* Dark-only vignette — no warm/cream washes (those read as “beige” on the loop) */
+/* Vignette: keep mid/upper readable; ease off toward the bottom so the foot fade can blend into the page */
 .page-home .hero-bg-overlay {
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(12, 10, 9, 0.25) 0%, rgba(18, 16, 14, 0.12) 40%, rgba(10, 9, 8, 0.38) 100%),
+    linear-gradient(
+      180deg,
+      rgba(12, 10, 9, 0.28) 0%,
+      rgba(18, 16, 14, 0.12) 38%,
+      rgba(18, 16, 14, 0.06) 58%,
+      transparent 82%
+    ),
     radial-gradient(ellipse 90% 70% at 50% 0%, rgba(0, 0, 0, 0.18) 0%, transparent 55%);
   pointer-events: none;
+}
+
+/* Soft bottom scrim: video → cream — no separate divider stripe */
+.page-home .hero-bg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(72px, 13vh, 140px);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--cream) 0%,
+    rgba(255, 251, 235, 0.94) 14%,
+    rgba(220, 205, 188, 0.42) 42%,
+    rgba(70, 62, 56, 0.14) 72%,
+    transparent 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -221,6 +247,7 @@ body.page-courses::before {
   align-items: center;
   gap: clamp(1.15rem, 3vw, 1.5rem);
   transform: translateY(clamp(-0.65rem, -1.75vh, -0.2rem));
+  z-index: 3;
 }
 
 .page-home .hero-content-panel {
@@ -335,23 +362,6 @@ body.page-courses::before {
   background:
     linear-gradient(180deg, rgba(44, 40, 37, 0.06) 0%, transparent 85%),
     linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
-  clip-path: ellipse(120% 100% at 50% 0%);
-}
-
-/* Homepage: thin blend from hero into page cream — no heavy dark band */
-.page-home .section-divider--wave {
-  position: relative;
-  z-index: 2;
-  margin-top: clamp(-3.5rem, -8.5vw, -2rem);
-  height: clamp(12px, 2.2vw, 18px);
-  background: linear-gradient(
-    180deg,
-    rgba(26, 24, 22, 0.98) 0%,
-    rgba(48, 42, 38, 0.55) 32%,
-    rgba(140, 118, 98, 0.28) 58%,
-    rgba(235, 220, 198, 0.65) 82%,
-    var(--cream) 100%
-  );
   clip-path: ellipse(120% 100% at 50% 0%);
 }
 
@@ -1680,6 +1690,18 @@ button.nav-link.nav-trigger {
   background: linear-gradient(180deg, rgba(255, 251, 246, 0.95) 0%, rgba(250, 244, 235, 0.5) 100%);
   border-top: 1px solid rgba(220, 200, 180, 0.18);
   border-bottom: 1px solid rgba(220, 200, 180, 0.12);
+}
+
+/* Seamless handoff from hero foot fade (no top rule = no harsh line) */
+.page-home .lp-section--promo {
+  border-top: none;
+  background: linear-gradient(
+    180deg,
+    var(--cream) 0%,
+    rgba(255, 251, 246, 0.98) 22%,
+    rgba(250, 244, 235, 0.72) 100%
+  );
+  padding-top: clamp(2.5rem, 6vw, 4rem);
 }
 
 .page-home .lp-section--promo .section-kicker,
