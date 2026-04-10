@@ -746,7 +746,7 @@ button.nav-link.nav-trigger {
   justify-content: center;
   padding: clamp(1.25rem, 4vw, 2.5rem) 1.5rem;
   /* Taller band so the loop fills the viewport strip; avoids cream body showing at edges */
-  min-height: min(78vh, 760px);
+  min-height: min(84vh, 820px);
   /* Solid base so body cream never shows through gaps around the video stack */
   background-color: #1a1816;
 }
