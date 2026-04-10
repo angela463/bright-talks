@@ -904,7 +904,7 @@ body {
   }
 }
 
-/* —— Lesson player (prototype simulated video) —— */
+/* —— Lesson player —— */
 .lesson-player-shell {
   max-width: 900px;
 }
@@ -1177,14 +1177,6 @@ body {
   font-size: 0.78rem;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
-}
-
-.lesson-sim__prototype-note {
-  margin: 0.85rem 0 0;
-  font-size: 0.76rem;
-  line-height: 1.45;
-  color: var(--text-muted);
-  font-style: italic;
 }
 
 .lesson-player-next-wrap {

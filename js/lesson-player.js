@@ -41,7 +41,7 @@
     return m + ':' + (r < 10 ? '0' : '') + r;
   }
 
-  /** Wall-clock length of the fake playback (demo-friendly). */
+  /** Wall-clock length of the on-page playback animation (ms). */
   var DEMO_PLAYBACK_MS = 16000;
 
   var courses = window.BRIGHT_TALKS_COURSES || [];
@@ -139,8 +139,6 @@
     var backLocked = document.getElementById('lesson-sim-back-locked');
     var bigPlay = document.getElementById('lesson-sim-big-play');
     var simRoot = document.getElementById('lesson-sim');
-    var noteEl = document.getElementById('lesson-sim-note');
-
     if (backLocked) {
       backLocked.href = moduleHref;
     }
@@ -149,7 +147,6 @@
       if (simRoot) simRoot.classList.add('lesson-sim--locked');
       if (lockedEl) lockedEl.hidden = false;
       if (bigPlay) bigPlay.hidden = true;
-      if (noteEl) noteEl.hidden = true;
       return;
     }
 
