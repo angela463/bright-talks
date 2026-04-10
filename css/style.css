@@ -734,8 +734,12 @@ button.nav-link.nav-trigger {
   align-items: center;
   justify-content: center;
   padding: clamp(1.25rem, 4vw, 2.5rem) 1.5rem;
-  /* Shorter hero band: photos stay cover-cropped, not stretched */
-  min-height: min(52vh, 480px);
+  /* Taller band so the loop fills the viewport strip; avoids cream body showing at edges */
+  min-height: min(78vh, 760px);
+}
+
+.page-home .hero-bg {
+  background-color: #252320;
 }
 
 .hero-bg {
