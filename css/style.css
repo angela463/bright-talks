@@ -189,12 +189,12 @@ body.page-courses::before {
   background: #2a2622;
 }
 
-/* Light wash so background video stays visible; no heavy dim or blur */
+/* Dark-only vignette — no warm/cream washes (those read as “beige” on the loop) */
 .page-home .hero-bg-overlay {
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(255, 252, 246, 0.08) 0%, rgba(44, 40, 37, 0.14) 42%, rgba(30, 26, 22, 0.28) 100%),
-    radial-gradient(ellipse 95% 75% at 50% 15%, rgba(255, 200, 120, 0.06) 0%, transparent 52%);
+    linear-gradient(180deg, rgba(12, 10, 9, 0.25) 0%, rgba(18, 16, 14, 0.12) 40%, rgba(10, 9, 8, 0.38) 100%),
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(0, 0, 0, 0.18) 0%, transparent 55%);
   pointer-events: none;
 }
 
@@ -333,6 +333,13 @@ body.page-courses::before {
   background:
     linear-gradient(180deg, rgba(44, 40, 37, 0.06) 0%, transparent 85%),
     linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+  clip-path: ellipse(120% 100% at 50% 0%);
+}
+
+/* Homepage: wave sits under the hero video — top of divider must stay dark or cream “peeks” below the loop */
+.page-home .section-divider--wave {
+  background:
+    linear-gradient(180deg, rgba(26, 24, 22, 1) 0%, rgba(42, 38, 34, 0.55) 28%, rgba(255, 251, 233, 0.97) 72%, var(--cream) 100%);
   clip-path: ellipse(120% 100% at 50% 0%);
 }
 
@@ -736,10 +743,12 @@ button.nav-link.nav-trigger {
   padding: clamp(1.25rem, 4vw, 2.5rem) 1.5rem;
   /* Taller band so the loop fills the viewport strip; avoids cream body showing at edges */
   min-height: min(78vh, 760px);
+  /* Solid base so body cream never shows through gaps around the video stack */
+  background-color: #1a1816;
 }
 
 .page-home .hero-bg {
-  background-color: #252320;
+  background-color: #1a1816;
 }
 
 .hero-bg {
