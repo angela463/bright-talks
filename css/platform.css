@@ -693,6 +693,37 @@ body {
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 38%, rgba(12, 10, 9, 0.3) 100%);
 }
 
+/* Module experience: locked lessons — dim thumbnail only (overlay, not filter, so controls stay crisp) */
+.module-page-shell .lesson-card--locked .lesson-card-art::before {
+  background:
+    linear-gradient(180deg, rgba(26, 22, 20, 0.48), transparent 34%, rgba(12, 10, 9, 0.62) 100%);
+}
+
+.module-page-shell .lesson-card--locked .lesson-card-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 19, 17, 0.36);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.module-page-shell .lesson-card--locked .lesson-index {
+  z-index: 2;
+}
+
+.module-page-shell .lesson-card--locked .lesson-play-button {
+  z-index: 2;
+  opacity: 0.88;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 8px 20px rgba(17, 15, 14, 0.16);
+}
+
+.module-page-shell .lesson-card--locked:hover .lesson-play-button,
+.module-page-shell .lesson-card--locked:focus-within .lesson-play-button {
+  opacity: 0.95;
+}
+
 .module-page-shell .lesson-index {
   position: absolute;
   left: 0.85rem;

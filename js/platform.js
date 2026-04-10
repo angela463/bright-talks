@@ -203,7 +203,7 @@
       var creator = unlocked ? 'with Bright Talks guided audio' : 'with Bright Talks library access';
       var image = lessonArtwork(idx);
       return (
-        '<article class="lesson-card">' +
+        '<article class="lesson-card lesson-card--' + (unlocked ? 'unlocked' : 'locked') + '">' +
           '<a class="lesson-card-media" href="courses.html" aria-label="' + (unlocked ? 'Open audio for ' : 'Preview audio for ') + safe(lessonTitle(l)) + '">' +
             '<div class="lesson-card-art" style="background-image:url(\'' + safe(image) + '\')">' +
               '<span class="lesson-index">Lesson ' + (idx + 1) + '</span>' +
