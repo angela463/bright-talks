@@ -97,30 +97,27 @@ body > footer {
   z-index: 1;
 }
 
-/* Courses page: tiled plaster texture (nav + footer keep their own backgrounds) */
+/* Course flows: warm orange backdrop (same family as homepage “Clear support” value section; no tile texture) */
 body.page-courses {
-  background-color: var(--cream);
-  background-image: url('../png/courses-bg-texture.png');
-  background-repeat: repeat;
-  background-size: auto;
-  background-position: 0 0;
-  background-attachment: fixed;
+  background-color: #e8894a;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 48%),
+    linear-gradient(165deg, #e88a42 0%, #e8894a 42%, #d9773a 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .page-courses .courses-main {
   position: relative;
 }
 
-/* Improve readability over the yellow textured background */
+/* Soft top highlight only — no cream/brick wash */
 body.page-courses::before {
   content: '';
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(255, 244, 214, 0.72) 0%, transparent 58%),
-    radial-gradient(ellipse 70% 45% at 100% 35%, rgba(255, 233, 187, 0.42) 0%, transparent 48%),
-    radial-gradient(ellipse 60% 40% at 0% 78%, rgba(255, 239, 203, 0.38) 0%, transparent 46%),
-    linear-gradient(180deg, rgba(255, 252, 246, 0.76) 0%, rgba(252, 245, 232, 0.66) 52%, rgba(255, 250, 241, 0.72) 100%);
+  background: radial-gradient(ellipse 85% 55% at 50% -15%, rgba(255, 255, 255, 0.12) 0%, transparent 52%);
   pointer-events: none;
   z-index: 0;
 }

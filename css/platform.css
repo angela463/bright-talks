@@ -66,6 +66,55 @@ body {
   color: var(--text-muted);
 }
 
+/* Course library: hero intro card with photo (courses.html) */
+.hero-panel--library {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: center;
+  padding: clamp(1.25rem, 2.8vw, 2rem);
+}
+
+.hero-panel__figure {
+  margin: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  max-height: 220px;
+  box-shadow: 0 12px 32px rgba(35, 30, 26, 0.12);
+}
+
+.hero-panel__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-panel__intro {
+  min-width: 0;
+}
+
+.hero-panel--library h1 {
+  margin: 0 0 0.65rem;
+}
+
+.hero-panel--library p {
+  max-width: 48ch;
+}
+
+@media (max-width: 720px) {
+  .hero-panel--library {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel__figure {
+    max-height: 200px;
+    aspect-ratio: 16 / 10;
+  }
+}
+
 /* Course detail: premium hero over photography with protected reading panel */
 .course-detail-hero {
   position: relative;
@@ -241,6 +290,20 @@ body {
 .section-header p {
   margin: 0;
   color: var(--text-muted);
+}
+
+/* Course flows: section titles sit on orange page bg */
+body.page-courses .section-header .eyebrow {
+  color: rgba(255, 248, 240, 0.9);
+}
+
+body.page-courses .section-header h2 {
+  color: #fffefd;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+body.page-courses .section-header p {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .trust-grid,
