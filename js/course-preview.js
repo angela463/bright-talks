@@ -29,7 +29,7 @@
     '<svg class="course-acc-chevron course-lesson-chevron-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   var PLAY_SVG =
-    '<svg class="lesson-video-play-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="rgba(255,251,246,0.95)" stroke="rgba(232,149,74,0.45)" stroke-width="1.5"/><path d="M10 8.5l7 3.5-7 3.5V8.5z" fill="#c26a2e"/></svg>';
+    '<svg class="lesson-video-play-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10.25" fill="rgba(0,0,0,0.52)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/><path d="M9.5 7.5v9L16.5 12 9.5 7.5z" fill="#fff"/></svg>';
 
   function renderLockedLesson(modIdx, lessonIdx, title) {
     var label = 'L' + (lessonIdx + 1);

@@ -73,33 +73,42 @@
           </div>
 
           <button type="button" class="lesson-sim__big-play" id="lesson-sim-big-play" aria-label="Play lesson video">
-            <span class="lesson-sim__big-play-icon" aria-hidden="true"></span>
+            <svg class="lesson-sim__big-play-svg" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M8 5v14l11-7.02L8 5z" />
+            </svg>
           </button>
 
           <div class="lesson-sim__ended" id="lesson-sim-ended" hidden>
             <p class="lesson-sim__ended-label">Lesson complete</p>
             <button type="button" class="btn btn-primary lesson-sim__replay-btn" id="lesson-sim-replay">Watch again</button>
           </div>
-        </div>
 
-        <div class="lesson-sim__controls" id="lesson-sim-controls" hidden>
-          <button type="button" class="lesson-sim__play-toggle" id="lesson-sim-toggle" aria-pressed="true" aria-label="Pause">Pause</button>
-          <div class="lesson-sim__progress-wrap">
-            <div
-              class="lesson-sim__progress"
-              id="lesson-sim-progress"
-              role="progressbar"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-valuenow="0"
-              aria-label="Playback progress"
-            >
-              <div class="lesson-sim__progress-fill" id="lesson-sim-fill"></div>
-            </div>
-            <div class="lesson-sim__times">
-              <span id="lesson-sim-elapsed">0:00</span>
-              <span class="lesson-sim__times-sep" aria-hidden="true">/</span>
-              <span id="lesson-sim-total">0:00</span>
+          <div class="lesson-sim__controls" id="lesson-sim-controls" hidden>
+            <button type="button" class="lesson-sim__play-toggle" id="lesson-sim-toggle" aria-pressed="true" aria-label="Pause">
+              <svg id="lesson-sim-icon-pause" class="lesson-sim__toggle-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
+              </svg>
+              <svg id="lesson-sim-icon-play" class="lesson-sim__toggle-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                <path fill="currentColor" d="M8 5v14l11-7.02L8 5z" />
+              </svg>
+            </button>
+            <div class="lesson-sim__progress-wrap">
+              <div
+                class="lesson-sim__progress"
+                id="lesson-sim-progress"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                aria-label="Playback progress"
+              >
+                <div class="lesson-sim__progress-fill" id="lesson-sim-fill"></div>
+              </div>
+              <div class="lesson-sim__times">
+                <span id="lesson-sim-elapsed">0:00</span>
+                <span class="lesson-sim__times-sep" aria-hidden="true">/</span>
+                <span id="lesson-sim-total">0:00</span>
+              </div>
             </div>
           </div>
         </div>

@@ -3388,15 +3388,19 @@ a.nav-link.nav-trigger {
   margin: 0;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 251, 246, 0.95);
-  box-shadow: 0 8px 28px rgba(44, 40, 37, 0.2);
+  background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4));
 }
 
 .lesson-video-play:hover {
   transform: scale(1.06);
-  box-shadow: 0 10px 32px rgba(44, 40, 37, 0.24);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+}
+
+.lesson-video-play .lesson-video-play-icon {
+  display: block;
 }
 
 .lesson-video-play:focus {

@@ -818,9 +818,10 @@ body.page-courses .section-header p {
 
 .module-page-shell .lesson-card--locked .lesson-play-button {
   z-index: 2;
-  opacity: 0.88;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 8px 20px rgba(17, 15, 14, 0.16);
+  opacity: 0.82;
+  background: rgba(0, 0, 0, 0.42);
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
 }
 
 .module-page-shell .lesson-card--locked:hover .lesson-play-button,
@@ -853,24 +854,27 @@ body.page-courses .section-header p {
   width: 4rem;
   height: 4rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 12px 28px rgba(17, 15, 14, 0.2);
-  transition: transform 0.2s ease, background 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  background: rgba(0, 0, 0, 0.52);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .lesson-play-triangle {
   width: 0;
   height: 0;
-  margin-left: 0.2rem;
-  border-top: 0.6rem solid transparent;
-  border-bottom: 0.6rem solid transparent;
-  border-left: 0.95rem solid #a96842;
+  margin-left: 0.22rem;
+  border-top: 0.58rem solid transparent;
+  border-bottom: 0.58rem solid transparent;
+  border-left: 0.95rem solid rgba(255, 255, 255, 0.96);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
 
 .lesson-card:hover .lesson-play-button,
 .lesson-card:focus-within .lesson-play-button {
   transform: translate(-50%, -50%) scale(1.05);
-  background: #fff;
+  background: rgba(0, 0, 0, 0.65);
+  border-color: #fff;
 }
 
 .lesson-card-body {
@@ -1169,22 +1173,24 @@ body.page-courses .section-header p {
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
   z-index: 4;
-  width: 4.25rem;
-  height: 4.25rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 999px;
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.92);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 14px 32px rgba(17, 15, 14, 0.35);
-  transition: transform 0.2s ease, background 0.2s ease;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .lesson-sim__big-play:hover {
   transform: translate(-50%, -50%) scale(1.06);
-  background: #fff;
+  background: rgba(0, 0, 0, 0.68);
+  border-color: #fff;
 }
 
 .lesson-sim__big-play:focus-visible {
@@ -1192,13 +1198,10 @@ body.page-courses .section-header p {
   outline-offset: 3px;
 }
 
-.lesson-sim__big-play-icon {
-  width: 0;
-  height: 0;
-  margin-left: 0.2rem;
-  border-style: solid;
-  border-width: 0.65rem 0 0.65rem 1.05rem;
-  border-color: transparent transparent transparent #a96842;
+.lesson-sim__big-play-svg {
+  display: block;
+  margin-left: 0.15rem;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
 
 .lesson-sim__ended {
@@ -1227,28 +1230,52 @@ body.page-courses .section-header p {
 }
 
 .lesson-sim__controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.85rem;
-  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem 0.45rem;
+  flex-wrap: nowrap;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.5) 55%,
+    transparent 100%
+  );
 }
 
 .lesson-sim__play-toggle {
   flex-shrink: 0;
-  padding: 0.45rem 0.85rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font: inherit;
-  font-weight: 600;
-  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  color: var(--text);
+  color: #fff;
+  transition: background 0.15s ease;
 }
 
 .lesson-sim__play-toggle:hover {
-  background: var(--surface-soft);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lesson-sim__play-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+}
+
+.lesson-sim__toggle-svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .lesson-sim__progress-wrap {
@@ -1256,31 +1283,36 @@ body.page-courses .section-header p {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.28rem;
+  padding-bottom: 0.1rem;
 }
 
 .lesson-sim__progress {
-  height: 8px;
+  height: 4px;
   border-radius: 999px;
-  background: rgba(232, 225, 217, 0.95);
+  background: rgba(255, 255, 255, 0.28);
   overflow: hidden;
+  cursor: default;
 }
 
 .lesson-sim__progress-fill {
   height: 100%;
   width: 0%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  background: #e63946;
+  box-shadow: 0 0 8px rgba(230, 57, 70, 0.45);
   transition: width 0.08s linear;
 }
 
 .lesson-sim__times {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.35rem;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 .lesson-player-next-wrap {
@@ -1295,12 +1327,12 @@ body.page-courses .section-header p {
 
 @media (max-width: 640px) {
   .lesson-sim__controls {
-    flex-direction: column;
-    align-items: stretch;
+    padding: 0.45rem 0.5rem 0.4rem;
+    gap: 0.35rem;
   }
 
-  .lesson-sim__play-toggle {
-    width: 100%;
+  .lesson-sim__times {
+    font-size: 0.68rem;
   }
 }
 

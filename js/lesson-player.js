@@ -160,7 +160,14 @@
     var elapsedEl = document.getElementById('lesson-sim-elapsed');
     var totalEl = document.getElementById('lesson-sim-total');
     var toggleBtn = document.getElementById('lesson-sim-toggle');
+    var iconPause = document.getElementById('lesson-sim-icon-pause');
+    var iconPlay = document.getElementById('lesson-sim-icon-play');
     var endedPanel = document.getElementById('lesson-sim-ended');
+
+    function setTogglePlaying(isPlaying) {
+      if (iconPause) iconPause.hidden = !isPlaying;
+      if (iconPlay) iconPlay.hidden = isPlaying;
+    }
     var replayBtn = document.getElementById('lesson-sim-replay');
 
     if (totalEl) totalEl.textContent = formatClock(durationSec);
@@ -194,8 +201,8 @@
       if (controls) controls.hidden = true;
       if (toggleBtn) {
         toggleBtn.setAttribute('aria-pressed', 'false');
-        toggleBtn.textContent = 'Play';
         toggleBtn.setAttribute('aria-label', 'Play');
+        setTogglePlaying(false);
       }
       if (endedPanel) endedPanel.hidden = false;
       if (bigPlay) bigPlay.hidden = true;
@@ -224,9 +231,9 @@
       if (endedPanel) endedPanel.hidden = true;
       if (controls) controls.hidden = false;
       if (toggleBtn) {
-        toggleBtn.textContent = 'Pause';
         toggleBtn.setAttribute('aria-pressed', 'true');
         toggleBtn.setAttribute('aria-label', 'Pause');
+        setTogglePlaying(true);
       }
       teardownTimer();
       timerId = setInterval(tick, 100);
@@ -236,9 +243,9 @@
       playing = false;
       teardownTimer();
       if (toggleBtn) {
-        toggleBtn.textContent = 'Play';
         toggleBtn.setAttribute('aria-pressed', 'false');
         toggleBtn.setAttribute('aria-label', 'Play');
+        setTogglePlaying(false);
       }
     }
 
@@ -246,9 +253,9 @@
       if (ended) return;
       playing = true;
       if (toggleBtn) {
-        toggleBtn.textContent = 'Pause';
         toggleBtn.setAttribute('aria-pressed', 'true');
         toggleBtn.setAttribute('aria-label', 'Pause');
+        setTogglePlaying(true);
       }
       timerId = setInterval(tick, 100);
     }
@@ -277,6 +284,11 @@
         if (ambient) ambient.hidden = true;
         if (bigPlay) bigPlay.hidden = false;
         if (controls) controls.hidden = true;
+        if (toggleBtn) {
+          toggleBtn.setAttribute('aria-pressed', 'false');
+          toggleBtn.setAttribute('aria-label', 'Play');
+        }
+        setTogglePlaying(false);
       });
     }
   }
