@@ -1,5 +1,6 @@
 /**
  * Bright Talks homepage promo: local image slides + layered music + voiceover.
+ * Playback UI matches lesson-player (center play, bottom gradient bar, scrubber + times).
  */
 (function () {
   'use strict';
@@ -8,7 +9,7 @@
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
   var PROMO_VOICEOVER_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
 
-  /* Promo photography: images/promo/ (promo-06 laptop/couch removed; teen desk + family walk added) */
+  /* Promo photography: images/promo/ */
   var scenes = [
     {
       duration: 4000,
@@ -53,14 +54,25 @@
     }
   ];
 
+  var totalMs = scenes.reduce(function (acc, s) {
+    return acc + s.duration;
+  }, 0);
+
   var root = document.getElementById('promo-root');
   if (!root) return;
 
   var layerEls = root.querySelectorAll('[data-promo-layer]');
   var captionEl = root.querySelector('[data-promo-caption]');
   var progressEl = root.querySelector('[data-promo-progress]');
-  var btnPlay = root.querySelector('[data-promo-play]');
-  var btnPause = root.querySelector('[data-promo-pause]');
+  var bigPlay = document.getElementById('promo-big-play');
+  var chrome = document.getElementById('promo-chrome');
+  var toggleBtn = document.getElementById('promo-toggle');
+  var iconPause = document.getElementById('promo-icon-pause');
+  var iconPlay = document.getElementById('promo-icon-play');
+  var fill = document.getElementById('promo-fill');
+  var scrub = document.getElementById('promo-scrub');
+  var elapsedEl = document.getElementById('promo-elapsed');
+  var totalEl = document.getElementById('promo-total');
   var btnReplay = root.querySelector('[data-promo-replay]');
   var btnMute = root.querySelector('[data-promo-mute]');
   var muteIconOn = btnMute ? btnMute.querySelector('.promo-mute-on') : null;
@@ -72,11 +84,71 @@
   var playing = false;
   var musicMuted = false;
   var slideTimer = null;
+  var progressTick = null;
   var bgMusic = null;
   var voiceoverAudio = null;
 
+  /** Wall time when the current slide started (for timeline). */
+  var slideStartWallMs = 0;
+  /** When paused, frozen position along the full timeline (ms). */
+  var frozenElapsedMs = null;
+
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fadeMs = prefersReducedMotion ? 180 : 900;
+
+  function formatClock(seconds) {
+    var s = Math.max(0, Math.floor(seconds));
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  function sumDurationsUpTo(i) {
+    var t = 0;
+    for (var j = 0; j < i; j++) {
+      t += scenes[j].duration;
+    }
+    return t;
+  }
+
+  function getElapsedMs() {
+    if (playing) {
+      var within = Date.now() - slideStartWallMs;
+      var cap = scenes[idx].duration;
+      within = Math.min(within, cap);
+      return Math.min(totalMs, sumDurationsUpTo(idx) + within);
+    }
+    if (frozenElapsedMs != null) {
+      return Math.min(totalMs, frozenElapsedMs);
+    }
+    return sumDurationsUpTo(idx);
+  }
+
+  function updateProgressUi() {
+    var ms = getElapsedMs();
+    var pct = totalMs > 0 ? (ms / totalMs) * 100 : 0;
+    if (fill) fill.style.width = pct + '%';
+    if (scrub) scrub.setAttribute('aria-valuenow', String(Math.round(pct)));
+    if (elapsedEl) elapsedEl.textContent = formatClock(ms / 1000);
+    if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
+  }
+
+  function startProgressTicker() {
+    stopProgressTicker();
+    progressTick = window.setInterval(updateProgressUi, 100);
+  }
+
+  function stopProgressTicker() {
+    if (progressTick != null) {
+      window.clearInterval(progressTick);
+      progressTick = null;
+    }
+  }
+
+  function setTogglePlaying(isPlaying) {
+    if (iconPause) iconPause.hidden = !isPlaying;
+    if (iconPlay) iconPlay.hidden = isPlaying;
+  }
 
   function setLayerImage(layerEl, path) {
     var img = layerEl.querySelector('.promo-bg__img');
@@ -146,6 +218,9 @@
     applySceneImage(idx, !!forceReset);
     applyCaption(idx);
     renderDots();
+    if (playing) {
+      slideStartWallMs = Date.now();
+    }
   }
 
   function clearSlideTimer() {
@@ -155,7 +230,6 @@
     }
   }
 
-  /** Pause the promo audio without unloading so Play resumes in-place. */
   function pauseAudio() {
     if (bgMusic) {
       bgMusic.pause();
@@ -165,7 +239,6 @@
     }
   }
 
-  /** Stop and unload promo audio (replay, or full reset). */
   function releaseAudio() {
     if (bgMusic) {
       bgMusic.pause();
@@ -231,24 +304,67 @@
     slideTimer = setTimeout(advance, scenes[idx].duration);
   }
 
+  function stopSequence(atEnd) {
+    var ms = atEnd ? totalMs : getElapsedMs();
+    playing = false;
+    frozenElapsedMs = ms;
+    clearSlideTimer();
+    stopProgressTicker();
+    pauseAudio();
+
+    if (atEnd) {
+      if (bigPlay) bigPlay.hidden = false;
+      if (chrome) chrome.hidden = true;
+    } else {
+      if (bigPlay) bigPlay.hidden = true;
+      if (chrome) chrome.hidden = false;
+    }
+
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-pressed', 'false');
+      toggleBtn.setAttribute('aria-label', 'Play');
+    }
+    setTogglePlaying(false);
+    updateProgressUi();
+  }
+
   function startSequence() {
     clearSlideTimer();
+    stopProgressTicker();
     playing = true;
-    if (btnPlay) btnPlay.hidden = true;
-    if (btnPause) btnPause.hidden = false;
+    frozenElapsedMs = null;
+    if (bigPlay) bigPlay.hidden = true;
+    if (chrome) chrome.hidden = false;
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-pressed', 'true');
+      toggleBtn.setAttribute('aria-label', 'Pause');
+    }
+    setTogglePlaying(true);
     applyScene(0, true);
     startAudio();
     scheduleAdvance();
+    startProgressTicker();
+    updateProgressUi();
   }
 
-  function stopSequence(atEnd) {
-    playing = false;
-    clearSlideTimer();
-    if (!atEnd) {
-      pauseAudio();
+  function resumeSequence() {
+    if (frozenElapsedMs != null && frozenElapsedMs >= totalMs - 20) return;
+    playing = true;
+    var elapsedInSlide = frozenElapsedMs != null ? frozenElapsedMs - sumDurationsUpTo(idx) : 0;
+    elapsedInSlide = Math.max(0, Math.min(elapsedInSlide, scenes[idx].duration));
+    var remaining = Math.max(0, scenes[idx].duration - elapsedInSlide);
+    slideStartWallMs = Date.now() - elapsedInSlide;
+    frozenElapsedMs = null;
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-pressed', 'true');
+      toggleBtn.setAttribute('aria-label', 'Pause');
     }
-    if (btnPlay) btnPlay.hidden = false;
-    if (btnPause) btnPause.hidden = true;
+    setTogglePlaying(true);
+    startAudio();
+    clearSlideTimer();
+    slideTimer = setTimeout(advance, remaining);
+    startProgressTicker();
+    updateProgressUi();
   }
 
   function jumpTo(i) {
@@ -258,9 +374,16 @@
     applyScene(i, false);
     if (wasPlaying) {
       playing = true;
-      if (btnPlay) btnPlay.hidden = true;
-      if (btnPause) btnPause.hidden = false;
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-pressed', 'true');
+        toggleBtn.setAttribute('aria-label', 'Pause');
+      }
+      setTogglePlaying(true);
       scheduleAdvance();
+      updateProgressUi();
+    } else {
+      frozenElapsedMs = sumDurationsUpTo(idx);
+      updateProgressUi();
     }
   }
 
@@ -271,26 +394,35 @@
     if (muteIconOff) muteIconOff.hidden = !musicMuted;
   }
 
-  if (btnPlay) {
-    btnPlay.addEventListener('click', function () {
+  if (bigPlay) {
+    bigPlay.addEventListener('click', function () {
+      releaseAudio();
+      frozenElapsedMs = null;
       startSequence();
     });
   }
-  if (btnPause) {
-    btnPause.addEventListener('click', function () {
-      stopSequence(false);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function () {
+      if (playing) {
+        stopSequence(false);
+      } else {
+        resumeSequence();
+      }
     });
   }
+
   if (btnReplay) {
     btnReplay.addEventListener('click', function () {
       clearSlideTimer();
+      stopProgressTicker();
       playing = false;
       releaseAudio();
-      if (btnPlay) btnPlay.hidden = false;
-      if (btnPause) btnPause.hidden = true;
+      frozenElapsedMs = null;
       startSequence();
     });
   }
+
   if (btnMute) {
     btnMute.addEventListener('click', function () {
       musicMuted = !musicMuted;
@@ -316,5 +448,7 @@
 
   document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
 
+  if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
   applyScene(0, true);
+  updateProgressUi();
 })();
