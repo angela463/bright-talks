@@ -1362,35 +1362,67 @@ a.nav-link.nav-trigger {
   margin-top: 0;
 }
 
-/* Waitlist */
+/* Waitlist — photo + gradient scrim (“Start when you’re ready”) */
 .waitlist {
-  padding: clamp(3.5rem, 8vw, 5.5rem) 1.5rem;
-  background: linear-gradient(165deg, var(--ink-warm) 0%, #1a1614 50%, #252018 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(380px, 58vw, 720px);
   color: var(--white);
   text-align: center;
-  position: relative;
+  background: #1a1614;
 }
 
-.waitlist::before {
-  content: '';
+.waitlist__media {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232, 149, 74, 0.15) 0%, transparent 55%);
+  z-index: 0;
+}
+
+.waitlist__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.waitlist__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 65% at 50% 0%, rgba(232, 149, 74, 0.24) 0%, transparent 58%),
+    linear-gradient(
+      180deg,
+      rgba(26, 22, 18, 0.38) 0%,
+      rgba(18, 15, 12, 0.5) 35%,
+      rgba(14, 11, 9, 0.78) 68%,
+      rgba(22, 18, 15, 0.94) 100%
+    );
+}
+
+.waitlist__inner {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3.5rem, 8vw, 5.5rem) 1.5rem;
 }
 
 .waitlist .section-headline {
   color: var(--white);
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .waitlist .section-text {
-  color: rgba(255, 252, 248, 0.88);
+  color: rgba(255, 252, 248, 0.9);
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.waitlist .section-kicker {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .waitlist .waitlist-form,
@@ -1398,7 +1430,6 @@ a.nav-link.nav-trigger {
 .waitlist .section-kicker,
 .waitlist .waitlist-back-to-top {
   position: relative;
-  z-index: 1;
 }
 
 .waitlist .waitlist-back-to-top {
