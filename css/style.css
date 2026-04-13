@@ -100,11 +100,7 @@ body > footer {
 /* Course flows: warm orange backdrop (same family as homepage “Clear support” value section; no tile texture) */
 body.page-courses {
   background-color: #e8894a;
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 50%),
-    linear-gradient(165deg, #ea9355 0%, #e8894a 48%, #df8a4a 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: none;
   background-attachment: scroll;
 }
 
@@ -117,7 +113,7 @@ body.page-courses::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse 85% 55% at 50% -15%, rgba(255, 255, 255, 0.06) 0%, transparent 52%);
+  background: none;
   pointer-events: none;
   z-index: 0;
 }
