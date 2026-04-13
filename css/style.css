@@ -706,6 +706,12 @@ button.nav-link.nav-trigger {
   font-family: var(--font-sans);
 }
 
+a.nav-link.nav-trigger {
+  display: inline-block;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 /* Courses control: no orange fill; accent text only when pointer is on the label itself */
 .nav-dropdown:hover > .nav-link.nav-trigger {
   background: transparent;
