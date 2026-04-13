@@ -33,25 +33,27 @@
     </div>
   </header>
 
-  <main class="page-shell">
-    <section class="hero-panel hero-panel--library" aria-labelledby="course-library-heading">
-      <div class="hero-panel__figure">
+  <main class="page-courses-main">
+    <section class="course-library-hero" aria-labelledby="course-library-heading">
+      <div class="course-library-hero__media">
         <img
-          class="hero-panel__photo"
-          src="images/how-it-works-family.jpg"
-          width="720"
-          height="480"
-          alt="Parent and child learning together at home"
+          class="course-library-hero__img"
+          src="images/course-library-hero.png"
+          width="1920"
+          height="1080"
+          alt=""
           loading="eager"
           decoding="async"
         />
+        <div class="course-library-hero__fade" aria-hidden="true"></div>
       </div>
-      <div class="hero-panel__intro">
+      <div class="course-library-hero__content">
         <h1 id="course-library-heading">Course Library</h1>
         <p>Browse age based course collections with polished, easy to scan cards and clear pathways into modules.</p>
       </div>
     </section>
 
+    <div class="page-shell">
     <section>
       <div class="section-header">
         <span class="eyebrow">Browse</span>
@@ -72,6 +74,7 @@
       </div>
       <div id="course-grid-root" class="course-grid"></div>
     </section>
+    </div>
   </main>
 
   <footer class="site-footer">
