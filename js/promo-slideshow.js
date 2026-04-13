@@ -63,7 +63,6 @@
 
   var layerEls = root.querySelectorAll('[data-promo-layer]');
   var captionEl = root.querySelector('[data-promo-caption]');
-  var progressEl = root.querySelector('[data-promo-progress]');
   var bigPlay = document.getElementById('promo-big-play');
   var chrome = document.getElementById('promo-chrome');
   var toggleBtn = document.getElementById('promo-toggle');
@@ -75,8 +74,7 @@
   var totalEl = document.getElementById('promo-total');
   var btnReplay = root.querySelector('[data-promo-replay]');
   var btnMute = root.querySelector('[data-promo-mute]');
-  var muteIconOn = btnMute ? btnMute.querySelector('.promo-mute-on') : null;
-  var muteIconOff = btnMute ? btnMute.querySelector('.promo-mute-off') : null;
+  var muteSlash = btnMute ? btnMute.querySelector('.promo-volume-slash') : null;
 
   var idx = 0;
   var prevIdx = -1;
@@ -159,31 +157,6 @@
     }
   }
 
-  function renderDots() {
-    if (!progressEl) return;
-    progressEl.innerHTML = scenes
-      .map(function (_, i) {
-        return (
-          '<button type="button" class="promo-dot' +
-          (i === idx ? ' is-active' : '') +
-          '" data-promo-dot="' +
-          i +
-          '" aria-label="Slide ' +
-          (i + 1) +
-          ' of ' +
-          scenes.length +
-          '"></button>'
-        );
-      })
-      .join('');
-    progressEl.querySelectorAll('[data-promo-dot]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var i = parseInt(btn.getAttribute('data-promo-dot'), 10);
-        if (!isNaN(i)) jumpTo(i);
-      });
-    });
-  }
-
   function applySceneImage(i, forceReset) {
     if (forceReset) prevIdx = -1;
     if (!forceReset && i === prevIdx) return;
@@ -217,7 +190,6 @@
     idx = Math.max(0, Math.min(scenes.length - 1, i));
     applySceneImage(idx, !!forceReset);
     applyCaption(idx);
-    renderDots();
     if (playing) {
       slideStartWallMs = Date.now();
     }
@@ -367,31 +339,10 @@
     updateProgressUi();
   }
 
-  function jumpTo(i) {
-    if (i === idx) return;
-    var wasPlaying = playing;
-    clearSlideTimer();
-    applyScene(i, false);
-    if (wasPlaying) {
-      playing = true;
-      if (toggleBtn) {
-        toggleBtn.setAttribute('aria-pressed', 'true');
-        toggleBtn.setAttribute('aria-label', 'Pause');
-      }
-      setTogglePlaying(true);
-      scheduleAdvance();
-      updateProgressUi();
-    } else {
-      frozenElapsedMs = sumDurationsUpTo(idx);
-      updateProgressUi();
-    }
-  }
-
-  function syncMuteIcons() {
+  function syncMuteIcon() {
     if (!btnMute) return;
-    btnMute.setAttribute('aria-label', musicMuted ? 'Unmute music' : 'Mute music');
-    if (muteIconOn) muteIconOn.hidden = musicMuted;
-    if (muteIconOff) muteIconOff.hidden = !musicMuted;
+    btnMute.setAttribute('aria-label', musicMuted ? 'Unmute audio' : 'Mute audio');
+    if (muteSlash) muteSlash.hidden = !musicMuted;
   }
 
   if (bigPlay) {
@@ -427,7 +378,7 @@
     btnMute.addEventListener('click', function () {
       musicMuted = !musicMuted;
       btnMute.setAttribute('aria-pressed', musicMuted ? 'true' : 'false');
-      syncMuteIcons();
+      syncMuteIcon();
       if (bgMusic) {
         bgMusic.muted = musicMuted;
         bgMusic.volume = musicMuted ? 0 : 0.18;
@@ -443,7 +394,7 @@
         startAudio();
       }
     });
-    syncMuteIcons();
+    syncMuteIcon();
   }
 
   document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
