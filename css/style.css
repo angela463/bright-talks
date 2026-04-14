@@ -2895,9 +2895,25 @@ a.nav-link.nav-trigger {
 }
 
 .lp-section--about-difference,
-.lp-section--about-credibility,
 .lp-section--about-experts {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(250, 244, 235, 0.44) 100%);
+}
+
+/* Credibility: marbled art background with soft wash for readable type and cards */
+.lp-section--about-credibility {
+  position: relative;
+  background-color: #faf7f2;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 252, 248, 0.9) 0%,
+      rgba(255, 248, 240, 0.84) 45%,
+      rgba(250, 242, 232, 0.9) 100%
+    ),
+    url('../images/about-credibility-marble-bg.png');
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
 }
 
 /* Why we built — full-bleed image, white type, column body copy, Ken Burns */
