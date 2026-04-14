@@ -2833,208 +2833,117 @@ a.nav-link.nav-trigger {
   margin-right: auto;
 }
 
-.lp-section--our-people {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(250, 244, 235, 0.45) 100%);
+.lp-section--about-difference,
+.lp-section--about-credibility,
+.lp-section--about-experts {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(250, 244, 235, 0.44) 100%);
 }
 
-.lp-section--our-people .section-kicker,
-.lp-section--our-people .section-headline,
-.lp-section--our-people .section-text {
+.lp-section--about-story {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 248, 240, 0.52) 100%);
+}
+
+.lp-section--about-difference .section-kicker,
+.lp-section--about-difference .section-headline,
+.lp-section--about-credibility .section-kicker,
+.lp-section--about-credibility .section-headline,
+.lp-section--about-credibility .section-text,
+.lp-section--about-experts .section-kicker,
+.lp-section--about-experts .section-headline,
+.lp-section--about-story .section-kicker,
+.lp-section--about-story .section-headline,
+.lp-section--about-story .section-text {
   text-align: center;
 }
 
-.our-people-grid {
+.about-card-grid {
   margin: clamp(1.75rem, 4vw, 2.5rem) auto 0;
   max-width: 1100px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 2.4vw, 1.35rem);
 }
 
-.our-people-card {
-  position: relative;
+.about-card-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.about-card-grid--five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.about-info-card {
   margin: 0;
+  background: #fffefb;
+  border: 1px solid rgba(220, 200, 180, 0.45);
   border-radius: var(--radius-lg);
-  overflow: clip;
-  background: #fff;
-  border: 1px solid rgba(220, 200, 180, 0.35);
   box-shadow: var(--shadow-sm);
+  padding: clamp(1.05rem, 2.7vw, 1.4rem);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.our-people-card:hover {
+.about-info-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
 
-.our-people-card img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: center;
-}
-
-.our-people-card__trigger {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 4.15rem;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid rgba(240, 164, 58, 0.9);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
-  color: #9a4a16;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-  box-shadow: 0 8px 20px rgba(44, 40, 37, 0.2);
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.our-people-card__trigger::before {
-  content: '+';
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.our-people-card__trigger:hover {
-  transform: scale(1.05);
-  background: var(--orange);
-  color: #fff;
-}
-
-.our-people-card__trigger:focus-visible {
-  outline: 2px solid var(--orange-dark);
-  outline-offset: 2px;
-}
-
-.our-people-card__caption {
-  margin: 0;
-  padding: 0.75rem 0.85rem 0.85rem;
-  background: #fffefb;
-  border-top: 1px solid rgba(220, 200, 180, 0.25);
-  display: grid;
-  gap: 0.2rem;
-}
-
-.our-people-card__caption strong {
+.about-info-card h3 {
+  margin: 0 0 0.45rem;
   font-family: var(--font-display);
-  font-size: 0.98rem;
+  font-size: clamp(1.03rem, 2.4vw, 1.2rem);
   color: var(--slate-dark);
 }
 
-.our-people-card__caption span {
-  font-size: 0.84rem;
-  color: var(--slate-light);
-}
-
-.our-people-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 11000;
-  display: grid;
-  place-items: center;
-  padding: 1.25rem;
-}
-
-.our-people-modal[hidden] {
-  display: none !important;
-}
-
-.our-people-modal__backdrop {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  background: rgba(28, 24, 22, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-.our-people-modal__panel {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 520px;
-  padding: 2rem 1.8rem 1.75rem;
-  background: #fff;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(220, 200, 180, 0.45);
-  box-shadow: 0 24px 64px rgba(28, 24, 22, 0.2);
-  text-align: left;
-}
-
-.our-people-modal__close {
-  position: absolute;
-  top: 0.65rem;
-  right: 0.65rem;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: rgba(250, 244, 235, 0.9);
-  color: var(--slate);
-  font-size: 1.35rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.our-people-modal__close:hover {
-  background: var(--peach);
-  color: var(--slate-dark);
-}
-
-.our-people-modal__close:focus-visible {
-  outline: 2px solid var(--orange);
-  outline-offset: 2px;
-}
-
-.our-people-modal__role {
-  margin: 0 0 0.35rem;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--orange-dark);
-}
-
-.our-people-modal__name {
-  margin: 0 0 0.7rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3.2vw, 1.55rem);
-  color: var(--slate-dark);
-}
-
-.our-people-modal__bio {
+.about-info-card p {
   margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.65;
   color: var(--slate);
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+
+.about-info-card__future-note {
+  margin-top: 0.55rem !important;
+  color: var(--orange-dark) !important;
+  font-size: 0.88rem !important;
+}
+
+.about-info-card--future-proof {
+  border-style: dashed;
+}
+
+.about-info-card--expert {
+  background: linear-gradient(180deg, #fffefb 0%, #fff9f1 100%);
+}
+
+.lp-section--about-cta {
+  text-align: center;
+}
+
+.lp-section--about-cta .section-headline,
+.lp-section--about-cta .section-text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lp-section--about-cta .btn {
+  margin-top: 0.8rem;
 }
 
 @media (max-width: 1100px) {
-  .our-people-grid {
+  .about-card-grid--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-card-grid--five {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 700px) {
-  .our-people-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .our-people-card__trigger {
-    bottom: 4rem;
-  }
-}
-
-@media (max-width: 520px) {
-  .our-people-modal__panel {
-    padding: 1.75rem 1.2rem 1.2rem;
+  .about-card-grid,
+  .about-card-grid--four,
+  .about-card-grid--five {
+    grid-template-columns: 1fr;
   }
 }
 

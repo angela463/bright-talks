@@ -263,60 +263,6 @@
     });
   }
 
-  function initOurPeopleModal() {
-    var modal = document.getElementById('our-people-modal');
-    if (!modal) return;
-    var triggers = document.querySelectorAll('.our-people-card__trigger');
-    if (!triggers.length) return;
-
-    var nameEl = document.getElementById('our-people-modal-name');
-    var roleEl = document.getElementById('our-people-modal-role');
-    var bioEl = document.getElementById('our-people-modal-bio');
-    var closeBtn = modal.querySelector('.our-people-modal__close');
-    var backdrop = modal.querySelector('.our-people-modal__backdrop');
-    var lastTrigger = null;
-
-    function closeModal() {
-      modal.setAttribute('hidden', '');
-      document.body.style.overflow = '';
-      if (lastTrigger && typeof lastTrigger.focus === 'function') {
-        lastTrigger.focus();
-      }
-      lastTrigger = null;
-    }
-
-    function openModal(trigger) {
-      if (!nameEl || !roleEl || !bioEl) return;
-      lastTrigger = trigger;
-      nameEl.textContent = trigger.getAttribute('data-person-name') || 'Team Member';
-      roleEl.textContent = trigger.getAttribute('data-person-role') || '';
-      bioEl.textContent = trigger.getAttribute('data-person-bio') || '';
-      modal.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden';
-      if (closeBtn && typeof closeBtn.focus === 'function') {
-        closeBtn.focus();
-      }
-    }
-
-    triggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function () {
-        openModal(trigger);
-      });
-    });
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', closeModal);
-    }
-    if (backdrop) {
-      backdrop.addEventListener('click', closeModal);
-    }
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !modal.hasAttribute('hidden')) {
-        closeModal();
-      }
-    });
-  }
-
   createOverlay();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -326,7 +272,6 @@
       initParentResourceMore();
       initParentResourceTabs();
       initValueFlipCards();
-      initOurPeopleModal();
       initHeroBackgroundVideo();
     });
   } else {
@@ -336,7 +281,6 @@
     initParentResourceMore();
     initParentResourceTabs();
     initValueFlipCards();
-    initOurPeopleModal();
     initHeroBackgroundVideo();
   }
 })();
