@@ -2901,16 +2901,6 @@ a.nav-link.nav-trigger {
   line-height: 1.62;
 }
 
-.about-info-card__future-note {
-  margin-top: 0.55rem !important;
-  color: var(--orange-dark) !important;
-  font-size: 0.88rem !important;
-}
-
-.about-info-card--future-proof {
-  border-style: dashed;
-}
-
 .about-info-card--expert {
   background: linear-gradient(180deg, #fffefb 0%, #fff9f1 100%);
 }
