@@ -66,7 +66,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Course library: full-bleed photo hero, fade into page orange, white type (courses.html) */
+/* Course library: full-bleed photo hero, soft fade into page bg, white type (courses.html) */
 .page-courses-main {
   width: 100%;
 }
@@ -97,15 +97,15 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(18, 16, 14, 0.2) 0%, rgba(18, 16, 14, 0.04) 28%, transparent 52%),
-    linear-gradient(
-      180deg,
-      transparent 0%,
-      rgba(232, 137, 74, 0.02) 52%,
-      rgba(232, 137, 74, 0.02) 82%,
-      #e8894a 100%
-    );
+  /* Soft neutral fade into page background — no orange band */
+  background: linear-gradient(
+    180deg,
+    rgba(18, 16, 14, 0.18) 0%,
+    rgba(18, 16, 14, 0.04) 32%,
+    transparent 55%,
+    rgba(248, 245, 241, 0.35) 82%,
+    rgba(248, 245, 241, 0.82) 100%
+  );
 }
 
 .course-library-hero__content {
