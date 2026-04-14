@@ -3087,6 +3087,208 @@ a.nav-link.nav-trigger {
   background: linear-gradient(180deg, #fffefb 0%, #fff9f1 100%);
 }
 
+.about-experts__intro {
+  margin: 0 auto 0.5rem;
+  max-width: 36rem;
+}
+
+.about-expert-grid {
+  margin: clamp(1.75rem, 4vw, 2.5rem) auto 0;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.35rem);
+}
+
+.about-expert-grid__item {
+  min-width: 0;
+}
+
+button.about-expert-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+}
+
+.about-expert-card:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.about-expert-card__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #ebe4dc;
+  border: 1px solid rgba(220, 200, 180, 0.45);
+  box-shadow: var(--shadow-sm);
+  aspect-ratio: 3 / 4;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.about-expert-card:hover .about-expert-card__media,
+.about-expert-card:focus-visible .about-expert-card__media {
+  box-shadow: var(--shadow);
+}
+
+.about-expert-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.about-expert-card:hover .about-expert-card__media img,
+.about-expert-card:focus-visible .about-expert-card__media img {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-expert-card__media img {
+    transition: none;
+  }
+
+  .about-expert-card:hover .about-expert-card__media img,
+  .about-expert-card:focus-visible .about-expert-card__media img {
+    transform: none;
+  }
+}
+
+.about-expert-card__meta {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem 0.15rem 0;
+}
+
+.about-expert-card__name {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--slate-dark);
+  line-height: 1.25;
+}
+
+.about-expert-card__role {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--slate-light);
+}
+
+.expert-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.expert-modal[hidden] {
+  display: none !important;
+}
+
+.expert-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(28, 24, 22, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.expert-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  padding: 2rem 1.8rem 1.75rem;
+  background: #fff;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(220, 200, 180, 0.45);
+  box-shadow: 0 24px 64px rgba(28, 24, 22, 0.2);
+  text-align: left;
+}
+
+.expert-modal__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: rgba(250, 244, 235, 0.9);
+  color: var(--slate);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.expert-modal__close:hover {
+  background: var(--peach);
+  color: var(--slate-dark);
+}
+
+.expert-modal__close:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.expert-modal__role {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange-dark);
+}
+
+.expert-modal__name {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3.2vw, 1.55rem);
+  color: var(--slate-dark);
+}
+
+.expert-modal__bio {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--slate);
+}
+
+@media (max-width: 1100px) {
+  .about-expert-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .about-expert-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .expert-modal__panel {
+    padding: 1.75rem 1.2rem 1.2rem;
+  }
+}
+
 .lp-section--about-cta {
   text-align: center;
 }

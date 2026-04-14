@@ -141,27 +141,84 @@
       <div class="container">
         <p class="section-kicker">WHAT DO THE EXPERTS SAY?</p>
         <h2 class="section-headline" id="experts-heading">Informed by voices families can trust</h2>
-        <div class="about-card-grid about-card-grid--five" role="list" aria-label="Fields of expertise that shape Bright Talks">
-          <article class="about-info-card about-info-card--expert" role="listitem">
-            <h3>Child development</h3>
-            <p>Helps ensure conversations are introduced in ways that match a child&rsquo;s stage, maturity, and emotional readiness.</p>
-          </article>
-          <article class="about-info-card about-info-card--expert" role="listitem">
-            <h3>Family communication</h3>
-            <p>Strengthens parent child dialogue so difficult topics can be discussed with clarity, empathy, and relational trust.</p>
-          </article>
-          <article class="about-info-card about-info-card--expert" role="listitem">
-            <h3>Christian parenting</h3>
-            <p>Anchors guidance in faith centered values that help families teach truth, dignity, and responsibility with consistency.</p>
-          </article>
-          <article class="about-info-card about-info-card--expert" role="listitem">
-            <h3>Counseling and prevention</h3>
-            <p>Brings a prevention lens that supports parents in addressing risk factors early and building healthier long term patterns.</p>
-          </article>
-          <article class="about-info-card about-info-card--expert" role="listitem">
-            <h3>Education and behavior research</h3>
-            <p>Translates evidence based insights into practical steps parents can apply in everyday conversations and routines.</p>
-          </article>
+        <p class="section-text section-text--center about-experts__intro">Bright Talks draws on advisors across child development, family communication, and prevention. Tap a portrait to learn more.</p>
+        <div class="about-expert-grid" role="list" aria-label="Bright Talks expert advisors">
+          <div class="about-expert-grid__item" role="listitem">
+            <button
+              type="button"
+              class="about-expert-card"
+              aria-haspopup="dialog"
+              aria-label="Open profile for Dr. Nina Patel"
+              data-expert-name="Dr. Nina Patel"
+              data-expert-title="Director of Family Learning, Bright Talks"
+              data-expert-bio="Nina helps translate developmental science into calm, age right language parents can use in everyday moments. She has spent more than a decade supporting families through seasons of change, with a focus on trust, clarity, and follow through at home."
+            >
+              <span class="about-expert-card__media">
+                <img src="images/about-expert-01.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+              </span>
+              <span class="about-expert-card__meta">
+                <span class="about-expert-card__name">Dr. Nina Patel</span>
+                <span class="about-expert-card__role">Director of Family Learning, Bright Talks</span>
+              </span>
+            </button>
+          </div>
+          <div class="about-expert-grid__item" role="listitem">
+            <button
+              type="button"
+              class="about-expert-card"
+              aria-haspopup="dialog"
+              aria-label="Open profile for Sarah Nguyen"
+              data-expert-name="Sarah Nguyen"
+              data-expert-title="Senior Family Wellness Consultant, Bright Talks"
+              data-expert-bio="Sarah focuses on parent teen dialogue and practical ways to reduce shame while increasing safety. She designs prompts and framing that help families stay connected when conversations feel fast, digital, and emotionally loaded."
+            >
+              <span class="about-expert-card__media">
+                <img src="images/about-expert-02.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+              </span>
+              <span class="about-expert-card__meta">
+                <span class="about-expert-card__name">Sarah Nguyen</span>
+                <span class="about-expert-card__role">Senior Family Wellness Consultant, Bright Talks</span>
+              </span>
+            </button>
+          </div>
+          <div class="about-expert-grid__item" role="listitem">
+            <button
+              type="button"
+              class="about-expert-card"
+              aria-haspopup="dialog"
+              aria-label="Open profile for James Rivera"
+              data-expert-name="James Rivera"
+              data-expert-title="Lead Prevention Strategist, Bright Talks"
+              data-expert-bio="James brings a prevention first lens to how families anticipate risk, set boundaries, and repair trust after hard moments. His work emphasizes early leadership, consistent values, and steady communication over quick fixes."
+            >
+              <span class="about-expert-card__media">
+                <img src="images/about-expert-03.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+              </span>
+              <span class="about-expert-card__meta">
+                <span class="about-expert-card__name">James Rivera</span>
+                <span class="about-expert-card__role">Lead Prevention Strategist, Bright Talks</span>
+              </span>
+            </button>
+          </div>
+          <div class="about-expert-grid__item" role="listitem">
+            <button
+              type="button"
+              class="about-expert-card"
+              aria-haspopup="dialog"
+              aria-label="Open profile for Dr. Priya Malhotra"
+              data-expert-name="Dr. Priya Malhotra"
+              data-expert-title="Research and Education Advisor, Bright Talks"
+              data-expert-bio="Priya connects evidence on communication and behavior formation to lesson design parents can actually use. She cares deeply about clarity, dignity, and measurable habits that build confidence over time."
+            >
+              <span class="about-expert-card__media">
+                <img src="images/about-expert-04.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+              </span>
+              <span class="about-expert-card__meta">
+                <span class="about-expert-card__name">Dr. Priya Malhotra</span>
+                <span class="about-expert-card__role">Research and Education Advisor, Bright Talks</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -189,6 +246,16 @@
       <a href="#top" class="footer-back">Return to Top</a>
     </div>
   </footer>
+
+  <div class="expert-modal" id="expert-modal" hidden>
+    <button class="expert-modal__backdrop" type="button" aria-label="Close profile"></button>
+    <div class="expert-modal__panel" role="dialog" aria-modal="true" aria-labelledby="expert-modal-name">
+      <button class="expert-modal__close" type="button" aria-label="Close profile">×</button>
+      <p class="expert-modal__role" id="expert-modal-role"></p>
+      <h3 class="expert-modal__name" id="expert-modal-name"></h3>
+      <p class="expert-modal__bio" id="expert-modal-bio"></p>
+    </div>
+  </div>
 
   <div id="cookie-overlay" class="cookie-overlay" aria-hidden="true" hidden></div>
   <div id="cookie-bar" class="cookie-bar" role="dialog" aria-label="Cookie consent" aria-live="polite" hidden>

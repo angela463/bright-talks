@@ -245,6 +245,60 @@
   }
 
   /** Homepage value cards: hover + .is-flipped only on .value-card__clip (not the article grid). */
+  function initExpertModal() {
+    var modal = document.getElementById('expert-modal');
+    if (!modal) return;
+    var triggers = document.querySelectorAll('.about-expert-card');
+    if (!triggers.length) return;
+
+    var nameEl = document.getElementById('expert-modal-name');
+    var roleEl = document.getElementById('expert-modal-role');
+    var bioEl = document.getElementById('expert-modal-bio');
+    var closeBtn = modal.querySelector('.expert-modal__close');
+    var backdrop = modal.querySelector('.expert-modal__backdrop');
+    var lastTrigger = null;
+
+    function closeModal() {
+      modal.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      if (lastTrigger && typeof lastTrigger.focus === 'function') {
+        lastTrigger.focus();
+      }
+      lastTrigger = null;
+    }
+
+    function openModal(trigger) {
+      if (!nameEl || !roleEl || !bioEl) return;
+      lastTrigger = trigger;
+      nameEl.textContent = trigger.getAttribute('data-expert-name') || '';
+      roleEl.textContent = trigger.getAttribute('data-expert-title') || '';
+      bioEl.textContent = trigger.getAttribute('data-expert-bio') || '';
+      modal.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      if (closeBtn && typeof closeBtn.focus === 'function') {
+        closeBtn.focus();
+      }
+    }
+
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        openModal(trigger);
+      });
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+    if (backdrop) {
+      backdrop.addEventListener('click', closeModal);
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hasAttribute('hidden')) {
+        closeModal();
+      }
+    });
+  }
+
   function initValueFlipCards() {
     if (!window.matchMedia('(hover: hover)').matches) return;
     var clips = document.querySelectorAll('.value-grid .value-card__clip');
@@ -272,6 +326,7 @@
       initParentResourceMore();
       initParentResourceTabs();
       initValueFlipCards();
+      initExpertModal();
       initHeroBackgroundVideo();
     });
   } else {
@@ -281,6 +336,7 @@
     initParentResourceMore();
     initParentResourceTabs();
     initValueFlipCards();
+    initExpertModal();
     initHeroBackgroundVideo();
   }
 })();
