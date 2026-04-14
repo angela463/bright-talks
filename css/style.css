@@ -2963,8 +2963,8 @@ a.nav-link.nav-trigger {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  min-height: clamp(12.5rem, 26vw, 17.5rem);
-  padding: clamp(1rem, 2.8vw, 1.65rem) clamp(1.25rem, 4vw, 2rem);
+  min-height: clamp(17rem, 38vw, 28rem);
+  padding: clamp(1.35rem, 3.5vw, 2.25rem) clamp(1.25rem, 4vw, 2rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2985,8 +2985,8 @@ a.nav-link.nav-trigger {
 }
 
 .lp-section--about-story .about-story__title.section-headline {
-  margin: 0 0 clamp(0.65rem, 1.8vw, 1rem);
-  font-size: clamp(1.2rem, 2.6vw, 1.65rem);
+  margin: 0 0 clamp(0.75rem, 2vw, 1.15rem);
+  font-size: clamp(1.3rem, 2.85vw, 1.85rem);
   line-height: 1.2;
   color: #fff;
   text-align: center;
@@ -3006,8 +3006,8 @@ a.nav-link.nav-trigger {
   color: rgba(255, 255, 255, 0.94);
   text-align: left;
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.28);
-  font-size: clamp(0.85rem, 1.45vw, 0.95rem);
-  line-height: 1.5;
+  font-size: clamp(0.88rem, 1.55vw, 1rem);
+  line-height: 1.55;
 }
 
 .lp-section--about-difference .section-kicker,
