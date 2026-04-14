@@ -2822,13 +2822,64 @@ a.nav-link.nav-trigger {
   line-height: 1.55;
 }
 
-.lp-section--about {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+/* Why Bright Talks — image hero */
+.lp-section--about-hero {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  min-height: clamp(22rem, 62vh, 40rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.lp-section--about .section-headline,
-.lp-section--about .section-text {
+.about-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.about-hero__img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.about-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(22, 20, 18, 0.28) 0%,
+    rgba(22, 20, 18, 0.42) 42%,
+    rgba(22, 20, 18, 0.58) 100%
+  );
+}
+
+.about-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3.25rem, 9vw, 5.5rem) 1.25rem;
   text-align: center;
+}
+
+.section-kicker--about-hero {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.lp-section--about-hero .about-hero__headline {
+  color: #fff;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.28);
+}
+
+.lp-section--about-hero .about-hero__text {
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.22);
+  max-width: 38rem;
   margin-left: auto;
   margin-right: auto;
 }
