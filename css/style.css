@@ -2902,13 +2902,13 @@ a.nav-link.nav-trigger {
 /* Credibility: marbled art background with soft wash for readable type and cards */
 .lp-section--about-credibility {
   position: relative;
-  background-color: #faf7f2;
+  background-color: #fffbf7;
   background-image:
     linear-gradient(
       180deg,
-      rgba(255, 252, 248, 0.9) 0%,
-      rgba(255, 248, 240, 0.84) 45%,
-      rgba(250, 242, 232, 0.9) 100%
+      rgba(255, 254, 252, 0.58) 0%,
+      rgba(255, 252, 248, 0.52) 45%,
+      rgba(255, 253, 249, 0.6) 100%
     ),
     url('../images/about-credibility-marble-bg.png');
   background-size: cover, cover;
