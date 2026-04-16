@@ -767,11 +767,12 @@ body.page-courses .section-header p {
 .lesson-preview-card__body {
   position: relative;
   padding: 0 1.6rem 1.6rem;
+  isolation: isolate;
 }
 
 .lesson-preview-copy {
   position: relative;
-  z-index: 1;
+  z-index: 0;
   max-width: 60ch;
 }
 
@@ -787,6 +788,7 @@ body.page-courses .section-header p {
 .lesson-preview-fade {
   position: absolute;
   inset: 40% 0 0;
+  z-index: 2;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -803,6 +805,7 @@ body.page-courses .section-header p {
 
 .lesson-preview-paywall {
   position: relative;
+  z-index: 3;
   margin-bottom: 1.4rem;
   padding: 1.15rem 1.4rem 1.25rem;
   max-width: 36rem;
