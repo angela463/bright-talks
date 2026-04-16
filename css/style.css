@@ -2897,7 +2897,7 @@ a.nav-link.nav-trigger {
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.45;
-  color: #fff;
+  color: #a34a18;
   text-align: center;
   text-wrap: balance;
 }
@@ -2911,6 +2911,23 @@ a.nav-link.nav-trigger {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.page-about .section-headline,
+.page-about .about-feature-card__title,
+.page-about .about-expert-card__name,
+.page-about .expert-modal__name {
+  text-wrap: balance;
+}
+
+.page-about .section-text,
+.page-about .about-hero__text,
+.page-about .about-feature-card__text,
+.page-about .about-story__deck,
+.page-about .about-expert-card__role,
+.page-about .expert-modal__role,
+.page-about .expert-modal__bio {
+  text-wrap: pretty;
 }
 
 .about-hero__media {
