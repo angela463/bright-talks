@@ -2891,7 +2891,7 @@ a.nav-link.nav-trigger {
 
 .outcome-relationship-line {
   margin: clamp(1.4rem, 3vw, 1.9rem) auto 0;
-  max-width: 42rem;
+  max-width: 100%;
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.55rem, 4.2vw, 2.25rem);
   font-weight: 400;
@@ -2899,7 +2899,14 @@ a.nav-link.nav-trigger {
   line-height: 1.45;
   color: #a34a18;
   text-align: center;
-  text-wrap: balance;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .outcome-relationship-line {
+    white-space: normal;
+    text-wrap: balance;
+  }
 }
 
 /* Why Bright Talks — image hero */
