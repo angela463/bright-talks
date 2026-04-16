@@ -19,7 +19,7 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Growing Up with Confidence',
     ageGroup: 'Ages 6 to 8',
     description: 'Build healthy language around boundaries, body awareness, and trust through short, parent led lessons.',
-    metaLabel: '10 minute',
+    metaLabel: '10 min',
     learningPoints: [
       'Words that match how school age kids think about fairness, friends, and rules',
       'Practices that reinforce body autonomy and “no means no” in kid sized ways',
