@@ -2889,6 +2889,19 @@ a.nav-link.nav-trigger {
   line-height: 1.55;
 }
 
+.outcome-relationship-line {
+  margin: clamp(1.4rem, 3vw, 1.9rem) auto 0;
+  max-width: 32rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.45;
+  color: #2b2520;
+  text-align: center;
+  text-wrap: balance;
+}
+
 /* Why Bright Talks — image hero */
 .lp-section--about-hero {
   position: relative;
