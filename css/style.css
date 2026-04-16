@@ -1718,7 +1718,7 @@ a.nav-link.nav-trigger {
   font-family: var(--font-display), Georgia, 'Times New Roman', serif;
   font-size: clamp(3.25rem, 9vw, 5rem);
   line-height: 0.72;
-  color: rgba(255, 255, 255, 0.2);
+  color: #fff;
   margin: 0 0 0.15rem;
   user-select: none;
 }
