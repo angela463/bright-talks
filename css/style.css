@@ -1699,6 +1699,73 @@ a.nav-link.nav-trigger {
   background: transparent;
 }
 
+/* Homepage — Jay Stringer quote (high-contrast editorial band) */
+.home-quote {
+  margin: 0;
+  padding: clamp(3.5rem, 9vw, 6.75rem) clamp(1.25rem, 4vw, 2rem);
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.home-quote__inner {
+  max-width: 38rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-quote__mark {
+  display: block;
+  font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+  font-size: clamp(3.25rem, 9vw, 5rem);
+  line-height: 0.72;
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0 0 0.15rem;
+  user-select: none;
+}
+
+.home-quote__kicker {
+  margin: 0 0 1.35rem;
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 1.4vw, 0.8rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.home-quote__blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.home-quote__blockquote p {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.28rem, 3.6vw, 1.82rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.48;
+  letter-spacing: -0.018em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.home-quote__blockquote em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.home-quote__attribution {
+  margin: clamp(1.65rem, 4vw, 2.35rem) 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .lp-section--trust .section-headline,
 .lp-section--trust .section-text {
   text-align: center;
