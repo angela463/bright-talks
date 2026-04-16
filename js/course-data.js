@@ -4,6 +4,7 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Bodies, Boundaries & Body Safety',
     ageGroup: 'Ages 3 to 5',
     description: 'A gentle, practical course to help parents introduce body safety, privacy, and consent with calm confidence.',
+    metaLabel: '8 min',
     learningPoints: [
       'Clear, age right language for bodies, privacy, and safe boundaries',
       'Simple ways to invite questions so home feels like the safest place to ask',
@@ -18,8 +19,7 @@ window.BRIGHT_TALKS_COURSES = [
     title: 'Growing Up with Confidence',
     ageGroup: 'Ages 6 to 8',
     description: 'Build healthy language around boundaries, body awareness, and trust through short, parent led lessons.',
-    moduleTotal: 7,
-    lessonTotal: 18,
+    metaLabel: '10 minute',
     learningPoints: [
       'Words that match how school age kids think about fairness, friends, and rules',
       'Practices that reinforce body autonomy and “no means no” in kid sized ways',

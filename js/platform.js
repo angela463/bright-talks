@@ -52,6 +52,7 @@
         }, 0);
         var moduleCount = typeof c.moduleTotal === 'number' ? c.moduleTotal : computedModuleCount;
         var lessonCount = typeof c.lessonTotal === 'number' ? c.lessonTotal : computedLessonCount;
+        var metaText = c.metaLabel ? safe(c.metaLabel) : (moduleCount + ' modules · ' + lessonCount + ' lessons');
         var ctaHtml = courseLibraryIsOpen(c)
           ? '<a class="btn btn-primary" href="course-detail.html?course=' + encodeURIComponent(c.id) + '">View modules</a>'
           : '<span class="btn course-card-cta course-card-cta--soon" role="status">Coming soon</span>';
@@ -62,7 +63,7 @@
               '<span class="chip">' + safe(c.ageGroup) + '</span>' +
               '<h3>' + safe(c.title) + '</h3>' +
               '<p>' + safe(c.description) + '</p>' +
-              '<div class="course-meta">' + moduleCount + ' modules · ' + lessonCount + ' lessons</div>' +
+              '<div class="course-meta">' + metaText + '</div>' +
               ctaHtml +
             '</div>' +
           '</article>'
