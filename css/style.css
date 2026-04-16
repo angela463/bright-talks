@@ -2893,7 +2893,7 @@ a.nav-link.nav-trigger {
   margin: clamp(1.4rem, 3vw, 1.9rem) auto 0;
   max-width: 32rem;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.35rem, 3.4vw, 1.9rem);
+  font-size: clamp(1.55rem, 4.2vw, 2.25rem);
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.45;
