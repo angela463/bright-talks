@@ -2892,11 +2892,6 @@ a.nav-link.nav-trigger {
 .lp-section--relationship {
   padding-top: clamp(1.8rem, 4vw, 2.4rem);
   padding-bottom: clamp(1.8rem, 4vw, 2.4rem);
-}
-
-.outcome-relationship-band {
-  padding: clamp(1.15rem, 2.8vw, 1.6rem) clamp(1.5rem, 4vw, 2.4rem);
-  border-radius: var(--radius-xl);
   background-color: #e8894a;
   background-image:
     linear-gradient(
@@ -2910,9 +2905,10 @@ a.nav-link.nav-trigger {
       #e8894a 42%,
       #d9773a 100%
     );
-  box-shadow:
-    0 14px 40px rgba(200, 95, 45, 0.38),
-    0 1px 0 rgba(255, 255, 255, 0.65) inset;
+}
+
+.outcome-relationship-band {
+  padding: clamp(1.15rem, 2.8vw, 1.6rem) clamp(1.5rem, 4vw, 2.4rem);
 }
 
 .outcome-relationship-line {
