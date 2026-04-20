@@ -38,6 +38,20 @@ body {
   border-color: var(--accent-strong);
 }
 
+/* Courses page header: match homepage primary CTA (bright brand gradient from style.css) */
+body.page-courses .site-header .btn.btn-primary {
+  background: linear-gradient(165deg, var(--orange) 0%, var(--orange-dark) 100%);
+  border: none;
+  color: var(--white);
+  box-shadow: var(--shadow-sm), 0 2px 8px rgba(200, 120, 60, 0.25);
+}
+
+body.page-courses .site-header .btn.btn-primary:hover {
+  background: var(--orange-dark);
+  border: none;
+  box-shadow: var(--shadow);
+}
+
 .page-shell {
   max-width: 1160px;
   margin: 0 auto;
