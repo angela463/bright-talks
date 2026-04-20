@@ -2890,8 +2890,8 @@ a.nav-link.nav-trigger {
 }
 
 .lp-section--relationship {
-  padding-top: clamp(1.8rem, 4vw, 2.4rem);
-  padding-bottom: clamp(1.8rem, 4vw, 2.4rem);
+  padding-top: clamp(2.5rem, 5vw, 3.4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 3.4rem);
   background-color: #e8894a;
   background-image:
     linear-gradient(
