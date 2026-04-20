@@ -59,7 +59,7 @@
           metaText = moduleCount + ' modules · ' + lessonCount + ' lessons';
         }
         var ctaHtml = courseLibraryIsOpen(c)
-          ? '<a class="btn btn-primary" href="course-detail.html?course=' + encodeURIComponent(c.id) + '">View modules</a>'
+          ? '<a class="btn btn-primary" href="module-detail.html?course=' + encodeURIComponent(c.id) + '&module=0">View lessons</a>'
           : '<span class="btn course-card-cta course-card-cta--soon" role="status">Coming soon</span>';
         return (
           '<article class="course-card">' +

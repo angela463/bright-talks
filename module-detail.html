@@ -34,10 +34,15 @@
   </header>
 
   <main class="page-shell module-page-shell">
-    <section class="hero-panel">
-      <h1>Taking you to lessons…</h1>
-      <p>This step has been removed from the flow.</p>
-      <p><a id="module-redirect-link" class="btn btn-primary" href="lesson-player.html?course=ages-3-5&amp;module=0&amp;lesson=0">Open lessons</a></p>
+    <a class="page-back-home" href="index.html">← Back</a>
+
+    <section class="module-lessons-section">
+      <div class="section-header module-lessons-header">
+        <span class="eyebrow">Lessons</span>
+        <h2>Start a Lesson and continue the open conversations</h2>
+        <p>Each lesson keeps the same clear sequence, now presented in a more guided, premium learning flow.</p>
+      </div>
+      <div id="lesson-list-root" class="lesson-list"></div>
     </section>
   </main>
 
@@ -47,18 +52,10 @@
     </div>
   </footer>
 
+  <script src="js/course-preview-data.js"></script>
+  <script src="js/course-data.js"></script>
+  <script src="js/platform.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    (function () {
-      var params = new URLSearchParams(window.location.search);
-      var course = params.get('course') || 'ages-3-5';
-      var module = params.get('module') || '0';
-      var target = 'lesson-player.html?course=' + encodeURIComponent(course) + '&module=' + encodeURIComponent(module) + '&lesson=0';
-      var link = document.getElementById('module-redirect-link');
-      if (link) link.href = target;
-      window.location.replace(target);
-    })();
-  </script>
 </body>
 </html>
 
