@@ -3,78 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="View course modules and structure for Bright Talks." />
-  <title>Course Modules: Bright Talks</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <meta name="description" content="Redirecting to Bright Talks lessons." />
+  <title>Redirecting to lessons · Bright Talks</title>
+  <meta http-equiv="refresh" content="0; url=module-detail.html?course=ages-3-5&module=0" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/platform.css" />
 </head>
 <body class="page-courses" id="top">
-  <header class="site-header site-header--landing">
-    <div class="header-inner header-inner--landing">
-      <a href="index.html" class="logo-link">
-        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
-      </a>
-      <nav class="nav nav--landing" aria-label="Main">
-        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
-        <div class="nav-dropdown">
-          <a href="courses.html" class="nav-link nav-link--minimal nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="nav-courses-menu" id="nav-courses-btn">Courses</a>
-          <div id="nav-courses-menu" class="nav-panel nav-panel--courses" role="menu">
-            <a href="courses.html" role="menuitem">Course library</a>
-            <a href="course-detail.html" role="menuitem" aria-current="page">Course modules</a>
-          </div>
-        </div>
-        <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
-        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
-      </nav>
-      <a href="index.html#waitlist" class="btn btn-primary">Join</a>
-    </div>
-  </header>
-
   <main class="page-shell">
-    <a class="page-back-home" href="index.html">← Back</a>
-
-    <section class="hero-panel course-detail-hero" aria-labelledby="course-detail-title">
-      <div class="course-detail-hero-copy">
-        <p class="course-detail-eyebrow">Course overview</p>
-        <h1 id="course-detail-title" class="course-detail-headline">Bodies, Boundaries &amp; Body Safety</h1>
-      </div>
-      <div class="course-detail-hero-panel">
-        <p id="course-detail-description" class="course-detail-lead">
-          A gentle, practical course to help parents introduce body safety, privacy, and consent with calm confidence.
-        </p>
-        <p class="course-detail-age-row">
-          <span id="course-detail-age" class="course-detail-age-badge">Ages 3 to 5</span>
-        </p>
-        <div class="course-detail-takeaways">
-          <p class="course-detail-takeaways-label">What you&rsquo;ll take away</p>
-          <ul id="course-detail-bullets" class="course-detail-bullets" role="list" aria-label="What parents will learn"></ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-header">
-        <span class="eyebrow">Course Structure</span>
-        <h2>Modules</h2>
-        <p>Open any module to view lesson details and continue your pathway.</p>
-      </div>
-      <div id="module-list-root" class="module-list"></div>
+    <section class="hero-panel">
+      <h1>Taking you to lessons…</h1>
+      <p>If you are not redirected, use the link below.</p>
+      <p><a class="btn btn-primary" id="course-redirect-link" href="module-detail.html?course=ages-3-5&amp;module=0">Open lessons</a></p>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p class="footer-copy">© 2025 Bright Talks. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="js/course-preview-data.js"></script>
-  <script src="js/course-data.js"></script>
-  <script src="js/platform.js"></script>
-  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var course = params.get('course') || 'ages-3-5';
+      var target = 'module-detail.html?course=' + encodeURIComponent(course) + '&module=0';
+      var link = document.getElementById('course-redirect-link');
+      if (link) link.href = target;
+      window.location.replace(target);
+    })();
+  </script>
 </body>
 </html>
-
