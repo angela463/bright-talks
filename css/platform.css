@@ -492,6 +492,13 @@ body.page-courses .section-header p {
   color: var(--text-muted);
 }
 
+.page-back-home {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.95rem;
+  border-radius: 999px;
+}
+
 .module-list,
 .lesson-list {
   display: grid;
