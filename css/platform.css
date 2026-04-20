@@ -493,10 +493,16 @@ body.page-courses .section-header p {
 }
 
 .page-back-home {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   margin-bottom: 0.95rem;
-  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.page-back-home:hover {
+  text-decoration: underline;
 }
 
 .module-list,
