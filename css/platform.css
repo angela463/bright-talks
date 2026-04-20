@@ -502,6 +502,7 @@ body.page-courses .section-header p {
 }
 
 .page-back-home:hover {
+  color: #fff;
   text-decoration: underline;
 }
 
