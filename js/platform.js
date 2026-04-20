@@ -105,12 +105,18 @@
     root.innerHTML = (course.modules || []).map(function (m, idx) {
       var lessons = (m.lessons || []);
       var summary = 'Explore foundational concepts and parent ready language for this stage.';
+      var startHref =
+        'lesson-player.html?course=' +
+        encodeURIComponent(course.id) +
+        '&module=' +
+        idx +
+        '&lesson=0';
       return (
         '<article class="module-card">' +
           '<div class="module-top"><span class="module-index">Module ' + (idx + 1) + '</span><span class="tag">' + lessons.length + ' lessons</span></div>' +
           '<h3>' + safe(m.title || ('Module ' + (idx + 1))) + '</h3>' +
           '<p>' + safe(summary) + '</p>' +
-          '<a class="btn btn-primary" href="module-detail.html?course=' + encodeURIComponent(course.id) + '&module=' + idx + '">Open module</a>' +
+          '<a class="btn btn-primary" href="' + startHref + '">Start lessons</a>' +
         '</article>'
       );
     }).join('');
