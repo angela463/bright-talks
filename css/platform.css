@@ -581,6 +581,16 @@ body.page-courses .section-header p {
     linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(252, 250, 247, 0.88));
 }
 
+.module-detail-hero--simple {
+  display: block;
+  padding: clamp(1.2rem, 3vw, 1.75rem);
+}
+
+.module-detail-hero-copy--simple h1 {
+  max-width: 16ch;
+  margin: 0;
+}
+
 .module-detail-hero::after {
   content: '';
   position: absolute;
