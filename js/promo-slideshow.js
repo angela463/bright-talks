@@ -1,16 +1,23 @@
 /**
- * Bright Talks homepage promo: local image slides + layered music + voiceover.
- * Playback UI matches lesson-player (center play, bottom gradient bar, scrubber + times).
+ * Bright Talks homepage promo: local image slides + layered music + dual voiceover.
+ * Female and male narration files both play in full; slide pacing matches each segment,
+ * with a handoff on a slide boundary (see PROMO_NARRATION_HANDOFF_SCENE_INDEX).
  */
 (function () {
   'use strict';
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
-  /** Female voice first, then male voice — played back to back under the slideshow. */
+  /** Female VO (`Bright Talks Voice Over.m4a`) then male VO (`promo-recording.m4a`) — both play in full. */
   var PROMO_VOICEOVER_FEMALE_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
   var PROMO_VOICEOVER_MALE_SRC = encodeURI('audio/promo-recording.m4a');
   var PROMO_SPEAKER_LABELS = ['Female voice', 'Male voice'];
+  /**
+   * First slide index narrated by the male track and shown as “Male voice”.
+   * Slides before this use the full female file duration; from here on, the full male file.
+   * Default 4: handoff after “What if those conversations started with you?” (setup → product line).
+   */
+  var PROMO_NARRATION_HANDOFF_SCENE_INDEX = 4;
 
   /* Promo photography: images/promo/ */
   var scenes = [
@@ -123,6 +130,11 @@
     return t;
   }
 
+  function narrationHandoffSceneIndex() {
+    var h = PROMO_NARRATION_HANDOFF_SCENE_INDEX;
+    return Math.max(1, Math.min(scenes.length - 1, h));
+  }
+
   function getFemaleDurationMs() {
     if (!voFemale || !voFemale.duration || !isFinite(voFemale.duration) || voFemale.duration <= 0) return 0;
     return voFemale.duration * 1000;
@@ -180,16 +192,23 @@
     var dF = getFemaleDurationMs();
     var dM = getMaleDurationMs();
     if (!dF || !dM) return;
-    var durMs = dF + dM;
-    var sumD = scenes.reduce(function (a, s) {
-      return a + s.duration;
-    }, 0);
-    if (sumD <= 0) return;
-    var scale = durMs / sumD;
-    for (var i = 0; i < scenes.length; i++) {
-      scenes[i]._scaledMs = scenes[i].duration * scale;
+    var h = narrationHandoffSceneIndex();
+    var baseBefore = 0;
+    var i;
+    for (i = 0; i < h; i++) {
+      baseBefore += scenes[i].duration;
     }
-    totalMs = durMs;
+    var baseAfter = 0;
+    for (i = h; i < scenes.length; i++) {
+      baseAfter += scenes[i].duration;
+    }
+    if (baseBefore <= 0 || baseAfter <= 0) return;
+    var scaleFemale = dF / baseBefore;
+    var scaleMale = dM / baseAfter;
+    for (i = 0; i < scenes.length; i++) {
+      scenes[i]._scaledMs = scenes[i].duration * (i < h ? scaleFemale : scaleMale);
+    }
+    totalMs = dF + dM;
     if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
   }
 
@@ -332,7 +351,8 @@
 
   function applyCaption(i) {
     if (speakerEl) {
-      speakerEl.textContent = PROMO_SPEAKER_LABELS[i % PROMO_SPEAKER_LABELS.length];
+      var h = narrationHandoffSceneIndex();
+      speakerEl.textContent = PROMO_SPEAKER_LABELS[i < h ? 0 : 1];
     }
     if (!captionEl) return;
     captionEl.textContent = scenes[i].text;
