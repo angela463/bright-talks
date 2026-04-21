@@ -1,7 +1,7 @@
 /**
  * Bright Talks homepage promo: local image slides + layered music + dual voiceover.
- * Female and male narration files both play in full; slide pacing matches each segment,
- * with a handoff on a slide boundary (see PROMO_NARRATION_HANDOFF_SCENE_INDEX).
+ * Female then male file play in sequence; slides follow the audio clock and scale in two
+ * blocks so the male file starts on slide PROMO_MALE_VO_STARTS_AT_SCENE_INDEX (tune if lines drift).
  */
 (function () {
   'use strict';
@@ -13,11 +13,10 @@
   var PROMO_VOICEOVER_MALE_SRC = encodeURI('audio/promo-recording.m4a');
   var PROMO_SPEAKER_LABELS = ['Female voice', 'Male voice'];
   /**
-   * First slide index narrated by the male track and shown as “Male voice”.
-   * Slides before this use the full female file duration; from here on, the full male file.
-   * Default 4: handoff after “What if those conversations started with you?” (setup → product line).
+   * Slide index where the male narration file begins (female file covers slides 0 .. h-1).
+   * Adjust relative `duration` values within each block to fine-tune how long each line stays up.
    */
-  var PROMO_NARRATION_HANDOFF_SCENE_INDEX = 4;
+  var PROMO_MALE_VO_STARTS_AT_SCENE_INDEX = 4;
 
   /* Promo photography: images/promo/ */
   var scenes = [
@@ -130,9 +129,32 @@
     return t;
   }
 
-  function narrationHandoffSceneIndex() {
-    var h = PROMO_NARRATION_HANDOFF_SCENE_INDEX;
+  function maleVoStartsAtSceneIndex() {
+    var h = PROMO_MALE_VO_STARTS_AT_SCENE_INDEX;
     return Math.max(1, Math.min(scenes.length - 1, h));
+  }
+
+  function sceneIndexForElapsedMs(ms) {
+    var n = scenes.length;
+    if (n === 0) return 0;
+    ms = Math.max(0, Math.min(ms, totalMs));
+    for (var i = 0; i < n; i++) {
+      var end = sumDurationsUpTo(i + 1);
+      if (ms < end) return i;
+    }
+    return n - 1;
+  }
+
+  /** Keep the visible slide aligned with voiceover playback (avoids timer vs audio drift). */
+  function syncSlideToVoiceover() {
+    if (!playing || !voFemale || !voMale) return;
+    if (getFemaleDurationMs() <= 0 || getMaleDurationMs() <= 0) return;
+    var elMs = getVoiceoverCombinedMs();
+    var want = sceneIndexForElapsedMs(elMs);
+    if (want !== idx) {
+      applyScene(want, false);
+    }
+    clearSlideTimer();
   }
 
   function getFemaleDurationMs() {
@@ -192,24 +214,32 @@
     var dF = getFemaleDurationMs();
     var dM = getMaleDurationMs();
     if (!dF || !dM) return;
-    var h = narrationHandoffSceneIndex();
+    var h = maleVoStartsAtSceneIndex();
     var baseBefore = 0;
-    var i;
-    for (i = 0; i < h; i++) {
-      baseBefore += scenes[i].duration;
+    var si;
+    for (si = 0; si < h; si++) {
+      baseBefore += scenes[si].duration;
     }
     var baseAfter = 0;
-    for (i = h; i < scenes.length; i++) {
-      baseAfter += scenes[i].duration;
+    for (si = h; si < scenes.length; si++) {
+      baseAfter += scenes[si].duration;
     }
     if (baseBefore <= 0 || baseAfter <= 0) return;
-    var scaleFemale = dF / baseBefore;
-    var scaleMale = dM / baseAfter;
-    for (i = 0; i < scenes.length; i++) {
-      scenes[i]._scaledMs = scenes[i].duration * (i < h ? scaleFemale : scaleMale);
+    var scaleF = dF / baseBefore;
+    var scaleM = dM / baseAfter;
+    for (si = 0; si < scenes.length; si++) {
+      scenes[si]._scaledMs = scenes[si].duration * (si < h ? scaleF : scaleM);
     }
     totalMs = dF + dM;
     if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
+  }
+
+  /** Which VO is on the clock at the start of slide i (matches female then male playback). */
+  function voiceLabelIndexForSlideStart(i) {
+    var dF = getFemaleDurationMs();
+    if (dF <= 0) return 0;
+    var tStart = sumDurationsUpTo(i);
+    return tStart + 0.5 < dF ? 0 : 1;
   }
 
   function resetPromoTimingToDefaults() {
@@ -240,6 +270,9 @@
       if (ran || !bothMetaReady()) return;
       ran = true;
       applyVoiceoverTimingFromAudio();
+      if (speakerEl) {
+        applyCaption(idx);
+      }
       if (pendingVoiceoverResumeMs != null) {
         if (seekVoiceoversToElapsedMs(pendingVoiceoverResumeMs)) {
           pendingVoiceoverResumeMs = null;
@@ -247,6 +280,7 @@
       }
       if (playing) {
         playVoiceoversFromCurrentPositions();
+        syncSlideToVoiceover();
       }
       if (typeof done === 'function') done();
     }
@@ -294,6 +328,7 @@
   }
 
   function updateProgressUi() {
+    syncSlideToVoiceover();
     var ms = getElapsedMs();
     var pct = totalMs > 0 ? (ms / totalMs) * 100 : 0;
     if (fill) fill.style.width = pct + '%';
@@ -351,8 +386,7 @@
 
   function applyCaption(i) {
     if (speakerEl) {
-      var h = narrationHandoffSceneIndex();
-      speakerEl.textContent = PROMO_SPEAKER_LABELS[i < h ? 0 : 1];
+      speakerEl.textContent = PROMO_SPEAKER_LABELS[voiceLabelIndexForSlideStart(i)];
     }
     if (!captionEl) return;
     captionEl.textContent = scenes[i].text;
@@ -449,27 +483,12 @@
       voMale.muted = musicMuted;
       var pm = voMale.play();
       if (pm && pm.catch) pm.catch(function () {});
+      syncSlideToVoiceover();
     });
     voMale.addEventListener('ended', function () {
       if (playing) stopSequence(true);
     });
     wireVoiceoverTimingReady(afterTimingReady);
-  }
-
-  function advance() {
-    if (!playing) return;
-    if (idx >= scenes.length - 1) {
-      stopSequence(true);
-      return;
-    }
-    applyScene(idx + 1, false);
-    scheduleAdvance();
-  }
-
-  function scheduleAdvance() {
-    clearSlideTimer();
-    if (!playing) return;
-    slideTimer = setTimeout(advance, getSceneDuration(idx));
   }
 
   function stopSequence(atEnd) {
@@ -518,7 +537,6 @@
     setTogglePlaying(true);
     applyScene(0, true);
     startAudio(function afterPromoTiming() {
-      scheduleAdvance();
       startProgressTicker();
       updateProgressUi();
     });
@@ -530,7 +548,6 @@
     playing = true;
     var elapsedInSlide = resumeAt - sumDurationsUpTo(idx);
     elapsedInSlide = Math.max(0, Math.min(elapsedInSlide, getSceneDuration(idx)));
-    var remaining = Math.max(0, getSceneDuration(idx) - elapsedInSlide);
     slideStartWallMs = Date.now() - elapsedInSlide;
     frozenElapsedMs = null;
     if (toggleBtn) {
@@ -544,7 +561,6 @@
     }
     startAudio();
     clearSlideTimer();
-    slideTimer = setTimeout(advance, remaining);
     startProgressTicker();
     updateProgressUi();
   }
