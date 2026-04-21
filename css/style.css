@@ -3554,6 +3554,35 @@ button.about-expert-card {
   margin-right: auto;
 }
 
+.about-testimonial-grid {
+  margin: clamp(1.4rem, 3.8vw, 2.2rem) auto 0;
+  max-width: 64rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.6vw, 1.4rem);
+}
+
+.about-testimonial-card {
+  margin: 0;
+  padding: clamp(1.1rem, 2.8vw, 1.45rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(222, 198, 172, 0.6);
+  background: linear-gradient(165deg, #fffefb 0%, #fff7ec 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 12px 30px rgba(43, 34, 26, 0.08);
+  text-align: left;
+}
+
+.about-testimonial-card p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 2.1vw, 1.16rem);
+  line-height: 1.52;
+  color: var(--slate-dark);
+  text-wrap: pretty;
+}
+
 .lp-section--about-cta .btn {
   margin-top: 0.8rem;
 }
@@ -3572,6 +3601,10 @@ button.about-expert-card {
   .about-card-grid,
   .about-card-grid--four,
   .about-card-grid--five {
+    grid-template-columns: 1fr;
+  }
+
+  .about-testimonial-grid {
     grid-template-columns: 1fr;
   }
 }
