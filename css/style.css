@@ -1800,7 +1800,7 @@ a.nav-link.nav-trigger {
   margin-right: auto;
 }
 
-/* Homepage promo slideshow (imagery + text + soft music; no voiceover) */
+/* Homepage promo slideshow (imagery + text + soft music + female voiceover) */
 .lp-section--promo {
   background: linear-gradient(180deg, rgba(255, 251, 246, 0.95) 0%, rgba(250, 244, 235, 0.5) 100%);
   border-top: 1px solid rgba(220, 200, 180, 0.18);

@@ -1,22 +1,14 @@
 /**
- * Bright Talks homepage promo: local image slides + layered music + dual voiceover.
- * Female then male file play in sequence; slides follow the audio clock and scale in two
- * blocks so the male file starts on slide PROMO_MALE_VO_STARTS_AT_SCENE_INDEX (tune if lines drift).
+ * Bright Talks homepage promo: local image slides + layered music + female voiceover.
+ * Slides follow the voiceover clock; slide lengths scale to the narration file duration.
  */
 (function () {
   'use strict';
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
-  /** Female VO (`Bright Talks Voice Over.m4a`) then male VO (`promo-recording.m4a`) — both play in full. */
-  var PROMO_VOICEOVER_FEMALE_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
-  var PROMO_VOICEOVER_MALE_SRC = encodeURI('audio/promo-recording.m4a');
-  var PROMO_SPEAKER_LABELS = ['Female voice', 'Male voice'];
-  /**
-   * Slide index where the male narration file begins (female file covers slides 0 .. h-1).
-   * Adjust relative `duration` values within each block to fine-tune how long each line stays up.
-   */
-  var PROMO_MALE_VO_STARTS_AT_SCENE_INDEX = 4;
+  var PROMO_VOICEOVER_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
+  var PROMO_SPEAKER_LABEL = 'Female voice';
 
   /* Promo photography: images/promo/ */
   var scenes = [
@@ -95,9 +87,8 @@
   var slideTimer = null;
   var progressTick = null;
   var bgMusic = null;
-  var voFemale = null;
-  var voMale = null;
-  /** When resuming before both voiceovers expose duration, seek once metadata is ready. */
+  var voiceoverAudio = null;
+  /** When resuming before voiceover exposes duration, seek once metadata is ready. */
   var pendingVoiceoverResumeMs = null;
 
   /** Wall time when the current slide started (for timeline). */
@@ -129,11 +120,6 @@
     return t;
   }
 
-  function maleVoStartsAtSceneIndex() {
-    var h = PROMO_MALE_VO_STARTS_AT_SCENE_INDEX;
-    return Math.max(1, Math.min(scenes.length - 1, h));
-  }
-
   function sceneIndexForElapsedMs(ms) {
     var n = scenes.length;
     if (n === 0) return 0;
@@ -147,9 +133,9 @@
 
   /** Keep the visible slide aligned with voiceover playback (avoids timer vs audio drift). */
   function syncSlideToVoiceover() {
-    if (!playing || !voFemale || !voMale) return;
-    if (getFemaleDurationMs() <= 0 || getMaleDurationMs() <= 0) return;
-    var elMs = getVoiceoverCombinedMs();
+    if (!playing || !voiceoverAudio) return;
+    if (getVoiceoverDurationMs() <= 0) return;
+    var elMs = getVoiceoverElapsedMs();
     var want = sceneIndexForElapsedMs(elMs);
     if (want !== idx) {
       applyScene(want, false);
@@ -157,89 +143,42 @@
     clearSlideTimer();
   }
 
-  function getFemaleDurationMs() {
-    if (!voFemale || !voFemale.duration || !isFinite(voFemale.duration) || voFemale.duration <= 0) return 0;
-    return voFemale.duration * 1000;
-  }
-
-  function getMaleDurationMs() {
-    if (!voMale || !voMale.duration || !isFinite(voMale.duration) || voMale.duration <= 0) return 0;
-    return voMale.duration * 1000;
-  }
-
-  function seekVoiceoversToElapsedMs(ms) {
-    if (!voFemale || !voMale) return false;
-    var dF = getFemaleDurationMs();
-    var dM = getMaleDurationMs();
-    if (dF <= 0 || dM <= 0) return false;
-    var cap = dF + dM - 1;
-    ms = Math.max(0, Math.min(ms, cap));
-    if (ms < dF) {
-      try {
-        voFemale.currentTime = Math.min(Math.max(0, ms / 1000), Math.max(0, voFemale.duration - 0.05));
-      } catch (eSeekF) {}
-      voMale.pause();
-      try {
-        voMale.currentTime = 0;
-      } catch (eSeekM0) {}
-    } else {
-      voFemale.pause();
-      try {
-        if (voFemale.duration) voFemale.currentTime = Math.max(0, voFemale.duration - 0.05);
-      } catch (eSeekFEnd) {}
-      try {
-        voMale.currentTime = Math.min(
-          Math.max(0, (ms - dF) / 1000),
-          Math.max(0, voMale.duration - 0.05)
-        );
-      } catch (eSeekM) {}
+  function getVoiceoverDurationMs() {
+    if (!voiceoverAudio || !voiceoverAudio.duration || !isFinite(voiceoverAudio.duration) || voiceoverAudio.duration <= 0) {
+      return 0;
     }
+    return voiceoverAudio.duration * 1000;
+  }
+
+  function getVoiceoverElapsedMs() {
+    if (!voiceoverAudio || !isFinite(voiceoverAudio.currentTime)) return 0;
+    return Math.min(totalMs, Math.max(0, voiceoverAudio.currentTime * 1000));
+  }
+
+  function seekVoiceoverToElapsedMs(ms) {
+    if (!voiceoverAudio) return false;
+    var d = getVoiceoverDurationMs();
+    if (d <= 0) return false;
+    ms = Math.max(0, Math.min(ms, d - 1));
+    try {
+      voiceoverAudio.currentTime = Math.min(Math.max(0, ms / 1000), Math.max(0, voiceoverAudio.duration - 0.05));
+    } catch (eSeek) {}
     return true;
   }
 
-  function getVoiceoverCombinedMs() {
-    if (!voFemale) return 0;
-    var dF = getFemaleDurationMs();
-    var dM = getMaleDurationMs();
-    if (!voMale || !dM) {
-      return Math.min(totalMs, Math.max(0, voFemale.currentTime * 1000));
-    }
-    if (voFemale.ended || (dF > 0 && voFemale.currentTime * 1000 >= dF - 80)) {
-      return Math.min(totalMs, dF + Math.max(0, voMale.currentTime * 1000));
-    }
-    return Math.min(totalMs, Math.max(0, voFemale.currentTime * 1000));
-  }
-
   function applyVoiceoverTimingFromAudio() {
-    var dF = getFemaleDurationMs();
-    var dM = getMaleDurationMs();
-    if (!dF || !dM) return;
-    var h = maleVoStartsAtSceneIndex();
-    var baseBefore = 0;
-    var si;
-    for (si = 0; si < h; si++) {
-      baseBefore += scenes[si].duration;
+    var durMs = getVoiceoverDurationMs();
+    if (!durMs) return;
+    var sumD = scenes.reduce(function (a, s) {
+      return a + s.duration;
+    }, 0);
+    if (sumD <= 0) return;
+    var scale = durMs / sumD;
+    for (var si = 0; si < scenes.length; si++) {
+      scenes[si]._scaledMs = scenes[si].duration * scale;
     }
-    var baseAfter = 0;
-    for (si = h; si < scenes.length; si++) {
-      baseAfter += scenes[si].duration;
-    }
-    if (baseBefore <= 0 || baseAfter <= 0) return;
-    var scaleF = dF / baseBefore;
-    var scaleM = dM / baseAfter;
-    for (si = 0; si < scenes.length; si++) {
-      scenes[si]._scaledMs = scenes[si].duration * (si < h ? scaleF : scaleM);
-    }
-    totalMs = dF + dM;
+    totalMs = durMs;
     if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
-  }
-
-  /** Which VO is on the clock at the start of slide i (matches female then male playback). */
-  function voiceLabelIndexForSlideStart(i) {
-    var dF = getFemaleDurationMs();
-    if (dF <= 0) return 0;
-    var tStart = sumDurationsUpTo(i);
-    return tStart + 0.5 < dF ? 0 : 1;
   }
 
   function resetPromoTimingToDefaults() {
@@ -251,69 +190,49 @@
   }
 
   function wireVoiceoverTimingReady(done) {
-    if (!voFemale || !voMale) {
+    if (!voiceoverAudio) {
       if (typeof done === 'function') done();
       return;
     }
-    function bothMetaReady() {
+    function metaReady() {
       return (
-        voFemale.duration &&
-        voMale.duration &&
-        isFinite(voFemale.duration) &&
-        isFinite(voMale.duration) &&
-        voFemale.duration > 0 &&
-        voMale.duration > 0
+        voiceoverAudio.duration &&
+        isFinite(voiceoverAudio.duration) &&
+        voiceoverAudio.duration > 0
       );
     }
     var ran = false;
     function run() {
-      if (ran || !bothMetaReady()) return;
+      if (ran || !metaReady()) return;
       ran = true;
       applyVoiceoverTimingFromAudio();
       if (speakerEl) {
         applyCaption(idx);
       }
       if (pendingVoiceoverResumeMs != null) {
-        if (seekVoiceoversToElapsedMs(pendingVoiceoverResumeMs)) {
+        if (seekVoiceoverToElapsedMs(pendingVoiceoverResumeMs)) {
           pendingVoiceoverResumeMs = null;
         }
       }
       if (playing) {
-        playVoiceoversFromCurrentPositions();
+        voiceoverAudio.volume = musicMuted ? 0 : 1;
+        voiceoverAudio.muted = musicMuted;
+        var vp = voiceoverAudio.play();
+        if (vp && vp.catch) vp.catch(function () {});
         syncSlideToVoiceover();
       }
       if (typeof done === 'function') done();
     }
-    if (bothMetaReady()) {
+    if (metaReady()) {
       run();
     } else {
-      voFemale.addEventListener('loadedmetadata', run, { once: true });
-      voMale.addEventListener('loadedmetadata', run, { once: true });
-    }
-  }
-
-  function playVoiceoversFromCurrentPositions() {
-    if (!voFemale || !voMale) return;
-    voFemale.volume = musicMuted ? 0 : 1;
-    voFemale.muted = musicMuted;
-    voMale.volume = musicMuted ? 0 : 1;
-    voMale.muted = musicMuted;
-    var dF = getFemaleDurationMs();
-    var nearFemaleEnd = dF > 0 && (voFemale.ended || voFemale.currentTime * 1000 >= dF - 120);
-    if (!nearFemaleEnd) {
-      voMale.pause();
-      var pf = voFemale.play();
-      if (pf && pf.catch) pf.catch(function () {});
-    } else {
-      voFemale.pause();
-      var pm = voMale.play();
-      if (pm && pm.catch) pm.catch(function () {});
+      voiceoverAudio.addEventListener('loadedmetadata', run, { once: true });
     }
   }
 
   function getElapsedMs() {
-    if (playing && voFemale && voMale) {
-      return getVoiceoverCombinedMs();
+    if (playing && voiceoverAudio) {
+      return getVoiceoverElapsedMs();
     }
     if (playing) {
       var within = Date.now() - slideStartWallMs;
@@ -386,7 +305,7 @@
 
   function applyCaption(i) {
     if (speakerEl) {
-      speakerEl.textContent = PROMO_SPEAKER_LABELS[voiceLabelIndexForSlideStart(i)];
+      speakerEl.textContent = PROMO_SPEAKER_LABEL;
     }
     if (!captionEl) return;
     captionEl.textContent = scenes[i].text;
@@ -415,11 +334,8 @@
     if (bgMusic) {
       bgMusic.pause();
     }
-    if (voFemale) {
-      voFemale.pause();
-    }
-    if (voMale) {
-      voMale.pause();
+    if (voiceoverAudio) {
+      voiceoverAudio.pause();
     }
   }
 
@@ -431,19 +347,12 @@
       } catch (e) {}
       bgMusic = null;
     }
-    if (voFemale) {
-      voFemale.pause();
+    if (voiceoverAudio) {
+      voiceoverAudio.pause();
       try {
-        voFemale.src = '';
+        voiceoverAudio.src = '';
       } catch (e2) {}
-      voFemale = null;
-    }
-    if (voMale) {
-      voMale.pause();
-      try {
-        voMale.src = '';
-      } catch (e3) {}
-      voMale = null;
+      voiceoverAudio = null;
     }
     pendingVoiceoverResumeMs = null;
     resetPromoTimingToDefaults();
@@ -465,27 +374,14 @@
       if (p && p.catch) p.catch(function () {});
     }
 
-    if (voFemale && voMale) {
+    if (voiceoverAudio) {
       wireVoiceoverTimingReady(afterTimingReady);
       return;
     }
 
-    voFemale = new Audio(PROMO_VOICEOVER_FEMALE_SRC);
-    voMale = new Audio(PROMO_VOICEOVER_MALE_SRC);
-    voFemale.loop = false;
-    voMale.loop = false;
-    voFemale.addEventListener('ended', function () {
-      if (!playing) return;
-      try {
-        voMale.currentTime = 0;
-      } catch (e4) {}
-      voMale.volume = musicMuted ? 0 : 1;
-      voMale.muted = musicMuted;
-      var pm = voMale.play();
-      if (pm && pm.catch) pm.catch(function () {});
-      syncSlideToVoiceover();
-    });
-    voMale.addEventListener('ended', function () {
+    voiceoverAudio = new Audio(PROMO_VOICEOVER_SRC);
+    voiceoverAudio.loop = false;
+    voiceoverAudio.addEventListener('ended', function () {
       if (playing) stopSequence(true);
     });
     wireVoiceoverTimingReady(afterTimingReady);
@@ -495,8 +391,8 @@
     var ms;
     if (atEnd) {
       ms = totalMs;
-    } else if (voFemale && voMale) {
-      ms = getVoiceoverCombinedMs();
+    } else if (voiceoverAudio && isFinite(voiceoverAudio.currentTime)) {
+      ms = getVoiceoverElapsedMs();
     } else {
       ms = getElapsedMs();
     }
@@ -556,7 +452,7 @@
     }
     setTogglePlaying(true);
     pendingVoiceoverResumeMs = resumeAt;
-    if (seekVoiceoversToElapsedMs(resumeAt)) {
+    if (seekVoiceoverToElapsedMs(resumeAt)) {
       pendingVoiceoverResumeMs = null;
     }
     startAudio();
@@ -609,18 +505,17 @@
         bgMusic.muted = musicMuted;
         bgMusic.volume = musicMuted ? 0 : 0.18;
       }
-      if (voFemale) {
-        voFemale.muted = musicMuted;
-        voFemale.volume = musicMuted ? 0 : 1;
+      if (voiceoverAudio) {
+        voiceoverAudio.muted = musicMuted;
+        voiceoverAudio.volume = musicMuted ? 0 : 1;
       }
-      if (voMale) {
-        voMale.muted = musicMuted;
-        voMale.volume = musicMuted ? 0 : 1;
-      }
-      if (playing && (bgMusic || voFemale || voMale)) {
+      if (playing && (bgMusic || voiceoverAudio)) {
         if (bgMusic) bgMusic.play().catch(function () {});
-        if (voFemale || voMale) playVoiceoversFromCurrentPositions();
-      } else if (playing && (!bgMusic || (!voFemale && !voMale)) && !musicMuted) {
+        if (voiceoverAudio) {
+          var vpm = voiceoverAudio.play();
+          if (vpm && vpm.catch) vpm.catch(function () {});
+        }
+      } else if (playing && (!bgMusic || !voiceoverAudio) && !musicMuted) {
         startAudio();
       }
     });
