@@ -7,7 +7,9 @@
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
-  var PROMO_VOICEOVER_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
+  /** Homepage promo: multi-speaker recording (female / male / young voice cycle in UI). */
+  var PROMO_VOICEOVER_SRC = encodeURI('audio/promo-recording.m4a');
+  var PROMO_SPEAKER_LABELS = ['Female voice', 'Male voice', "Young person's voice"];
 
   /* Promo photography: images/promo/ */
   var scenes = [
@@ -54,15 +56,17 @@
     }
   ];
 
-  var totalMs = scenes.reduce(function (acc, s) {
+  var baseTotalMs = scenes.reduce(function (acc, s) {
     return acc + s.duration;
   }, 0);
+  var totalMs = baseTotalMs;
 
   var root = document.getElementById('promo-root');
   if (!root) return;
 
   var layerEls = root.querySelectorAll('[data-promo-layer]');
   var captionEl = root.querySelector('[data-promo-caption]');
+  var speakerEl = root.querySelector('[data-promo-speaker]');
   var bigPlay = document.getElementById('promo-big-play');
   var chrome = document.getElementById('promo-chrome');
   var toggleBtn = document.getElementById('promo-toggle');
@@ -101,18 +105,68 @@
     return m + ':' + (r < 10 ? '0' : '') + r;
   }
 
+  function getSceneDuration(i) {
+    var s = scenes[i];
+    if (!s) return 0;
+    return s._scaledMs != null && isFinite(s._scaledMs) ? s._scaledMs : s.duration;
+  }
+
   function sumDurationsUpTo(i) {
     var t = 0;
     for (var j = 0; j < i; j++) {
-      t += scenes[j].duration;
+      t += getSceneDuration(j);
     }
     return t;
   }
 
+  function applyVoiceoverTimingFromAudio() {
+    if (!voiceoverAudio || !voiceoverAudio.duration || !isFinite(voiceoverAudio.duration) || voiceoverAudio.duration <= 0) {
+      return;
+    }
+    var durMs = voiceoverAudio.duration * 1000;
+    var sumD = scenes.reduce(function (a, s) {
+      return a + s.duration;
+    }, 0);
+    if (sumD <= 0) return;
+    var scale = durMs / sumD;
+    for (var i = 0; i < scenes.length; i++) {
+      scenes[i]._scaledMs = scenes[i].duration * scale;
+    }
+    totalMs = durMs;
+    if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
+  }
+
+  function resetPromoTimingToDefaults() {
+    for (var i = 0; i < scenes.length; i++) {
+      delete scenes[i]._scaledMs;
+    }
+    totalMs = baseTotalMs;
+    if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
+  }
+
+  function wireVoiceoverTimingReady(done) {
+    if (!voiceoverAudio) {
+      if (typeof done === 'function') done();
+      return;
+    }
+    function run() {
+      applyVoiceoverTimingFromAudio();
+      if (typeof done === 'function') done();
+    }
+    if (voiceoverAudio.readyState >= 1 && voiceoverAudio.duration && isFinite(voiceoverAudio.duration)) {
+      run();
+    } else {
+      voiceoverAudio.addEventListener('loadedmetadata', run, { once: true });
+    }
+  }
+
   function getElapsedMs() {
+    if (playing && voiceoverAudio && isFinite(voiceoverAudio.currentTime)) {
+      return Math.min(totalMs, Math.max(0, voiceoverAudio.currentTime * 1000));
+    }
     if (playing) {
       var within = Date.now() - slideStartWallMs;
-      var cap = scenes[idx].duration;
+      var cap = getSceneDuration(idx);
       within = Math.min(within, cap);
       return Math.min(totalMs, sumDurationsUpTo(idx) + within);
     }
@@ -179,6 +233,9 @@
   }
 
   function applyCaption(i) {
+    if (speakerEl) {
+      speakerEl.textContent = PROMO_SPEAKER_LABELS[i % PROMO_SPEAKER_LABELS.length];
+    }
     if (!captionEl) return;
     captionEl.textContent = scenes[i].text;
     captionEl.classList.remove('is-entering');
@@ -226,9 +283,10 @@
       } catch (e2) {}
       voiceoverAudio = null;
     }
+    resetPromoTimingToDefaults();
   }
 
-  function startAudio() {
+  function startAudio(afterTimingReady) {
     if (bgMusic) {
       bgMusic.loop = true;
       bgMusic.volume = musicMuted ? 0 : 0.18;
@@ -247,6 +305,7 @@
     if (voiceoverAudio) {
       voiceoverAudio.volume = musicMuted ? 0 : 1;
       voiceoverAudio.muted = musicMuted;
+      wireVoiceoverTimingReady(afterTimingReady);
       var vr = voiceoverAudio.play();
       if (vr && vr.catch) vr.catch(function () {});
       return;
@@ -256,6 +315,14 @@
     voiceoverAudio.loop = false;
     voiceoverAudio.volume = musicMuted ? 0 : 1;
     voiceoverAudio.muted = musicMuted;
+    voiceoverAudio.addEventListener(
+      'ended',
+      function () {
+        if (playing) stopSequence(true);
+      },
+      false
+    );
+    wireVoiceoverTimingReady(afterTimingReady);
     var vp = voiceoverAudio.play();
     if (vp && vp.catch) vp.catch(function () {});
   }
@@ -273,11 +340,18 @@
   function scheduleAdvance() {
     clearSlideTimer();
     if (!playing) return;
-    slideTimer = setTimeout(advance, scenes[idx].duration);
+    slideTimer = setTimeout(advance, getSceneDuration(idx));
   }
 
   function stopSequence(atEnd) {
-    var ms = atEnd ? totalMs : getElapsedMs();
+    var ms;
+    if (atEnd) {
+      ms = totalMs;
+    } else if (voiceoverAudio && isFinite(voiceoverAudio.currentTime)) {
+      ms = Math.min(totalMs, Math.max(0, voiceoverAudio.currentTime * 1000));
+    } else {
+      ms = getElapsedMs();
+    }
     playing = false;
     frozenElapsedMs = ms;
     clearSlideTimer();
@@ -313,18 +387,20 @@
     }
     setTogglePlaying(true);
     applyScene(0, true);
-    startAudio();
-    scheduleAdvance();
-    startProgressTicker();
-    updateProgressUi();
+    startAudio(function afterPromoTiming() {
+      scheduleAdvance();
+      startProgressTicker();
+      updateProgressUi();
+    });
   }
 
   function resumeSequence() {
     if (frozenElapsedMs != null && frozenElapsedMs >= totalMs - 20) return;
+    var resumeAt = frozenElapsedMs != null ? frozenElapsedMs : sumDurationsUpTo(idx);
     playing = true;
-    var elapsedInSlide = frozenElapsedMs != null ? frozenElapsedMs - sumDurationsUpTo(idx) : 0;
-    elapsedInSlide = Math.max(0, Math.min(elapsedInSlide, scenes[idx].duration));
-    var remaining = Math.max(0, scenes[idx].duration - elapsedInSlide);
+    var elapsedInSlide = resumeAt - sumDurationsUpTo(idx);
+    elapsedInSlide = Math.max(0, Math.min(elapsedInSlide, getSceneDuration(idx)));
+    var remaining = Math.max(0, getSceneDuration(idx) - elapsedInSlide);
     slideStartWallMs = Date.now() - elapsedInSlide;
     frozenElapsedMs = null;
     if (toggleBtn) {
@@ -332,6 +408,10 @@
       toggleBtn.setAttribute('aria-label', 'Pause');
     }
     setTogglePlaying(true);
+    if (voiceoverAudio && isFinite(voiceoverAudio.duration)) {
+      var t = resumeAt / 1000;
+      voiceoverAudio.currentTime = Math.min(Math.max(0, t), Math.max(0, voiceoverAudio.duration - 0.05));
+    }
     startAudio();
     clearSlideTimer();
     slideTimer = setTimeout(advance, remaining);
