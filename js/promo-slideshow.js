@@ -1,5 +1,5 @@
 /**
- * Bright Talks homepage promo: local image slides + layered music + female voiceover.
+ * Bright Talks homepage promo: local image slides + layered music + voiceover.
  * Slides follow the voiceover clock; slide lengths scale to the narration file duration.
  */
 (function () {
@@ -7,8 +7,8 @@
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
-  var PROMO_VOICEOVER_SRC = encodeURI('audio/Bright Talks Voice Over.m4a');
-  var PROMO_SPEAKER_LABEL = 'Female voice';
+  /** Replace `audio/promo-recording.m4a` on disk when you update the promo read. */
+  var PROMO_VOICEOVER_SRC = encodeURI('audio/promo-recording.m4a');
 
   /* Promo photography: images/promo/ */
   var scenes = [
@@ -65,7 +65,6 @@
 
   var layerEls = root.querySelectorAll('[data-promo-layer]');
   var captionEl = root.querySelector('[data-promo-caption]');
-  var speakerEl = root.querySelector('[data-promo-speaker]');
   var bigPlay = document.getElementById('promo-big-play');
   var chrome = document.getElementById('promo-chrome');
   var toggleBtn = document.getElementById('promo-toggle');
@@ -206,9 +205,6 @@
       if (ran || !metaReady()) return;
       ran = true;
       applyVoiceoverTimingFromAudio();
-      if (speakerEl) {
-        applyCaption(idx);
-      }
       if (pendingVoiceoverResumeMs != null) {
         if (seekVoiceoverToElapsedMs(pendingVoiceoverResumeMs)) {
           pendingVoiceoverResumeMs = null;
@@ -304,9 +300,6 @@
   }
 
   function applyCaption(i) {
-    if (speakerEl) {
-      speakerEl.textContent = PROMO_SPEAKER_LABEL;
-    }
     if (!captionEl) return;
     captionEl.textContent = scenes[i].text;
     captionEl.classList.remove('is-entering');
