@@ -3546,12 +3546,36 @@ button.about-expert-card {
 
 .lp-section--about-cta {
   text-align: center;
+  background-color: #e8894a;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 50%
+    ),
+    linear-gradient(
+      165deg,
+      #e88a42 0%,
+      #e8894a 42%,
+      #d9773a 100%
+    );
+  border-top: 1px solid rgba(200, 95, 45, 0.35);
+  border-bottom: 1px solid rgba(180, 85, 40, 0.3);
 }
 
 .lp-section--about-cta .section-headline,
 .lp-section--about-cta .section-text {
   margin-left: auto;
   margin-right: auto;
+}
+
+.lp-section--about-cta .section-kicker {
+  color: rgba(255, 248, 240, 0.9);
+}
+
+.lp-section--about-cta .section-headline {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.14);
 }
 
 .about-testimonial-grid {
@@ -3566,13 +3590,13 @@ button.about-expert-card {
   margin: 0;
   padding: clamp(1.1rem, 2.8vw, 1.45rem);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(220, 154, 94, 0.45);
+  border: 1px solid rgba(246, 206, 168, 0.6);
   background:
-    radial-gradient(circle at top right, rgba(255, 191, 130, 0.2), transparent 52%),
-    linear-gradient(165deg, #fff3e4 0%, #ffe6c8 100%);
+    radial-gradient(circle at top right, rgba(255, 198, 145, 0.28), transparent 52%),
+    linear-gradient(165deg, #fff6ea 0%, #ffe9d1 100%);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.85) inset,
-    0 14px 32px rgba(162, 95, 40, 0.16);
+    0 14px 32px rgba(126, 63, 16, 0.22);
   text-align: left;
   transition:
     transform 0.3s cubic-bezier(0.33, 1, 0.68, 1),
@@ -3582,10 +3606,10 @@ button.about-expert-card {
 
 .about-testimonial-card:hover {
   transform: translateY(-5px) scale(1.012);
-  border-color: rgba(214, 132, 62, 0.68);
+  border-color: rgba(255, 229, 201, 0.85);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.88) inset,
-    0 20px 46px rgba(166, 92, 33, 0.24);
+    0 20px 46px rgba(118, 57, 15, 0.3);
 }
 
 .about-testimonial-card p {
