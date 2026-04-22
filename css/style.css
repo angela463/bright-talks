@@ -4016,6 +4016,133 @@ body.page-courses.page-course-info::before {
   border-top: 1px solid rgba(216, 196, 172, 0.45);
 }
 
+.course-fit__header {
+  margin-bottom: clamp(1.25rem, 3vw, 1.85rem);
+}
+
+.course-fit__deck {
+  margin: 0.65rem auto 0;
+  max-width: 36rem;
+  font-size: clamp(1rem, 2.1vw, 1.12rem);
+  line-height: 1.55;
+  color: #5a534e;
+}
+
+.course-fit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+  align-items: stretch;
+}
+
+.course-fit-card {
+  border-radius: var(--radius-lg);
+  padding: clamp(1.15rem, 2.6vw, 1.65rem) clamp(1.1rem, 2.4vw, 1.5rem);
+  box-shadow: 0 10px 26px rgba(55, 38, 22, 0.06);
+}
+
+.course-fit-card--positive {
+  background: linear-gradient(165deg, #fff6ec 0%, #ffead8 100%);
+  border: 1px solid rgba(220, 170, 128, 0.65);
+}
+
+.course-fit-card--neutral {
+  background: #fffefb;
+  border: 1px solid rgba(205, 198, 188, 0.85);
+}
+
+.course-fit-card__title {
+  margin: 0 0 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #2a2725;
+}
+
+.course-fit-card__icon {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.course-fit-card__icon--check {
+  color: #fff;
+  background: linear-gradient(180deg, #dd8f47 0%, #c96d32 100%);
+  border: 1px solid rgba(176, 92, 38, 0.45);
+}
+
+.course-fit-card__icon--x {
+  color: #fff;
+  background: linear-gradient(180deg, #c5bdb4 0%, #a9a095 100%);
+  border: 1px solid rgba(140, 132, 122, 0.45);
+}
+
+.course-fit-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.course-fit-list li {
+  position: relative;
+  margin: 0;
+  padding: 0.35rem 0 0.35rem 1.1rem;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #3f3a36;
+}
+
+.course-fit-list--positive li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #d17a43;
+}
+
+.course-fit-list--neutral li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #b8b0a8;
+}
+
+.course-fit-list a {
+  color: #a05628;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.course-fit-list a:hover {
+  color: #7d3f1c;
+}
+
+@media (max-width: 720px) {
+  .course-fit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .about-testimonial-card:hover {
   transform: translateY(-5px) scale(1.012);
   border-color: rgba(255, 229, 201, 0.85);
