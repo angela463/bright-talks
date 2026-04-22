@@ -7,8 +7,8 @@
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
-  /** Replace `audio/promo-recording.m4a` on disk when you update the promo read. */
-  var PROMO_VOICEOVER_SRC = encodeURI('audio/promo-recording.m4a');
+  /** Homepage promo narration track. */
+  var PROMO_VOICEOVER_SRC = encodeURI('audio files/Bright Talks v1.mp3');
 
   /* Promo photography: images/promo/ */
   var scenes = [
