@@ -3935,9 +3935,7 @@ body.page-courses.page-course-info::before {
 .course-promise-banner__orange-wash {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(120deg, rgba(232, 125, 68, 0.78) 0%, rgba(200, 82, 38, 0.74) 48%, rgba(150, 58, 26, 0.8) 100%),
-    radial-gradient(ellipse 90% 70% at 50% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 55%);
+  background: transparent;
 }
 
 .course-promise-banner__inner {
@@ -4005,7 +4003,7 @@ body.page-courses.page-course-info::before {
   }
 
   .course-promise-banner__orange-wash {
-    background: linear-gradient(145deg, #e8894a 0%, #c45a28 55%, #a3441f 100%);
+    background: transparent;
   }
 }
 
