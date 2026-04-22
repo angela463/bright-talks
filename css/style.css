@@ -3909,6 +3909,108 @@ body.page-courses.page-course-info::before {
   }
 }
 
+/* Course info: cinematic promise banner (video + orange wash + quote strips) */
+.course-promise-banner {
+  position: relative;
+  margin-top: clamp(1.4rem, 3.6vw, 2.25rem);
+  width: 100%;
+  overflow: hidden;
+}
+
+.course-promise-banner__frame {
+  position: relative;
+  min-height: clamp(20rem, 52vw, 34rem);
+  background: #c45a28;
+}
+
+.course-promise-banner__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.course-promise-banner__orange-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(232, 125, 68, 0.88) 0%, rgba(200, 82, 38, 0.82) 48%, rgba(150, 58, 26, 0.86) 100%),
+    radial-gradient(ellipse 90% 70% at 50% 40%, rgba(255, 255, 255, 0.12) 0%, transparent 55%);
+  mix-blend-mode: multiply;
+}
+
+.course-promise-banner__inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  padding: clamp(1.75rem, 4vw, 3rem) clamp(1rem, 3vw, 1.75rem);
+  text-align: center;
+}
+
+.course-promise-banner__kicker {
+  margin: 0;
+}
+
+.course-promise-banner__pill {
+  display: inline-block;
+  padding: 0.35rem 1.1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(32, 78, 128, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 28px rgba(18, 12, 10, 0.18);
+}
+
+.course-promise-banner__quote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: min(52rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.course-promise-banner__quote-line {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 4.2vw, 3.15rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(18, 12, 10, 0.35);
+  background: rgba(28, 72, 118, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 34px rgba(18, 12, 10, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-promise-banner__video {
+    display: none;
+  }
+
+  .course-promise-banner__orange-wash {
+    mix-blend-mode: normal;
+    background: linear-gradient(145deg, #e8894a 0%, #c45a28 55%, #a3441f 100%);
+  }
+}
+
 .about-testimonial-card:hover {
   transform: translateY(-5px) scale(1.012);
   border-color: rgba(255, 229, 201, 0.85);
