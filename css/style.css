@@ -3956,11 +3956,10 @@ body.page-courses.page-course-info::before {
   margin: 0 auto;
   padding: clamp(1.35rem, 3.2vw, 2rem) clamp(1.15rem, 3vw, 1.75rem);
   text-align: center;
-  background: rgba(10, 10, 10, 0.42);
+  background: rgba(10, 10, 10, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-lg);
   box-shadow: 0 12px 40px rgba(10, 8, 8, 0.22);
-  backdrop-filter: blur(10px);
 }
 
 .course-promise-banner__mark {
