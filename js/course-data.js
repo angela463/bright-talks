@@ -11,7 +11,7 @@ window.BRIGHT_TALKS_COURSES = [
       'Scripts and cues you can reuse in everyday moments, not just “the big talk”',
       'Confidence to spot teachable moments without shame or fear'
     ],
-    image: 'images/home-hero-yellow-1.jpg',
+    image: 'images/promo/promo-01-family-tent.png',
     modules: window.BRIGHT_TALKS_COURSE_MODULES || []
   },
   {
@@ -26,7 +26,7 @@ window.BRIGHT_TALKS_COURSES = [
       'Ways to stay connected when peers or screens introduce new ideas',
       'A steadier rhythm of check ins that doesn’t feel like a lecture'
     ],
-    image: 'images/home-hero-yellow-2.jpg',
+    image: 'images/promo/promo-05-tablet-learning.png',
     modules: []
   },
   {
@@ -40,7 +40,7 @@ window.BRIGHT_TALKS_COURSES = [
       'Language that honors your values while leaving room for your child’s questions',
       'Skills to keep trust high as independence grows'
     ],
-    image: 'images/home-hero-yellow-3.jpg',
+    image: 'images/promo/promo-04-classroom.png',
     modules: []
   },
   {
@@ -54,7 +54,7 @@ window.BRIGHT_TALKS_COURSES = [
       'Support for navigating media, peers, and identity with less defensiveness',
       'Phrases that help you stay calm when the topic gets tense'
     ],
-    image: 'images/home-hero-yellow-1.jpg',
+    image: 'images/promo/promo-08-teen-desk.png',
     modules: []
   },
   {
@@ -68,7 +68,7 @@ window.BRIGHT_TALKS_COURSES = [
       'Guidance for health, readiness, and where to get help when needed',
       'Conversation habits that keep the door open as teens prepare for adulthood'
     ],
-    image: 'images/home-hero-yellow-2.jpg',
+    image: 'images/pexels-tima-miroshnichenko-5813804.jpg',
     modules: []
   },
   {
@@ -82,7 +82,7 @@ window.BRIGHT_TALKS_COURSES = [
       'Clear boundaries in caregiving spaces with warmth and consistency',
       'Practical ways to model respect and safety from day one'
     ],
-    image: 'images/home-hero-yellow-3.jpg',
+    image: 'images/waitlist-start-ready.png',
     modules: []
   }
 ];
