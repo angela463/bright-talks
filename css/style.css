@@ -3631,6 +3631,20 @@ body.page-courses.page-course-library::before {
   background: radial-gradient(ellipse 80% 52% at 50% -15%, rgba(255, 255, 255, 0.22) 0%, transparent 58%);
 }
 
+/* Course library on cream background: use darker type for readability */
+body.page-courses.page-course-library .section-header .eyebrow {
+  color: rgba(148, 90, 45, 0.92);
+}
+
+body.page-courses.page-course-library .section-header h2 {
+  color: #2a2725;
+  text-shadow: none;
+}
+
+body.page-courses.page-course-library .section-header p {
+  color: #5a534e;
+}
+
 .page-course-info .course-info-main {
   padding: clamp(1.5rem, 3.5vw, 2.5rem) 0 clamp(3rem, 6vw, 4.5rem);
 }
