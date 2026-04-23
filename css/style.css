@@ -2161,10 +2161,10 @@ a.nav-link.nav-trigger {
   pointer-events: none;
   background-image: url("images/Screenshot%202026-04-23%20at%202.44.46%E2%80%AFPM.png");
   background-size: 360px auto;
-  background-position: center;
+  background-position: 0 0;
   background-repeat: repeat;
-  mix-blend-mode: normal;
-  opacity: 0.28;
+  mix-blend-mode: soft-light;
+  opacity: 0.08;
 }
 
 .page-home .lp-section--value > .container {
