@@ -1,6 +1,6 @@
 /**
  * Bright Talks homepage promo: local image slides + layered music + voiceover.
- * Slides follow the voiceover clock; slide lengths scale to the narration file duration.
+ * Slides follow the voiceover clock; scene/caption lengths are smoothed to keep an even pace.
  */
 (function () {
   'use strict';
@@ -59,6 +59,11 @@
     return acc + s.duration;
   }, 0);
   var totalMs = baseTotalMs;
+  /**
+   * Blend between "equal time per caption" and "speech-length weighted".
+   * Higher values produce more even pacing across captions.
+   */
+  var EVEN_PACE_BLEND = 0.55;
 
   var root = document.getElementById('promo-root');
   if (!root) return;
@@ -165,16 +170,53 @@
     return true;
   }
 
+  function estimateSpeechWeight(text) {
+    if (!text) return 1;
+    var cleaned = String(text).replace(/\s+/g, ' ').trim();
+    if (!cleaned) return 1;
+    var words = cleaned.split(' ').length;
+    var ellipses = (cleaned.match(/\u2026|\.{3}/g) || []).length;
+    var sentenceStops = (cleaned.match(/[.!?]/g) || []).length;
+    var commas = (cleaned.match(/[,;:]/g) || []).length;
+    // Words dominate; punctuation adds light pause weighting.
+    return words + ellipses * 1.4 + sentenceStops * 0.55 + commas * 0.3;
+  }
+
+  function buildSmoothedSceneDurations(targetTotalMs) {
+    var n = scenes.length;
+    if (!n) return [];
+    var equalShare = 1 / n;
+    var weights = [];
+    var sumWeights = 0;
+    for (var i = 0; i < n; i++) {
+      var w = estimateSpeechWeight(scenes[i].text);
+      weights.push(w);
+      sumWeights += w;
+    }
+    if (sumWeights <= 0) sumWeights = n;
+
+    var durations = [];
+    var assigned = 0;
+    for (var j = 0; j < n; j++) {
+      var weightedShare = weights[j] / sumWeights;
+      var blendedShare = EVEN_PACE_BLEND * equalShare + (1 - EVEN_PACE_BLEND) * weightedShare;
+      var d = Math.round(targetTotalMs * blendedShare);
+      durations.push(d);
+      assigned += d;
+    }
+
+    // Keep exact total to prevent drift in progress math.
+    durations[n - 1] += targetTotalMs - assigned;
+    return durations;
+  }
+
   function applyVoiceoverTimingFromAudio() {
     var durMs = getVoiceoverDurationMs();
     if (!durMs) return;
-    var sumD = scenes.reduce(function (a, s) {
-      return a + s.duration;
-    }, 0);
-    if (sumD <= 0) return;
-    var scale = durMs / sumD;
+    var scaledDurations = buildSmoothedSceneDurations(durMs);
+    if (!scaledDurations.length) return;
     for (var si = 0; si < scenes.length; si++) {
-      scenes[si]._scaledMs = scenes[si].duration * scale;
+      scenes[si]._scaledMs = scaledDurations[si];
     }
     totalMs = durMs;
     if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
