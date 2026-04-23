@@ -2160,13 +2160,13 @@ a.nav-link.nav-trigger {
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.17) 0 1px, transparent 1px),
-    radial-gradient(circle at 78% 34%, rgba(84, 35, 10, 0.08) 0 1px, transparent 1px),
-    radial-gradient(circle at 36% 74%, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px),
-    radial-gradient(circle at 62% 82%, rgba(84, 35, 10, 0.08) 0 1px, transparent 1px);
-  background-size: 16px 16px, 18px 18px, 20px 20px, 22px 22px;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%),
+    url("images/Screenshot 2026-04-23 at 2.44.46 PM.png");
+  background-size: cover, 420px auto;
+  background-position: center, center;
+  background-repeat: no-repeat, repeat;
   mix-blend-mode: soft-light;
-  opacity: 0.8;
+  opacity: 0.34;
 }
 
 .page-home .lp-section--value > .container {
