@@ -67,7 +67,9 @@
   /** Preserve some original storyboard timing so pacing feels intentional. */
   var BASE_DURATION_BLEND = 0.42;
   /** Show captions/slides slightly ahead to reduce perceived speech lag. */
-  var CAPTION_LEAD_MS = 950;
+  var CAPTION_LEAD_MS = 1250;
+  /** Keep first caption hidden until narration actually starts. */
+  var FIRST_CAPTION_DELAY_MS = 650;
 
   var root = document.getElementById('promo-root');
   if (!root) return;
@@ -143,7 +145,14 @@
   function syncSlideToVoiceover() {
     if (!playing || !voiceoverAudio) return;
     if (getVoiceoverDurationMs() <= 0) return;
-    var elMs = Math.min(totalMs, Math.max(0, getVoiceoverElapsedMs() + CAPTION_LEAD_MS));
+    var rawMs = getVoiceoverElapsedMs();
+    if (rawMs < FIRST_CAPTION_DELAY_MS) {
+      if (captionEl) captionEl.hidden = true;
+      clearSlideTimer();
+      return;
+    }
+    if (captionEl) captionEl.hidden = false;
+    var elMs = Math.min(totalMs, Math.max(0, rawMs + CAPTION_LEAD_MS));
     var want = sceneIndexForElapsedMs(elMs);
     if (want !== idx) {
       applyScene(want, false);
@@ -353,6 +362,7 @@
 
   function applyCaption(i) {
     if (!captionEl) return;
+    captionEl.hidden = false;
     captionEl.textContent = scenes[i].text;
     captionEl.classList.remove('is-entering');
     void captionEl.offsetWidth;
@@ -479,6 +489,7 @@
     setTogglePlaying(true);
     if (root) root.classList.add('is-playing');
     applyScene(0, true);
+    if (captionEl) captionEl.hidden = true;
     startAudio(function afterPromoTiming() {
       startProgressTicker();
       updateProgressUi();
