@@ -4278,6 +4278,14 @@ body.page-courses.page-course-library .section-header p {
   text-decoration: none;
 }
 
+.page-about .footer-landing-nav a {
+  color: #fff;
+}
+
+.page-about .footer-landing-nav a:hover {
+  color: rgba(255, 255, 255, 0.82);
+}
+
 .site-footer--landing .footer-back {
   margin-top: 0.5rem;
 }
