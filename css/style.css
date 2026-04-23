@@ -2159,14 +2159,12 @@ a.nav-link.nav-trigger {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(180deg, rgba(232, 137, 74, 0.2) 0%, rgba(217, 119, 58, 0.2) 100%),
-    url("images/Screenshot%202026-04-23%20at%202.44.46%E2%80%AFPM.png");
-  background-size: cover, 360px auto;
-  background-position: center, center;
-  background-repeat: no-repeat, repeat;
-  mix-blend-mode: multiply;
-  opacity: 0.72;
+  background-image: url("images/Screenshot%202026-04-23%20at%202.44.46%E2%80%AFPM.png");
+  background-size: 360px auto;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: normal;
+  opacity: 0.28;
 }
 
 .page-home .lp-section--value > .container {
