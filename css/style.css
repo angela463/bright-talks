@@ -2160,13 +2160,13 @@ a.nav-link.nav-trigger {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%),
-    url("images/Screenshot 2026-04-23 at 2.44.46 PM.png");
-  background-size: cover, 420px auto;
+    linear-gradient(180deg, rgba(232, 137, 74, 0.2) 0%, rgba(217, 119, 58, 0.2) 100%),
+    url("images/Screenshot%202026-04-23%20at%202.44.46%E2%80%AFPM.png");
+  background-size: cover, 360px auto;
   background-position: center, center;
   background-repeat: no-repeat, repeat;
-  mix-blend-mode: soft-light;
-  opacity: 0.34;
+  mix-blend-mode: multiply;
+  opacity: 0.72;
 }
 
 .page-home .lp-section--value > .container {
