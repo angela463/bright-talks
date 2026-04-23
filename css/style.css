@@ -2135,6 +2135,7 @@ a.nav-link.nav-trigger {
 }
 
 .page-home .lp-section--value {
+  position: relative;
   background-color: #e8894a;
   background-image:
     linear-gradient(
@@ -2150,6 +2151,27 @@ a.nav-link.nav-trigger {
     );
   border-top-color: rgba(200, 95, 45, 0.35);
   border-bottom-color: rgba(180, 85, 40, 0.3);
+  overflow: hidden;
+}
+
+.page-home .lp-section--value::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.17) 0 1px, transparent 1px),
+    radial-gradient(circle at 78% 34%, rgba(84, 35, 10, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 36% 74%, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px),
+    radial-gradient(circle at 62% 82%, rgba(84, 35, 10, 0.08) 0 1px, transparent 1px);
+  background-size: 16px 16px, 18px 18px, 20px 20px, 22px 22px;
+  mix-blend-mode: soft-light;
+  opacity: 0.8;
+}
+
+.page-home .lp-section--value > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .page-home .lp-section--value > .container > .section-kicker {
@@ -2182,7 +2204,7 @@ a.nav-link.nav-trigger {
 .value-card--flip {
   position: relative;
   z-index: 1;
-  min-height: 280px;
+  min-height: 360px;
   height: 100%;
   padding: 0;
   margin: 0;
@@ -2199,7 +2221,7 @@ a.nav-link.nav-trigger {
 
 .value-card__clip {
   position: relative;
-  min-height: 280px;
+  min-height: 360px;
   height: 100%;
   overflow: hidden;
   border-radius: var(--radius-lg);
@@ -2219,7 +2241,7 @@ a.nav-link.nav-trigger {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 280px;
+  min-height: 360px;
   transform-style: preserve-3d;
   transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
@@ -2233,12 +2255,12 @@ a.nav-link.nav-trigger {
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1.5rem 1.35rem;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 0;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(220, 200, 180, 0.35);
+  border: 1px solid rgba(220, 200, 180, 0.42);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -2257,7 +2279,28 @@ a.nav-link.nav-trigger {
 
 .value-card__face--front {
   pointer-events: auto;
-  gap: 0.5rem;
+  background: #fffefb;
+}
+
+.value-card-media {
+  width: 100%;
+  height: 118px;
+  overflow: hidden;
+}
+
+.value-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.value-card-front-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem 1rem 1.1rem;
+  border-top: 1px solid rgba(189, 98, 35, 0.18);
 }
 
 .value-card__clip.is-flipped .value-card__face--front {
@@ -2270,11 +2313,14 @@ a.nav-link.nav-trigger {
 
 .value-card-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   font-weight: 600;
-  color: var(--orange-dark);
+  color: #1c1a18;
   margin: 0;
   letter-spacing: -0.02em;
+  line-height: 1.2;
+  padding-left: 0.72rem;
+  border-left: 3px solid #c26a2e;
 }
 
 .value-card--flip .value-card__face--front .value-card-title {
@@ -2285,16 +2331,18 @@ a.nav-link.nav-trigger {
   margin: 0;
   max-width: 100%;
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.72rem;
   font-weight: 500;
   font-style: italic;
   line-height: 1.35;
   letter-spacing: 0.01em;
-  color: rgba(120, 95, 75, 0.92);
+  color: rgba(84, 67, 51, 0.9);
+  padding-left: 0.72rem;
 }
 
 .value-card-flip-cue {
-  margin: 0.15rem 0 0;
+  margin: auto 0 0;
+  align-self: flex-end;
   line-height: 1;
 }
 
@@ -2321,11 +2369,12 @@ a.nav-link.nav-trigger {
 }
 
 .value-card-text {
-  margin: 0;
+  margin: auto 0;
+  padding: 1.4rem 1.25rem;
   font-size: 0.9375rem;
   color: var(--slate);
   line-height: 1.6;
-  text-align: center;
+  text-align: left;
   text-wrap: balance;
 }
 
@@ -2371,6 +2420,7 @@ a.nav-link.nav-trigger {
     overflow: visible;
     flex: 0 0 auto;
     box-shadow: var(--shadow-sm);
+    padding: 0;
   }
 
   .value-card__face--back {
@@ -2388,6 +2438,10 @@ a.nav-link.nav-trigger {
 
   .value-card-flip-cue {
     display: none;
+  }
+
+  .value-card-media {
+    height: 104px;
   }
 }
 
