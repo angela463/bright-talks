@@ -507,26 +507,32 @@ body.page-courses .section-header p {
 
 .course-card .btn {
   margin-top: auto;
-  border-radius: 8px;
+  border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.78rem;
   padding: 0.56rem 0.75rem;
 }
 
-.course-card-cta--soon {
+.course-card-cta--locked {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.45rem;
   width: 100%;
   box-sizing: border-box;
   margin-top: auto;
-  border: 1px dashed var(--border);
-  background: var(--surface-soft);
-  color: var(--text-muted);
+  border: 1px dashed rgba(156, 107, 80, 0.55);
+  background: rgba(249, 238, 231, 0.55);
+  color: rgba(109, 75, 55, 0.92);
   cursor: default;
   pointer-events: none;
   user-select: none;
+}
+
+.course-lock-icon {
+  flex-shrink: 0;
+  color: rgba(109, 75, 55, 0.92);
 }
 
 .breadcrumbs {
@@ -622,7 +628,7 @@ body.page-courses .section-header p {
 .module-card .btn,
 .lesson-card .btn {
   margin-top: 0.8rem;
-  border-radius: 8px;
+  border-radius: 999px;
 }
 
 .module-page-shell {
@@ -1010,7 +1016,7 @@ body.page-courses .section-header p {
   background: rgba(255, 255, 255, 0.92);
 }
 
-.module-page-shell .lesson-card:hover {
+.module-page-shell .lesson-card--unlocked:hover {
   transform: translateY(-2px);
   box-shadow: 0 20px 44px rgba(35, 30, 26, 0.11);
 }
@@ -1018,6 +1024,10 @@ body.page-courses .section-header p {
 .lesson-card-media {
   display: block;
   text-decoration: none;
+}
+
+.lesson-card-media:not(a) {
+  cursor: default;
 }
 
 .lesson-card-art {
@@ -1101,6 +1111,14 @@ body.page-courses .section-header p {
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
+.lesson-play-button--locked {
+  color: rgba(255, 245, 238, 0.95);
+}
+
+.lesson-play-button--locked .lesson-lock-icon {
+  display: block;
+}
+
 .lesson-play-triangle {
   width: 0;
   height: 0;
@@ -1111,11 +1129,37 @@ body.page-courses .section-header p {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
 
-.lesson-card:hover .lesson-play-button,
-.lesson-card:focus-within .lesson-play-button {
+.module-page-shell .lesson-card--unlocked:hover .lesson-play-button,
+.module-page-shell .lesson-card--unlocked:focus-within .lesson-play-button {
   transform: translate(-50%, -50%) scale(1.05);
   background: rgba(0, 0, 0, 0.65);
   border-color: #fff;
+}
+
+.module-page-shell .lesson-card--locked:hover {
+  transform: none;
+  box-shadow: 0 16px 36px rgba(35, 30, 26, 0.08);
+}
+
+.module-page-shell .lesson-card--locked:hover .lesson-play-button,
+.module-page-shell .lesson-card--locked:focus-within .lesson-play-button {
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.52);
+  border-color: rgba(255, 255, 255, 0.92);
+}
+
+.lesson-card-cta {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.65rem;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.86rem;
+  padding: 0.62rem 0.85rem;
+}
+
+.lesson-card-title-text {
+  color: inherit;
 }
 
 .lesson-card-body {

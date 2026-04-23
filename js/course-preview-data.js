@@ -19,7 +19,7 @@ window.BRIGHT_TALKS_COURSE_MODULES = [
       },
       {
         "title": "Why Curiosity About Bodies Is Completely Normal",
-        "unlocked": true,
+        "unlocked": false,
         "durationMinutes": 3,
         "video": {
           "youtubeId": "gRK49oSgcDA",

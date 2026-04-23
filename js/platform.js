@@ -19,8 +19,18 @@
 
   var courses = window.BRIGHT_TALKS_COURSES || [];
 
-  /** Course library: only these show “View modules”; others are coming soon. */
+  /** Course library: only these show “View free lesson”; others show as locked. */
   var COURSE_LIBRARY_OPEN_IDS = ['ages-3-5', 'ages-6-8'];
+
+  var LOCK_ICON_SVG =
+    '<svg class="course-lock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<path d="M7 11V8a5 5 0 0110 0v3M6 11h12v10H6V11z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>';
+
+  var LESSON_LOCK_ICON_SVG =
+    '<svg class="lesson-lock-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<path d="M7 11V8a5 5 0 0110 0v3M6 11h12v10H6V11z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>';
 
   function courseLibraryIsOpen(course) {
     return COURSE_LIBRARY_OPEN_IDS.indexOf(course.id) >= 0;
@@ -59,8 +69,13 @@
           metaText = moduleCount + ' modules · ' + lessonCount + ' lessons';
         }
         var ctaHtml = courseLibraryIsOpen(c)
-          ? '<a class="btn btn-primary" href="module-detail.html?course=' + encodeURIComponent(c.id) + '&module=0">View lessons</a>'
-          : '<span class="btn course-card-cta course-card-cta--soon" role="status">Coming soon</span>';
+          ? '<a class="btn btn-primary" href="module-detail.html?course=' + encodeURIComponent(c.id) + '&module=0">View free lesson</a>'
+          : (
+            '<span class="btn course-card-cta course-card-cta--locked" role="status" aria-label="Locked">' +
+              LOCK_ICON_SVG +
+              '<span>Locked</span>' +
+            '</span>'
+          );
         return (
           '<article class="course-card">' +
             '<div class="course-cover" style="background-image:url(\'' + safe(c.image) + '\')"></div>' +
@@ -221,19 +236,44 @@
         safeModuleIdx +
         '&lesson=' +
         idx;
+
+      var mediaOpen = unlocked
+        ? (
+          '<a class="lesson-card-media" href="' + lessonPlayerHref + '" aria-label="Open lesson: ' + safe(lessonTitle(l)) + '">'
+        )
+        : (
+          '<div class="lesson-card-media" aria-hidden="true">'
+        );
+      var mediaClose = unlocked ? '</a>' : '</div>';
+
+      var playControl = unlocked
+        ? '<span class="lesson-play-button" aria-hidden="true"><span class="lesson-play-triangle"></span></span>'
+        : '<span class="lesson-play-button lesson-play-button--locked" aria-hidden="true">' + LESSON_LOCK_ICON_SVG + '</span>';
+
+      var titleHtml = unlocked
+        ? ('<h3><a class="lesson-card-title-link" href="' + lessonPlayerHref + '">' + safe(lessonTitle(l)) + '</a></h3>')
+        : ('<h3><span class="lesson-card-title-text">' + safe(lessonTitle(l)) + '</span></h3>');
+
+      var ctaHtml = unlocked
+        ? (
+          '<a class="btn btn-primary lesson-card-cta" href="' + lessonPlayerHref + '">View free lesson</a>'
+        )
+        : '';
+
       return (
         '<article class="lesson-card lesson-card--' + (unlocked ? 'unlocked' : 'locked') + '">' +
-          '<a class="lesson-card-media" href="' + lessonPlayerHref + '" aria-label="' + (unlocked ? 'Open lesson: ' : 'Open lesson (locked preview): ') + safe(lessonTitle(l)) + '">' +
+          mediaOpen +
             '<div class="lesson-card-art" style="background-image:url(\'' + safe(image) + '\')">' +
               '<span class="lesson-index">Lesson ' + (idx + 1) + '</span>' +
-              '<span class="lesson-play-button" aria-hidden="true"><span class="lesson-play-triangle"></span></span>' +
+              playControl +
             '</div>' +
-          '</a>' +
+          mediaClose +
           '<div class="lesson-card-body">' +
             '<div class="lesson-top"><span class="tag">' + safe(dur) + '</span><span class="tag ' + (unlocked ? 'tag-live' : 'locked') + '">' + (unlocked ? 'Audio ready' : 'Locked') + '</span></div>' +
-            '<h3><a class="lesson-card-title-link" href="' + lessonPlayerHref + '">' + safe(lessonTitle(l)) + '</a></h3>' +
+            titleHtml +
             '<p class="lesson-byline">' + safe(creator) + '</p>' +
             '<div class="lesson-meta"><span class="lesson-sequence">Part ' + (idx + 1) + ' of ' + lessons.length + '</span></div>' +
+            ctaHtml +
           '</div>' +
         '</article>'
       );
