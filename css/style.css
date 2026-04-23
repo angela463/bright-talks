@@ -1956,6 +1956,10 @@ a.nav-link.nav-trigger {
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
+.promo-video.is-playing .promo-big-play {
+  display: none !important;
+}
+
 .promo-big-play:hover {
   transform: translate(-50%, -50%) scale(1.06);
   background: rgba(0, 0, 0, 0.68);
