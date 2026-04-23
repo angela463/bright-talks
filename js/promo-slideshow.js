@@ -63,7 +63,9 @@
    * Blend between "equal time per caption" and "speech-length weighted".
    * Higher values produce more even pacing across captions.
    */
-  var EVEN_PACE_BLEND = 0.55;
+  var EVEN_PACE_BLEND = 0.12;
+  /** Preserve some original storyboard timing so pacing feels intentional. */
+  var BASE_DURATION_BLEND = 0.58;
 
   var root = document.getElementById('promo-root');
   if (!root) return;
@@ -186,6 +188,8 @@
     var n = scenes.length;
     if (!n) return [];
     var equalShare = 1 / n;
+    var baseTotal = baseTotalMs > 0 ? baseTotalMs : 1;
+    var speechBlend = Math.max(0, 1 - EVEN_PACE_BLEND - BASE_DURATION_BLEND);
     var weights = [];
     var sumWeights = 0;
     for (var i = 0; i < n; i++) {
@@ -198,8 +202,12 @@
     var durations = [];
     var assigned = 0;
     for (var j = 0; j < n; j++) {
+      var baseShare = scenes[j].duration / baseTotal;
       var weightedShare = weights[j] / sumWeights;
-      var blendedShare = EVEN_PACE_BLEND * equalShare + (1 - EVEN_PACE_BLEND) * weightedShare;
+      var blendedShare =
+        EVEN_PACE_BLEND * equalShare +
+        BASE_DURATION_BLEND * baseShare +
+        speechBlend * weightedShare;
       var d = Math.round(targetTotalMs * blendedShare);
       durations.push(d);
       assigned += d;
@@ -504,6 +512,14 @@
 
   if (bigPlay) {
     bigPlay.addEventListener('click', function () {
+      // Switch controls immediately so UI reflects playing intent on click.
+      bigPlay.hidden = true;
+      if (chrome) chrome.hidden = false;
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-pressed', 'true');
+        toggleBtn.setAttribute('aria-label', 'Pause');
+      }
+      setTogglePlaying(true);
       releaseAudio();
       frozenElapsedMs = null;
       startSequence();
