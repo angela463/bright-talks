@@ -4283,7 +4283,7 @@ body.page-courses.page-course-library .section-header p {
 }
 
 .page-about .footer-landing-nav a:hover {
-  color: #fff;
+  color: var(--orange-light);
 }
 
 .site-footer--landing .footer-back {
