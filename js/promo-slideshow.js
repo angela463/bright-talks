@@ -65,7 +65,9 @@
    */
   var EVEN_PACE_BLEND = 0.12;
   /** Preserve some original storyboard timing so pacing feels intentional. */
-  var BASE_DURATION_BLEND = 0.58;
+  var BASE_DURATION_BLEND = 0.42;
+  /** Show captions/slides slightly ahead to reduce perceived speech lag. */
+  var CAPTION_LEAD_MS = 950;
 
   var root = document.getElementById('promo-root');
   if (!root) return;
@@ -141,7 +143,7 @@
   function syncSlideToVoiceover() {
     if (!playing || !voiceoverAudio) return;
     if (getVoiceoverDurationMs() <= 0) return;
-    var elMs = getVoiceoverElapsedMs();
+    var elMs = Math.min(totalMs, Math.max(0, getVoiceoverElapsedMs() + CAPTION_LEAD_MS));
     var want = sceneIndexForElapsedMs(elMs);
     if (want !== idx) {
       applyScene(want, false);
@@ -452,6 +454,7 @@
       if (bigPlay) bigPlay.hidden = true;
       if (chrome) chrome.hidden = false;
     }
+    if (root) root.classList.remove('is-playing');
 
     if (toggleBtn) {
       toggleBtn.setAttribute('aria-pressed', 'false');
@@ -474,6 +477,7 @@
       toggleBtn.setAttribute('aria-label', 'Pause');
     }
     setTogglePlaying(true);
+    if (root) root.classList.add('is-playing');
     applyScene(0, true);
     startAudio(function afterPromoTiming() {
       startProgressTicker();
@@ -494,6 +498,7 @@
       toggleBtn.setAttribute('aria-label', 'Pause');
     }
     setTogglePlaying(true);
+    if (root) root.classList.add('is-playing');
     pendingVoiceoverResumeMs = resumeAt;
     if (seekVoiceoverToElapsedMs(resumeAt)) {
       pendingVoiceoverResumeMs = null;
@@ -520,6 +525,7 @@
         toggleBtn.setAttribute('aria-label', 'Pause');
       }
       setTogglePlaying(true);
+      if (root) root.classList.add('is-playing');
       releaseAudio();
       frozenElapsedMs = null;
       startSequence();
