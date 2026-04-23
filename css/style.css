@@ -3620,6 +3620,17 @@ body.page-courses.page-course-info::before {
   background: radial-gradient(ellipse 80% 52% at 50% -15%, rgba(255, 255, 255, 0.22) 0%, transparent 58%);
 }
 
+body.page-courses.page-course-library {
+  background-color: #faf4eb;
+  background-image:
+    radial-gradient(ellipse 95% 58% at 50% -18%, rgba(255, 255, 255, 0.6) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(255, 251, 246, 0.98) 0%, rgba(250, 244, 235, 0.94) 100%);
+}
+
+body.page-courses.page-course-library::before {
+  background: radial-gradient(ellipse 80% 52% at 50% -15%, rgba(255, 255, 255, 0.22) 0%, transparent 58%);
+}
+
 .page-course-info .course-info-main {
   padding: clamp(1.5rem, 3.5vw, 2.5rem) 0 clamp(3rem, 6vw, 4.5rem);
 }
