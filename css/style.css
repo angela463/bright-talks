@@ -2159,12 +2159,14 @@ a.nav-link.nav-trigger {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("images/Screenshot%202026-04-23%20at%202.44.46%E2%80%AFPM.png");
+  /* Paths in css/style.css resolve relative to /css/, so go up one level */
+  background-image: url("../images/Screenshot%202026-04-23%20at%202.44.46%E2%80%AFPM.png");
   background-size: 360px auto;
   background-position: 0 0;
   background-repeat: repeat;
-  mix-blend-mode: soft-light;
-  opacity: 0.08;
+  /* White tile background: multiply drops the white so lines read over orange */
+  mix-blend-mode: multiply;
+  opacity: 0.09;
 }
 
 .page-home .lp-section--value > .container {
