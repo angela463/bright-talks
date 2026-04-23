@@ -9,8 +9,10 @@
     return typeof lesson === 'string' ? lesson : (lesson && lesson.title) || 'Lesson';
   }
 
-  function lessonUnlocked(lesson) {
-    return lesson && typeof lesson === 'object' && lesson.unlocked === true;
+  function lessonUnlocked(lesson, lessonIdx) {
+    if (!lesson || typeof lesson !== 'object' || lesson.unlocked !== true) return false;
+    // Only the first lesson in a module is publicly playable (even if data flags more).
+    return lessonIdx === 0;
   }
 
   function lessonArtwork(idx) {
@@ -78,7 +80,7 @@
     }
 
     var title = lessonTitle(lesson);
-    var unlocked = lessonUnlocked(lesson);
+    var unlocked = lessonUnlocked(lesson, lessonIdx);
     var durationMin =
       typeof lesson === 'object' && lesson && lesson.durationMinutes != null
         ? lesson.durationMinutes

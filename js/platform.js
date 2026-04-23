@@ -141,9 +141,13 @@
     return typeof lesson === 'string' ? lesson : (lesson && lesson.title) || '';
   }
 
+  function lessonIsPlayableUnlocked(lesson, lessonIdx) {
+    return typeof lesson === 'object' && lesson && lesson.unlocked === true && lessonIdx === 0;
+  }
+
   function countUnlockedLessons(lessons) {
-    return (lessons || []).reduce(function (acc, lesson) {
-      return acc + ((typeof lesson === 'object' && lesson && lesson.unlocked === true) ? 1 : 0);
+    return (lessons || []).reduce(function (acc, lesson, idx) {
+      return acc + (lessonIsPlayableUnlocked(lesson, idx) ? 1 : 0);
     }, 0);
   }
 
@@ -211,7 +215,7 @@
     }
     if (previewList) {
       previewList.innerHTML = lessons.slice(0, 3).map(function (lesson, idx) {
-        var unlocked = typeof lesson === 'object' && lesson && lesson.unlocked === true;
+        var unlocked = lessonIsPlayableUnlocked(lesson, idx);
         return (
           '<article class="module-preview-item">' +
             '<span class="module-preview-index">0' + (idx + 1) + '</span>' +
@@ -225,7 +229,7 @@
     }
 
     root.innerHTML = lessons.map(function (l, idx) {
-      var unlocked = typeof l === 'object' && l && l.unlocked === true;
+      var unlocked = lessonIsPlayableUnlocked(l, idx);
       var dur = (typeof l === 'object' && l && l.durationMinutes) ? ('~' + l.durationMinutes + ' min') : '~8 min';
       var creator = unlocked ? 'with Bright Talks guided audio' : 'with Bright Talks library access';
       var image = lessonArtwork(idx);

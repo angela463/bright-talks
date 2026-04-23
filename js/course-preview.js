@@ -18,8 +18,8 @@
     return '';
   }
 
-  function lessonUnlocked(lesson) {
-    return lesson && typeof lesson === 'object' && lesson.unlocked === true;
+  function lessonUnlocked(lesson, lessonIdx) {
+    return lesson && typeof lesson === 'object' && lesson.unlocked === true && lessonIdx === 0;
   }
 
   var LOCK_SVG =
@@ -152,7 +152,7 @@
       var lessonRows = [];
       for (var j = 0; j < lessons.length; j++) {
         var lesson = lessons[j];
-        if (lessonUnlocked(lesson)) {
+        if (lessonUnlocked(lesson, j)) {
           lessonRows.push(renderUnlockedLesson(i, j, lesson));
         } else {
           lessonRows.push(renderLockedLesson(i, j, lessonTitle(lesson)));
