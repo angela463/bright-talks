@@ -2963,6 +2963,8 @@ a.nav-link.nav-trigger {
 }
 
 .lp-section--relationship {
+  position: relative;
+  overflow: hidden;
   padding-top: clamp(4.25rem, 12vw, 7.5rem);
   padding-bottom: clamp(4.25rem, 12vw, 7.5rem);
   padding-left: clamp(1.25rem, 4vw, 2rem);
@@ -2980,6 +2982,30 @@ a.nav-link.nav-trigger {
       #e8894a 42%,
       #d9773a 100%
     );
+}
+
+/* Romans 12:2 band: tiled Bible / journal pattern (same technique as .lp-section--value) */
+.page-home .lp-section--relationship::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("../images/romans-12-2-bible-pattern.png");
+  background-size: 340px auto;
+  background-position: 0 0;
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.085;
+}
+
+.page-home .lp-section--relationship > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.page-home .outcome-relationship-line,
+.page-home .outcome-relationship-attribution {
+  text-shadow: 0 1px 22px rgba(0, 0, 0, 0.2);
 }
 
 .outcome-relationship-band {
