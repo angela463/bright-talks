@@ -4357,6 +4357,14 @@ body.page-courses.page-course-library .section-header p {
   color: var(--orange-light);
 }
 
+.page-faq .footer-landing-nav a {
+  color: #fff;
+}
+
+.page-faq .footer-landing-nav a:hover {
+  color: var(--orange-light);
+}
+
 .site-footer--landing .footer-back {
   margin-top: 0.5rem;
 }
