@@ -317,6 +317,48 @@
     });
   }
 
+  /** Why Bright Talks: format toggle demo (Watch / Listen / Read) */
+  function initAboutExperienceFormats() {
+    var cards = document.querySelectorAll('.about-experience-card--formats');
+    if (!cards.length) return;
+
+    function applyFormat(card, format) {
+      var titleEl = card.querySelector('[data-demo-title]');
+      var metaEl = card.querySelector('[data-demo-meta]');
+      if (!titleEl || !metaEl) return;
+
+      if (format === 'watch') {
+        titleEl.textContent = 'Short guided walkthroughs when you want a steady pace';
+        metaEl.textContent = 'Video lesson · ~8 min · Bright Talks';
+      } else if (format === 'read') {
+        titleEl.textContent = 'Clear scripts and prompts you can skim in a few minutes';
+        metaEl.textContent = 'Written lesson · ~6 min read · Bright Talks';
+      } else {
+        titleEl.textContent = 'Guided audio you can follow in the car';
+        metaEl.textContent = 'Audio lesson · ~8 min · Bright Talks';
+      }
+
+      card.setAttribute('data-format', format);
+    }
+
+    cards.forEach(function (card) {
+      var inputs = card.querySelectorAll('.about-format-input');
+      if (!inputs.length) return;
+
+      inputs.forEach(function (input) {
+        input.addEventListener('change', function () {
+          if (!input.checked) return;
+          applyFormat(card, input.value);
+        });
+      });
+
+      var checked = card.querySelector('.about-format-input:checked');
+      if (checked) {
+        applyFormat(card, checked.value);
+      }
+    });
+  }
+
   createOverlay();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -327,6 +369,7 @@
       initParentResourceTabs();
       initValueFlipCards();
       initExpertModal();
+      initAboutExperienceFormats();
       initHeroBackgroundVideo();
     });
   } else {
@@ -337,6 +380,7 @@
     initParentResourceTabs();
     initValueFlipCards();
     initExpertModal();
+    initAboutExperienceFormats();
     initHeroBackgroundVideo();
   }
 })();
