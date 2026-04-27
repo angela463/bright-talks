@@ -4121,7 +4121,7 @@ body.page-courses.page-module-lessons .page-back-home:hover {
   color: var(--orange-dark);
 }
 
-/* Lesson player: pale peach page (pattern lives on .lesson-player-header in platform.css) */
+/* Lesson player: pale peach page; tiled pattern on viewport (not on cards — see ::before) */
 body.page-courses.page-lesson-player {
   background-color: #fff2e4;
   background-image:
@@ -4130,7 +4130,21 @@ body.page-courses.page-lesson-player {
 }
 
 body.page-courses.page-lesson-player::before {
-  background: radial-gradient(ellipse 82% 50% at 50% -14%, rgba(255, 255, 255, 0.28) 0%, transparent 58%);
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse 88% 54% at 50% -14%, rgba(255, 255, 255, 0.42) 0%, transparent 56%),
+    url("../images/lesson-preview-education-pattern.png");
+  background-size:
+    auto,
+    300px auto;
+  background-repeat: no-repeat, repeat;
+  background-position: 0 0, 0 0;
+  mix-blend-mode: multiply;
+  opacity: 0.12;
 }
 
 body.page-courses.page-lesson-player .page-back-home:hover {
