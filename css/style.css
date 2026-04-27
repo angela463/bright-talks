@@ -4513,15 +4513,16 @@ body.page-courses.page-course-library .section-header p {
 }
 
 .page-course-info .course-info-real-life .about-experience-card--testimonial {
-  border-color: rgba(120, 86, 132, 0.35);
+  border-color: rgba(168, 132, 196, 0.45);
   background:
-    radial-gradient(120% 90% at 12% 0%, rgba(255, 200, 160, 0.12), transparent 55%),
-    linear-gradient(165deg, #3f3048 0%, #2f2438 46%, #241c2e 100%);
+    radial-gradient(120% 90% at 10% 0%, rgba(255, 188, 150, 0.14), transparent 56%),
+    radial-gradient(90% 70% at 100% 100%, rgba(140, 96, 180, 0.22), transparent 52%),
+    linear-gradient(165deg, #5c4372 0%, #45325d 42%, #2e2140 100%);
 }
 
 .page-course-info .course-info-real-life .about-experience-pill--inverse {
   background: rgba(255, 251, 246, 0.96);
-  color: rgba(90, 61, 98, 0.92);
+  color: rgba(62, 44, 82, 0.94);
   border-color: rgba(255, 251, 246, 0.45);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
 }
