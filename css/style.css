@@ -4470,6 +4470,21 @@ body.page-courses.page-course-library .section-header p {
   }
 }
 
+.page-course-info .course-promise-banner + .course-info-section {
+  margin-top: clamp(1.4rem, 3.6vw, 2.25rem);
+}
+
+/* “How Bright Talks fits real life” (moved from Why Bright Talks): keep full-bleed background, avoid double vertical padding with .page-shell */
+.page-course-info .course-info-real-life.lp-section {
+  padding: 0;
+}
+
+.page-course-info .course-info-real-life .section-headline {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .page-course-info .course-after-video {
   padding: clamp(2.25rem, 5vw, 3.75rem) 0 clamp(2.75rem, 6vw, 4.25rem);
   background: linear-gradient(180deg, #fffbf8 0%, #faf4eb 55%, #f7f0e6 100%);
