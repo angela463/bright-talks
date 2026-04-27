@@ -4092,6 +4092,35 @@ body.page-courses.page-course-library::before {
   background: radial-gradient(ellipse 80% 52% at 50% -15%, rgba(255, 255, 255, 0.22) 0%, transparent 58%);
 }
 
+/* Module lesson list (Start a lesson…): same light beige as library / course info */
+body.page-courses.page-module-lessons {
+  background-color: #faf4eb;
+  background-image:
+    radial-gradient(ellipse 95% 58% at 50% -18%, rgba(255, 255, 255, 0.6) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(255, 251, 246, 0.98) 0%, rgba(250, 244, 235, 0.94) 100%);
+}
+
+body.page-courses.page-module-lessons::before {
+  background: radial-gradient(ellipse 80% 52% at 50% -15%, rgba(255, 255, 255, 0.22) 0%, transparent 58%);
+}
+
+body.page-courses.page-module-lessons .section-header .eyebrow {
+  color: rgba(148, 90, 45, 0.92);
+}
+
+body.page-courses.page-module-lessons .section-header h2 {
+  color: #2a2725;
+  text-shadow: none;
+}
+
+body.page-courses.page-module-lessons .section-header p {
+  color: #5a534e;
+}
+
+body.page-courses.page-module-lessons .page-back-home:hover {
+  color: var(--orange-dark);
+}
+
 /* Course library on cream background: use darker type for readability */
 body.page-courses.page-course-library .section-header .eyebrow {
   color: rgba(148, 90, 45, 0.92);

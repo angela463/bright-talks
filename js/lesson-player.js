@@ -15,7 +15,8 @@
     return lessonIdx === 0;
   }
 
-  function lessonArtwork(idx) {
+  /* Keep pool in sync with js/platform.js lessonArtwork (still images, not YouTube frames). */
+  function lessonArtwork(moduleIdx, lessonIdx) {
     var art = [
       'images/pexels-max-fischer-5212331.jpg',
       'images/pexels-emma-bauso-1183828-2253879.jpg',
@@ -24,16 +25,42 @@
       'images/pexels-karola-g-5478103.jpg',
       'images/pexels-julia-m-cameron-4144230.jpg',
       'images/pexels-bohlemedia-963713.jpg',
-      'images/pexels-olgalioncat-7245594.jpg'
+      'images/pexels-olgalioncat-7245594.jpg',
+      'images/pexels-freestockpro-316820.jpg',
+      'images/pexels-ketut-subiyanto-4473441.jpg',
+      'images/how-it-works-family.jpg',
+      'images/pexels-turgay-koca-405356598-14919198.jpg',
+      'images/pexels-vittoriostaffolani-655674.jpg',
+      'images/pexels-hngstrm-1939485.jpg',
+      'images/pexels-tima-miroshnichenko-5813804.jpg',
+      'images/pexels-silverkblack-20459167.jpg',
+      'images/pexels-vlada-karpovich-4609085.jpg',
+      'images/pexels-fernanda-da-silva-lopes-2055473628-29208526.jpg',
+      'images/pexels-zhmkhv-3373282-5511203.jpg',
+      'images/images-portraits/pexels-ilayda0700-36593091.jpg',
+      'images/images-portraits/pexels-alaxmatias-28513050.jpg',
+      'images/images-portraits/pexels-spencphoto-36646353.jpg',
+      'images/images-portraits/pexels-konrads-photo-36215318.jpg',
+      'images/pexels-cottonbro-6668315.jpg',
+      'images/pexels-diva-26419303.jpg',
+      'images/pexels-mikhail-nilov-6893360.jpg',
+      'images/pexels-sanaan-3075945.jpg',
+      'images/pexels-karola-g-6958470.jpg',
+      'images/pexels-artempodrez-6951903.jpg',
+      'images/promo/promo-01-family-tent.png',
+      'images/promo/promo-02-family-bed.png',
+      'images/promo/promo-03-hiking.png',
+      'images/promo/promo-04-classroom.png',
+      'images/promo/promo-05-tablet-learning.png',
+      'images/promo/promo-07-family-walk.png',
+      'images/promo/promo-08-teen-desk.png'
     ];
-    return art[idx % art.length];
+    var i = ((moduleIdx || 0) * 37 + (lessonIdx || 0)) % art.length;
+    return art[i];
   }
 
-  function posterForLesson(lesson, idx) {
-    if (typeof lesson === 'object' && lesson && lesson.video && lesson.video.youtubeId) {
-      return 'https://img.youtube.com/vi/' + String(lesson.video.youtubeId) + '/hqdefault.jpg';
-    }
-    return lessonArtwork(idx);
+  function posterForLesson(moduleIdx, lessonIdx) {
+    return lessonArtwork(moduleIdx, lessonIdx);
   }
 
   function formatClock(seconds) {
@@ -134,7 +161,7 @@
 
     var posterEl = document.getElementById('lesson-sim-poster');
     if (posterEl) {
-      posterEl.style.backgroundImage = "url('" + posterForLesson(lesson, lessonIdx) + "')";
+      posterEl.style.backgroundImage = "url('" + posterForLesson(moduleIdx, lessonIdx) + "')";
     }
 
     var lockedEl = document.getElementById('lesson-sim-locked');
