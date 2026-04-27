@@ -6,7 +6,7 @@
   'use strict';
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
-  var PROMO_MUSIC_SRC = encodeURI('audio files/Warm Windows, Open Minds.mp3');
+  var PROMO_MUSIC_SRC = null;
   /** Homepage promo narration track. */
   var PROMO_VOICEOVER_SRC = encodeURI('audio files/Bright Talks v1.mp3');
 
@@ -414,19 +414,21 @@
   }
 
   function startAudio(afterTimingReady) {
-    if (bgMusic) {
-      bgMusic.loop = true;
-      bgMusic.volume = musicMuted ? 0 : 0.18;
-      bgMusic.muted = musicMuted;
-      var pr = bgMusic.play();
-      if (pr && pr.catch) pr.catch(function () {});
-    } else {
-      bgMusic = new Audio(PROMO_MUSIC_SRC);
-      bgMusic.loop = true;
-      bgMusic.volume = musicMuted ? 0 : 0.18;
-      bgMusic.muted = musicMuted;
-      var p = bgMusic.play();
-      if (p && p.catch) p.catch(function () {});
+    if (PROMO_MUSIC_SRC) {
+      if (bgMusic) {
+        bgMusic.loop = true;
+        bgMusic.volume = musicMuted ? 0 : 0.18;
+        bgMusic.muted = musicMuted;
+        var pr = bgMusic.play();
+        if (pr && pr.catch) pr.catch(function () {});
+      } else {
+        bgMusic = new Audio(PROMO_MUSIC_SRC);
+        bgMusic.loop = true;
+        bgMusic.volume = musicMuted ? 0 : 0.18;
+        bgMusic.muted = musicMuted;
+        var p = bgMusic.play();
+        if (p && p.catch) p.catch(function () {});
+      }
     }
 
     if (voiceoverAudio) {
