@@ -328,14 +328,14 @@
       if (!titleEl || !metaEl) return;
 
       if (format === 'watch') {
-        titleEl.textContent = 'Short guided walkthroughs when you want a steady pace';
-        metaEl.textContent = 'Video lesson · ~8 min · Bright Talks';
+        titleEl.textContent = 'Language & Body Names';
+        metaEl.textContent = 'VIDEO · ~8 MIN · BRIGHT TALKS';
       } else if (format === 'read') {
-        titleEl.textContent = 'Clear scripts and prompts you can skim in a few minutes';
-        metaEl.textContent = 'Written lesson · ~6 min read · Bright Talks';
+        titleEl.textContent = 'Language & Body Names';
+        metaEl.textContent = 'READ · ~6 MIN · BRIGHT TALKS';
       } else {
-        titleEl.textContent = 'Guided audio you can follow in the car';
-        metaEl.textContent = 'Audio lesson · ~8 min · Bright Talks';
+        titleEl.textContent = 'Language & Body Names';
+        metaEl.textContent = 'AUDIO · 01:30 · AVA MORGAN';
       }
 
       card.setAttribute('data-format', format);

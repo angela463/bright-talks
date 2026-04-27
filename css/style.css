@@ -4485,6 +4485,71 @@ body.page-courses.page-course-library .section-header p {
   margin-right: auto;
 }
 
+/* Course info: “real life” two-up matches library/info creams + warm terracotta, plum contrast card (see images/course-info/real-life-section-reference.png) */
+.page-course-info .course-info-real-life.lp-section--about-experience {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 251, 246, 0.98) 0%,
+    rgba(250, 244, 235, 0.72) 48%,
+    rgba(255, 253, 248, 0.96) 100%
+  );
+  border-top: 1px solid rgba(216, 196, 172, 0.4);
+  border-bottom: 1px solid rgba(216, 196, 172, 0.28);
+}
+
+.page-course-info .course-info-real-life .about-experience-card {
+  border-radius: clamp(24px, 3.2vw, 32px);
+  box-shadow:
+    0 14px 34px rgba(55, 38, 22, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.75) inset;
+}
+
+.page-course-info .course-info-real-life .about-experience-card--formats {
+  border-color: rgba(220, 170, 128, 0.65);
+  background:
+    radial-gradient(120% 90% at 14% 10%, rgba(255, 255, 255, 0.9), transparent 58%),
+    radial-gradient(90% 70% at 92% 0%, rgba(255, 198, 160, 0.35), transparent 55%),
+    linear-gradient(165deg, #fff6ec 0%, #ffead8 52%, #ffe4cf 100%);
+}
+
+.page-course-info .course-info-real-life .about-experience-card--testimonial {
+  border-color: rgba(120, 86, 132, 0.35);
+  background:
+    radial-gradient(120% 90% at 12% 0%, rgba(255, 200, 160, 0.12), transparent 55%),
+    linear-gradient(165deg, #3f3048 0%, #2f2438 46%, #241c2e 100%);
+}
+
+.page-course-info .course-info-real-life .about-experience-pill--inverse {
+  background: rgba(255, 251, 246, 0.96);
+  color: rgba(90, 61, 98, 0.92);
+  border-color: rgba(255, 251, 246, 0.45);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+.page-course-info .course-info-real-life .about-experience-floating {
+  background: #fffefb;
+  border-color: rgba(211, 182, 150, 0.55);
+  box-shadow:
+    0 16px 36px rgba(55, 38, 22, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+}
+
+.page-course-info .course-info-real-life .about-experience-badge--offline {
+  margin: 0 0 0.85rem;
+  width: 100%;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  background: rgba(255, 253, 248, 0.95);
+  border-color: rgba(211, 182, 150, 0.5);
+  color: rgba(90, 83, 78, 0.88);
+}
+
+.page-course-info .course-info-real-life .about-experience-badge--offline svg {
+  color: rgba(148, 90, 45, 0.95);
+}
+
 .page-course-info .course-after-video {
   padding: clamp(2.25rem, 5vw, 3.75rem) 0 clamp(2.75rem, 6vw, 4.25rem);
   background: linear-gradient(180deg, #fffbf8 0%, #faf4eb 55%, #f7f0e6 100%);
