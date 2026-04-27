@@ -4121,6 +4121,22 @@ body.page-courses.page-module-lessons .page-back-home:hover {
   color: var(--orange-dark);
 }
 
+/* Lesson player: pale peach page (pattern lives on .lesson-player-header in platform.css) */
+body.page-courses.page-lesson-player {
+  background-color: #fff2e4;
+  background-image:
+    radial-gradient(ellipse 95% 55% at 50% -16%, rgba(255, 255, 255, 0.65) 0%, transparent 54%),
+    linear-gradient(180deg, rgba(255, 250, 244, 0.98) 0%, rgba(255, 236, 216, 0.95) 48%, rgba(255, 228, 204, 0.92) 100%);
+}
+
+body.page-courses.page-lesson-player::before {
+  background: radial-gradient(ellipse 82% 50% at 50% -14%, rgba(255, 255, 255, 0.28) 0%, transparent 58%);
+}
+
+body.page-courses.page-lesson-player .page-back-home:hover {
+  color: var(--orange-dark);
+}
+
 /* Course library on cream background: use darker type for readability */
 body.page-courses.page-course-library .section-header .eyebrow {
   color: rgba(148, 90, 45, 0.92);
