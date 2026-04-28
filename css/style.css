@@ -1380,7 +1380,7 @@ a.nav-link.nav-trigger {
 .waitlist {
   position: relative;
   overflow: hidden;
-  min-height: clamp(380px, 58vw, 720px);
+  min-height: clamp(330px, 52vw, 620px);
   color: var(--white);
   text-align: center;
   background: #1a1614;
@@ -1420,7 +1420,7 @@ a.nav-link.nav-trigger {
 .waitlist__inner {
   position: relative;
   z-index: 2;
-  padding: clamp(3.5rem, 8vw, 5.5rem) 1.5rem;
+  padding: clamp(2.75rem, 6.5vw, 4.5rem) 1.5rem;
 }
 
 .waitlist .section-headline {
