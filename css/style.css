@@ -3014,14 +3014,15 @@ a.nav-link.nav-trigger {
 
 .outcome-relationship-line {
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 42ch;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.2rem, 3.2vw, 1.72rem);
+  font-size: clamp(1.35rem, 3.8vw, 2rem);
   font-weight: 400;
   letter-spacing: -0.015em;
-  line-height: 1.45;
+  line-height: 1.4;
   color: #fff;
   text-align: center;
+  text-wrap: balance;
 }
 
 .outcome-relationship-line p {
@@ -3041,7 +3042,7 @@ a.nav-link.nav-trigger {
 
 @media (max-width: 760px) {
   .outcome-relationship-line {
-    text-wrap: balance;
+    max-width: 100%;
   }
 }
 
