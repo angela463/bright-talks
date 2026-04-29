@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Claim free course access and complete Bright Talks membership enrollment." />
+  <title>Bright Talks | Free Course Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --ink: #1b2036;
+      --muted: #616784;
+      --card: #ffffff;
+      --line: #d5dbef;
+      --accent: #7e47ff;
+      --accent-2: #5f32cb;
+      --danger: #bc1f4a;
+      --ok: #1a7f4f;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #eef1ff 0%, var(--bg) 45%);
+    }
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .brand {
+      font-family: "Fraunces", serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .home-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    @media (min-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+        align-items: start;
+      }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 30px rgba(31, 44, 82, 0.08);
+    }
+    .hero {
+      padding: 28px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent-2);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.6rem, 2.7vw, 2.2rem);
+      line-height: 1.2;
+    }
+    .hero p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .form-wrap {
+      padding: 26px;
+    }
+    .section-title {
+      margin: 22px 0 14px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 700px) {
+      .grid.two {
+        grid-template-columns: 1fr 1fr;
+      }
+      .grid.three {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #2f3555;
+    }
+    .req { color: var(--danger); }
+    input, select {
+      width: 100%;
+      border: 1px solid #c8d0ea;
+      border-radius: 12px;
+      padding: 12px 13px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    input:focus, select:focus {
+      outline: 2px solid #b9a3ff;
+      outline-offset: 1px;
+      border-color: #9f7fff;
+    }
+    .hint {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .check {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      color: #2f3555;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    .check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+    .btn {
+      margin-top: 18px;
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      font-weight: 700;
+      padding: 14px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .btn:hover { filter: brightness(1.06); }
+    .status {
+      margin-top: 12px;
+      min-height: 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--danger); }
+    .summary {
+      padding: 22px;
+    }
+    .summary h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+    .summary p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+    .summary ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: #31385f;
+      line-height: 1.5;
+    }
+    .summary .total {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-weight: 700;
+      color: #20264a;
+    }
+    .note {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top">
+      <a class="brand" href="index.html">Bright Talks</a>
+      <a class="home-link" href="courses.html">Back to Courses</a>
+    </div>
+
+    <div class="layout">
+      <section class="card">
+        <div class="hero">
+          <p class="eyebrow">Free Course Entry Point</p>
+          <h1>Get your free lesson and activate Bright Talks membership</h1>
+          <p>Complete all mandatory fields to unlock the free lesson and start your monthly access plan.</p>
+        </div>
+
+        <form id="member-checkout-form" class="form-wrap" novalidate>
+          <h2 class="section-title">Member details</h2>
+          <div class="grid two">
+            <div>
+              <label for="firstName">First name <span class="req">*</span></label>
+              <input id="firstName" name="firstName" autocomplete="given-name" required />
+            </div>
+            <div>
+              <label for="lastName">Last name <span class="req">*</span></label>
+              <input id="lastName" name="lastName" autocomplete="family-name" required />
+            </div>
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div>
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+          </div>
+
+          <h2 class="section-title">Plan + payment</h2>
+          <div class="grid two">
+            <div>
+              <label for="plan">Choose plan <span class="req">*</span></label>
+              <select id="plan" name="plan" required>
+                <option value="">Select a plan</option>
+                <option value="monthly">Monthly Membership - $19/month</option>
+                <option value="annual">Annual Membership - $190/year</option>
+              </select>
+            </div>
+            <div>
+              <label for="coupon">Promo code (optional)</label>
+              <input id="coupon" name="coupon" placeholder="WELCOME10" />
+            </div>
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="cardName">Cardholder name <span class="req">*</span></label>
+              <input id="cardName" name="cardName" autocomplete="cc-name" required />
+            </div>
+            <div>
+              <label for="cardNumber">Card number <span class="req">*</span></label>
+              <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" required placeholder="1234 5678 9012 3456" />
+            </div>
+          </div>
+          <div class="grid three">
+            <div>
+              <label for="expiry">Expiry (MM/YY) <span class="req">*</span></label>
+              <input id="expiry" name="expiry" autocomplete="cc-exp" required placeholder="MM/YY" />
+            </div>
+            <div>
+              <label for="cvc">CVC <span class="req">*</span></label>
+              <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" required placeholder="123" />
+            </div>
+            <div>
+              <label for="zip">Billing ZIP <span class="req">*</span></label>
+              <input id="zip" name="zip" autocomplete="postal-code" required />
+            </div>
+          </div>
+          <p class="hint">This is a sample payment UI. Do not use real card details.</p>
+
+          <label class="check" for="terms">
+            <input id="terms" name="terms" type="checkbox" required />
+            <span>I agree to Bright Talks terms and recurring billing policy. <span class="req">*</span></span>
+          </label>
+
+          <button class="btn" type="submit">Complete Membership Payment</button>
+          <p id="form-status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <aside class="card summary">
+        <h2>Checkout summary</h2>
+        <p><strong>Offer:</strong> 1 free lesson included with signup</p>
+        <p><strong>Access:</strong> Full Bright Talks library + updates</p>
+        <ul>
+          <li>Instant access after successful payment</li>
+          <li>Cancel any time from member dashboard</li>
+          <li>Email receipt and onboarding guide</li>
+        </ul>
+        <p class="total">Total due today: $19.00</p>
+        <p class="note">For production, connect this form to Stripe/PayPal and server-side validation.</p>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById("member-checkout-form");
+      var statusEl = document.getElementById("form-status");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        statusEl.className = "status";
+
+        if (!form.checkValidity()) {
+          statusEl.textContent = "Please complete all mandatory fields before continuing.";
+          statusEl.classList.add("err");
+          form.reportValidity();
+          return;
+        }
+
+        statusEl.textContent = "Payment submitted. Member profile created successfully.";
+        statusEl.classList.add("ok");
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
