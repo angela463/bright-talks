@@ -219,7 +219,7 @@
         <div class="hero">
           <p class="eyebrow">Free Course Entry Point</p>
           <h1>Get your free lesson and activate Bright Talks membership</h1>
-          <p>Complete all mandatory fields to unlock the free lesson and start your monthly access plan.</p>
+          <p>Complete all mandatory fields to unlock the free lesson and start your membership access plan.</p>
         </div>
 
         <form id="member-checkout-form" class="form-wrap" novalidate>
@@ -251,8 +251,8 @@
               <label for="plan">Choose plan <span class="req">*</span></label>
               <select id="plan" name="plan" required>
                 <option value="">Select a plan</option>
-                <option value="monthly">Monthly Membership - $19/month</option>
-                <option value="annual">Annual Membership - $190/year</option>
+                <option value="monthly">Monthly Membership</option>
+                <option value="annual">Annual Membership</option>
               </select>
             </div>
             <div>
@@ -294,6 +294,37 @@
           <button class="btn" type="submit">Complete Membership Payment</button>
           <p id="form-status" class="status" role="status" aria-live="polite"></p>
         </form>
+
+        <form id="simple-signup-form" class="form-wrap" novalidate>
+          <h2 class="section-title">Simpler signup option</h2>
+          <div class="grid two">
+            <div>
+              <label for="simpleName">Full name <span class="req">*</span></label>
+              <input id="simpleName" name="simpleName" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="simpleEmail">Email <span class="req">*</span></label>
+              <input id="simpleEmail" name="simpleEmail" type="email" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="simplePlan">Plan preference <span class="req">*</span></label>
+              <select id="simplePlan" name="simplePlan" required>
+                <option value="">Select a plan</option>
+                <option value="monthly">Monthly Membership</option>
+                <option value="annual">Annual Membership</option>
+              </select>
+            </div>
+          </div>
+          <label class="check" for="simpleTerms">
+            <input id="simpleTerms" name="simpleTerms" type="checkbox" required />
+            <span>I agree to the terms and membership policy. <span class="req">*</span></span>
+          </label>
+
+          <button class="btn" type="submit">Join Membership</button>
+          <p id="simple-form-status" class="status" role="status" aria-live="polite"></p>
+        </form>
       </section>
 
       <aside class="card summary">
@@ -305,7 +336,7 @@
           <li>Cancel any time from member dashboard</li>
           <li>Email receipt and onboarding guide</li>
         </ul>
-        <p class="total">Total due today: $19.00</p>
+        <p class="total">Total due today: shown at checkout</p>
         <p class="note">For production, connect this form to Stripe/PayPal and server-side validation.</p>
       </aside>
     </div>
@@ -313,24 +344,31 @@
 
   <script>
     (function () {
-      var form = document.getElementById("member-checkout-form");
-      var statusEl = document.getElementById("form-status");
+      function bindForm(formId, statusId, successMessage) {
+        var form = document.getElementById(formId);
+        var statusEl = document.getElementById(statusId);
 
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        statusEl.className = "status";
+        if (!form || !statusEl) return;
 
-        if (!form.checkValidity()) {
-          statusEl.textContent = "Please complete all mandatory fields before continuing.";
-          statusEl.classList.add("err");
-          form.reportValidity();
-          return;
-        }
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          statusEl.className = "status";
 
-        statusEl.textContent = "Payment submitted. Member profile created successfully.";
-        statusEl.classList.add("ok");
-        form.reset();
-      });
+          if (!form.checkValidity()) {
+            statusEl.textContent = "Please complete all mandatory fields before continuing.";
+            statusEl.classList.add("err");
+            form.reportValidity();
+            return;
+          }
+
+          statusEl.textContent = successMessage;
+          statusEl.classList.add("ok");
+          form.reset();
+        });
+      }
+
+      bindForm("member-checkout-form", "form-status", "Payment submitted. Member profile created successfully.");
+      bindForm("simple-signup-form", "simple-form-status", "Signup submitted. We will follow up with your membership setup details.");
     })();
   </script>
 </body>
