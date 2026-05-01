@@ -251,19 +251,15 @@
             </div>
           </div>
 
-          <h2 class="section-title">Plan + payment</h2>
+          <h2 class="section-title">Payment</h2>
           <div class="grid two">
-            <div>
-              <label for="plan">Choose plan <span class="req">*</span></label>
-              <select id="plan" name="plan" required>
-                <option value="">Select a plan</option>
-                <option value="monthly">Monthly Membership</option>
-                <option value="annual">Annual Membership</option>
-              </select>
-            </div>
             <div>
               <label for="coupon">Promo code (optional)</label>
               <input id="coupon" name="coupon" placeholder="WELCOME10" />
+            </div>
+            <div>
+              <label for="paymentTotal">Amount due</label>
+              <input id="paymentTotal" name="paymentTotal" value="$39.99" readonly />
             </div>
           </div>
           <div class="grid two">
@@ -315,12 +311,8 @@
           </div>
           <div class="grid">
             <div>
-              <label for="simplePlan">Plan preference <span class="req">*</span></label>
-              <select id="simplePlan" name="simplePlan" required>
-                <option value="">Select a plan</option>
-                <option value="monthly">Monthly Membership</option>
-                <option value="annual">Annual Membership</option>
-              </select>
+              <label for="simplePaymentTotal">Amount due</label>
+              <input id="simplePaymentTotal" name="simplePaymentTotal" value="$39.99" readonly />
             </div>
           </div>
           <label class="check" for="simpleTerms">
@@ -342,7 +334,7 @@
           <li>Cancel any time from member dashboard</li>
           <li>Email receipt and onboarding guide</li>
         </ul>
-        <p class="total">Total due today: shown at checkout</p>
+        <p class="total">Total due today: $39.99</p>
         <p class="note">For production, connect this form to Stripe/PayPal and server-side validation.</p>
       </aside>
     </div>
