@@ -1,9 +1,9 @@
 /* Bright Talks – design system (warm, editorial, trustworthy) */
 :root {
   /* Brand warmth – refined, not saturated */
-  --orange: #f0a43a;
-  --orange-light: #ffd36a;
-  --orange-dark: #d37b18;
+  --orange: #e8954a;
+  --orange-light: #f4c27a;
+  --orange-dark: #e8954a;
   --peach: #fde8dc;
   --peach-muted: #f5d4c4;
   --cream: #fffbf6;
@@ -127,9 +127,9 @@ body.page-courses::before {
 
 /* Homepage: layered section flow */
 .page-home {
-  --orange: #f0a43a;
-  --orange-light: #ffd36a;
-  --orange-dark: #d37b18;
+  --orange: #e8954a;
+  --orange-light: #f4c27a;
+  --orange-dark: #e8954a;
   --peach: #ffe8b6;
   --peach-muted: #ffdca0;
   --cream: #fffbe9;
