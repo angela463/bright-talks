@@ -10,14 +10,14 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f7f8fc;
-      --ink: #1b2036;
-      --muted: #616784;
+      --bg: #fffbf6;
+      --ink: #2c2825;
+      --muted: #6b6b76;
       --card: #ffffff;
-      --line: #d5dbef;
-      --accent: #7e47ff;
-      --accent-2: #5f32cb;
-      --danger: #bc1f4a;
+      --line: #efd8c7;
+      --accent: #e8954a;
+      --accent-2: #c26a2e;
+      --danger: #b03a2e;
       --ok: #1a7f4f;
       --radius: 16px;
     }
@@ -26,7 +26,9 @@
       margin: 0;
       font-family: "DM Sans", sans-serif;
       color: var(--ink);
-      background: linear-gradient(180deg, #eef1ff 0%, var(--bg) 45%);
+      background:
+        radial-gradient(ellipse 100% 55% at 50% -15%, rgba(253, 232, 220, 0.9) 0%, transparent 52%),
+        linear-gradient(180deg, rgba(255, 251, 246, 0.97) 0%, rgba(250, 244, 235, 0.99) 45%, rgba(255, 249, 240, 1) 100%);
     }
     .page {
       max-width: 1080px;
@@ -157,15 +159,19 @@
       margin-top: 18px;
       width: 100%;
       border: 0;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+      background: linear-gradient(165deg, var(--accent) 0%, var(--accent-2) 100%);
       color: white;
       font-weight: 700;
       padding: 14px 16px;
       font-size: 1rem;
       cursor: pointer;
+      box-shadow: 0 2px 12px rgba(44, 40, 37, 0.06), 0 2px 8px rgba(200, 120, 60, 0.25);
     }
-    .btn:hover { filter: brightness(1.06); }
+    .btn:hover {
+      filter: none;
+      background: var(--accent-2);
+    }
     .status {
       margin-top: 12px;
       min-height: 1.25rem;
