@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Course detail and curriculum view for the Bright Talks Courses V2 experience." />
+  <title>Course Detail V2 | Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/course-experience.css" />
+</head>
+<body class="page-course-detail-v2">
+  <header class="site-header site-header--landing">
+    <div class="header-inner header-inner--landing">
+      <a href="index.html" class="logo-link">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <nav class="nav nav--landing" aria-label="Main">
+        <a href="courses-v2.html" class="nav-link nav-link--minimal">Back to library</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="course-v2-main">
+    <section class="course-v2-detail-hero">
+      <div class="page-shell course-v2-detail-hero__layout">
+        <img id="course-v2-hero-image" src="" alt="" />
+        <div class="course-v2-detail-hero__content">
+          <p class="eyebrow">Course detail</p>
+          <h1 id="course-v2-title"></h1>
+          <p id="course-v2-description"></p>
+          <p id="course-v2-outcome" class="course-v2-outcome"></p>
+          <p id="course-v2-stats" class="course-v2-stats"></p>
+          <div class="course-v2-progress">
+            <div class="course-v2-progress__bar"><span id="course-v2-progress-fill"></span></div>
+            <strong id="course-v2-progress-label"></strong>
+          </div>
+          <a id="course-v2-resume-link" class="btn btn-primary" href="#">Start Course</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="course-v2-intro-audio">
+      <div class="page-shell">
+        <h2>AI audio intro preview</h2>
+        <audio id="course-v2-intro-audio" controls preload="metadata"></audio>
+        <button id="course-v2-transcript-toggle" class="btn btn-secondary" aria-expanded="false">Toggle transcript</button>
+        <p id="course-v2-transcript" hidden></p>
+      </div>
+    </section>
+
+    <section class="course-v2-curriculum-wrap">
+      <div class="page-shell">
+        <h2>Curriculum</h2>
+        <div id="course-v2-curriculum" class="course-v2-curriculum"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/course-experience-data.js"></script>
+  <script src="js/course-experience-common.js"></script>
+  <script src="js/course-detail-v2.js"></script>
+</body>
+</html>

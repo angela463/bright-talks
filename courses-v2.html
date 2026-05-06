@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bright Talks Courses V2 library with modern filters, progress, and AI audio-ready learning experiences." />
+  <title>Courses V2 | Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/course-experience.css" />
+</head>
+<body class="page-courses-v2">
+  <header class="site-header site-header--landing">
+    <div class="header-inner header-inner--landing">
+      <a href="index.html" class="logo-link">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <nav class="nav nav--landing" aria-label="Main">
+        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <a href="courses.html" class="nav-link nav-link--minimal">Courses (Current)</a>
+        <a href="courses-v2.html" class="nav-link nav-link--minimal" aria-current="page">Courses V2</a>
+      </nav>
+      <a href="free-course-signup.html" class="btn btn-primary">Try a Course for Free</a>
+    </div>
+  </header>
+
+  <main class="course-v2-main">
+    <section class="course-v2-hero">
+      <div class="page-shell">
+        <p class="eyebrow">New course experience</p>
+        <h1>Bright Talks Course Library</h1>
+        <p>Browse topic-based courses built for practical, parent-led conversations. Track progress and jump back in where you left off.</p>
+      </div>
+    </section>
+
+    <section class="course-v2-filters-wrap">
+      <div class="page-shell">
+        <div class="course-v2-filters">
+          <input id="course-library-v2-search" type="search" placeholder="Search topics, titles, or outcomes" aria-label="Search courses" />
+          <select id="course-library-v2-topic" aria-label="Filter by topic">
+            <option value="">All topics</option>
+          </select>
+          <select id="course-library-v2-audience" aria-label="Filter by audience">
+            <option value="">All audiences</option>
+          </select>
+          <select id="course-library-v2-duration" aria-label="Filter by duration">
+            <option value="">All durations</option>
+            <option value="short">Short (up to 90 min)</option>
+            <option value="medium">Medium (90 to 150 min)</option>
+            <option value="long">Long (150+ min)</option>
+          </select>
+          <select id="course-library-v2-status" aria-label="Filter by completion status">
+            <option value="">All progress</option>
+            <option value="not-started">Not started</option>
+            <option value="in-progress">In progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="course-v2-library">
+      <div class="page-shell">
+        <div id="course-library-v2-grid" class="course-v2-grid"></div>
+        <div id="course-library-v2-empty" class="course-v2-empty" hidden>
+          <h2>No courses match these filters</h2>
+          <p>Adjust one or more filters and try again.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/course-experience-data.js"></script>
+  <script src="js/course-experience-common.js"></script>
+  <script src="js/course-library-v2.js"></script>
+</body>
+</html>

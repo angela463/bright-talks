@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Full-screen Bright Talks lesson player with curriculum navigation, AI audio controls, and offline handling." />
+  <title>Course Player V2 | Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/course-experience.css" />
+</head>
+<body class="page-course-player-v2">
+  <div id="player-v2-preloader" class="player-v2-preloader" aria-live="polite">
+    <div class="player-v2-preloader__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p>Loading lesson experience...</p>
+  </div>
+
+  <div id="player-v2-offline" class="player-v2-offline" role="alert" hidden>
+    You are offline. Trying to reconnect...
+  </div>
+
+  <div class="player-v2-app">
+    <aside class="player-v2-sidebar">
+      <div class="player-v2-sidebar__top">
+        <p class="eyebrow">Course player</p>
+        <h1 id="player-v2-course-title"></h1>
+      </div>
+      <div id="player-v2-curriculum" class="player-v2-curriculum"></div>
+    </aside>
+
+    <main class="player-v2-main">
+      <header class="player-v2-main__header">
+        <button id="player-v2-nav-toggle" class="btn btn-secondary" type="button">Toggle curriculum</button>
+        <a class="btn btn-secondary" href="courses-v2.html">Library</a>
+      </header>
+
+      <section class="player-v2-canvas">
+        <p id="player-v2-lesson-meta" class="player-v2-meta"></p>
+        <h2 id="player-v2-lesson-title"></h2>
+        <p id="player-v2-lesson-summary"></p>
+      </section>
+
+      <section class="player-v2-audio">
+        <h3>Listen to lesson</h3>
+        <audio id="player-v2-audio" preload="metadata"></audio>
+        <div class="player-v2-audio__controls">
+          <button id="player-v2-listen-cta" class="btn btn-primary" type="button">Listen to lesson</button>
+          <button id="player-v2-play-pause" class="btn btn-secondary" type="button">Play</button>
+          <label>
+            <span class="sr-only">Seek position</span>
+            <input id="player-v2-seek" type="range" min="0" max="100" value="0" />
+          </label>
+          <span id="player-v2-time">0:00 / 0:00</span>
+          <label for="player-v2-speed">Speed</label>
+          <select id="player-v2-speed">
+            <option value="0.75">0.75x</option>
+            <option value="1" selected>1x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+          </select>
+          <button id="player-v2-transcript-toggle" class="btn btn-secondary" type="button" aria-expanded="false">Transcript</button>
+        </div>
+        <p id="player-v2-transcript" hidden></p>
+        <div id="player-v2-error" class="player-v2-error" hidden role="alert">
+          Audio failed to load. Please retry or check your connection.
+        </div>
+      </section>
+
+      <footer class="player-v2-footer">
+        <div class="player-v2-footer__progress">
+          <span>Lesson progress</span>
+          <div class="player-v2-progress"><span id="player-v2-progress-fill"></span></div>
+        </div>
+        <div class="player-v2-footer__actions">
+          <button id="player-v2-prev" class="btn btn-secondary" type="button">Previous</button>
+          <button id="player-v2-next" class="btn btn-secondary" type="button">Next</button>
+          <button id="player-v2-complete" class="btn btn-primary" type="button">Mark complete</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="js/course-experience-data.js"></script>
+  <script src="js/course-experience-common.js"></script>
+  <script src="js/course-player-v2.js"></script>
+</body>
+</html>
