@@ -20,9 +20,6 @@
   var progressBar = document.getElementById('course-v2-progress-fill');
   var progressLabel = document.getElementById('course-v2-progress-label');
 
-  var introAudio = document.getElementById('course-v2-intro-audio');
-  var transcript = document.getElementById('course-v2-transcript');
-  var transcriptToggle = document.getElementById('course-v2-transcript-toggle');
 
   var firstModule = 0;
   var firstLesson = 0;
@@ -38,15 +35,6 @@
   progressLabel.textContent = progress + '% complete';
   resumeLink.textContent = cta;
   resumeLink.href = 'course-player-v2.html?course=' + encodeURIComponent(course.id) + '&module=' + firstModule + '&lesson=' + firstLesson;
-
-  introAudio.src = course.introAudio.audioUrl;
-  transcript.textContent = course.introAudio.transcript;
-
-  transcriptToggle.addEventListener('click', function () {
-    var showing = !transcript.hidden;
-    transcript.hidden = showing;
-    transcriptToggle.setAttribute('aria-expanded', showing ? 'false' : 'true');
-  });
 
   curriculumRoot.innerHTML = course.modules.map(function (module, mIndex) {
     var lessonItems = module.lessons.map(function (lesson, lIndex) {
