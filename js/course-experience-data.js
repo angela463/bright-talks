@@ -112,7 +112,7 @@
       lessonCount: 15,
       progress: 12,
       completed: false,
-      heroImage: 'images/pexels-julia-m-cameron-4144531.jpg',
+      heroImage: 'images/pexels-vlada-karpovich-4609085.jpg',
       introAudio: {
         audioUrl: sampleAudio,
         transcript: 'This course helps you normalize puberty conversations so your child feels supported, informed, and safe.',
