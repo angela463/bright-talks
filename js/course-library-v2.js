@@ -72,6 +72,7 @@
       '    </div>' +
       '    <div class="course-v2-card__actions">' +
       '      <a class="btn btn-primary" href="course-detail-v2.html?course=' + encodeURIComponent(course.id) + '">' + ctaLabel + '</a>' +
+      '      <a class="btn btn-secondary" href="course-player-v2.html?course=' + encodeURIComponent(course.id) + '&module=0&lesson=0">Open player</a>' +
       '    </div>' +
       '  </div>' +
       '</article>';
