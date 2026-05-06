@@ -4166,6 +4166,72 @@ body.page-courses.page-course-library .section-header p {
   color: #5a534e;
 }
 
+.single-parent-feature {
+  margin-top: clamp(2.25rem, 5vw, 3.75rem);
+  padding: 0 0 clamp(2.5rem, 6vw, 4rem);
+}
+
+.single-parent-feature__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: stretch;
+  background: linear-gradient(148deg, rgba(255, 252, 247, 0.96) 0%, rgba(252, 242, 228, 0.94) 100%);
+  border: 1px solid rgba(222, 185, 145, 0.48);
+  border-radius: 1.7rem;
+  box-shadow: 0 22px 46px rgba(75, 49, 28, 0.11);
+  overflow: hidden;
+}
+
+.single-parent-feature__media {
+  min-height: clamp(320px, 44vw, 520px);
+}
+
+.single-parent-feature__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.single-parent-feature__content {
+  padding: clamp(1.35rem, 3.4vw, 2.4rem);
+}
+
+body.page-courses.page-course-library .single-parent-feature .eyebrow {
+  color: rgba(148, 90, 45, 0.92);
+}
+
+body.page-courses.page-course-library .single-parent-feature h2 {
+  margin: 0.45rem 0 0.8rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.05rem, 5.3vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: #2a2725;
+}
+
+body.page-courses.page-course-library .single-parent-feature p {
+  margin: 0.8rem 0 0;
+  color: #5a534e;
+  font-size: clamp(0.98rem, 1.6vw, 1.06rem);
+  line-height: 1.62;
+}
+
+@media (max-width: 900px) {
+  .single-parent-feature__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .single-parent-feature__media {
+    min-height: clamp(260px, 52vw, 380px);
+  }
+
+  .single-parent-feature__content {
+    padding-top: 1.1rem;
+  }
+}
+
 .page-course-info .course-info-main {
   padding: clamp(1.5rem, 3.5vw, 2.5rem) 0 clamp(3rem, 6vw, 4.5rem);
 }
