@@ -340,6 +340,27 @@
   backdrop-filter: blur(8px);
 }
 
+.player-v2-sidebar__top {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.player-v2-sidebar__logo-link {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.player-v2-sidebar__logo-link:focus-visible {
+  outline: 2px solid rgba(232, 149, 74, 0.65);
+  outline-offset: 2px;
+}
+
+.player-v2-sidebar__logo-img {
+  display: block;
+  width: 110px;
+  height: auto;
+}
+
 .player-v2-sidebar h1 {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -420,24 +441,6 @@
 .player-v2-main__header-actions {
   display: flex;
   gap: 0.5rem;
-}
-
-.player-v2-main__logo-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
-}
-
-.player-v2-main__logo-link:focus-visible {
-  outline: 2px solid rgba(232, 149, 74, 0.65);
-  outline-offset: 2px;
-}
-
-.player-v2-main__logo-img {
-  display: block;
-  width: clamp(120px, 18vw, 170px);
-  height: auto;
 }
 
 .player-v2-canvas,
