@@ -455,7 +455,7 @@
 
 .player-v2-canvas h2 {
   margin: 0.3rem 0 0.55rem;
-  font-size: clamp(1.2rem, 2.8vw, 1.95rem);
+  font-size: clamp(1.05rem, 2.35vw, 1.7rem);
   line-height: 1.08;
   font-family: var(--font-display);
   color: var(--course-v2-ink);
@@ -483,13 +483,18 @@
 
 .player-v2-intro__video,
 .player-v2-intro__audio {
-  width: 100%;
+  width: min(100%, 560px);
 }
 
 .player-v2-intro__video {
   border-radius: 0.8rem;
   border: 1px solid var(--course-v2-border);
   background: #fff;
+}
+
+#player-v2-start-course {
+  width: fit-content;
+  padding-inline: 1rem;
 }
 
 .page-course-player-v2 .player-v2-audio h3 {
