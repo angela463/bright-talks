@@ -413,7 +413,34 @@
 .player-v2-main__header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 0.5rem;
+}
+
+.player-v2-main__header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.player-v2-main__logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--course-v2-border);
+}
+
+.player-v2-main__logo-link:focus-visible {
+  outline: 2px solid rgba(232, 149, 74, 0.65);
+  outline-offset: 2px;
+}
+
+.player-v2-main__logo-img {
+  display: block;
+  width: clamp(120px, 18vw, 170px);
+  height: auto;
 }
 
 .player-v2-canvas,
