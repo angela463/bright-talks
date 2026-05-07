@@ -481,13 +481,11 @@
   color: var(--course-v2-muted);
 }
 
-.player-v2-intro__image,
 .player-v2-intro__video,
 .player-v2-intro__audio {
   width: 100%;
 }
 
-.player-v2-intro__image,
 .player-v2-intro__video {
   border-radius: 0.8rem;
   border: 1px solid var(--course-v2-border);

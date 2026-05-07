@@ -24,7 +24,6 @@
     toggleNav: document.getElementById('player-v2-nav-toggle'),
     title: document.getElementById('player-v2-course-title'),
     intro: document.getElementById('player-v2-intro'),
-    introImage: document.getElementById('player-v2-intro-image'),
     introTitle: document.getElementById('player-v2-intro-title'),
     introText: document.getElementById('player-v2-intro-text'),
     introVideo: document.getElementById('player-v2-intro-video'),
@@ -204,10 +203,6 @@
     el.title.textContent = course.title;
     el.introTitle.textContent = 'Course Introduction';
     el.introText.textContent = 'Start here with a quick welcome video and audio before beginning your first lesson.';
-    if (el.introImage) {
-      el.introImage.src = course.heroImage;
-      el.introImage.alt = course.title + ' introduction';
-    }
 
     el.intro.hidden = !showIntro;
     el.lessonTitle.hidden = showIntro;
