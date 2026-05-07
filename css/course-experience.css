@@ -426,7 +426,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: -0.25rem;
+  margin-right: 0.5rem;
 }
 
 .player-v2-main__logo-link:focus-visible {
