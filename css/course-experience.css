@@ -494,6 +494,62 @@
   gap: 0.5rem;
 }
 
+.player-v2-icon-btn {
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(203, 157, 112, 0.55);
+  background: linear-gradient(160deg, #fffaf2 0%, #fff2df 100%);
+  color: var(--course-v2-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(55, 38, 22, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.player-v2-icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(55, 38, 22, 0.16);
+  border-color: rgba(232, 149, 74, 0.7);
+}
+
+.player-v2-icon-btn:focus-visible {
+  outline: 2px solid rgba(232, 149, 74, 0.7);
+  outline-offset: 2px;
+}
+
+.player-v2-icon {
+  display: none;
+}
+
+.player-v2-icon--play {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 13px solid currentColor;
+  margin-left: 2px;
+}
+
+.player-v2-icon--pause {
+  width: 13px;
+  height: 13px;
+  background:
+    linear-gradient(currentColor, currentColor) 0 0 / 4px 100% no-repeat,
+    linear-gradient(currentColor, currentColor) 100% 0 / 4px 100% no-repeat;
+}
+
+.player-v2-icon-btn.is-playing .player-v2-icon--pause {
+  display: block;
+}
+
+.player-v2-icon-btn.is-playing .player-v2-icon--play {
+  display: none;
+}
+
 .player-v2-audio__controls input[type='range'] {
   width: 180px;
 }

@@ -104,7 +104,9 @@
     var percent = duration > 0 ? Math.round((current / duration) * 100) : 0;
     el.seek.value = percent;
     el.time.textContent = formatTime(current) + ' / ' + formatTime(duration);
-    el.playPause.textContent = el.audio.paused ? 'Play' : 'Pause';
+    var isPlaying = !el.audio.paused;
+    el.playPause.classList.toggle('is-playing', isPlaying);
+    el.playPause.setAttribute('aria-label', isPlaying ? 'Pause audio' : 'Play audio');
   }
 
   function bindAudioEvents() {

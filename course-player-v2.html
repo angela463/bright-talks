@@ -52,7 +52,11 @@
         <audio id="player-v2-audio" preload="metadata"></audio>
         <div class="player-v2-audio__controls">
           <button id="player-v2-listen-cta" class="btn btn-primary" type="button">Listen to lesson</button>
-          <button id="player-v2-play-pause" class="btn btn-secondary" type="button">Play</button>
+          <button id="player-v2-play-pause" class="player-v2-icon-btn" type="button" aria-label="Play audio">
+            <span class="player-v2-icon player-v2-icon--play" aria-hidden="true"></span>
+            <span class="player-v2-icon player-v2-icon--pause" aria-hidden="true"></span>
+            <span class="sr-only">Play or pause audio</span>
+          </button>
           <label>
             <span class="sr-only">Seek position</span>
             <input id="player-v2-seek" type="range" min="0" max="100" value="0" />
