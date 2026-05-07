@@ -468,6 +468,32 @@
   font-size: clamp(0.98rem, 1.5vw, 1.05rem);
 }
 
+.player-v2-intro {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.player-v2-intro__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--course-v2-muted);
+}
+
+.player-v2-intro__image,
+.player-v2-intro__video,
+.player-v2-intro__audio {
+  width: 100%;
+}
+
+.player-v2-intro__image,
+.player-v2-intro__video {
+  border-radius: 0.8rem;
+  border: 1px solid var(--course-v2-border);
+  background: #fff;
+}
+
 .page-course-player-v2 .player-v2-audio h3 {
   margin: 0 0 0.5rem;
   font-family: var(--font-display);

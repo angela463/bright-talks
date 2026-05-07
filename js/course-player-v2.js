@@ -12,6 +12,8 @@
   var moduleIndex = Number(common.getQueryParam('module') || 0);
   var lessonIndex = Number(common.getQueryParam('lesson') || 0);
   var navOpen = true;
+  var hasLessonInQuery = common.getQueryParam('module') !== null || common.getQueryParam('lesson') !== null;
+  var showIntro = !hasLessonInQuery;
 
   var el = {
     body: document.body,
@@ -21,9 +23,18 @@
     nav: document.getElementById('player-v2-curriculum'),
     toggleNav: document.getElementById('player-v2-nav-toggle'),
     title: document.getElementById('player-v2-course-title'),
+    intro: document.getElementById('player-v2-intro'),
+    introImage: document.getElementById('player-v2-intro-image'),
+    introTitle: document.getElementById('player-v2-intro-title'),
+    introText: document.getElementById('player-v2-intro-text'),
+    introVideo: document.getElementById('player-v2-intro-video'),
+    introAudio: document.getElementById('player-v2-intro-audio'),
+    startCourse: document.getElementById('player-v2-start-course'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
+    audioSection: document.querySelector('.player-v2-audio'),
+    footer: document.querySelector('.player-v2-footer'),
     progressFill: document.getElementById('player-v2-progress-fill'),
     prev: document.getElementById('player-v2-prev'),
     next: document.getElementById('player-v2-next'),
@@ -65,7 +76,7 @@
   function renderCurriculum() {
     var html = course.modules.map(function (module, mIndex) {
       var items = module.lessons.map(function (lesson, lIndex) {
-        var active = mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
+        var active = !showIntro && mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
         return '' +
           '<button class="player-v2-nav-lesson' + active + '" data-module="' + mIndex + '" data-lesson="' + lIndex + '">' +
           '  <strong>' + lesson.title + '</strong>' +
@@ -84,6 +95,7 @@
     el.nav.innerHTML = html;
     Array.prototype.forEach.call(el.nav.querySelectorAll('.player-v2-nav-lesson'), function (btn) {
       btn.addEventListener('click', function () {
+        showIntro = false;
         moduleIndex = Number(btn.getAttribute('data-module'));
         lessonIndex = Number(btn.getAttribute('data-lesson'));
         render();
@@ -183,19 +195,41 @@
     var currentAbs = absoluteLessonIndex() + 1;
     var pct = Math.round((currentAbs / all.length) * 100);
 
-    history.replaceState({}, '', 'course-player-v2.html?course=' + encodeURIComponent(course.id) + '&module=' + moduleIndex + '&lesson=' + lessonIndex);
+    if (showIntro) {
+      history.replaceState({}, '', 'course-player-v2.html?course=' + encodeURIComponent(course.id));
+    } else {
+      history.replaceState({}, '', 'course-player-v2.html?course=' + encodeURIComponent(course.id) + '&module=' + moduleIndex + '&lesson=' + lessonIndex);
+    }
 
     el.title.textContent = course.title;
-    el.lessonTitle.textContent = lesson.title;
-    el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
-    el.lessonSummary.textContent = lesson.summary;
-    el.progressFill.style.width = pct + '%';
-    el.audio.src = lesson.audio.audioUrl;
-    el.transcript.textContent = lesson.audio.transcript;
-    el.error.hidden = lesson.audio.status !== 'failed';
+    el.introTitle.textContent = 'Course Introduction';
+    el.introText.textContent = 'Start here with a quick welcome video and audio before beginning your first lesson.';
+    if (el.introImage) {
+      el.introImage.src = course.heroImage;
+      el.introImage.alt = course.title + ' introduction';
+    }
+
+    el.intro.hidden = !showIntro;
+    el.lessonTitle.hidden = showIntro;
+    el.lessonMeta.hidden = showIntro;
+    el.lessonSummary.hidden = showIntro;
+    el.audioSection.hidden = showIntro;
+    el.footer.hidden = showIntro;
+
+    if (!showIntro) {
+      el.lessonTitle.textContent = lesson.title;
+      el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
+      el.lessonSummary.textContent = lesson.summary;
+      el.progressFill.style.width = pct + '%';
+      el.audio.src = lesson.audio.audioUrl;
+      el.transcript.textContent = lesson.audio.transcript;
+      el.error.hidden = lesson.audio.status !== 'failed';
+    } else if (el.introVideo) {
+      el.introVideo.play().catch(function () {});
+    }
 
     renderCurriculum();
-    updateAudioUI();
+    if (!showIntro) updateAudioUI();
   }
 
   function setOnlineState() {
@@ -227,6 +261,12 @@
     el.prev.addEventListener('click', goToPrevious);
     el.next.addEventListener('click', goToNext);
     el.complete.addEventListener('click', markComplete);
+    el.startCourse.addEventListener('click', function () {
+      showIntro = false;
+      if (el.introVideo) el.introVideo.pause();
+      if (el.introAudio) el.introAudio.pause();
+      render();
+    });
 
     bindAudioEvents();
     render();
