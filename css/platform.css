@@ -841,6 +841,106 @@ body.page-courses .section-header p {
   color: var(--text-muted);
 }
 
+.lesson-narration {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(221, 187, 151, 0.72);
+  background: linear-gradient(145deg, rgba(255, 250, 243, 0.95), rgba(255, 245, 233, 0.9));
+}
+
+.lesson-narration__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.lesson-narration__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-family: var(--font-display);
+}
+
+.lesson-narration__status {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.lesson-narration__controls {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.lesson-narration__play {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200, 150, 111, 0.8);
+  background: linear-gradient(160deg, rgba(255, 200, 144, 0.94), rgba(244, 151, 84, 0.95));
+  color: #fff;
+  font-size: 0.92rem;
+  box-shadow: 0 10px 22px rgba(198, 120, 63, 0.28);
+}
+
+.lesson-narration__timeline {
+  min-width: 0;
+}
+
+.lesson-narration__timeline input[type='range'] {
+  width: 100%;
+}
+
+.lesson-narration__time {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.lesson-narration__speed-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.lesson-narration__speed-wrap select {
+  min-height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200, 166, 133, 0.7);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0 0.6rem;
+}
+
+.lesson-narration__transcript-btn {
+  min-height: 2.1rem;
+}
+
+.lesson-narration__fallback {
+  margin: 0.7rem 0 0;
+  color: #7c4b2b;
+  font-size: 0.92rem;
+}
+
+.lesson-narration__transcript {
+  margin-top: 0.75rem;
+  max-height: 220px;
+  overflow: auto;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(221, 187, 151, 0.72);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 .lesson-preview-card__body {
   position: relative;
   padding: 0 1.6rem 1.6rem;
@@ -930,6 +1030,10 @@ body.page-courses .section-header p {
 
   .lesson-preview-fade {
     inset: 48% 0 0;
+  }
+
+  .lesson-narration__controls {
+    grid-template-columns: auto 1fr;
   }
 }
 

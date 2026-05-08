@@ -70,6 +70,246 @@
     return m + ':' + (r < 10 ? '0' : '') + r;
   }
 
+  function estimateNarrationSeconds(text, rate) {
+    var wordCount = (text.match(/\S+/g) || []).length;
+    var wordsPerMinute = 155;
+    var minutes = wordCount / (wordsPerMinute * Math.max(0.7, rate || 1));
+    return Math.max(1, Math.round(minutes * 60));
+  }
+
+  function extractNarrationText() {
+    var parts = [];
+    var title = document.getElementById('lesson-player-title');
+    var parentIntro = document.querySelector('.lesson-preview-card__intro');
+    var bodyParagraphs = document.querySelectorAll('.lesson-preview-copy p');
+    var cta = document.querySelector('.lesson-preview-paywall__text');
+
+    if (title && title.textContent) parts.push(title.textContent.trim());
+    if (parentIntro && parentIntro.textContent) parts.push(parentIntro.textContent.trim());
+
+    Array.prototype.forEach.call(bodyParagraphs, function (p) {
+      if (p && p.textContent) parts.push(p.textContent.trim());
+    });
+
+    if (cta && cta.textContent) parts.push(cta.textContent.trim());
+
+    return parts.join('\n\n').replace(/\s+/g, ' ').trim();
+  }
+
+  function choosePreferredVoice(voices) {
+    if (!voices || !voices.length) return null;
+    var preferredNames = [
+      'female',
+      'woman',
+      'samantha',
+      'karen',
+      'victoria',
+      'google us english',
+      'jenny',
+      'aria',
+      'emma'
+    ];
+
+    function scoreVoice(v) {
+      var name = (v.name || '').toLowerCase();
+      var lang = (v.lang || '').toLowerCase();
+      var score = 0;
+
+      if (lang.indexOf('en-us') === 0) score += 30;
+      else if (lang.indexOf('en') === 0) score += 15;
+
+      preferredNames.forEach(function (needle, idx) {
+        if (name.indexOf(needle) !== -1) score += 20 - idx;
+      });
+
+      if (v.default) score += 4;
+      return score;
+    }
+
+    var englishVoices = voices.filter(function (v) {
+      return String(v.lang || '').toLowerCase().indexOf('en') === 0;
+    });
+    var pool = englishVoices.length ? englishVoices : voices.slice();
+
+    pool.sort(function (a, b) {
+      return scoreVoice(b) - scoreVoice(a);
+    });
+
+    return pool[0] || null;
+  }
+
+  function createNarrationController(config) {
+    var synth = window.speechSynthesis;
+    var state = {
+      isPlaying: false,
+      isPaused: false,
+      utterance: null,
+      selectedVoice: null,
+      elapsedSec: 0,
+      estimatedSec: estimateNarrationSeconds(config.text, config.getRate()),
+      progressTimer: null
+    };
+
+    function clearProgressTimer() {
+      if (state.progressTimer != null) {
+        clearInterval(state.progressTimer);
+        state.progressTimer = null;
+      }
+    }
+
+    function updateProgressUI() {
+      var percent = state.estimatedSec > 0 ? Math.round((state.elapsedSec / state.estimatedSec) * 100) : 0;
+      config.progress.value = String(Math.max(0, Math.min(100, percent)));
+      config.time.textContent = formatClock(state.elapsedSec) + ' / ' + formatClock(state.estimatedSec);
+    }
+
+    function setPlayingVisual(playing) {
+      config.iconPlay.hidden = playing;
+      config.iconPause.hidden = !playing;
+      config.playBtn.setAttribute('aria-label', playing ? 'Pause narration' : 'Play narration');
+    }
+
+    function setStatus(msg) {
+      config.status.textContent = msg;
+    }
+
+    function startProgressTimer() {
+      clearProgressTimer();
+      state.progressTimer = setInterval(function () {
+        if (!state.isPlaying) return;
+        state.elapsedSec = Math.min(state.elapsedSec + 1, state.estimatedSec);
+        updateProgressUI();
+      }, 1000);
+    }
+
+    function stopAndReset() {
+      clearProgressTimer();
+      if (synth && (state.isPlaying || state.isPaused)) synth.cancel();
+      state.isPlaying = false;
+      state.isPaused = false;
+      state.elapsedSec = 0;
+      state.estimatedSec = estimateNarrationSeconds(config.text, config.getRate());
+      setPlayingVisual(false);
+      updateProgressUI();
+      setStatus('Narration ready');
+    }
+
+    function buildUtterance() {
+      var utterance = new SpeechSynthesisUtterance(config.text);
+      utterance.pitch = 1.1;
+      utterance.rate = config.getRate();
+      utterance.volume = 1;
+      if (state.selectedVoice) utterance.voice = state.selectedVoice;
+
+      utterance.onstart = function () {
+        state.isPlaying = true;
+        state.isPaused = false;
+        setPlayingVisual(true);
+        setStatus('Narrating...');
+        startProgressTimer();
+      };
+      utterance.onpause = function () {
+        state.isPaused = true;
+        state.isPlaying = false;
+        setPlayingVisual(false);
+        setStatus('Narration paused');
+      };
+      utterance.onresume = function () {
+        state.isPaused = false;
+        state.isPlaying = true;
+        setPlayingVisual(true);
+        setStatus('Narrating...');
+      };
+      utterance.onend = function () {
+        clearProgressTimer();
+        state.isPlaying = false;
+        state.isPaused = false;
+        state.elapsedSec = state.estimatedSec;
+        setPlayingVisual(false);
+        updateProgressUI();
+        setStatus('Narration finished');
+      };
+      utterance.onerror = function () {
+        clearProgressTimer();
+        state.isPlaying = false;
+        state.isPaused = false;
+        setPlayingVisual(false);
+        setStatus('Narration unavailable right now');
+      };
+
+      state.utterance = utterance;
+      return utterance;
+    }
+
+    function applyVoices() {
+      if (!synth) return false;
+      var voices = synth.getVoices() || [];
+      state.selectedVoice = choosePreferredVoice(voices);
+      return !!voices.length;
+    }
+
+    function playOrPause() {
+      if (!synth) return;
+      if (state.isPlaying) {
+        synth.pause();
+        return;
+      }
+      if (state.isPaused) {
+        synth.resume();
+        return;
+      }
+
+      state.elapsedSec = 0;
+      state.estimatedSec = estimateNarrationSeconds(config.text, config.getRate());
+      updateProgressUI();
+      synth.cancel();
+      synth.speak(buildUtterance());
+    }
+
+    function bindEvents() {
+      config.playBtn.addEventListener('click', playOrPause);
+      config.speed.addEventListener('change', function () {
+        var wasPlaying = state.isPlaying || state.isPaused;
+        var priorSec = state.elapsedSec;
+        stopAndReset();
+        state.elapsedSec = priorSec;
+        state.estimatedSec = estimateNarrationSeconds(config.text, config.getRate());
+        updateProgressUI();
+        if (wasPlaying) playOrPause();
+      });
+      config.progress.addEventListener('input', function () {
+        var targetSec = Math.round((Number(config.progress.value) / 100) * state.estimatedSec);
+        state.elapsedSec = targetSec;
+        updateProgressUI();
+        if (state.isPlaying || state.isPaused) {
+          stopAndReset();
+          playOrPause();
+        }
+      });
+      config.transcriptToggle.addEventListener('click', function () {
+        var isHidden = config.transcript.hidden;
+        config.transcript.hidden = !isHidden;
+        config.transcriptToggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      });
+      window.addEventListener('beforeunload', stopAndReset);
+    }
+
+    var hasVoices = applyVoices();
+    if (synth && !hasVoices) {
+      window.speechSynthesis.onvoiceschanged = function () {
+        applyVoices();
+      };
+    }
+    bindEvents();
+    updateProgressUI();
+    config.transcript.textContent = config.text;
+    if (!synth) {
+      setStatus('Narration unavailable');
+      return { available: false, stop: stopAndReset };
+    }
+    return { available: true, stop: stopAndReset };
+  }
+
   /** Wall-clock length of the on-page playback animation (ms). */
   var DEMO_PLAYBACK_MS = 16000;
 
@@ -153,6 +393,66 @@
       } else {
         summaryEl.textContent = '';
         summaryEl.hidden = true;
+      }
+    }
+
+    var narrationText = extractNarrationText();
+    if (typeof lesson === 'object' && lesson) {
+      lesson.narrationText = lesson.narrationText || narrationText;
+      lesson.transcript = lesson.transcript || lesson.narrationText;
+      lesson.audioStatus = lesson.audioStatus || 'ready';
+      lesson.preferredVoice = lesson.preferredVoice || 'light-bright-female';
+    }
+
+    var narrationUi = {
+      wrapper: document.querySelector('.lesson-narration'),
+      playBtn: document.getElementById('lesson-narration-play'),
+      progress: document.getElementById('lesson-narration-progress'),
+      time: document.getElementById('lesson-narration-time'),
+      speed: document.getElementById('lesson-narration-speed'),
+      transcriptToggle: document.getElementById('lesson-narration-transcript-toggle'),
+      transcript: document.getElementById('lesson-narration-transcript'),
+      fallback: document.getElementById('lesson-narration-fallback'),
+      status: document.getElementById('lesson-narration-status'),
+      iconPlay: document.getElementById('lesson-narration-icon-play'),
+      iconPause: document.getElementById('lesson-narration-icon-pause')
+    };
+
+    if (
+      narrationUi.wrapper &&
+      narrationUi.playBtn &&
+      narrationUi.progress &&
+      narrationUi.time &&
+      narrationUi.speed &&
+      narrationUi.transcriptToggle &&
+      narrationUi.transcript &&
+      narrationUi.fallback &&
+      narrationUi.status &&
+      narrationUi.iconPlay &&
+      narrationUi.iconPause
+    ) {
+      var narrationController = createNarrationController({
+        text: (lesson && lesson.narrationText) || narrationText,
+        playBtn: narrationUi.playBtn,
+        progress: narrationUi.progress,
+        time: narrationUi.time,
+        speed: narrationUi.speed,
+        transcriptToggle: narrationUi.transcriptToggle,
+        transcript: narrationUi.transcript,
+        fallback: narrationUi.fallback,
+        status: narrationUi.status,
+        iconPlay: narrationUi.iconPlay,
+        iconPause: narrationUi.iconPause,
+        getRate: function () {
+          return Number(narrationUi.speed.value || 0.95);
+        }
+      });
+
+      if (!narrationController.available) {
+        narrationUi.fallback.hidden = false;
+        narrationUi.playBtn.disabled = true;
+        narrationUi.progress.disabled = true;
+        narrationUi.speed.disabled = true;
       }
     }
 
