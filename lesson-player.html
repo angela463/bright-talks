@@ -62,6 +62,37 @@
             <p class="lesson-preview-card__intro">
               This preview is written for you, the trusted adult. You can read it first, then come back to share pieces with your child in your own words, at your own pace.
             </p>
+            <section class="lesson-narration" aria-labelledby="lesson-narration-title">
+              <div class="lesson-narration__header">
+                <h2 id="lesson-narration-title" class="lesson-narration__title">Listen to this lesson</h2>
+                <p id="lesson-narration-status" class="lesson-narration__status" aria-live="polite">Narration ready</p>
+              </div>
+              <div class="lesson-narration__controls">
+                <button id="lesson-narration-play" class="lesson-narration__play" type="button" aria-label="Play narration">
+                  <span id="lesson-narration-icon-play" aria-hidden="true">▶</span>
+                  <span id="lesson-narration-icon-pause" aria-hidden="true" hidden>❚❚</span>
+                </button>
+                <div class="lesson-narration__timeline">
+                  <label class="sr-only" for="lesson-narration-progress">Narration progress</label>
+                  <input id="lesson-narration-progress" type="range" min="0" max="100" value="0" />
+                  <p id="lesson-narration-time" class="lesson-narration__time">0:00 / 0:00</p>
+                </div>
+                <label class="lesson-narration__speed-wrap" for="lesson-narration-speed">
+                  <span>Speed</span>
+                  <select id="lesson-narration-speed">
+                    <option value="0.85">0.85x</option>
+                    <option value="0.95" selected>0.95x</option>
+                    <option value="1">1x</option>
+                    <option value="1.1">1.1x</option>
+                  </select>
+                </label>
+                <button id="lesson-narration-transcript-toggle" class="btn btn-secondary lesson-narration__transcript-btn" type="button" aria-expanded="false">Transcript</button>
+              </div>
+              <p id="lesson-narration-fallback" class="lesson-narration__fallback" hidden>
+                Audio narration is not available on this device. You can still read the full lesson below.
+              </p>
+              <div id="lesson-narration-transcript" class="lesson-narration__transcript" hidden></div>
+            </section>
           </header>
 
           <div class="lesson-preview-card__body">
