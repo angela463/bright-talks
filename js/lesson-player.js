@@ -140,6 +140,7 @@
 
   function createNarrationController(config) {
     var synth = window.speechSynthesis;
+    var canNarrate = !!(synth && window.SpeechSynthesisUtterance);
     var state = {
       isPlaying: false,
       isPaused: false,
@@ -242,20 +243,25 @@
     }
 
     function applyVoices() {
-      if (!synth) return false;
+      if (!canNarrate) return false;
       var voices = synth.getVoices() || [];
       state.selectedVoice = choosePreferredVoice(voices);
       return !!voices.length;
     }
 
     function playOrPause() {
-      if (!synth) return;
+      if (!canNarrate) return;
       if (state.isPlaying) {
         synth.pause();
         return;
       }
       if (state.isPaused) {
         synth.resume();
+        return;
+      }
+      if (!state.selectedVoice && !(synth.getVoices() || []).length) {
+        config.fallback.hidden = false;
+        setStatus('No speech voice available on this device');
         return;
       }
 
@@ -295,7 +301,7 @@
     }
 
     var hasVoices = applyVoices();
-    if (synth && !hasVoices) {
+    if (canNarrate && !hasVoices) {
       window.speechSynthesis.onvoiceschanged = function () {
         applyVoices();
       };
@@ -303,7 +309,7 @@
     bindEvents();
     updateProgressUI();
     config.transcript.textContent = config.text;
-    if (!synth) {
+    if (!canNarrate) {
       setStatus('Narration unavailable');
       return { available: false, stop: stopAndReset };
     }
