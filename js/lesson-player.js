@@ -99,6 +99,10 @@
   function choosePreferredVoice(voices) {
     if (!voices || !voices.length) return null;
     var preferredNames = [
+      'natural',
+      'neural',
+      'premium',
+      'enhanced',
       'female',
       'woman',
       'samantha',
@@ -115,14 +119,16 @@
       var lang = (v.lang || '').toLowerCase();
       var score = 0;
 
-      if (lang.indexOf('en-us') === 0) score += 30;
+      if (lang.indexOf('en-us') === 0) score += 34;
       else if (lang.indexOf('en') === 0) score += 15;
 
       preferredNames.forEach(function (needle, idx) {
-        if (name.indexOf(needle) !== -1) score += 20 - idx;
+        if (name.indexOf(needle) !== -1) score += 24 - idx;
       });
 
       if (v.default) score += 4;
+      if (name.indexOf('compact') !== -1) score -= 5;
+      if (name.indexOf('espeak') !== -1) score -= 18;
       return score;
     }
 
@@ -197,10 +203,15 @@
 
     function buildUtterance() {
       var utterance = new SpeechSynthesisUtterance(config.text);
-      utterance.pitch = 1.1;
+      utterance.pitch = 1;
       utterance.rate = config.getRate();
       utterance.volume = 1;
-      if (state.selectedVoice) utterance.voice = state.selectedVoice;
+      if (state.selectedVoice) {
+        utterance.voice = state.selectedVoice;
+        utterance.lang = state.selectedVoice.lang || 'en-US';
+      } else {
+        utterance.lang = 'en-US';
+      }
 
       utterance.onstart = function () {
         state.isPlaying = true;
@@ -450,7 +461,7 @@
         iconPlay: narrationUi.iconPlay,
         iconPause: narrationUi.iconPause,
         getRate: function () {
-          return Number(narrationUi.speed.value || 0.95);
+          return Number(narrationUi.speed.value || 0.9);
         }
       });
 
