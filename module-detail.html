@@ -3,59 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="View lessons for a Bright Talks module." />
-  <title>Module Lessons: Bright Talks</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <meta name="description" content="Redirecting to the Bright Talks course player." />
+  <title>Redirecting · Bright Talks</title>
+  <meta http-equiv="refresh" content="0; url=course-player-v2.html?course=bt-foundations-early-years&amp;module=2&amp;lesson=2" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/platform.css" />
 </head>
-<body class="page-courses page-module-lessons" id="top">
-  <header class="site-header site-header--landing">
-    <div class="header-inner header-inner--landing">
-      <a href="index.html" class="logo-link">
-        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
-      </a>
-      <nav class="nav nav--landing" aria-label="Main">
-        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
-        <div class="nav-dropdown">
-          <a href="courses.html" class="nav-link nav-link--minimal nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="nav-courses-menu" id="nav-courses-btn">Courses</a>
-          <div id="nav-courses-menu" class="nav-panel nav-panel--courses" role="menu">
-            <a href="courses.html" role="menuitem">Course library</a>
-            <a href="course-info.html" role="menuitem">Course info</a>
-          </div>
-        </div>
-        <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
-        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
-      </nav>
-      <a href="free-course-signup.html" class="btn btn-primary">Try a Course for Free</a>
-    </div>
-  </header>
-
-  <main class="page-shell module-page-shell">
-    <a class="page-back-home" href="courses.html">← Back</a>
-
-    <section class="module-lessons-section">
-      <div class="section-header module-lessons-header">
-        <span class="eyebrow">Lessons</span>
-        <h2>Start a Lesson and continue the open conversations</h2>
-        <p>Each lesson keeps the same clear sequence, now presented in a more guided, premium learning flow.</p>
-      </div>
-      <div id="lesson-list-root" class="lesson-list"></div>
+<body class="page-courses">
+  <main class="page-shell">
+    <section class="hero-panel">
+      <h1>Taking you to the course player…</h1>
+      <p>If you are not redirected, use the link below.</p>
+      <p>
+        <a class="btn btn-primary" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=2&amp;lesson=2">Open course player</a>
+      </p>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p class="footer-copy">© 2025 Bright Talks. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="js/course-preview-data.js"></script>
-  <script src="js/course-data.js"></script>
-  <script src="js/platform.js"></script>
-  <script src="js/main.js"></script>
+  <script>
+    window.location.replace('course-player-v2.html?course=bt-foundations-early-years&module=2&lesson=2');
+  </script>
 </body>
 </html>
-

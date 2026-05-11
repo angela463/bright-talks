@@ -371,7 +371,11 @@
         : 8;
     var durationSec = durationMin * 60;
     var moduleHref =
-      'module-detail.html?course=' + encodeURIComponent(course.id) + '&module=' + moduleIdx;
+      course.id === 'ages-3-5'
+        ? 'course-player-v2.html?course=bt-foundations-early-years&module=' +
+          Math.min(2, Math.max(0, moduleIdx)) +
+          '&lesson=0'
+        : 'courses.html';
     var courseHref = 'course-detail.html?course=' + encodeURIComponent(course.id);
 
     document.title = title + ' · Bright Talks';
