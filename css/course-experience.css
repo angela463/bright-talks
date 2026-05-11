@@ -492,6 +492,20 @@
   background: #fff;
 }
 
+.player-v2-lesson-visual {
+  margin: 0 0 0.85rem;
+}
+
+.player-v2-lesson-video {
+  display: block;
+  width: min(100%, 680px);
+  max-height: min(42vh, 360px);
+  object-fit: contain;
+  border-radius: 0.8rem;
+  border: 1px solid var(--course-v2-border);
+  background: #fff;
+}
+
 #player-v2-start-course {
   width: fit-content;
   padding-inline: 1rem;

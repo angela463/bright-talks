@@ -28,6 +28,8 @@
     introText: document.getElementById('player-v2-intro-text'),
     introVideo: document.getElementById('player-v2-intro-video'),
     introAudio: document.getElementById('player-v2-intro-audio'),
+    lessonVisual: document.getElementById('player-v2-lesson-visual'),
+    lessonVideo: document.getElementById('player-v2-lesson-video'),
     startCourse: document.getElementById('player-v2-start-course'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
@@ -210,8 +212,10 @@
     el.lessonSummary.hidden = showIntro;
     el.audioSection.hidden = showIntro;
     el.footer.hidden = showIntro;
+    if (el.lessonVisual) el.lessonVisual.hidden = showIntro;
 
     if (!showIntro) {
+      if (el.introVideo) el.introVideo.pause();
       el.lessonTitle.textContent = lesson.title;
       el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
       el.lessonSummary.textContent = lesson.summary;
@@ -219,8 +223,10 @@
       el.audio.src = lesson.audio.audioUrl;
       el.transcript.textContent = lesson.audio.transcript;
       el.error.hidden = lesson.audio.status !== 'failed';
-    } else if (el.introVideo) {
-      el.introVideo.play().catch(function () {});
+      if (el.lessonVideo) el.lessonVideo.play().catch(function () {});
+    } else {
+      if (el.lessonVideo) el.lessonVideo.pause();
+      if (el.introVideo) el.introVideo.play().catch(function () {});
     }
 
     renderCurriculum();
@@ -260,6 +266,7 @@
       showIntro = false;
       if (el.introVideo) el.introVideo.pause();
       if (el.introAudio) el.introAudio.pause();
+      if (el.lessonVideo) el.lessonVideo.play().catch(function () {});
       render();
     });
 
