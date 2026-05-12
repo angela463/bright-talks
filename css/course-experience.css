@@ -335,9 +335,18 @@
 .player-v2-sidebar {
   background: rgba(255, 252, 247, 0.92);
   border-right: 1px solid var(--course-v2-border);
-  padding: 1rem;
+  padding: 1.15rem 1.15rem 1.25rem;
   overflow: auto;
   backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.player-v2-sidebar__brand {
+  flex-shrink: 0;
+  padding: 0.35rem 0.2rem 1.1rem;
+  margin: 0 0 0.15rem;
 }
 
 .player-v2-sidebar__top {
@@ -391,6 +400,9 @@
 #player-v2-sidebar-lesson-slot {
   display: grid;
   gap: 0.65rem;
+  margin-top: 0.35rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(203, 157, 112, 0.28);
 }
 
 #player-v2-sidebar-lesson-slot h2 {
