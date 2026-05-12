@@ -30,8 +30,10 @@
     lessonDefault: document.getElementById('player-v2-lesson-default'),
     lessonSplit: document.getElementById('player-v2-lesson-split'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
-    splitLessonTitle: document.getElementById('player-v2-split-lesson-title'),
-    splitLessonSummary: document.getElementById('player-v2-split-lesson-summary'),
+    sidebarDefault: document.getElementById('player-v2-sidebar-default'),
+    sidebarLessonSlot: document.getElementById('player-v2-sidebar-lesson-slot'),
+    sidebarLessonTitle: document.getElementById('player-v2-sidebar-lesson-title'),
+    sidebarLessonLead: document.getElementById('player-v2-sidebar-lesson-lead'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
     lessonSections: document.getElementById('player-v2-lesson-sections'),
@@ -317,17 +319,26 @@
     el.lessonSplit.hidden = !split;
 
     if (split) {
-      if (el.splitLessonTitle) el.splitLessonTitle.textContent = lesson.title;
-      if (el.splitLessonSummary) {
-        el.splitLessonSummary.textContent = lesson.summary || '';
-        el.splitLessonSummary.hidden = !lesson.summary;
+      navOpen = true;
+      setNavState();
+      el.body.classList.add('player-v2-is-split-lesson');
+      if (el.sidebarDefault) el.sidebarDefault.hidden = true;
+      if (el.sidebarLessonSlot) el.sidebarLessonSlot.hidden = false;
+      if (el.sidebarLessonTitle) el.sidebarLessonTitle.textContent = lesson.title;
+      if (el.sidebarLessonLead) {
+        el.sidebarLessonLead.textContent = lesson.summary || '';
+        el.sidebarLessonLead.hidden = !lesson.summary;
       }
       if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
     } else {
+      el.body.classList.remove('player-v2-is-split-lesson');
+      if (el.sidebarDefault) el.sidebarDefault.hidden = false;
+      if (el.sidebarLessonSlot) el.sidebarLessonSlot.hidden = true;
       if (el.heroVisual) el.heroVisual.pause();
       el.lessonTitle.textContent = lesson.title;
       el.lessonSummary.textContent = lesson.summary;
+      renderCurriculum();
     }
 
     el.progressFill.style.width = pct + '%';
@@ -335,7 +346,11 @@
     el.transcript.textContent = lesson.audio.transcript;
     el.error.hidden = lesson.audio.status !== 'failed';
 
-    renderCurriculum();
+    if (!split) {
+      /* curriculum already rendered above for non-split */
+    } else {
+      /* split: sidebar curriculum hidden with default block */
+    }
     updateAudioUI();
   }
 

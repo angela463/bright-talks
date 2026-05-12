@@ -23,14 +23,20 @@
 
   <div class="player-v2-app">
     <aside class="player-v2-sidebar">
-      <div class="player-v2-sidebar__top">
-        <a class="player-v2-sidebar__logo-link" href="index.html" aria-label="Bright Talks home">
-          <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="player-v2-sidebar__logo-img" />
-        </a>
-        <p class="eyebrow">Course player</p>
-        <h1 id="player-v2-course-title"></h1>
+      <div id="player-v2-sidebar-default">
+        <div class="player-v2-sidebar__top">
+          <a class="player-v2-sidebar__logo-link" href="index.html" aria-label="Bright Talks home">
+            <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="player-v2-sidebar__logo-img" />
+          </a>
+          <p class="eyebrow">Course player</p>
+          <h1 id="player-v2-course-title"></h1>
+        </div>
+        <div id="player-v2-curriculum" class="player-v2-curriculum"></div>
       </div>
-      <div id="player-v2-curriculum" class="player-v2-curriculum"></div>
+      <div id="player-v2-sidebar-lesson-slot" hidden>
+        <h2 id="player-v2-sidebar-lesson-title"></h2>
+        <p id="player-v2-sidebar-lesson-lead"></p>
+      </div>
     </aside>
 
     <main class="player-v2-main">
@@ -49,8 +55,6 @@
         </div>
         <div id="player-v2-lesson-split" class="player-v2-lesson-split" hidden>
           <div class="player-v2-split-left">
-            <h2 id="player-v2-split-lesson-title" class="player-v2-split-lesson-title"></h2>
-            <p id="player-v2-split-lesson-summary" class="player-v2-split-lesson-summary"></p>
             <div id="player-v2-lesson-sections" class="player-v2-lesson-sections"></div>
           </div>
           <aside class="player-v2-split-aside" aria-label="Lesson visual">
