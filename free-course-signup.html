@@ -42,6 +42,12 @@
       gap: 20px;
       margin-bottom: 24px;
     }
+    .top-nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
     .brand {
       font-family: "Fraunces", serif;
       font-size: 1.4rem;
@@ -217,7 +223,10 @@
   <main class="page">
     <div class="top">
       <a class="brand" href="index.html">Bright Talks</a>
-      <a class="home-link" href="courses.html">Back to Courses</a>
+      <nav class="top-nav" aria-label="Quick links">
+        <a class="home-link" href="pricing.html">Pricing</a>
+        <a class="home-link" href="courses.html">Back to courses</a>
+      </nav>
     </div>
 
     <div class="layout">
