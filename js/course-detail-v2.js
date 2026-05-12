@@ -21,8 +21,9 @@
   var progressLabel = document.getElementById('course-v2-progress-label');
 
 
-  var firstModule = 0;
-  var firstLesson = 0;
+  var entry = course.playerEntry || { module: 0, lesson: 0 };
+  var firstModule = entry.module;
+  var firstLesson = entry.lesson;
   var cta = progress > 0 && progress < 100 ? 'Resume Course' : 'Start Course';
 
   heroImage.src = course.heroImage;

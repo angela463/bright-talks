@@ -54,6 +54,7 @@
    * @property {number} progress
    * @property {boolean} completed
    * @property {string} heroImage
+   * @property {{ module: number, lesson: number }} [playerEntry]
    * @property {LessonAudio} introAudio
    * @property {Module[]} modules
    */
@@ -168,6 +169,7 @@
       progress: 38,
       completed: false,
       heroImage: 'images/pexels-julia-m-cameron-4144230.jpg',
+      playerEntry: { module: 2, lesson: 2 },
       introAudio: {
         audioUrl: sampleAudio,
         transcript: 'Welcome to Body Safety Foundations. In this course you will learn to answer big questions with simple, respectful language.',

@@ -14,8 +14,9 @@
   var navOpen = true;
 
   if (common.getQueryParam('module') === null && common.getQueryParam('lesson') === null) {
-    moduleIndex = 0;
-    lessonIndex = 0;
+    var entry = course.playerEntry || { module: 0, lesson: 0 };
+    moduleIndex = entry.module;
+    lessonIndex = entry.lesson;
   }
 
   var el = {
@@ -129,7 +130,8 @@
   }
 
   function playHeroVideoWhenReady() {
-    if (!el.heroVisual || el.heroVisual.hidden) return;
+    if (!el.heroVisual || !el.lessonSplit || el.lessonSplit.hidden) return;
+    if (el.heroImage && !el.heroImage.hidden) return;
     function tryPlay() {
       el.heroVisual.muted = true;
       el.heroVisual.setAttribute('playsinline', '');
@@ -315,12 +317,12 @@
     el.lessonSplit.hidden = !split;
 
     if (split) {
-      el.splitLessonTitle.textContent = lesson.title;
+      if (el.splitLessonTitle) el.splitLessonTitle.textContent = lesson.title;
       if (el.splitLessonSummary) {
         el.splitLessonSummary.textContent = lesson.summary || '';
         el.splitLessonSummary.hidden = !lesson.summary;
       }
-      el.lessonSections.innerHTML = buildSectionsHtml(lesson);
+      if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
     } else {
       if (el.heroVisual) el.heroVisual.pause();
