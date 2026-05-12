@@ -26,15 +26,13 @@
     nav: document.getElementById('player-v2-curriculum'),
     toggleNav: document.getElementById('player-v2-nav-toggle'),
     title: document.getElementById('player-v2-course-title'),
-    splitOuter: document.getElementById('player-v2-split-outer'),
-    canvas: document.getElementById('player-v2-canvas'),
-    outerLessonTitle: document.getElementById('player-v2-outer-lesson-title'),
-    outerCourseLabel: document.getElementById('player-v2-outer-course-label'),
-    outerObjectivesList: document.getElementById('player-v2-outer-objectives-list'),
     lessonDefault: document.getElementById('player-v2-lesson-default'),
+    lessonSplit: document.getElementById('player-v2-lesson-split'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
+    splitLessonTitle: document.getElementById('player-v2-split-lesson-title'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
+    lessonSections: document.getElementById('player-v2-lesson-sections'),
     heroVisual: document.getElementById('player-v2-hero-visual'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
@@ -90,24 +88,43 @@
     return lesson && lesson.layout === 'split-right' && Array.isArray(lesson.sections) && lesson.sections.length > 0;
   }
 
-  function firstObjectivesSection(lesson) {
-    if (!lesson || !Array.isArray(lesson.sections)) return null;
-    for (var i = 0; i < lesson.sections.length; i++) {
-      if (lesson.sections[i].type === 'objectives') return lesson.sections[i];
-    }
-    return null;
-  }
+  function buildSectionsHtml(lesson) {
+    var sections = lesson.sections;
+    if (!sections) return '';
+    return sections.map(function (sec, i) {
+      var sid = 'player-v2-sec-' + i;
+      var h = '<section class="player-v2-section-card" aria-labelledby="' + sid + '">';
+      h += '<h3 id="' + sid + '" class="player-v2-section-card__title">' + escText(sec.title) + '</h3>';
 
-  function renderObjectivesList(listEl, lesson) {
-    if (!listEl) return;
-    listEl.innerHTML = '';
-    var obj = firstObjectivesSection(lesson);
-    if (!obj || !obj.bullets) return;
-    obj.bullets.forEach(function (b) {
-      var li = document.createElement('li');
-      li.textContent = b;
-      listEl.appendChild(li);
-    });
+      if (sec.type === 'objectives' && sec.bullets && sec.bullets.length) {
+        h += '<ul class="player-v2-section-card__list">';
+        sec.bullets.forEach(function (b) {
+          h += '<li>' + escText(b) + '</li>';
+        });
+        h += '</ul>';
+      }
+
+      if (sec.paragraphs && sec.paragraphs.length) {
+        sec.paragraphs.forEach(function (p) {
+          h += '<p class="player-v2-section-card__p">' + escText(p) + '</p>';
+        });
+      }
+
+      if (sec.type === 'discussion') {
+        if (sec.reflectionLead) {
+          h += '<p class="player-v2-section-card__reflection-lead">' + escText(sec.reflectionLead) + '</p>';
+        }
+        if (sec.reflectionPlaceholder != null) {
+          var tid = 'player-v2-reflect-' + i;
+          h += '<label class="player-v2-section-card__label" for="' + tid + '">Your notes (optional)</label>';
+          h += '<textarea id="' + tid + '" class="player-v2-section-card__textarea" rows="4" placeholder="' +
+            escText(sec.reflectionPlaceholder) + '"></textarea>';
+        }
+      }
+
+      h += '</section>';
+      return h;
+    }).join('');
   }
 
   function applyHeroVisual(lesson) {
@@ -271,16 +288,14 @@
 
     el.title.textContent = course.title;
     el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
+    el.lessonMeta.hidden = false;
 
     el.lessonDefault.hidden = split;
-    el.lessonMeta.hidden = split;
-    if (el.splitOuter) el.splitOuter.hidden = !split;
-    if (el.canvas) el.canvas.hidden = split;
+    el.lessonSplit.hidden = !split;
 
     if (split) {
-      if (el.outerLessonTitle) el.outerLessonTitle.textContent = lesson.title;
-      if (el.outerCourseLabel) el.outerCourseLabel.textContent = course.title;
-      renderObjectivesList(el.outerObjectivesList, lesson);
+      el.splitLessonTitle.textContent = lesson.title;
+      el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
     } else {
       if (el.heroVisual) el.heroVisual.pause();
