@@ -25,18 +25,16 @@
     error: document.getElementById('player-v2-error'),
     nav: document.getElementById('player-v2-curriculum'),
     toggleNav: document.getElementById('player-v2-nav-toggle'),
-    sidebarDefault: document.getElementById('player-v2-sidebar-default'),
-    sidebarMinimal: document.getElementById('player-v2-sidebar-minimal'),
-    sidebarLessonTitle: document.getElementById('player-v2-sidebar-lesson-title'),
-    sidebarCourseSub: document.getElementById('player-v2-sidebar-course-sub'),
-    sidebarObjectivesList: document.getElementById('player-v2-sidebar-objectives-list'),
     title: document.getElementById('player-v2-course-title'),
+    splitOuter: document.getElementById('player-v2-split-outer'),
+    canvas: document.getElementById('player-v2-canvas'),
+    outerLessonTitle: document.getElementById('player-v2-outer-lesson-title'),
+    outerCourseLabel: document.getElementById('player-v2-outer-course-label'),
+    outerObjectivesList: document.getElementById('player-v2-outer-objectives-list'),
     lessonDefault: document.getElementById('player-v2-lesson-default'),
-    lessonSplit: document.getElementById('player-v2-lesson-split'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
-    lessonSections: document.getElementById('player-v2-lesson-sections'),
     heroVisual: document.getElementById('player-v2-hero-visual'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
@@ -92,13 +90,6 @@
     return lesson && lesson.layout === 'split-right' && Array.isArray(lesson.sections) && lesson.sections.length > 0;
   }
 
-  function sectionsWithoutObjectives(lesson) {
-    if (!lesson || !Array.isArray(lesson.sections)) return [];
-    return lesson.sections.filter(function (sec) {
-      return sec.type !== 'objectives';
-    });
-  }
-
   function firstObjectivesSection(lesson) {
     if (!lesson || !Array.isArray(lesson.sections)) return null;
     for (var i = 0; i < lesson.sections.length; i++) {
@@ -107,55 +98,16 @@
     return null;
   }
 
-  function renderSidebarObjectives(lesson) {
-    if (!el.sidebarObjectivesList) return;
-    el.sidebarObjectivesList.innerHTML = '';
+  function renderObjectivesList(listEl, lesson) {
+    if (!listEl) return;
+    listEl.innerHTML = '';
     var obj = firstObjectivesSection(lesson);
     if (!obj || !obj.bullets) return;
     obj.bullets.forEach(function (b) {
       var li = document.createElement('li');
       li.textContent = b;
-      el.sidebarObjectivesList.appendChild(li);
+      listEl.appendChild(li);
     });
-  }
-
-  function buildSectionsHtml(lesson) {
-    var sections = lesson.sections;
-    if (!sections) return '';
-    return sections.map(function (sec, i) {
-      var sid = 'player-v2-sec-' + i;
-      var h = '<section class="player-v2-section-card" aria-labelledby="' + sid + '">';
-      h += '<h3 id="' + sid + '" class="player-v2-section-card__title">' + escText(sec.title) + '</h3>';
-
-      if (sec.type === 'objectives' && sec.bullets && sec.bullets.length) {
-        h += '<ul class="player-v2-section-card__list">';
-        sec.bullets.forEach(function (b) {
-          h += '<li>' + escText(b) + '</li>';
-        });
-        h += '</ul>';
-      }
-
-      if (sec.paragraphs && sec.paragraphs.length) {
-        sec.paragraphs.forEach(function (p) {
-          h += '<p class="player-v2-section-card__p">' + escText(p) + '</p>';
-        });
-      }
-
-      if (sec.type === 'discussion') {
-        if (sec.reflectionLead) {
-          h += '<p class="player-v2-section-card__reflection-lead">' + escText(sec.reflectionLead) + '</p>';
-        }
-        if (sec.reflectionPlaceholder != null) {
-          var tid = 'player-v2-reflect-' + i;
-          h += '<label class="player-v2-section-card__label" for="' + tid + '">Your notes (optional)</label>';
-          h += '<textarea id="' + tid + '" class="player-v2-section-card__textarea" rows="4" placeholder="' +
-            escText(sec.reflectionPlaceholder) + '"></textarea>';
-        }
-      }
-
-      h += '</section>';
-      return h;
-    }).join('');
   }
 
   function applyHeroVisual(lesson) {
@@ -317,34 +269,23 @@
     history.replaceState({}, '', 'course-player-v2.html?course=' + encodeURIComponent(course.id) +
       '&module=' + moduleIndex + '&lesson=' + lessonIndex);
 
+    el.title.textContent = course.title;
     el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
 
     el.lessonDefault.hidden = split;
-    el.lessonSplit.hidden = !split;
+    el.lessonMeta.hidden = split;
+    if (el.splitOuter) el.splitOuter.hidden = !split;
+    if (el.canvas) el.canvas.hidden = split;
 
     if (split) {
-      el.body.classList.add('player-v2--minimal-sidebar');
-      if (el.sidebarDefault) el.sidebarDefault.hidden = true;
-      if (el.sidebarMinimal) el.sidebarMinimal.hidden = false;
-      if (el.sidebarLessonTitle) el.sidebarLessonTitle.textContent = lesson.title;
-      if (el.sidebarCourseSub) el.sidebarCourseSub.textContent = course.title;
-      renderSidebarObjectives(lesson);
-      el.lessonMeta.hidden = true;
-      el.lessonSections.innerHTML = buildSectionsHtml({ sections: sectionsWithoutObjectives(lesson) });
+      if (el.outerLessonTitle) el.outerLessonTitle.textContent = lesson.title;
+      if (el.outerCourseLabel) el.outerCourseLabel.textContent = course.title;
+      renderObjectivesList(el.outerObjectivesList, lesson);
       applyHeroVisual(lesson);
-      if (el.nav) el.nav.innerHTML = '';
-      if (el.toggleNav) el.toggleNav.hidden = true;
     } else {
-      el.body.classList.remove('player-v2--minimal-sidebar');
-      if (el.sidebarDefault) el.sidebarDefault.hidden = false;
-      if (el.sidebarMinimal) el.sidebarMinimal.hidden = true;
-      el.title.textContent = course.title;
-      el.lessonMeta.hidden = false;
       if (el.heroVisual) el.heroVisual.pause();
       el.lessonTitle.textContent = lesson.title;
       el.lessonSummary.textContent = lesson.summary;
-      if (el.toggleNav) el.toggleNav.hidden = false;
-      renderCurriculum();
     }
 
     el.progressFill.style.width = pct + '%';
@@ -352,6 +293,7 @@
     el.transcript.textContent = lesson.audio.transcript;
     el.error.hidden = lesson.audio.status !== 'failed';
 
+    renderCurriculum();
     updateAudioUI();
   }
 
