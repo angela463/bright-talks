@@ -388,19 +388,28 @@
   max-height: min(72vh, 720px);
 }
 
-.player-v2-split-lesson-title {
-  margin: 0.35rem 0 0.55rem;
-  font-size: clamp(1.05rem, 2.1vw, 1.55rem);
-  line-height: 1.12;
+#player-v2-sidebar-lesson-slot {
+  display: grid;
+  gap: 0.65rem;
+}
+
+#player-v2-sidebar-lesson-slot h2 {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.1vw, 1.5rem);
+  line-height: 1.15;
   font-family: var(--font-display);
   color: var(--course-v2-ink);
 }
 
-.player-v2-split-lesson-summary {
-  margin: 0 0 1rem;
+#player-v2-sidebar-lesson-slot p {
+  margin: 0;
   color: var(--course-v2-muted);
   line-height: 1.62;
   font-size: clamp(0.95rem, 1.45vw, 1.05rem);
+}
+
+.page-course-player-v2.player-v2-is-split-lesson #player-v2-nav-toggle {
+  display: none;
 }
 
 .player-v2-split-aside {

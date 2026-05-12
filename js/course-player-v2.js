@@ -346,11 +346,6 @@
     el.transcript.textContent = lesson.audio.transcript;
     el.error.hidden = lesson.audio.status !== 'failed';
 
-    if (!split) {
-      /* curriculum already rendered above for non-split */
-    } else {
-      /* split: sidebar curriculum hidden with default block */
-    }
     updateAudioUI();
   }
 
