@@ -30,12 +30,14 @@
     lessonDefault: document.getElementById('player-v2-lesson-default'),
     lessonSplit: document.getElementById('player-v2-lesson-split'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
-    splitRightTitle: document.getElementById('player-v2-split-right-title'),
-    splitRightLead: document.getElementById('player-v2-split-right-lead'),
-    splitRightObjectives: document.getElementById('player-v2-split-right-objectives'),
+    splitLeftTitle: document.getElementById('player-v2-split-left-title'),
+    splitLeftLead: document.getElementById('player-v2-split-left-lead'),
+    splitLeftObjectives: document.getElementById('player-v2-split-left-objectives'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
-    lessonSections: document.getElementById('player-v2-lesson-sections'),
+    heroVisual: document.getElementById('player-v2-hero-visual'),
+    heroSource: document.getElementById('player-v2-hero-source'),
+    heroImage: document.getElementById('player-v2-hero-image'),
     audioSection: document.querySelector('.player-v2-audio'),
     footer: document.querySelector('.player-v2-footer'),
     progressFill: document.getElementById('player-v2-progress-fill'),
@@ -88,13 +90,6 @@
     return lesson && lesson.layout === 'split-right' && Array.isArray(lesson.sections) && lesson.sections.length > 0;
   }
 
-  function sectionsWithoutObjectives(lesson) {
-    if (!lesson || !Array.isArray(lesson.sections)) return [];
-    return lesson.sections.filter(function (sec) {
-      return sec.type !== 'objectives';
-    });
-  }
-
   function firstObjectivesSection(lesson) {
     if (!lesson || !Array.isArray(lesson.sections)) return null;
     for (var i = 0; i < lesson.sections.length; i++) {
@@ -103,57 +98,73 @@
     return null;
   }
 
-  function renderSplitRightPanel(lesson) {
-    if (el.splitRightTitle) el.splitRightTitle.textContent = lesson.title || '';
-    if (el.splitRightLead) el.splitRightLead.textContent = lesson.summary || '';
-    if (!el.splitRightObjectives) return;
-    el.splitRightObjectives.innerHTML = '';
+  function renderSplitLeftPanel(lesson) {
+    if (el.splitLeftTitle) el.splitLeftTitle.textContent = lesson.title || '';
+    if (el.splitLeftLead) el.splitLeftLead.textContent = lesson.summary || '';
+    if (!el.splitLeftObjectives) return;
+    el.splitLeftObjectives.innerHTML = '';
     var obj = firstObjectivesSection(lesson);
     if (!obj || !obj.bullets) return;
     obj.bullets.forEach(function (b) {
       var li = document.createElement('li');
       li.textContent = b;
-      el.splitRightObjectives.appendChild(li);
+      el.splitLeftObjectives.appendChild(li);
     });
   }
 
-  function buildSectionsHtml(lesson) {
-    var sections = lesson.sections;
-    if (!sections) return '';
-    return sections.map(function (sec, i) {
-      var sid = 'player-v2-sec-' + i;
-      var h = '<section class="player-v2-section-card" aria-labelledby="' + sid + '">';
-      h += '<h3 id="' + sid + '" class="player-v2-section-card__title">' + escText(sec.title) + '</h3>';
-
-      if (sec.type === 'objectives' && sec.bullets && sec.bullets.length) {
-        h += '<ul class="player-v2-section-card__list">';
-        sec.bullets.forEach(function (b) {
-          h += '<li>' + escText(b) + '</li>';
-        });
-        h += '</ul>';
+  function playHeroVideoWhenReady() {
+    if (!el.heroVisual || !el.lessonSplit || el.lessonSplit.hidden) return;
+    if (el.heroImage && !el.heroImage.hidden) return;
+    function tryPlay() {
+      el.heroVisual.muted = true;
+      el.heroVisual.setAttribute('playsinline', '');
+      el.heroVisual.setAttribute('webkit-playsinline', '');
+      var p = el.heroVisual.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {});
       }
+    }
+    if (el.heroVisual.readyState >= 2) {
+      tryPlay();
+    } else {
+      el.heroVisual.addEventListener('loadeddata', function onData() {
+        el.heroVisual.removeEventListener('loadeddata', onData);
+        tryPlay();
+      });
+      tryPlay();
+    }
+  }
 
-      if (sec.paragraphs && sec.paragraphs.length) {
-        sec.paragraphs.forEach(function (p) {
-          h += '<p class="player-v2-section-card__p">' + escText(p) + '</p>';
-        });
+  function applyHeroVisual(lesson) {
+    var hv = lesson && lesson.heroVisual;
+    if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
+
+    if (!hv || !hv.src) {
+      el.heroVisual.hidden = false;
+      el.heroImage.hidden = true;
+      playHeroVideoWhenReady();
+      return;
+    }
+
+    if (hv.type === 'image') {
+      el.heroVisual.hidden = true;
+      el.heroVisual.pause();
+      el.heroImage.hidden = false;
+      el.heroImage.src = hv.src;
+      el.heroImage.alt = hv.alt || 'Lesson illustration';
+    } else {
+      el.heroImage.hidden = true;
+      el.heroVisual.hidden = false;
+      el.heroVisual.muted = true;
+      if (el.heroSource.getAttribute('src') !== hv.src) {
+        el.heroSource.setAttribute('src', hv.src);
+        el.heroVisual.load();
       }
-
-      if (sec.type === 'discussion') {
-        if (sec.reflectionLead) {
-          h += '<p class="player-v2-section-card__reflection-lead">' + escText(sec.reflectionLead) + '</p>';
-        }
-        if (sec.reflectionPlaceholder != null) {
-          var tid = 'player-v2-reflect-' + i;
-          h += '<label class="player-v2-section-card__label" for="' + tid + '">Your notes (optional)</label>';
-          h += '<textarea id="' + tid + '" class="player-v2-section-card__textarea" rows="4" placeholder="' +
-            escText(sec.reflectionPlaceholder) + '"></textarea>';
-        }
-      }
-
-      h += '</section>';
-      return h;
-    }).join('');
+      el.heroVisual.setAttribute('autoplay', '');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(playHeroVideoWhenReady);
+      });
+    }
   }
 
   function renderCurriculum() {
@@ -289,11 +300,10 @@
     el.lessonSplit.hidden = !split;
 
     if (split) {
-      renderSplitRightPanel(lesson);
-      if (el.lessonSections) {
-        el.lessonSections.innerHTML = buildSectionsHtml({ sections: sectionsWithoutObjectives(lesson) });
-      }
+      renderSplitLeftPanel(lesson);
+      applyHeroVisual(lesson);
     } else {
+      if (el.heroVisual) el.heroVisual.pause();
       el.lessonTitle.textContent = lesson.title;
       el.lessonSummary.textContent = lesson.summary;
     }
@@ -338,6 +348,14 @@
     el.complete.addEventListener('click', markComplete);
 
     bindAudioEvents();
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      if (!el.lessonSplit || el.lessonSplit.hidden) return;
+      if (!el.heroVisual || el.heroVisual.hidden) return;
+      playHeroVideoWhenReady();
+    });
+
     render();
   }
 
