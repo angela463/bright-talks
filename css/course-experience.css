@@ -461,40 +461,146 @@
   color: var(--course-v2-ink);
 }
 
-.page-course-player-v2 .player-v2-canvas p {
+.page-course-player-v2 .player-v2-lesson-default p {
   margin: 0;
   color: var(--course-v2-muted);
   line-height: 1.62;
   font-size: clamp(0.98rem, 1.5vw, 1.05rem);
 }
 
-.player-v2-intro {
+.player-v2-lesson-default {
+  display: block;
+}
+
+.player-v2-lesson-split {
   display: grid;
-  gap: 0.8rem;
-}
-
-.player-v2-intro__eyebrow {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--course-v2-muted);
-}
-
-.player-v2-intro__video,
-.player-v2-intro__audio {
-  width: min(100%, 680px);
-}
-
-.player-v2-intro__video {
-  border-radius: 0.8rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 0;
+  min-height: min(72vh, 720px);
+  margin: 0 -1rem;
+  width: calc(100% + 2rem);
+  border-radius: 0.85rem;
+  overflow: hidden;
   border: 1px solid var(--course-v2-border);
+}
+
+.player-v2-split-left {
+  padding: 1rem 1.1rem 1.25rem;
+  background: var(--course-v2-surface);
+  overflow-y: auto;
+  max-height: min(72vh, 720px);
+}
+
+.player-v2-split-lesson-title {
+  margin: 0.35rem 0 0.85rem;
+  font-size: clamp(1.05rem, 2.1vw, 1.55rem);
+  line-height: 1.12;
+  font-family: var(--font-display);
+  color: var(--course-v2-ink);
+}
+
+.player-v2-lesson-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.player-v2-section-card {
+  border: 1px solid rgba(203, 157, 112, 0.35);
+  border-radius: 0.85rem;
+  padding: 0.85rem 0.95rem;
   background: #fff;
 }
 
-#player-v2-start-course {
-  width: fit-content;
-  padding-inline: 1rem;
+.player-v2-section-card__title {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  font-family: var(--font-display);
+  color: var(--course-v2-ink);
+}
+
+.player-v2-section-card__list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--course-v2-muted);
+  line-height: 1.55;
+}
+
+.player-v2-section-card__p {
+  margin: 0 0 0.55rem;
+  color: var(--course-v2-muted);
+  line-height: 1.62;
+  font-size: clamp(0.95rem, 1.45vw, 1.02rem);
+}
+
+.player-v2-section-card__p:last-child {
+  margin-bottom: 0;
+}
+
+.player-v2-section-card__reflection-lead {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  color: var(--course-v2-ink);
+  font-size: 0.98rem;
+}
+
+.player-v2-section-card__label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--course-v2-muted);
+  margin-bottom: 0.35rem;
+}
+
+.player-v2-section-card__textarea {
+  width: 100%;
+  min-height: 6.5rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--course-v2-border);
+  font: inherit;
+  color: var(--course-v2-ink);
+  background: #fffdf9;
+  resize: vertical;
+}
+
+.player-v2-section-card__textarea:focus-visible {
+  outline: 2px solid rgba(232, 149, 74, 0.65);
+  outline-offset: 2px;
+}
+
+.player-v2-split-aside {
+  position: relative;
+  min-height: 280px;
+  background: #1a1512;
+}
+
+.player-v2-hero-visual {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.player-v2-hero-visual--image {
+  display: block;
+}
+
+.player-v2-hero-visual-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(26, 21, 18, 0.08) 0%, rgba(26, 21, 18, 0.22) 100%);
+}
+
+.page-course-player-v2 .player-v2-canvas p.player-v2-meta {
+  margin-bottom: 0.65rem;
+}
+
+.page-course-player-v2 .player-v2-canvas:has(.player-v2-lesson-split:not([hidden])) {
+  padding-bottom: 0.85rem;
 }
 
 .page-course-player-v2 .player-v2-audio h3 {
@@ -664,6 +770,26 @@
   .player-v2-footer {
     flex-direction: column;
     align-items: stretch;
+  }
+}
+
+@media (max-width: 900px) {
+  .player-v2-lesson-split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    width: 100%;
+    margin: 0;
+  }
+
+  .player-v2-split-left {
+    max-height: none;
+    order: 2;
+  }
+
+  .player-v2-split-aside {
+    order: 1;
+    min-height: min(48vw, 260px);
+    max-height: min(48vw, 260px);
   }
 }
 
