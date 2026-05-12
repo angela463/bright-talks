@@ -30,11 +30,11 @@
     lessonDefault: document.getElementById('player-v2-lesson-default'),
     lessonSplit: document.getElementById('player-v2-lesson-split'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
-    splitLeftTitle: document.getElementById('player-v2-split-left-title'),
-    splitLeftLead: document.getElementById('player-v2-split-left-lead'),
-    splitLeftObjectives: document.getElementById('player-v2-split-left-objectives'),
+    splitLessonTitle: document.getElementById('player-v2-split-lesson-title'),
+    splitLessonSummary: document.getElementById('player-v2-split-lesson-summary'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
+    lessonSections: document.getElementById('player-v2-lesson-sections'),
     heroVisual: document.getElementById('player-v2-hero-visual'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
@@ -90,26 +90,43 @@
     return lesson && lesson.layout === 'split-right' && Array.isArray(lesson.sections) && lesson.sections.length > 0;
   }
 
-  function firstObjectivesSection(lesson) {
-    if (!lesson || !Array.isArray(lesson.sections)) return null;
-    for (var i = 0; i < lesson.sections.length; i++) {
-      if (lesson.sections[i].type === 'objectives') return lesson.sections[i];
-    }
-    return null;
-  }
+  function buildSectionsHtml(lesson) {
+    var sections = lesson.sections;
+    if (!sections) return '';
+    return sections.map(function (sec, i) {
+      var sid = 'player-v2-sec-' + i;
+      var h = '<section class="player-v2-section-card" aria-labelledby="' + sid + '">';
+      h += '<h3 id="' + sid + '" class="player-v2-section-card__title">' + escText(sec.title) + '</h3>';
 
-  function renderSplitLeftPanel(lesson) {
-    if (el.splitLeftTitle) el.splitLeftTitle.textContent = lesson.title || '';
-    if (el.splitLeftLead) el.splitLeftLead.textContent = lesson.summary || '';
-    if (!el.splitLeftObjectives) return;
-    el.splitLeftObjectives.innerHTML = '';
-    var obj = firstObjectivesSection(lesson);
-    if (!obj || !obj.bullets) return;
-    obj.bullets.forEach(function (b) {
-      var li = document.createElement('li');
-      li.textContent = b;
-      el.splitLeftObjectives.appendChild(li);
-    });
+      if (sec.type === 'objectives' && sec.bullets && sec.bullets.length) {
+        h += '<ul class="player-v2-section-card__list">';
+        sec.bullets.forEach(function (b) {
+          h += '<li>' + escText(b) + '</li>';
+        });
+        h += '</ul>';
+      }
+
+      if (sec.paragraphs && sec.paragraphs.length) {
+        sec.paragraphs.forEach(function (p) {
+          h += '<p class="player-v2-section-card__p">' + escText(p) + '</p>';
+        });
+      }
+
+      if (sec.type === 'discussion') {
+        if (sec.reflectionLead) {
+          h += '<p class="player-v2-section-card__reflection-lead">' + escText(sec.reflectionLead) + '</p>';
+        }
+        if (sec.reflectionPlaceholder != null) {
+          var tid = 'player-v2-reflect-' + i;
+          h += '<label class="player-v2-section-card__label" for="' + tid + '">Your notes (optional)</label>';
+          h += '<textarea id="' + tid + '" class="player-v2-section-card__textarea" rows="4" placeholder="' +
+            escText(sec.reflectionPlaceholder) + '"></textarea>';
+        }
+      }
+
+      h += '</section>';
+      return h;
+    }).join('');
   }
 
   function playHeroVideoWhenReady() {
@@ -300,7 +317,12 @@
     el.lessonSplit.hidden = !split;
 
     if (split) {
-      renderSplitLeftPanel(lesson);
+      if (el.splitLessonTitle) el.splitLessonTitle.textContent = lesson.title;
+      if (el.splitLessonSummary) {
+        el.splitLessonSummary.textContent = lesson.summary || '';
+        el.splitLessonSummary.hidden = !lesson.summary;
+      }
+      if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
     } else {
       if (el.heroVisual) el.heroVisual.pause();
