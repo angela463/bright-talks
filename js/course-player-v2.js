@@ -30,6 +30,7 @@
     lessonSplit: document.getElementById('player-v2-lesson-split'),
     lessonTitle: document.getElementById('player-v2-lesson-title'),
     splitLessonTitle: document.getElementById('player-v2-split-lesson-title'),
+    splitLessonSummary: document.getElementById('player-v2-split-lesson-summary'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
     lessonSections: document.getElementById('player-v2-lesson-sections'),
@@ -127,6 +128,28 @@
     }).join('');
   }
 
+  function playHeroVideoWhenReady() {
+    if (!el.heroVisual || el.heroVisual.hidden) return;
+    function tryPlay() {
+      el.heroVisual.muted = true;
+      el.heroVisual.setAttribute('playsinline', '');
+      el.heroVisual.setAttribute('webkit-playsinline', '');
+      var p = el.heroVisual.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {});
+      }
+    }
+    if (el.heroVisual.readyState >= 2) {
+      tryPlay();
+    } else {
+      el.heroVisual.addEventListener('loadeddata', function onData() {
+        el.heroVisual.removeEventListener('loadeddata', onData);
+        tryPlay();
+      });
+      tryPlay();
+    }
+  }
+
   function applyHeroVisual(lesson) {
     var hv = lesson && lesson.heroVisual;
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
@@ -134,6 +157,7 @@
     if (!hv || !hv.src) {
       el.heroVisual.hidden = false;
       el.heroImage.hidden = true;
+      playHeroVideoWhenReady();
       return;
     }
 
@@ -146,18 +170,15 @@
     } else {
       el.heroImage.hidden = true;
       el.heroVisual.hidden = false;
+      el.heroVisual.muted = true;
       if (el.heroSource.getAttribute('src') !== hv.src) {
         el.heroSource.setAttribute('src', hv.src);
         el.heroVisual.load();
       }
-      var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reducedMotion) {
-        el.heroVisual.removeAttribute('autoplay');
-        el.heroVisual.pause();
-      } else {
-        el.heroVisual.setAttribute('autoplay', '');
-        el.heroVisual.play().catch(function () {});
-      }
+      el.heroVisual.setAttribute('autoplay', '');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(playHeroVideoWhenReady);
+      });
     }
   }
 
@@ -295,6 +316,10 @@
 
     if (split) {
       el.splitLessonTitle.textContent = lesson.title;
+      if (el.splitLessonSummary) {
+        el.splitLessonSummary.textContent = lesson.summary || '';
+        el.splitLessonSummary.hidden = !lesson.summary;
+      }
       el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
     } else {
@@ -343,6 +368,14 @@
     el.complete.addEventListener('click', markComplete);
 
     bindAudioEvents();
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      if (!el.lessonSplit || el.lessonSplit.hidden) return;
+      if (!el.heroVisual || el.heroVisual.hidden) return;
+      playHeroVideoWhenReady();
+    });
+
     render();
   }
 
