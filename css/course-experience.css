@@ -740,19 +740,17 @@
 }
 
 @media (max-width: 900px) {
-  .player-v2-lesson-split {
+  .player-v2-split-outer {
     grid-template-columns: 1fr;
     min-height: auto;
-    width: 100%;
-    margin: 0;
   }
 
-  .player-v2-split-left {
-    max-height: none;
+  .player-v2-split-outer__reading {
     order: 2;
+    max-height: none;
   }
 
-  .player-v2-split-aside {
+  .player-v2-split-outer__aside {
     order: 1;
     min-height: min(48vw, 260px);
     max-height: min(48vw, 260px);
