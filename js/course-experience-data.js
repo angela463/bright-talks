@@ -95,7 +95,7 @@
           lessons: [
             { id: 'l1', title: 'Safe Adults and Unsafe Secrets', summary: 'Teach the difference clearly and calmly.', duration: '9m', audio: { audioUrl: sampleAudio, transcript: 'Children need clear rules for secrets and helpers.', voice: 'Warm Guide v1', duration: '09:04', status: 'ready' } },
             { id: 'l2', title: 'What To Do If Something Feels Wrong', summary: 'Use a simple response plan kids can remember.', duration: '12m', audio: { audioUrl: sampleAudio, transcript: 'Practice stop, move away, and tell a trusted adult.', voice: 'Warm Guide v1', duration: '12:35', status: 'ready' } },
-            { id: 'l3', title: 'Role-Play Safety Moments', summary: 'Rehearse scripts so children can act confidently.', duration: '13m', audio: { audioUrl: sampleAudio, transcript: 'Role play builds automatic protective responses.', voice: 'Warm Guide v1', duration: '13:02', status: 'ready' } }
+            buildNamingBodyPartsLesson(sampleAudio)
           ]
         }
       ]
