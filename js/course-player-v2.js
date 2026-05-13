@@ -342,7 +342,18 @@
       el.body.classList.add('player-v2-is-split-lesson');
       if (el.sidebarDefault) el.sidebarDefault.hidden = true;
       if (el.sidebarLessonSlot) el.sidebarLessonSlot.hidden = false;
-      if (el.sidebarLessonTitle) el.sidebarLessonTitle.textContent = lesson.title;
+      if (el.sidebarLessonTitle) {
+        var colonIdx = lesson.title.indexOf(':');
+        if (colonIdx !== -1) {
+          var mainPart = lesson.title.slice(0, colonIdx + 1);
+          var subPart = lesson.title.slice(colonIdx + 1).trim();
+          el.sidebarLessonTitle.innerHTML =
+            '<span class="player-v2-sidebar-title__main">' + escText(mainPart) + '</span>' +
+            '<span class="player-v2-sidebar-title__sub">' + escText(subPart) + '</span>';
+        } else {
+          el.sidebarLessonTitle.textContent = lesson.title;
+        }
+      }
       if (el.sidebarLessonLead) {
         el.sidebarLessonLead.textContent = lesson.summary || '';
         el.sidebarLessonLead.hidden = !lesson.summary;

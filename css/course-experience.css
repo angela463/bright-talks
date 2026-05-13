@@ -448,10 +448,22 @@
 
 #player-v2-sidebar-lesson-slot h2 {
   margin: 0;
-  font-size: clamp(1.05rem, 2.1vw, 1.5rem);
-  line-height: 1.15;
   font-family: var(--font-display);
   color: var(--course-v2-ink);
+}
+
+.player-v2-sidebar-title__main {
+  display: block;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  line-height: 1.12;
+}
+
+.player-v2-sidebar-title__sub {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+  line-height: 1.2;
+  font-weight: 500;
 }
 
 #player-v2-sidebar-lesson-slot p {
