@@ -40,6 +40,7 @@
     heroVisual: document.getElementById('player-v2-hero-visual'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
+    lessonNav: document.getElementById('player-v2-lesson-nav'),
     audioSection: document.querySelector('.player-v2-audio'),
     footer: document.querySelector('.player-v2-footer'),
     progressFill: document.getElementById('player-v2-progress-fill'),
@@ -90,6 +91,23 @@
 
   function isSplitLesson(lesson) {
     return lesson && lesson.layout === 'split-right' && Array.isArray(lesson.sections) && lesson.sections.length > 0;
+  }
+
+  function buildLessonNav(lesson) {
+    var sections = lesson.sections;
+    if (!sections || !sections.length) return '';
+    var html = '';
+    var inSections = false;
+    sections.forEach(function (sec, i) {
+      var isHeader = sec.type === 'objectives' || sec.title.toLowerCase().indexOf('overview') !== -1;
+      if (!isHeader && !inSections) {
+        inSections = true;
+        html += '<span class="player-v2-lesson-nav__heading">Sections</span>';
+      }
+      var sub = inSections ? ' player-v2-lesson-nav__item--sub' : '';
+      html += '<a href="#player-v2-sec-' + i + '" class="player-v2-lesson-nav__item' + sub + '">' + escText(sec.title) + '</a>';
+    });
+    return html;
   }
 
   function buildSectionsHtml(lesson) {
@@ -329,8 +347,23 @@
         el.sidebarLessonLead.textContent = lesson.summary || '';
         el.sidebarLessonLead.hidden = !lesson.summary;
       }
+      if (el.lessonNav) {
+        el.lessonNav.innerHTML = buildLessonNav(lesson);
+        Array.prototype.forEach.call(el.lessonNav.querySelectorAll('.player-v2-lesson-nav__item'), function (link) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            var target = document.getElementById(link.getAttribute('href').slice(1));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+      }
       if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
+
+      var splitAside = document.querySelector('.player-v2-split-aside');
+      if (splitAside && el.audioSection) {
+        splitAside.appendChild(el.audioSection);
+      }
     } else {
       el.body.classList.remove('player-v2-is-split-lesson');
       if (el.sidebarDefault) el.sidebarDefault.hidden = false;
@@ -338,6 +371,10 @@
       if (el.heroVisual) el.heroVisual.pause();
       el.lessonTitle.textContent = lesson.title;
       el.lessonSummary.textContent = lesson.summary;
+
+      if (el.audioSection && el.footer && el.audioSection.parentNode !== el.footer.parentNode) {
+        el.footer.parentNode.insertBefore(el.audioSection, el.footer);
+      }
       renderCurriculum();
     }
 
