@@ -50,7 +50,9 @@
 
   function cardHtml(course) {
     var progress = common.resolveProgress(course);
-    var ctaLabel = progress > 0 ? 'Resume course' : 'Start course';
+    var started = progress > 0;
+    var ctaLabel = started ? 'Resume course' : 'Start course';
+    var ctaClass = started ? 'btn btn-primary' : 'btn btn-secondary';
     var safeTitle = course.title.replace(/"/g, '&quot;');
     return '' +
       '<article class="course-v2-card">' +
@@ -71,7 +73,7 @@
       '      <strong>' + progress + '% complete</strong>' +
       '    </div>' +
       '    <div class="course-v2-card__actions">' +
-      '      <a class="btn btn-primary" href="course-detail-v2.html?course=' + encodeURIComponent(course.id) + '">' + ctaLabel + '</a>' +
+      '      <a class="' + ctaClass + '" href="course-detail-v2.html?course=' + encodeURIComponent(course.id) + '">' + ctaLabel + '</a>' +
       '      <a class="btn btn-secondary" href="course-player-v2.html?course=' + encodeURIComponent(course.id) +
       '&module=' + (course.playerEntry ? course.playerEntry.module : 0) +
       '&lesson=' + (course.playerEntry ? course.playerEntry.lesson : 0) + '">Open player</a>' +

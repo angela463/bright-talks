@@ -221,7 +221,7 @@
       outcome: 'Create ongoing conversations that reduce shame, improve trust, and keep communication open.',
       duration: '2h 45m',
       lessonCount: 15,
-      progress: 12,
+      progress: 0,
       completed: false,
       heroImage: 'images/pexels-vlada-karpovich-4609085.jpg',
       introAudio: {
@@ -274,8 +274,8 @@
       outcome: 'Build a family plan that keeps teens safer online while strengthening trust and accountability.',
       duration: '3h 05m',
       lessonCount: 16,
-      progress: 100,
-      completed: true,
+      progress: 0,
+      completed: false,
       heroImage: 'images/promo/promo-08-teen-desk.png',
       introAudio: {
         audioUrl: sampleAudio,
