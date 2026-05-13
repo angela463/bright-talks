@@ -73,10 +73,9 @@
       '      <strong>' + progress + '% complete</strong>' +
       '    </div>' +
       '    <div class="course-v2-card__actions">' +
-      '      <a class="' + ctaClass + '" href="course-detail-v2.html?course=' + encodeURIComponent(course.id) + '">' + ctaLabel + '</a>' +
-      '      <a class="btn btn-secondary" href="course-player-v2.html?course=' + encodeURIComponent(course.id) +
+      '      <a class="' + ctaClass + '" href="course-player-v2.html?course=' + encodeURIComponent(course.id) +
       '&module=' + (course.playerEntry ? course.playerEntry.module : 0) +
-      '&lesson=' + (course.playerEntry ? course.playerEntry.lesson : 0) + '">Open player</a>' +
+      '&lesson=' + (course.playerEntry ? course.playerEntry.lesson : 0) + '">' + ctaLabel + '</a>' +
       '    </div>' +
       '  </div>' +
       '</article>';
