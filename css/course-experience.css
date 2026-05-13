@@ -440,7 +440,7 @@
 
 #player-v2-sidebar-lesson-slot {
   display: grid;
-  gap: 0.65rem;
+  gap: 2rem;
   margin-top: 0.35rem;
   padding-top: 1.35rem;
   border-top: 1px solid rgba(203, 157, 112, 0.28);
