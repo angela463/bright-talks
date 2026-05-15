@@ -64,7 +64,20 @@
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
-  var earlyYearsHeroImage = 'images/pexels-julia-m-cameron-4144230.jpg';
+
+  var courseHeroImages = {
+    earlyYears: 'images/pexels-julia-m-cameron-4144230.jpg',
+    puberty: 'images/pexels-tima-miroshnichenko-5813804.jpg',
+    teen: 'images/teen-laptop-couch.png'
+  };
+
+  var earlyYearsLessonImages = {
+    bodies: 'images/pexels-cottonbro-6668315.jpg',
+    boundaries: 'images/how-it-works-family.jpg',
+    reproduction: 'images/pexels-emma-bauso-1183828-2253879.jpg',
+    porn: 'images/promo/promo-05-tablet-learning.png',
+    continuing: 'images/pexels-max-fischer-5212331.jpg'
+  };
 
   function lessonAudio(sa, transcript, duration) {
     return {
@@ -156,7 +169,7 @@
           'Name body parts clearly and without shame so your child understands privacy, dignity, and that their body belongs to them.',
         duration: '20m',
         audioDuration: '20:00',
-        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Parent and child reading together' },
+        heroVisual: { type: 'image', src: earlyYearsLessonImages.bodies, alt: 'Parent and child reading together' },
         sections: [
           {
             title: 'Lesson Objectives',
@@ -216,7 +229,7 @@
           'Teach boundaries, safe and unsafe touch, consent in daily life, and who children can tell when something feels wrong.',
         duration: '22m',
         audioDuration: '22:00',
-        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Family conversation at home' },
+        heroVisual: { type: 'image', src: earlyYearsLessonImages.boundaries, alt: 'Family conversation at home' },
         sections: [
           {
             title: 'Lesson Objectives',
@@ -269,7 +282,7 @@
           'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3–6.',
         duration: '18m',
         audioDuration: '18:00',
-        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Calm parent-child moment' },
+        heroVisual: { type: 'image', src: earlyYearsLessonImages.reproduction, alt: 'Calm parent-child moment' },
         sections: [
           {
             title: 'Lesson Objectives',
@@ -318,7 +331,7 @@
           'Prepare calm responses if your child sees confusing images or videos—online or elsewhere—without fear or shame.',
         duration: '20m',
         audioDuration: '20:00',
-        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Parent guiding child at computer' },
+        heroVisual: { type: 'image', src: earlyYearsLessonImages.porn, alt: 'Parent guiding child at computer' },
         sections: [
           {
             title: 'Lesson Objectives',
@@ -374,7 +387,7 @@
           'Build habits and scripts so body-safety talks stay normal, warm, and open as your child grows.',
         duration: '16m',
         audioDuration: '16:00',
-        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Parent and child talking' },
+        heroVisual: { type: 'image', src: earlyYearsLessonImages.continuing, alt: 'Parent and child talking' },
         sections: [
           {
             title: 'Lesson Objectives',
@@ -438,7 +451,7 @@
       lessonCount: lessons.length,
       progress: 38,
       completed: false,
-      heroImage: earlyYearsHeroImage,
+      heroImage: courseHeroImages.earlyYears,
       playerEntry: { module: 0, lesson: 0 },
       introAudio: {
         audioUrl: sa,
@@ -475,7 +488,7 @@
       lessonCount: 15,
       progress: 0,
       completed: false,
-      heroImage: 'images/pexels-vlada-karpovich-4609085.jpg',
+      heroImage: courseHeroImages.puberty,
       introAudio: {
         audioUrl: sampleAudio,
         transcript: 'This course helps you normalize puberty conversations so your child feels supported, informed, and safe.',
@@ -528,7 +541,7 @@
       lessonCount: 16,
       progress: 0,
       completed: false,
-      heroImage: 'images/promo/promo-08-teen-desk.png',
+      heroImage: courseHeroImages.teen,
       introAudio: {
         audioUrl: sampleAudio,
         transcript: 'In this course, we focus on practical digital safety, trust, and clear standards for healthy teen relationships.',
