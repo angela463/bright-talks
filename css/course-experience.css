@@ -379,22 +379,27 @@
 }
 
 .player-v2-lesson-split {
-  display: grid;
-  grid-template-columns: minmax(220px, 0.32fr) 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0;
-  min-height: min(72vh, 720px);
   margin: 0 -1rem;
   width: calc(100% + 2rem);
   border-radius: 0.85rem;
   overflow: hidden;
   border: 1px solid var(--course-v2-border);
+  background: var(--course-v2-surface);
 }
 
-.player-v2-split-left {
-  padding: 1rem 1.1rem 1.25rem;
+.player-v2-split-hero {
+  position: relative;
+  width: 100%;
+  min-height: min(52vh, 520px);
+  background: #1a1512;
+}
+
+.player-v2-split-body {
+  padding: 1rem 1.15rem 1.35rem;
   background: var(--course-v2-surface);
-  overflow-y: auto;
-  max-height: min(72vh, 720px);
 }
 
 .player-v2-lesson-nav {
@@ -589,11 +594,6 @@
   display: none;
 }
 
-.player-v2-split-aside {
-  position: relative;
-  min-height: 280px;
-  background: #1a1512;
-}
 
 .player-v2-hero-visual {
   position: absolute;
@@ -616,7 +616,7 @@
 }
 
 /* --- Audio overlay on video --- */
-.player-v2-split-aside .player-v2-audio {
+.player-v2-split-hero .player-v2-audio {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -630,21 +630,21 @@
   padding: 0.55rem 0.85rem;
 }
 
-.player-v2-split-aside .player-v2-audio h3,
-.player-v2-split-aside .player-v2-audio #player-v2-listen-cta,
-.player-v2-split-aside .player-v2-audio #player-v2-transcript-toggle,
-.player-v2-split-aside .player-v2-audio #player-v2-transcript,
-.player-v2-split-aside .player-v2-audio label[for="player-v2-speed"],
-.player-v2-split-aside .player-v2-audio #player-v2-speed,
-.player-v2-split-aside .player-v2-audio .player-v2-error {
+.player-v2-split-hero .player-v2-audio h3,
+.player-v2-split-hero .player-v2-audio #player-v2-listen-cta,
+.player-v2-split-hero .player-v2-audio #player-v2-transcript-toggle,
+.player-v2-split-hero .player-v2-audio #player-v2-transcript,
+.player-v2-split-hero .player-v2-audio label[for="player-v2-speed"],
+.player-v2-split-hero .player-v2-audio #player-v2-speed,
+.player-v2-split-hero .player-v2-audio .player-v2-error {
   display: none;
 }
 
-.player-v2-split-aside .player-v2-audio .player-v2-audio__controls {
+.player-v2-split-hero .player-v2-audio .player-v2-audio__controls {
   flex-wrap: nowrap;
 }
 
-.player-v2-split-aside .player-v2-audio .player-v2-icon-btn {
+.player-v2-split-hero .player-v2-audio .player-v2-icon-btn {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.28);
   color: #fff;
@@ -653,19 +653,19 @@
   flex-shrink: 0;
 }
 
-.player-v2-split-aside .player-v2-audio .player-v2-icon-btn:hover {
+.player-v2-split-hero .player-v2-audio .player-v2-icon-btn:hover {
   background: rgba(255, 255, 255, 0.22);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.player-v2-split-aside .player-v2-audio #player-v2-time {
+.player-v2-split-hero .player-v2-audio #player-v2-time {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.78rem;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-.player-v2-split-aside .player-v2-audio input[type='range'] {
+.player-v2-split-hero .player-v2-audio input[type='range'] {
   flex: 1;
   min-width: 0;
 }
@@ -844,7 +844,13 @@
 }
 
 .page-course-player-v2 .player-v2-canvas:has(.player-v2-lesson-split:not([hidden])) {
-  padding-bottom: 0.85rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.page-course-player-v2.player-v2-is-split-lesson .player-v2-canvas p.player-v2-meta {
+  padding: 0.85rem 1rem 0;
+  margin: 0;
 }
 
 .page-course-player-v2 .player-v2-canvas p.player-v2-meta {
@@ -1034,21 +1040,16 @@
 
 @media (max-width: 900px) {
   .player-v2-lesson-split {
-    grid-template-columns: 1fr;
-    min-height: auto;
     width: 100%;
     margin: 0;
   }
 
-  .player-v2-split-left {
-    max-height: none;
-    order: 2;
+  .player-v2-split-hero {
+    min-height: min(42vw, 280px);
   }
 
-  .player-v2-split-aside {
-    order: 1;
-    min-height: min(48vw, 260px);
-    max-height: min(48vw, 260px);
+  .player-v2-split-body {
+    padding: 0.85rem 0.9rem 1.1rem;
   }
 }
 

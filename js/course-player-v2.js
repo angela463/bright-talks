@@ -422,9 +422,9 @@
       if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
       applyHeroVisual(lesson);
 
-      var splitAside = document.querySelector('.player-v2-split-aside');
-      if (splitAside && el.audioSection) {
-        splitAside.appendChild(el.audioSection);
+      var splitHero = document.querySelector('.player-v2-split-hero');
+      if (splitHero && el.audioSection) {
+        splitHero.appendChild(el.audioSection);
       }
     } else {
       el.body.classList.remove('player-v2-is-split-lesson');
