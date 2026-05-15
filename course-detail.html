@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Redirecting to Bright Talks lessons." />
   <title>Redirecting to lessons · Bright Talks</title>
-  <meta http-equiv="refresh" content="0; url=course-player-v2.html?course=bt-foundations-early-years&amp;module=2&amp;lesson=2" />
+  <meta http-equiv="refresh" content="0; url=course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="page-courses" id="top">
@@ -13,7 +13,7 @@
     <section class="hero-panel">
       <h1>Taking you to lessons…</h1>
       <p>If you are not redirected, use the link below.</p>
-      <p><a class="btn btn-primary" id="course-redirect-link" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=2&amp;lesson=2">Open course player</a></p>
+      <p><a class="btn btn-primary" id="course-redirect-link" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">Open course player</a></p>
     </section>
   </main>
   <script>
@@ -22,7 +22,7 @@
       var course = params.get('course') || 'ages-3-5';
       var target =
         course === 'ages-3-5'
-          ? 'course-player-v2.html?course=bt-foundations-early-years&module=2&lesson=2'
+          ? 'course-player-v2.html?course=bt-foundations-early-years&module=0&lesson=0'
           : 'courses.html';
       var link = document.getElementById('course-redirect-link');
       if (link) link.href = target;

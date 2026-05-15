@@ -19,6 +19,8 @@
    * @property {string[]} [paragraphs]
    * @property {string} [reflectionLead]
    * @property {string} [reflectionPlaceholder]
+   * @property {{ label: string, href: string, description?: string }[]} [downloads]
+   * @property {string[]} [scripts]
    *
    * @typedef {Object} LessonHeroVisual
    * @property {'video'|'image'} type
@@ -60,157 +62,405 @@
    */
 
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
+  var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
+  var earlyYearsHeroImage = 'images/pexels-julia-m-cameron-4144230.jpg';
 
-  function buildNamingBodyPartsLesson(sa) {
-    var title =
-      'Naming Body Parts Without Shame: Building Body Safety, Confidence, and Everyday Communication';
-    var summary =
-      'Use clear, kind words for the body so your child feels safe asking questions, understands privacy, and knows you are a steady guide—not a source of embarrassment.';
-    var sections = [
-      {
-        title: 'Lesson Objectives',
-        type: 'objectives',
-        bullets: [
-          'Understand why calm, accurate body language supports confidence and everyday safety for young children.',
-          'Connect bath time, books, and dressing routines to short phrases you can repeat without pressure.',
-          'Choose one gentle opener you can try this week that fits your family voice.'
-        ]
-      },
-      {
-        title: 'Overview of Course',
-        type: 'prose',
-        paragraphs: [
-          'Body Safety Foundations is designed for real parents: short lessons, practical wording, and a tone that feels steady—not scary. You are not trying to teach everything at once. You are building a home where bodies are spoken about like other important topics: with respect, clarity, and warmth.',
-          'Across the course you will practice boundaries, privacy, and trusted adults in language a young child can remember. Today we focus on naming body parts because clarity reduces confusion, helps children ask for help, and quietly communicates that shame does not belong in your family story.'
-        ]
-      },
-      {
-        title: 'Section 1: Why This Conversation Matters',
-        type: 'prose',
-        paragraphs: [
-          'Young children are naturally curious. When adults go quiet, change the subject, or only use silly nicknames, kids still notice. Silence can accidentally teach that bodies are embarrassing, which makes it harder for them to come to you later with a question or a worry.',
-          'When you speak plainly and kindly, you become the trusted guide. That does not mean sharing adult detail. It means using real words in a calm voice—like naming an elbow or a knee—and pairing those words with safety: some areas are private, and grown-ups help with bodies for care, health, or safety.',
-          'This also helps when your child hears something odd at school. If you have already spoken calmly at home, they are more likely to think, “I can ask my grown-up,” because you have shown them your door is open.'
-        ]
-      },
-      {
-        title: 'Why Naming Body Parts Correctly Is Important',
-        type: 'prose',
-        paragraphs: [
-          'Correct names reduce confusion if a child ever needs to tell a teacher, coach, or doctor what happened. Clear language supports safety the same way a street address helps someone find home—it removes guesswork in a stressful moment.',
-          'If you like a family nickname for one area, you can still pair it with the real name: “Some people say ___, and the real name is ___.” That keeps warmth and clarity together.',
-          'Naming without shame also protects dignity. You are teaching that every part of the body deserves respect and privacy—and that message becomes the emotional backbone for consent conversations as your child grows.'
-        ]
-      },
-      {
-        title: 'The Science Behind Body Awareness and Child Safety',
-        type: 'prose',
-        paragraphs: [
-          'Young children learn through repetition, co-regulation, and trusted relationships. When your voice stays calm, your child’s nervous system gets practice returning to steady. That is why short, warm exchanges beat one intense talk.',
-          'Body awareness grows through everyday routines: naming clothing, noticing sensations, and practicing consent language like, “Do you want a hug or a high five?” These habits teach that bodies belong to the person inside them.',
-          'Prevention education is not about fearing people; it is about teaching skills—naming, boundaries, and telling a safe adult. Research-informed family programs emphasize early, shame-free language because it pairs safety with connection, which helps lessons actually stick.'
-        ]
-      },
-      {
-        title: 'Discussion Prompt: How to Start the Conversation',
-        type: 'discussion',
-        paragraphs: [
-          'Pick a calm moment this week (after a snack, during bath, or while reading). Try a two-sentence opener that names the goal without pressure.'
-        ],
-        reflectionLead: 'Write a starter phrase you would feel okay saying out loud. Keep it simple—you can repeat it over time.',
-        reflectionPlaceholder:
-          'Example: “Your body is good and strong. Some parts are private, and I use real names so you always know what I mean.”'
-      }
-    ];
-
-    function transcriptFromSections() {
-      var parts = [title, summary];
-      sections.forEach(function (sec) {
-        parts.push(sec.title);
-        if (sec.bullets) sec.bullets.forEach(function (b) { parts.push(b); });
-        if (sec.paragraphs) sec.paragraphs.forEach(function (p) { parts.push(p); });
-        if (sec.reflectionLead) parts.push(sec.reflectionLead);
-      });
-      return parts.join('\n\n');
-    }
-
-    var transcript = transcriptFromSections();
-
+  function lessonAudio(sa, transcript, duration) {
     return {
-      id: 'l3-naming-body-parts',
-      title: title,
-      summary: summary,
-      duration: '22m',
-      layout: 'split-right',
-      heroVisual: { type: 'video', src: 'videos/4982409-hd_1920_1080_25fps.mp4' },
-      sections: sections,
-      audio: {
-        audioUrl: sa,
-        transcript: transcript,
-        voice: 'Warm Guide v1',
-        duration: '22:00',
-        status: 'ready'
-      }
+      audioUrl: sa,
+      transcript: transcript,
+      voice: 'Warm Guide v1',
+      duration: duration,
+      status: 'ready'
     };
   }
 
-  /** @type {Course[]} */
-  var courses = [
-    {
+  function transcriptFromLesson(lesson) {
+    var parts = [lesson.title, lesson.summary];
+    (lesson.sections || []).forEach(function (sec) {
+      parts.push(sec.title);
+      if (sec.bullets) sec.bullets.forEach(function (b) { parts.push(b); });
+      if (sec.paragraphs) sec.paragraphs.forEach(function (p) { parts.push(p); });
+      if (sec.scripts) sec.scripts.forEach(function (s) { parts.push(s); });
+      if (sec.reflectionLead) parts.push(sec.reflectionLead);
+    });
+    return parts.join('\n\n');
+  }
+
+  function splitLesson(opts) {
+    var lesson = {
+      id: opts.id,
+      title: opts.title,
+      summary: opts.summary,
+      duration: opts.duration,
+      layout: 'split-right',
+      heroVisual: opts.heroVisual,
+      sections: opts.sections
+    };
+    lesson.audio = lessonAudio(
+      opts.audioUrl || sampleAudio,
+      opts.transcript || transcriptFromLesson(lesson),
+      opts.audioDuration || opts.duration
+    );
+    return lesson;
+  }
+
+  function buildEarlyYearsFoundationsCourse(sa) {
+    var handbookPlaceholder = '#parent-handbook-pdf-placeholder';
+
+    var lessons = [
+      splitLesson({
+        id: 'welcome-video',
+        title: 'Welcome Video',
+        summary:
+          'Meet Bright Talks, see how this course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.',
+        duration: '6m',
+        audioDuration: '06:00',
+        heroVisual: { type: 'video', src: welcomeVideoSrc },
+        sections: [
+          {
+            title: 'Lesson Objectives',
+            type: 'objectives',
+            bullets: [
+              'Understand what Bright Talks offers parents and caregivers of young children.',
+              'See how the course is structured and what you can expect in each lesson.',
+              'Feel reassured that you can lead these talks with warmth—not fear or embarrassment.'
+            ]
+          },
+          {
+            title: 'What You Will Learn',
+            type: 'prose',
+            paragraphs: [
+              'This course walks through six practical topics: bodies and anatomy, boundaries and safety, reproduction, online images, and keeping the conversation going over time.',
+              'Each lesson includes short video, parent-friendly guidance, optional audio narration, and space to reflect. You can move at your child’s pace—there is no test and no perfect script.',
+              'Bright Talks is built for real homes: busy schedules, curious questions, and the hope that your child will always know they can come to you.'
+            ]
+          },
+          {
+            title: 'How to Use This Course',
+            type: 'prose',
+            paragraphs: [
+              'Watch the welcome video, then move through the lessons in order or jump to what fits your family right now.',
+              'Use the handbook and discussion prompts when you are ready. Small, repeated conversations matter more than one long talk.',
+              'If a topic feels new to you, that is okay. You are learning alongside your child—and that honesty builds trust.'
+            ]
+          }
+        ]
+      }),
+      splitLesson({
+        id: 'lesson-1-bodies',
+        title: 'Lesson 1: Bodies, Biology & Anatomy',
+        summary:
+          'Name body parts clearly and without shame so your child understands privacy, dignity, and that their body belongs to them.',
+        duration: '20m',
+        audioDuration: '20:00',
+        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Parent and child reading together' },
+        sections: [
+          {
+            title: 'Lesson Objectives',
+            type: 'objectives',
+            bullets: [
+              'Use accurate, calm words for body parts in everyday moments.',
+              'Connect naming to safety: private parts, respect, and asking for help.',
+              'Choose one routine (bath, books, dressing) to practice this week.'
+            ]
+          },
+          {
+            title: 'Age-Based Guidance',
+            type: 'prose',
+            paragraphs: [
+              'Ages 3–4: Short labels during care routines—“This is your arm, this is your knee.” Keep tone matter-of-fact, like naming colors.',
+              'Ages 5–6: Add privacy language—“Some parts are private. We use real names so you always know what I mean.”',
+              'Video placeholders for age bands (3–4 and 5–6) will be added here—use the handbook and scripts below until those clips are ready.'
+            ]
+          },
+          {
+            title: 'Why Naming Matters',
+            type: 'prose',
+            paragraphs: [
+              'Clear names reduce confusion and help children tell a trusted adult if something feels wrong. Nicknames alone can make it harder for a child to be understood in a stressful moment.',
+              'You can pair warmth with accuracy: “Some families use a nickname, and the real name is ___.” Shame-free language teaches that every part of the body deserves respect.'
+            ]
+          },
+          {
+            title: 'Parent Handbook & Resources',
+            type: 'downloads',
+            downloads: [
+              {
+                label: 'Download Parent Handbook (PDF)',
+                href: handbookPlaceholder,
+                description: 'Printable guide with body-part language, bath-time prompts, and book suggestions.'
+              },
+              {
+                label: 'Body Safety Word List (PDF)',
+                href: '#body-safety-word-list-placeholder',
+                description: 'Simple vocabulary card for caregivers and co-parents.'
+              }
+            ]
+          },
+          {
+            title: 'Try This at Home',
+            type: 'discussion',
+            paragraphs: ['Pick one calm moment this week to name two body parts and one private-area rule.'],
+            reflectionLead: 'What phrase will you try first?',
+            reflectionPlaceholder: 'Example: “Your body is strong and good. Some parts are private—we only touch them for washing or health.”'
+          }
+        ]
+      }),
+      splitLesson({
+        id: 'lesson-2-boundaries',
+        title: 'Lesson 2: Boundaries & Safety',
+        summary:
+          'Teach boundaries, safe and unsafe touch, consent in daily life, and who children can tell when something feels wrong.',
+        duration: '22m',
+        audioDuration: '22:00',
+        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Family conversation at home' },
+        sections: [
+          {
+            title: 'Lesson Objectives',
+            type: 'objectives',
+            bullets: [
+              'Explain boundaries in language a young child can remember.',
+              'Distinguish caring touch (doctor, parent for health) from unsafe touch.',
+              'Name trusted adults your child can go to for help.'
+            ]
+          },
+          {
+            title: 'Boundaries in Everyday Life',
+            type: 'prose',
+            paragraphs: [
+              'Boundaries are not lectures—they are habits: asking before a hug, knocking before entering a room, and respecting “no” or “not right now.”',
+              'Practice consent language often: “Do you want a high five or a wave?” Children learn that their body belongs to them.'
+            ]
+          },
+          {
+            title: 'Doctor, Family & Safe Touch',
+            type: 'prose',
+            paragraphs: [
+              'Help children understand that some grown-ups help with bodies for health and care—a parent during bath time, a doctor with a parent present. Those moments have a purpose and should never feel secret or scary.',
+              'Unsafe touch is touch that feels confusing, scary, or secret—and children can always tell you. Reassure them: you will listen, you will believe them, and you will help.'
+            ]
+          },
+          {
+            title: 'Trusted Adults',
+            type: 'prose',
+            paragraphs: [
+              'Name two or three trusted adults besides you (another caregiver, grandparent, teacher). Practice: “If you ever feel mixed-up or yucky about touch, tell me or ___ right away.”',
+              'Keep the list small and familiar so your child is not overwhelmed.'
+            ]
+          },
+          {
+            title: 'Safety Scripts',
+            type: 'scripts',
+            scripts: [
+              '“Your body belongs to you. You can say no to a hug.”',
+              '“No secrets about touch. If someone asks you to keep touch a secret, tell me.”',
+              '“If something feels wrong, come to me. I will always help you.”'
+            ]
+          }
+        ]
+      }),
+      splitLesson({
+        id: 'lesson-3-reproduction',
+        title: 'Lesson 3: Reproduction',
+        summary:
+          'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3–6.',
+        duration: '18m',
+        audioDuration: '18:00',
+        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Calm parent-child moment' },
+        sections: [
+          {
+            title: 'Lesson Objectives',
+            type: 'objectives',
+            bullets: [
+              'Respond to early questions about babies without shame or over-explaining.',
+              'Use age-appropriate facts about conception and birth.',
+              'Stay calm so your child knows this topic is safe to discuss.'
+            ]
+          },
+          {
+            title: 'Simple, Age-Appropriate Facts',
+            type: 'prose',
+            paragraphs: [
+              'Young children often need a short answer first: “Babies grow in a special place inside the body called a uterus. It takes time, and a grown-up takes care of the baby until it is ready to be born.”',
+              'If they ask how a baby starts, you might say: “It takes a tiny part from two grown-ups who love each other. Their bodies work together in a special way, and the baby grows in the uterus.” Add detail only if they ask more.',
+              'Use the same calm tone you use for other body topics. You do not need graphic detail for a preschooler.'
+            ]
+          },
+          {
+            title: 'Common Questions',
+            type: 'prose',
+            paragraphs: [
+              '“Did I grow in your tummy?” — Yes, and you can share their birth story in a simple, loving way.',
+              '“How does the baby get out?” — “When the baby is ready, the body pushes the baby out through a special opening called the vagina, or sometimes doctors help through surgery.”',
+              'It is okay to say, “Great question—let me think how to say that simply,” and return when you are ready.'
+            ]
+          },
+          {
+            title: 'Parent Handbook',
+            type: 'downloads',
+            downloads: [
+              {
+                label: 'Reproduction Q&A Guide (PDF)',
+                href: '#reproduction-guide-placeholder',
+                description: 'Sample phrases for ages 3–6 (placeholder—full PDF coming soon).'
+              }
+            ]
+          }
+        ]
+      }),
+      splitLesson({
+        id: 'lesson-4-porn',
+        title: 'Lesson 4: Porn & Inappropriate Images',
+        summary:
+          'Prepare calm responses if your child sees confusing images or videos—online or elsewhere—without fear or shame.',
+        duration: '20m',
+        audioDuration: '20:00',
+        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Parent guiding child at computer' },
+        sections: [
+          {
+            title: 'Lesson Objectives',
+            type: 'objectives',
+            bullets: [
+              'Understand why early conversations about inappropriate images support safety.',
+              'Know what to say if a child sees something confusing—without panic or punishment.',
+              'Set simple family rules for screens and “tell me right away.”'
+            ]
+          },
+          {
+            title: 'Parent-Facing Guidance',
+            type: 'prose',
+            paragraphs: [
+              'This lesson is for adults. We do not show graphic content. The goal is to help you respond with steadiness if a young child encounters inappropriate pictures or videos.',
+              'Many children see something by accident—a click, a pop-up, or an older sibling’s device. Your reaction shapes whether they come to you again.'
+            ]
+          },
+          {
+            title: 'What To Say',
+            type: 'scripts',
+            scripts: [
+              '“That picture is not for kids. If you see something like that, close the screen and tell me. You are not in trouble.”',
+              '“Those images are for grown-ups only. They can feel confusing. I am glad you told me.”',
+              '“Let’s find something safe to watch together.”'
+            ]
+          },
+          {
+            title: 'Online Safety Basics',
+            type: 'prose',
+            paragraphs: [
+              'Use devices in shared spaces when possible, enable parental controls, and teach: “If a screen shows something that feels yucky or weird, come get me.”',
+              'Focus on safety and trust—not shame. You are the steady adult in a confusing moment.'
+            ]
+          },
+          {
+            title: 'Resource Placeholder',
+            type: 'downloads',
+            downloads: [
+              {
+                label: 'Family Screen Safety Checklist (PDF)',
+                href: '#screen-safety-checklist-placeholder',
+                description: 'One-page checklist for caregivers (placeholder).'
+              }
+            ]
+          }
+        ]
+      }),
+      splitLesson({
+        id: 'lesson-5-continuing',
+        title: 'Lesson 5: Continuing the Conversation',
+        summary:
+          'Build habits and scripts so body-safety talks stay normal, warm, and open as your child grows.',
+        duration: '16m',
+        audioDuration: '16:00',
+        heroVisual: { type: 'image', src: earlyYearsHeroImage, alt: 'Parent and child talking' },
+        sections: [
+          {
+            title: 'Lesson Objectives',
+            type: 'objectives',
+            bullets: [
+              'Plan small, repeatable check-ins—not one “big talk.”',
+              'Use scripts that fit your family voice.',
+              'Identify next steps and who else should hear the same language.'
+            ]
+          },
+          {
+            title: 'Keep It Going',
+            type: 'prose',
+            paragraphs: [
+              'Children learn through repetition. A two-sentence comment during bath time, a book at bedtime, or a quick check-in after school keeps the door open.',
+              'Celebrate questions: “I am glad you asked me.” Even if you need a pause to answer, follow up soon.'
+            ]
+          },
+          {
+            title: 'Scripts You Can Reuse',
+            type: 'scripts',
+            scripts: [
+              '“What questions do you have about bodies today?”',
+              '“Remember: your body is yours. You can tell me anything.”',
+              '“We use real names and we keep each other safe.”'
+            ]
+          },
+          {
+            title: 'Reflection & Next Steps',
+            type: 'discussion',
+            paragraphs: [
+              'Choose one weekly rhythm (Sunday breakfast, car ride, bedtime) for a one-minute check-in.',
+              'Share key phrases with co-parents, grandparents, or childcare so your child hears consistent messages.'
+            ],
+            reflectionLead: 'What is one next step you will take in the next seven days?',
+            reflectionPlaceholder: 'Example: “Download the handbook and practice one boundary phrase at bath time.”'
+          },
+          {
+            title: 'Course Completion',
+            type: 'prose',
+            paragraphs: [
+              'You have walked through the core early-years path. Revisit any lesson when new questions appear—and celebrate the trust you are building.',
+              'More age-specific videos and handbooks will be linked here as they are published.'
+            ]
+          }
+        ]
+      })
+    ];
+
+    return {
       id: 'bt-foundations-early-years',
       title: 'Body Safety Foundations (Ages 3 to 6)',
       topic: 'Body Safety',
       audience: 'Parents of Early Learners',
       level: 'Starter',
-      description: 'Learn calm scripts for body questions, privacy, consent, and safe touch conversations in everyday moments.',
-      outcome: 'Leave with practical language you can use this week to build trust and body safety habits at home.',
-      duration: '2h 10m',
-      lessonCount: 13,
+      description:
+        'A structured path for parents and caregivers: welcome, bodies, boundaries, reproduction, online safety, and ongoing conversation—calm, clear, and shame-free.',
+      outcome:
+        'Leave with practical language, handbooks, and scripts you can use this week to build trust and body safety at home.',
+      duration: '1h 42m',
+      lessonCount: lessons.length,
       progress: 38,
       completed: false,
-      heroImage: 'images/pexels-julia-m-cameron-4144230.jpg',
-      playerEntry: { module: 2, lesson: 2 },
+      heroImage: earlyYearsHeroImage,
+      playerEntry: { module: 0, lesson: 0 },
       introAudio: {
-        audioUrl: sampleAudio,
-        transcript: 'Welcome to Body Safety Foundations. In this course you will learn to answer big questions with simple, respectful language.',
+        audioUrl: sa,
+        transcript:
+          'Welcome to Body Safety Foundations. This course guides you through six lessons designed for parents of young children.',
         voice: 'Warm Guide v1',
         duration: '02:11',
         status: 'ready'
       },
       modules: [
         {
-          id: 'm1',
-          title: 'Start Early Without Fear',
-          objective: 'Build confidence and age-appropriate language before awkward moments happen.',
-          lessons: [
-            { id: 'l1', title: 'Why Early Conversations Matter', summary: 'Set the tone before misinformation does.', duration: '8m', audio: { audioUrl: sampleAudio, transcript: 'Early conversations prevent confusion and shame.', voice: 'Warm Guide v1', duration: '08:02', status: 'ready' } },
-            { id: 'l2', title: 'Words That Build Safety', summary: 'Use clear terms that reduce confusion.', duration: '9m', audio: { audioUrl: sampleAudio, transcript: 'Use correct names for body parts and boundaries.', voice: 'Warm Guide v1', duration: '09:21', status: 'ready' } },
-            { id: 'l3', title: 'Three-Sentence Responses', summary: 'Answer hard questions quickly and calmly.', duration: '11m', audio: { audioUrl: sampleAudio, transcript: 'Keep answers short, honest, and reassuring.', voice: 'Warm Guide v1', duration: '11:07', status: 'ready' } }
-          ]
-        },
-        {
-          id: 'm2',
-          title: 'Boundaries at Home',
-          objective: 'Practice repeatable habits that teach privacy and consent in normal routines.',
-          lessons: [
-            { id: 'l1', title: 'Consent in Daily Life', summary: 'Model asking permission with everyday touch.', duration: '10m', audio: { audioUrl: sampleAudio, transcript: 'Show consent through simple daily phrases.', voice: 'Warm Guide v1', duration: '10:09', status: 'ready' } },
-            { id: 'l2', title: 'Bathroom and Bedroom Privacy', summary: 'Set house rules children can understand.', duration: '8m', audio: { audioUrl: sampleAudio, transcript: 'Create repeatable privacy rules without fear-based language.', voice: 'Warm Guide v1', duration: '08:13', status: 'ready' } },
-            { id: 'l3', title: 'When Kids Push Limits', summary: 'Correct behavior while preserving connection.', duration: '11m', audio: { audioUrl: sampleAudio, transcript: 'Correct quickly and reconnect right away.', voice: 'Warm Guide v1', duration: '11:11', status: 'ready' } },
-            { id: 'l4', title: 'Caregiver Consistency Plan', summary: 'Align grandparents, babysitters, and co-parents.', duration: '12m', audio: { audioUrl: sampleAudio, transcript: 'Consistency from all adults creates confidence for children.', voice: 'Warm Guide v1', duration: '12:18', status: 'ready' } }
-          ]
-        },
-        {
-          id: 'm3',
-          title: 'Safety Skills Outside the Home',
-          objective: 'Help children apply safety language at school, church, and activities.',
-          lessons: [
-            { id: 'l1', title: 'Safe Adults and Unsafe Secrets', summary: 'Teach the difference clearly and calmly.', duration: '9m', audio: { audioUrl: sampleAudio, transcript: 'Children need clear rules for secrets and helpers.', voice: 'Warm Guide v1', duration: '09:04', status: 'ready' } },
-            { id: 'l2', title: 'What To Do If Something Feels Wrong', summary: 'Use a simple response plan kids can remember.', duration: '12m', audio: { audioUrl: sampleAudio, transcript: 'Practice stop, move away, and tell a trusted adult.', voice: 'Warm Guide v1', duration: '12:35', status: 'ready' } },
-            buildNamingBodyPartsLesson(sampleAudio)
-          ]
+          id: 'm-early-years-core',
+          title: 'Early Years Course',
+          objective:
+            'Move from introduction through bodies, boundaries, reproduction, online safety, and keeping conversations going over time.',
+          lessons: lessons
         }
       ]
-    },
+    };
+  }
+
+  /** @type {Course[]} */
+  var courses = [
+    buildEarlyYearsFoundationsCourse(sampleAudio),
     {
       id: 'bt-puberty-conversations',
       title: 'Puberty & Growing Up Without Shame',

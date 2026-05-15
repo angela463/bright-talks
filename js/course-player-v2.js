@@ -19,6 +19,12 @@
     lessonIndex = entry.lesson;
   }
 
+  if (course.id === 'bt-foundations-early-years' &&
+      moduleIndex === 2 && lessonIndex === 2) {
+    moduleIndex = 0;
+    lessonIndex = 0;
+  }
+
   var el = {
     body: document.body,
     preloader: document.getElementById('player-v2-preloader'),
@@ -41,6 +47,7 @@
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
     lessonNav: document.getElementById('player-v2-lesson-nav'),
+    sidebarCourseNav: document.getElementById('player-v2-sidebar-course-nav'),
     audioSection: document.querySelector('.player-v2-audio'),
     footer: document.querySelector('.player-v2-footer'),
     progressFill: document.getElementById('player-v2-progress-fill'),
@@ -132,6 +139,29 @@
         });
       }
 
+      if (sec.type === 'downloads' && sec.downloads && sec.downloads.length) {
+        h += '<div class="player-v2-downloads">';
+        sec.downloads.forEach(function (dl) {
+          var isPlaceholder = !dl.href || dl.href.charAt(0) === '#';
+          h += '<a class="player-v2-download-btn' + (isPlaceholder ? ' is-placeholder' : '') + '" href="' +
+            escText(dl.href || '#') + '"' + (isPlaceholder ? ' aria-disabled="true"' : '') + '>' +
+            '<span class="player-v2-download-btn__label">' + escText(dl.label) + '</span>';
+          if (dl.description) {
+            h += '<span class="player-v2-download-btn__desc">' + escText(dl.description) + '</span>';
+          }
+          h += '</a>';
+        });
+        h += '</div>';
+      }
+
+      if (sec.type === 'scripts' && sec.scripts && sec.scripts.length) {
+        h += '<ul class="player-v2-section-card__scripts">';
+        sec.scripts.forEach(function (line) {
+          h += '<li>' + escText(line) + '</li>';
+        });
+        h += '</ul>';
+      }
+
       if (sec.type === 'discussion') {
         if (sec.reflectionLead) {
           h += '<p class="player-v2-section-card__reflection-lead">' + escText(sec.reflectionLead) + '</p>';
@@ -202,6 +232,26 @@
         requestAnimationFrame(playHeroVideoWhenReady);
       });
     }
+  }
+
+  function renderSidebarCourseNav() {
+    if (!el.sidebarCourseNav) return;
+    var html = '<p class="player-v2-sidebar-course-nav__label">Course lessons</p>';
+    course.modules.forEach(function (module, mIndex) {
+      module.lessons.forEach(function (lesson, lIndex) {
+        var active = mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
+        html += '<button type="button" class="player-v2-sidebar-course-nav__item' + active + '" data-module="' +
+          mIndex + '" data-lesson="' + lIndex + '">' + escText(lesson.title) + '</button>';
+      });
+    });
+    el.sidebarCourseNav.innerHTML = html;
+    Array.prototype.forEach.call(el.sidebarCourseNav.querySelectorAll('.player-v2-sidebar-course-nav__item'), function (btn) {
+      btn.addEventListener('click', function () {
+        moduleIndex = Number(btn.getAttribute('data-module'));
+        lessonIndex = Number(btn.getAttribute('data-lesson'));
+        render();
+      });
+    });
   }
 
   function renderCurriculum() {
@@ -358,6 +408,7 @@
         el.sidebarLessonLead.textContent = lesson.summary || '';
         el.sidebarLessonLead.hidden = !lesson.summary;
       }
+      renderSidebarCourseNav();
       if (el.lessonNav) {
         el.lessonNav.innerHTML = buildLessonNav(lesson);
         Array.prototype.forEach.call(el.lessonNav.querySelectorAll('.player-v2-lesson-nav__item'), function (link) {
@@ -434,6 +485,11 @@
       if (!el.lessonSplit || el.lessonSplit.hidden) return;
       if (!el.heroVisual || el.heroVisual.hidden) return;
       playHeroVideoWhenReady();
+    });
+
+    document.addEventListener('click', function (e) {
+      var dl = e.target.closest('.player-v2-download-btn.is-placeholder');
+      if (dl) e.preventDefault();
     });
 
     render();

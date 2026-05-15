@@ -69,7 +69,7 @@
           metaText = moduleCount + ' modules · ' + lessonCount + ' lessons';
         }
         var ctaHtml = courseLibraryIsOpen(c)
-          ? '<a class="btn btn-primary" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=2&amp;lesson=2">View free lesson</a>'
+          ? '<a class="btn btn-primary" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">View free lesson</a>'
           : (
             '<span class="btn course-card-cta course-card-cta--locked" role="status" aria-label="Locked">' +
               LOCK_ICON_SVG +
