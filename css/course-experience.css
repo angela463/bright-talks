@@ -628,7 +628,7 @@
   background: rgba(26, 21, 18, 0.78);
   backdrop-filter: blur(10px);
   box-shadow: none;
-  padding: 0.55rem 0.85rem;
+  padding: 0.65rem 1.1rem 0.65rem 1.5rem;
 }
 
 .player-v2-split-hero .player-v2-audio h3,
@@ -643,6 +643,8 @@
 
 .player-v2-split-hero .player-v2-audio .player-v2-audio__controls {
   flex-wrap: nowrap;
+  gap: 0.65rem;
+  padding-left: 0.25rem;
 }
 
 .player-v2-split-hero .player-v2-audio .player-v2-icon-btn {
@@ -652,6 +654,11 @@
   width: 2.25rem;
   height: 2.25rem;
   flex-shrink: 0;
+  margin-left: 0.15rem;
+}
+
+.player-v2-split-hero .player-v2-audio .player-v2-icon-btn .player-v2-icon--play {
+  margin-left: 3px;
 }
 
 .player-v2-split-hero .player-v2-audio .player-v2-icon-btn:hover {
