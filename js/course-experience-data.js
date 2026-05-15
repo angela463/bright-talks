@@ -62,6 +62,7 @@
    */
 
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
+  var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
   var earlyYearsHeroImage = 'images/pexels-julia-m-cameron-4144230.jpg';
 
@@ -116,6 +117,7 @@
           'Meet Bright Talks, see how this course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.',
         duration: '6m',
         audioDuration: '06:00',
+        audioUrl: welcomeAudio,
         heroVisual: { type: 'video', src: welcomeVideoSrc },
         sections: [
           {
