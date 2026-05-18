@@ -49,7 +49,10 @@
       </header>
 
       <section class="player-v2-canvas">
-        <p id="player-v2-lesson-meta" class="player-v2-meta"></p>
+        <div id="player-v2-canvas-head" class="player-v2-canvas-head" hidden>
+          <h2 id="player-v2-canvas-lesson-title" class="player-v2-canvas-lesson-title"></h2>
+          <p id="player-v2-lesson-meta" class="player-v2-meta"></p>
+        </div>
         <div id="player-v2-lesson-default" class="player-v2-lesson-default">
           <h2 id="player-v2-lesson-title"></h2>
           <p id="player-v2-lesson-summary"></p>
@@ -61,7 +64,6 @@
             </video>
             <img id="player-v2-hero-image" class="player-v2-hero-visual player-v2-hero-visual--image" alt="" hidden decoding="async" />
             <div class="player-v2-hero-copy">
-              <h2 id="player-v2-hero-lesson-title"></h2>
               <p id="player-v2-hero-lesson-lead"></p>
             </div>
             <div class="player-v2-hero-visual-scrim" aria-hidden="true"></div>

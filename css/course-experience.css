@@ -630,34 +630,14 @@
   left: 0;
   right: 0;
   z-index: 6;
-  padding: 1.15rem 1.35rem 2.5rem;
+  padding: 1rem 1.35rem 2rem;
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(26, 21, 18, 0.78) 0%,
-    rgba(26, 21, 18, 0.45) 45%,
-    rgba(26, 21, 18, 0.12) 72%,
-    transparent 100%
+    rgba(26, 21, 18, 0.55) 0%,
+    rgba(26, 21, 18, 0.28) 40%,
+    transparent 70%
   );
-}
-
-.player-v2-hero-copy h2 {
-  margin: 0 0 0.6rem;
-  font-family: var(--font-display);
-  color: #fff;
-  line-height: 1.12;
-}
-
-.player-v2-hero-title__main {
-  display: block;
-  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
-}
-
-.player-v2-hero-title__sub {
-  display: block;
-  margin-top: 0.35rem;
-  font-size: clamp(1rem, 1.9vw, 1.25rem);
-  font-weight: 500;
 }
 
 .player-v2-hero-copy p {
@@ -666,6 +646,24 @@
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.55;
   font-size: clamp(0.92rem, 1.35vw, 1.02rem);
+}
+
+.player-v2-canvas-head {
+  padding: 0.95rem 1.1rem 0.75rem;
+  background: #fff;
+}
+
+.player-v2-canvas-lesson-title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  line-height: 1.1;
+  color: var(--course-v2-ink);
+  font-weight: 600;
+}
+
+.player-v2-lesson-title-accent {
+  color: var(--course-v2-accent);
 }
 
 /* --- Audio overlay on video --- */
@@ -908,9 +906,9 @@
   overflow: hidden;
 }
 
-.page-course-player-v2.player-v2-is-split-lesson .player-v2-canvas p.player-v2-meta {
-  padding: 0.85rem 1rem 0;
+.page-course-player-v2.player-v2-is-split-lesson .player-v2-canvas-head .player-v2-meta {
   margin: 0;
+  padding: 0;
 }
 
 .page-course-player-v2 .player-v2-canvas p.player-v2-meta {

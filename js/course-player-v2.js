@@ -38,7 +38,8 @@
     lessonTitle: document.getElementById('player-v2-lesson-title'),
     sidebarDefault: document.getElementById('player-v2-sidebar-default'),
     sidebarLessonSlot: document.getElementById('player-v2-sidebar-lesson-slot'),
-    heroLessonTitle: document.getElementById('player-v2-hero-lesson-title'),
+    canvasHead: document.getElementById('player-v2-canvas-head'),
+    canvasLessonTitle: document.getElementById('player-v2-canvas-lesson-title'),
     heroLessonLead: document.getElementById('player-v2-hero-lesson-lead'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
@@ -70,6 +71,18 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+  }
+
+  function formatCanvasLessonTitle(title) {
+    if (title === 'Welcome Video') {
+      return '<span class="player-v2-lesson-title-accent">Welcome</span> Video';
+    }
+    var colonIdx = title.indexOf(':');
+    if (colonIdx !== -1) {
+      return '<span class="player-v2-lesson-title-accent">' + escText(title.slice(0, colonIdx + 1)) + '</span>' +
+        escText(title.slice(colonIdx + 1));
+    }
+    return escText(title);
   }
 
   function getCurrentModule() {
@@ -419,7 +432,6 @@
 
     el.title.textContent = course.title;
     el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
-    el.lessonMeta.hidden = false;
 
     el.lessonDefault.hidden = split;
     el.lessonSplit.hidden = !split;
@@ -430,18 +442,11 @@
       el.body.classList.add('player-v2-is-split-lesson');
       if (el.sidebarDefault) el.sidebarDefault.hidden = true;
       if (el.sidebarLessonSlot) el.sidebarLessonSlot.hidden = false;
-      if (el.heroLessonTitle) {
-        var colonIdx = lesson.title.indexOf(':');
-        if (colonIdx !== -1) {
-          var mainPart = lesson.title.slice(0, colonIdx + 1);
-          var subPart = lesson.title.slice(colonIdx + 1).trim();
-          el.heroLessonTitle.innerHTML =
-            '<span class="player-v2-hero-title__main">' + escText(mainPart) + '</span>' +
-            '<span class="player-v2-hero-title__sub">' + escText(subPart) + '</span>';
-        } else {
-          el.heroLessonTitle.textContent = lesson.title;
-        }
+      if (el.canvasHead) el.canvasHead.hidden = false;
+      if (el.canvasLessonTitle) {
+        el.canvasLessonTitle.innerHTML = formatCanvasLessonTitle(lesson.title);
       }
+      el.lessonMeta.hidden = false;
       if (el.heroLessonLead) {
         el.heroLessonLead.textContent = lesson.summary || '';
         el.heroLessonLead.hidden = !lesson.summary;
@@ -465,6 +470,8 @@
       }
     } else {
       el.body.classList.remove('player-v2-is-split-lesson');
+      if (el.canvasHead) el.canvasHead.hidden = true;
+      el.lessonMeta.hidden = false;
       if (el.sidebarDefault) el.sidebarDefault.hidden = false;
       if (el.sidebarLessonSlot) el.sidebarLessonSlot.hidden = true;
       if (el.heroVisual) el.heroVisual.pause();
