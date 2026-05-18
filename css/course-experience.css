@@ -345,8 +345,8 @@
 
 .player-v2-sidebar__brand {
   flex-shrink: 0;
-  padding: 0.35rem 0.2rem 1.1rem;
-  margin: 0 0 0.15rem;
+  padding: 0.35rem 0.2rem 0.65rem;
+  margin: 0;
 }
 
 .player-v2-sidebar__top {
@@ -444,47 +444,20 @@
 }
 
 #player-v2-sidebar-lesson-slot {
-  display: grid;
-  gap: 2rem;
-  margin-top: 0.35rem;
-  padding-top: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
   border-top: 1px solid rgba(203, 157, 112, 0.28);
-}
-
-#player-v2-sidebar-lesson-slot h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  color: var(--course-v2-ink);
-}
-
-.player-v2-sidebar-title__main {
-  display: block;
-  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
-  line-height: 1.12;
-}
-
-.player-v2-sidebar-title__sub {
-  display: block;
-  margin-top: 0.45rem;
-  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
-  line-height: 1.2;
-  font-weight: 500;
-}
-
-#player-v2-sidebar-lesson-slot p {
-  margin: 0;
-  color: var(--course-v2-muted);
-  line-height: 1.62;
-  font-size: clamp(0.95rem, 1.45vw, 1.05rem);
 }
 
 .player-v2-sidebar-course-nav {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
-  margin-top: 1.5rem;
-  padding: 1.35rem 0.35rem 0.5rem;
-  border-top: 1px solid rgba(203, 157, 112, 0.28);
+  margin-top: 0;
+  padding: 0.25rem 0.35rem 0.5rem;
+  border-top: none;
 }
 
 .player-v2-sidebar-course-nav__label {
@@ -649,6 +622,50 @@
   inset: 0;
   pointer-events: none;
   background: linear-gradient(180deg, rgba(26, 21, 18, 0.08) 0%, rgba(26, 21, 18, 0.22) 100%);
+}
+
+.player-v2-hero-copy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  padding: 1.15rem 1.35rem 2.5rem;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 21, 18, 0.78) 0%,
+    rgba(26, 21, 18, 0.45) 45%,
+    rgba(26, 21, 18, 0.12) 72%,
+    transparent 100%
+  );
+}
+
+.player-v2-hero-copy h2 {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+  color: #fff;
+  line-height: 1.12;
+}
+
+.player-v2-hero-title__main {
+  display: block;
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+}
+
+.player-v2-hero-title__sub {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: clamp(1rem, 1.9vw, 1.25rem);
+  font-weight: 500;
+}
+
+.player-v2-hero-copy p {
+  margin: 0;
+  max-width: 40rem;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.55;
+  font-size: clamp(0.92rem, 1.35vw, 1.02rem);
 }
 
 /* --- Audio overlay on video --- */

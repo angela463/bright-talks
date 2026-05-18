@@ -38,8 +38,8 @@
     lessonTitle: document.getElementById('player-v2-lesson-title'),
     sidebarDefault: document.getElementById('player-v2-sidebar-default'),
     sidebarLessonSlot: document.getElementById('player-v2-sidebar-lesson-slot'),
-    sidebarLessonTitle: document.getElementById('player-v2-sidebar-lesson-title'),
-    sidebarLessonLead: document.getElementById('player-v2-sidebar-lesson-lead'),
+    heroLessonTitle: document.getElementById('player-v2-hero-lesson-title'),
+    heroLessonLead: document.getElementById('player-v2-hero-lesson-lead'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
     lessonSections: document.getElementById('player-v2-lesson-sections'),
@@ -430,21 +430,21 @@
       el.body.classList.add('player-v2-is-split-lesson');
       if (el.sidebarDefault) el.sidebarDefault.hidden = true;
       if (el.sidebarLessonSlot) el.sidebarLessonSlot.hidden = false;
-      if (el.sidebarLessonTitle) {
+      if (el.heroLessonTitle) {
         var colonIdx = lesson.title.indexOf(':');
         if (colonIdx !== -1) {
           var mainPart = lesson.title.slice(0, colonIdx + 1);
           var subPart = lesson.title.slice(colonIdx + 1).trim();
-          el.sidebarLessonTitle.innerHTML =
-            '<span class="player-v2-sidebar-title__main">' + escText(mainPart) + '</span>' +
-            '<span class="player-v2-sidebar-title__sub">' + escText(subPart) + '</span>';
+          el.heroLessonTitle.innerHTML =
+            '<span class="player-v2-hero-title__main">' + escText(mainPart) + '</span>' +
+            '<span class="player-v2-hero-title__sub">' + escText(subPart) + '</span>';
         } else {
-          el.sidebarLessonTitle.textContent = lesson.title;
+          el.heroLessonTitle.textContent = lesson.title;
         }
       }
-      if (el.sidebarLessonLead) {
-        el.sidebarLessonLead.textContent = lesson.summary || '';
-        el.sidebarLessonLead.hidden = !lesson.summary;
+      if (el.heroLessonLead) {
+        el.heroLessonLead.textContent = lesson.summary || '';
+        el.heroLessonLead.hidden = !lesson.summary;
       }
       renderSidebarCourseNav();
       if (el.lessonNav) {
