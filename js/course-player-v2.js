@@ -75,7 +75,7 @@
 
   function formatCanvasLessonTitle(title) {
     if (title === 'Welcome Video') {
-      return '<span class="player-v2-lesson-title-accent">Welcome</span> Video';
+      return '<span class="player-v2-lesson-title-accent">Welcome Video</span>';
     }
     var colonIdx = title.indexOf(':');
     if (colonIdx !== -1) {
