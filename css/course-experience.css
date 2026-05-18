@@ -626,26 +626,27 @@
 
 .player-v2-hero-copy {
   position: absolute;
-  top: 0;
+  bottom: 3.75rem;
   left: 0;
-  right: 0;
+  right: auto;
   z-index: 6;
-  padding: 1rem 1.35rem 2rem;
+  max-width: min(36rem, 88%);
+  padding: 1rem 1.35rem 0.85rem;
   pointer-events: none;
   background: linear-gradient(
-    180deg,
-    rgba(26, 21, 18, 0.55) 0%,
-    rgba(26, 21, 18, 0.28) 40%,
-    transparent 70%
+    0deg,
+    rgba(26, 21, 18, 0.82) 0%,
+    rgba(26, 21, 18, 0.45) 55%,
+    transparent 100%
   );
 }
 
 .player-v2-hero-copy p {
   margin: 0;
-  max-width: 40rem;
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.55;
   font-size: clamp(0.92rem, 1.35vw, 1.02rem);
+  text-align: left;
 }
 
 .player-v2-canvas-head {
