@@ -269,23 +269,6 @@
     });
   }
 
-  function switchCourse(newCourseId) {
-    if (newCourseId === course.id) return;
-    var next = common.getCourseById(newCourseId);
-    if (!next) return;
-    course = next;
-    courseId = newCourseId;
-    var entry = next.playerEntry || { module: 0, lesson: 0 };
-    moduleIndex = entry.module;
-    lessonIndex = entry.lesson;
-    if (course.id === 'bt-foundations-early-years' &&
-        moduleIndex === 2 && lessonIndex === 2) {
-      moduleIndex = 0;
-      lessonIndex = 0;
-    }
-    render();
-  }
-
   function navigateToLesson(m, l) {
     moduleIndex = Number(m);
     lessonIndex = Number(l);
@@ -295,27 +278,15 @@
 
   function renderSidebarCourseNav() {
     if (!el.sidebarCourseNav) return;
-    var allCourses = common.getCourses();
-    var html = '<p class="player-v2-sidebar-course-nav__label">Courses</p>';
+    var html = '<p class="player-v2-sidebar-course-nav__label">Course lessons</p>';
 
-    allCourses.forEach(function (c) {
-      var isActiveCourse = c.id === course.id;
-      html += '<button type="button" class="player-v2-sidebar-course-nav__course' +
-        (isActiveCourse ? ' is-active' : '') + '" data-course-id="' + escText(c.id) + '">' +
-        escText(c.title) + '</button>';
-
-      if (isActiveCourse) {
-        html += '<div class="player-v2-sidebar-course-nav__lessons">';
-        c.modules.forEach(function (module, mIndex) {
-          module.lessons.forEach(function (lesson, lIndex) {
-            var active = mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
-            html += '<button type="button" class="player-v2-sidebar-course-nav__item' + active +
-              '" data-module="' + mIndex + '" data-lesson="' + lIndex + '">' +
-              escText(lesson.title) + '</button>';
-          });
-        });
-        html += '</div>';
-      }
+    course.modules.forEach(function (module, mIndex) {
+      module.lessons.forEach(function (lesson, lIndex) {
+        var active = mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
+        html += '<button type="button" class="player-v2-sidebar-course-nav__item' + active +
+          '" data-module="' + mIndex + '" data-lesson="' + lIndex + '">' +
+          escText(lesson.title) + '</button>';
+      });
     });
 
     el.sidebarCourseNav.innerHTML = html;
@@ -553,16 +524,6 @@
 
     if (el.sidebarCourseNav) {
       el.sidebarCourseNav.addEventListener('click', function (e) {
-        var courseBtn = e.target.closest('[data-course-id]');
-        if (courseBtn) {
-          var targetCourseId = courseBtn.getAttribute('data-course-id');
-          if (targetCourseId === course.id) {
-            navigateToLesson(0, 0);
-          } else {
-            switchCourse(targetCourseId);
-          }
-          return;
-        }
         var lessonBtn = e.target.closest('.player-v2-sidebar-course-nav__item[data-lesson]');
         if (lessonBtn && lessonBtn.hasAttribute('data-module')) {
           e.preventDefault();
