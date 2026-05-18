@@ -397,6 +397,25 @@
   background: #1a1512;
 }
 
+.player-v2-split-hero::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(22, 18, 15, 0.94) 0%,
+    rgba(22, 18, 15, 0.72) 22%,
+    rgba(22, 18, 15, 0.38) 48%,
+    rgba(22, 18, 15, 0.12) 72%,
+    transparent 100%
+  );
+}
+
 .player-v2-split-body {
   padding: 1rem 1.15rem 1.35rem;
   background: var(--course-v2-surface);
@@ -626,27 +645,23 @@
 
 .player-v2-hero-copy {
   position: absolute;
-  bottom: 3.75rem;
+  bottom: 3.35rem;
   left: 0;
-  right: auto;
+  right: 0;
   z-index: 6;
-  max-width: min(36rem, 88%);
-  padding: 1rem 1.35rem 0.85rem;
+  max-width: min(38rem, 92%);
+  padding: 0.5rem 1.35rem 0.65rem;
   pointer-events: none;
-  background: linear-gradient(
-    0deg,
-    rgba(26, 21, 18, 0.82) 0%,
-    rgba(26, 21, 18, 0.45) 55%,
-    transparent 100%
-  );
+  background: transparent;
 }
 
 .player-v2-hero-copy p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1.55;
+  color: rgba(255, 252, 248, 0.96);
+  line-height: 1.58;
   font-size: clamp(0.92rem, 1.35vw, 1.02rem);
   text-align: left;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 18px rgba(0, 0, 0, 0.45);
 }
 
 .player-v2-canvas-head {
@@ -676,8 +691,13 @@
   z-index: 10;
   border: none;
   border-radius: 0;
-  background: rgba(26, 21, 18, 0.78);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    to top,
+    rgba(22, 18, 15, 0.92) 0%,
+    rgba(22, 18, 15, 0.78) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: none;
   padding: 0.65rem 1.1rem 0.65rem 1.5rem;
 }
