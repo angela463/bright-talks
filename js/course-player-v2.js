@@ -181,7 +181,8 @@
 
   function playHeroVideoWhenReady() {
     if (!el.heroVisual || !el.lessonSplit || el.lessonSplit.hidden) return;
-    if (el.heroImage && !el.heroImage.hidden) return;
+    if (el.heroVisual.hidden) return;
+
     function tryPlay() {
       el.heroVisual.muted = true;
       el.heroVisual.setAttribute('playsinline', '');
@@ -191,6 +192,7 @@
         p.catch(function () {});
       }
     }
+
     if (el.heroVisual.readyState >= 2) {
       tryPlay();
     } else {
@@ -202,47 +204,56 @@
     }
   }
 
+  function forceHeroVideo(src) {
+    if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
+
+    el.heroImage.hidden = true;
+    el.heroImage.removeAttribute('src');
+    el.heroVisual.hidden = false;
+    el.heroVisual.pause();
+    el.heroVisual.currentTime = 0;
+
+    el.heroSource.src = src;
+    el.heroVisual.load();
+    el.heroVisual.muted = true;
+    el.heroVisual.setAttribute('autoplay', '');
+    el.heroVisual.setAttribute('playsinline', '');
+    el.heroVisual.setAttribute('webkit-playsinline', '');
+
+    playHeroVideoWhenReady();
+  }
+
   function applyHeroVisual(lesson) {
     var hv = lesson && lesson.heroVisual;
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
 
     if (!hv || !hv.src) {
-      el.heroVisual.hidden = false;
-      el.heroImage.hidden = true;
-      playHeroVideoWhenReady();
+      forceHeroVideo(el.heroSource.src || 'videos/4982409-hd_1920_1080_25fps.mp4');
       return;
     }
 
     if (hv.type === 'image') {
-      el.heroVisual.hidden = true;
       el.heroVisual.pause();
+      el.heroVisual.hidden = true;
       el.heroImage.hidden = false;
       el.heroImage.src = hv.src;
       el.heroImage.alt = hv.alt || 'Lesson illustration';
-    } else {
-      el.heroImage.hidden = true;
-      el.heroVisual.hidden = false;
-      el.heroVisual.muted = true;
-      if (el.heroSource.getAttribute('src') !== hv.src) {
-        el.heroSource.setAttribute('src', hv.src);
-        el.heroVisual.load();
-      } else {
-        el.heroVisual.load();
-      }
-      el.heroVisual.setAttribute('autoplay', '');
-      requestAnimationFrame(function () {
-        requestAnimationFrame(playHeroVideoWhenReady);
-      });
+      return;
     }
+
+    forceHeroVideo(hv.src);
   }
 
   function resetSplitLessonView() {
     var lesson = getCurrentLesson();
     if (!isSplitLesson(lesson)) return;
+
     var body = document.querySelector('.player-v2-split-body');
     if (body) body.scrollTop = 0;
     window.scrollTo(0, 0);
+
     applyHeroVisual(lesson);
+
     if (el.audio && lesson.audio && lesson.audio.audioUrl) {
       el.audio.pause();
       el.audio.currentTime = 0;
@@ -250,6 +261,12 @@
       el.audio.load();
     }
     updateAudioUI();
+  }
+
+  function afterSplitRender() {
+    requestAnimationFrame(function () {
+      resetSplitLessonView();
+    });
   }
 
   function switchCourse(newCourseId) {
@@ -274,7 +291,6 @@
     lessonIndex = Number(l);
     clampPosition();
     render();
-    resetSplitLessonView();
   }
 
   function renderSidebarCourseNav() {
@@ -471,7 +487,6 @@
         });
       }
       if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
-      applyHeroVisual(lesson);
 
       var splitHero = document.querySelector('.player-v2-split-hero');
       if (splitHero && el.audioSection) {
@@ -500,6 +515,10 @@
     el.error.hidden = lesson.audio.status !== 'failed';
 
     updateAudioUI();
+
+    if (split) {
+      afterSplitRender();
+    }
   }
 
   function setOnlineState() {
@@ -536,11 +555,17 @@
       el.sidebarCourseNav.addEventListener('click', function (e) {
         var courseBtn = e.target.closest('[data-course-id]');
         if (courseBtn) {
-          switchCourse(courseBtn.getAttribute('data-course-id'));
+          var targetCourseId = courseBtn.getAttribute('data-course-id');
+          if (targetCourseId === course.id) {
+            navigateToLesson(0, 0);
+          } else {
+            switchCourse(targetCourseId);
+          }
           return;
         }
-        var lessonBtn = e.target.closest('[data-lesson]');
+        var lessonBtn = e.target.closest('.player-v2-sidebar-course-nav__item[data-lesson]');
         if (lessonBtn && lessonBtn.hasAttribute('data-module')) {
+          e.preventDefault();
           navigateToLesson(
             lessonBtn.getAttribute('data-module'),
             lessonBtn.getAttribute('data-lesson')
