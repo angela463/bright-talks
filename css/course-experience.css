@@ -497,6 +497,41 @@
   color: rgba(148, 90, 45, 0.72);
 }
 
+.player-v2-sidebar-course-nav__course {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(203, 157, 112, 0.4);
+  background: #fff;
+  color: var(--course-v2-ink);
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.player-v2-sidebar-course-nav__course:hover {
+  border-color: rgba(232, 149, 74, 0.55);
+  box-shadow: 0 4px 12px rgba(232, 149, 74, 0.1);
+}
+
+.player-v2-sidebar-course-nav__course.is-active {
+  border-color: rgba(232, 149, 74, 0.75);
+  background: linear-gradient(135deg, rgba(255, 244, 230, 0.98) 0%, rgba(255, 235, 214, 0.92) 100%);
+}
+
+.player-v2-sidebar-course-nav__lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0.55rem 0 0.85rem 0.65rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid rgba(203, 157, 112, 0.35);
+}
+
 .player-v2-sidebar-course-nav__item {
   display: block;
   width: 100%;
