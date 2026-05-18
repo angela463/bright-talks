@@ -128,8 +128,8 @@
         title: 'Welcome Video',
         summary:
           'Meet Bright Talks, see how this course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.',
-        duration: '6m',
-        audioDuration: '06:00',
+        duration: '3 min',
+        audioDuration: '03:00',
         audioUrl: welcomeAudio,
         heroVisual: { type: 'video', src: welcomeVideoSrc },
         sections: [

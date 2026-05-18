@@ -431,7 +431,7 @@
       '&module=' + moduleIndex + '&lesson=' + lessonIndex);
 
     el.title.textContent = course.title;
-    el.lessonMeta.textContent = module.title + ' · ' + lesson.duration + ' · Lesson ' + currentAbs + ' of ' + all.length;
+    el.lessonMeta.textContent = module.title + ' · ' + lesson.duration;
 
     el.lessonDefault.hidden = split;
     el.lessonSplit.hidden = !split;
