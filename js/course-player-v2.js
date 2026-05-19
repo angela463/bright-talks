@@ -477,8 +477,12 @@
       if (el.lessonSections) el.lessonSections.innerHTML = buildSectionsHtml(lesson);
 
       var splitHero = document.querySelector('.player-v2-split-hero');
+      var splitBody = el.lessonSplit ? el.lessonSplit.querySelector('.player-v2-split-body') : null;
       if (splitHero && el.audioSection) {
         splitHero.appendChild(el.audioSection);
+      }
+      if (el.lessonSplit && splitBody && el.footer && el.footer.parentNode !== el.lessonSplit) {
+        el.lessonSplit.insertBefore(el.footer, splitBody);
       }
     } else {
       el.body.classList.remove('player-v2-is-split-lesson');
@@ -490,8 +494,12 @@
       el.lessonTitle.textContent = lesson.title;
       el.lessonSummary.textContent = lesson.summary;
 
-      if (el.audioSection && el.footer && el.audioSection.parentNode !== el.footer.parentNode) {
-        el.footer.parentNode.insertBefore(el.audioSection, el.footer);
+      var main = document.querySelector('.player-v2-main');
+      if (main && el.audioSection && el.audioSection.parentNode !== main) {
+        main.insertBefore(el.audioSection, main.querySelector('.player-v2-footer'));
+      }
+      if (main && el.footer && el.footer.parentNode !== main) {
+        main.appendChild(el.footer);
       }
       renderCurriculum();
     }
