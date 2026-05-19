@@ -1066,13 +1066,26 @@
 
 .player-v2-footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1.25rem;
+}
+
+.player-v2-footer__actions {
+  order: 1;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  align-items: center;
+  padding-left: clamp(0.5rem, 4vw, 2.5rem);
 }
 
 .player-v2-footer__progress {
-  min-width: 220px;
+  order: 2;
+  flex: 0 0 min(240px, 32%);
+  min-width: 180px;
+  margin-left: auto;
+  text-align: right;
 }
 
 .player-v2-footer__progress > span {
@@ -1082,12 +1095,6 @@
   color: var(--course-v2-muted);
   margin-bottom: 0.35rem;
   letter-spacing: 0.02em;
-}
-
-.player-v2-footer__actions {
-  display: flex;
-  gap: 0.45rem;
-  align-items: center;
 }
 
 .player-v2-arrow-btn {
@@ -1156,6 +1163,20 @@
   .player-v2-footer {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .player-v2-footer__actions {
+    order: 1;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .player-v2-footer__progress {
+    order: 2;
+    margin-left: 0;
+    text-align: left;
+    flex: 1 1 auto;
+    max-width: none;
   }
 }
 
