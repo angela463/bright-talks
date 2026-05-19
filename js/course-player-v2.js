@@ -72,6 +72,18 @@
       .replace(/"/g, '&quot;');
   }
 
+  function formatSidebarLessonTitle(title) {
+    var match = /^Lesson\s+(\d+):\s*(.+)$/i.exec(String(title || ''));
+    if (!match) return escText(title);
+    return (
+      '<span class="player-v2-sidebar-lesson-mark">' +
+        '<span class="player-v2-sidebar-lesson-mark__word">Lesson</span>' +
+        '<span class="player-v2-sidebar-lesson-mark__num">' + escText(match[1]) + '</span>' +
+      '</span>' +
+      '<span class="player-v2-sidebar-lesson-title">' + escText(match[2].trim()) + '</span>'
+    );
+  }
+
   function formatCanvasLessonTitle(title) {
     if (title === 'Welcome Video') {
       return '<span class="player-v2-lesson-title-accent">Welcome Video</span>';
@@ -290,14 +302,16 @@
 
   function renderSidebarCourseNav() {
     if (!el.sidebarCourseNav) return;
-    var html = '<p class="player-v2-sidebar-course-nav__label">Course lessons</p>';
+    var html = '<p class="player-v2-sidebar-course-nav__label">Let\'s review our talks with these lessons</p>';
 
     course.modules.forEach(function (module, mIndex) {
       module.lessons.forEach(function (lesson, lIndex) {
         var active = mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
         html += '<button type="button" class="player-v2-sidebar-course-nav__item' + active +
           '" data-module="' + mIndex + '" data-lesson="' + lIndex + '">' +
-          escText(lesson.title) + '</button>';
+          '<span class="player-v2-sidebar-course-nav__item-label">' +
+          formatSidebarLessonTitle(lesson.title) +
+          '</span></button>';
       });
     });
 

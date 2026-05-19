@@ -6,6 +6,7 @@
   --course-v2-border: rgba(203, 157, 112, 0.38);
   --course-v2-accent: #d67f36;
   --course-v2-accent-dark: #b96222;
+  --course-v2-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
 }
 
 .page-courses-v2,
@@ -463,28 +464,33 @@
 #player-v2-sidebar-lesson-slot {
   display: flex;
   flex-direction: column;
-  margin-top: 0.25rem;
-  padding-top: 0.5rem;
+  margin-top: 0.35rem;
+  padding-top: 0.85rem;
   border-top: 1px solid rgba(203, 157, 112, 0.28);
 }
 
 .player-v2-sidebar-course-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.9rem;
   margin-top: 0;
-  padding: 0.25rem 0.35rem 0.5rem;
+  padding: 0.35rem 0.25rem 0.75rem;
   border-top: none;
 }
 
 .player-v2-sidebar-course-nav__label {
-  margin: 0 0 0.6rem;
-  padding: 0 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(148, 90, 45, 0.72);
+  margin: 0 0 0.35rem;
+  padding: 0 0.15rem 0.25rem;
+  font-family: var(--course-v2-hand);
+  font-size: clamp(1.45rem, 2.6vw, 1.85rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--course-v2-ink);
+  transform: rotate(-1.25deg);
+  transform-origin: left center;
 }
 
 .player-v2-sidebar-course-nav__course {
