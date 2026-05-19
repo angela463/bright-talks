@@ -489,7 +489,7 @@
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-transform: none;
-  color: var(--course-v2-ink);
+  color: var(--course-v2-accent);
   transform: rotate(-1.25deg);
   transform-origin: left center;
 }
