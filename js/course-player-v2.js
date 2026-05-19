@@ -40,7 +40,6 @@
     sidebarLessonSlot: document.getElementById('player-v2-sidebar-lesson-slot'),
     canvasHead: document.getElementById('player-v2-canvas-head'),
     canvasLessonTitle: document.getElementById('player-v2-canvas-lesson-title'),
-    heroLessonLead: document.getElementById('player-v2-hero-lesson-lead'),
     lessonMeta: document.getElementById('player-v2-lesson-meta'),
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
     lessonSections: document.getElementById('player-v2-lesson-sections'),
@@ -447,10 +446,6 @@
         el.canvasLessonTitle.innerHTML = formatCanvasLessonTitle(lesson.title);
       }
       el.lessonMeta.hidden = false;
-      if (el.heroLessonLead) {
-        el.heroLessonLead.textContent = lesson.summary || '';
-        el.heroLessonLead.hidden = !lesson.summary;
-      }
       renderSidebarCourseNav();
       if (el.lessonNav) {
         el.lessonNav.innerHTML = buildLessonNav(lesson);
