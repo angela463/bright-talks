@@ -73,6 +73,9 @@
   }
 
   function formatSidebarLessonTitle(title) {
+    if (String(title || '').toLowerCase() === 'welcome video') {
+      return '<span class="player-v2-sidebar-lesson-mark player-v2-sidebar-lesson-mark--welcome">Welcome Video</span>';
+    }
     var match = /^Lesson\s+(\d+):\s*(.+)$/i.exec(String(title || ''));
     if (!match) return escText(title);
     return (
