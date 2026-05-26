@@ -134,11 +134,11 @@
         heroVisual: { type: 'video', src: welcomeVideoSrc },
         sections: [
           {
-            title: 'Lesson Objectives',
+            title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
               'Understand what Bright Talks offers parents and caregivers of young children.',
-              'See how the course is structured and what you can expect in each lesson.',
+              'See how the course is structured and what you can expect in each talk.',
               'Feel reassured that you can lead these talks with warmth—not fear or embarrassment.'
             ]
           },
@@ -147,7 +147,7 @@
             type: 'prose',
             paragraphs: [
               'This course walks through six practical topics: bodies and anatomy, boundaries and safety, reproduction, online images, and keeping the conversation going over time.',
-              'Each lesson includes short video, parent-friendly guidance, optional audio narration, and space to reflect. You can move at your child’s pace—there is no test and no perfect script.',
+              'Each talk includes short video, parent-friendly guidance, optional audio narration, and space to reflect. You can move at your child’s pace—there is no test and no perfect script.',
               'Bright Talks is built for real homes: busy schedules, curious questions, and the hope that your child will always know they can come to you.'
             ]
           },
@@ -155,7 +155,7 @@
             title: 'How to Use This Course',
             type: 'prose',
             paragraphs: [
-              'Watch the welcome video, then move through the lessons in order or jump to what fits your family right now.',
+              'Watch the welcome video, then move through the talks in order or jump to what fits your family right now.',
               'Use the handbook and discussion prompts when you are ready. Small, repeated conversations matter more than one long talk.',
               'If a topic feels new to you, that is okay. You are learning alongside your child—and that honesty builds trust.'
             ]
@@ -164,7 +164,7 @@
       }),
       splitLesson({
         id: 'lesson-1-bodies',
-        title: 'Lesson 1: Bodies, Biology & Anatomy',
+        title: 'Talk 1: Bodies, Biology & Anatomy',
         summary:
           'Name body parts clearly and without shame so your child understands privacy, dignity, and that their body belongs to them.',
         duration: '20m',
@@ -172,7 +172,7 @@
         heroVisual: { type: 'image', src: earlyYearsLessonImages.bodies, alt: 'Parent and child reading together' },
         sections: [
           {
-            title: 'Lesson Objectives',
+            title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
               'Use accurate, calm words for body parts in everyday moments.',
@@ -224,7 +224,7 @@
       }),
       splitLesson({
         id: 'lesson-2-boundaries',
-        title: 'Lesson 2: Boundaries & Safety',
+        title: 'Talk 2: Boundaries & Safety',
         summary:
           'Teach boundaries, safe and unsafe touch, consent in daily life, and who children can tell when something feels wrong.',
         duration: '22m',
@@ -232,7 +232,7 @@
         heroVisual: { type: 'image', src: earlyYearsLessonImages.boundaries, alt: 'Family conversation at home' },
         sections: [
           {
-            title: 'Lesson Objectives',
+            title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
               'Explain boundaries in language a young child can remember.',
@@ -277,7 +277,7 @@
       }),
       splitLesson({
         id: 'lesson-3-reproduction',
-        title: 'Lesson 3: Reproduction',
+        title: 'Talk 3: Reproduction',
         summary:
           'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3–6.',
         duration: '18m',
@@ -285,7 +285,7 @@
         heroVisual: { type: 'image', src: earlyYearsLessonImages.reproduction, alt: 'Calm parent-child moment' },
         sections: [
           {
-            title: 'Lesson Objectives',
+            title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
               'Respond to early questions about babies without shame or over-explaining.',
@@ -326,7 +326,7 @@
       }),
       splitLesson({
         id: 'lesson-4-porn',
-        title: 'Lesson 4: Porn & Inappropriate Images',
+        title: 'Talk 4: Porn & Inappropriate Images',
         summary:
           'Prepare calm responses if your child sees confusing images or videos—online or elsewhere—without fear or shame.',
         duration: '20m',
@@ -334,7 +334,7 @@
         heroVisual: { type: 'image', src: earlyYearsLessonImages.porn, alt: 'Parent guiding child at computer' },
         sections: [
           {
-            title: 'Lesson Objectives',
+            title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
               'Understand why early conversations about inappropriate images support safety.',
@@ -346,7 +346,7 @@
             title: 'Parent-Facing Guidance',
             type: 'prose',
             paragraphs: [
-              'This lesson is for adults. We do not show graphic content. The goal is to help you respond with steadiness if a young child encounters inappropriate pictures or videos.',
+              'This talk is for adults. We do not show graphic content. The goal is to help you respond with steadiness if a young child encounters inappropriate pictures or videos.',
               'Many children see something by accident—a click, a pop-up, or an older sibling’s device. Your reaction shapes whether they come to you again.'
             ]
           },
@@ -382,7 +382,7 @@
       }),
       splitLesson({
         id: 'lesson-5-continuing',
-        title: 'Lesson 5: Continuing the Conversation',
+        title: 'Talk 5: Continuing the Conversation',
         summary:
           'Build habits and scripts so body-safety talks stay normal, warm, and open as your child grows.',
         duration: '16m',
@@ -390,7 +390,7 @@
         heroVisual: { type: 'image', src: earlyYearsLessonImages.continuing, alt: 'Parent and child talking' },
         sections: [
           {
-            title: 'Lesson Objectives',
+            title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
               'Plan small, repeatable check-ins—not one “big talk.”',
@@ -429,7 +429,7 @@
             title: 'Course Completion',
             type: 'prose',
             paragraphs: [
-              'You have walked through the core early-years path. Revisit any lesson when new questions appear—and celebrate the trust you are building.',
+              'You have walked through the core early-years path. Revisit any talk when new questions appear—and celebrate the trust you are building.',
               'More age-specific videos and handbooks will be linked here as they are published.'
             ]
           }
@@ -456,7 +456,7 @@
       introAudio: {
         audioUrl: sa,
         transcript:
-          'Welcome to Body Safety Foundations. This course guides you through six lessons designed for parents of young children.',
+          'Welcome to Body Safety Foundations. This course guides you through six talks designed for parents of young children.',
         voice: 'Warm Guide v1',
         duration: '02:11',
         status: 'ready'

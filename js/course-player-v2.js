@@ -76,11 +76,11 @@
     if (String(title || '').toLowerCase() === 'welcome video') {
       return '<span class="player-v2-sidebar-lesson-mark player-v2-sidebar-lesson-mark--welcome">Welcome Video</span>';
     }
-    var match = /^Lesson\s+(\d+):\s*(.+)$/i.exec(String(title || ''));
+    var match = /^(?:Lesson|Talk)\s+(\d+):\s*(.+)$/i.exec(String(title || ''));
     if (!match) return escText(title);
     return (
       '<span class="player-v2-sidebar-lesson-mark">' +
-        '<span class="player-v2-sidebar-lesson-mark__word">Lesson</span>' +
+        '<span class="player-v2-sidebar-lesson-mark__word">Talk</span>' +
         '<span class="player-v2-sidebar-lesson-mark__num">' + escText(match[1]) + '</span>' +
       '</span>' +
       '<span class="player-v2-sidebar-lesson-title">' + escText(match[2].trim()) + '</span>'
@@ -264,7 +264,7 @@
       el.heroVisual.hidden = true;
       el.heroImage.hidden = false;
       el.heroImage.src = hv.src;
-      el.heroImage.alt = hv.alt || 'Lesson illustration';
+      el.heroImage.alt = hv.alt || 'Talk illustration';
       return;
     }
 
@@ -305,7 +305,7 @@
 
   function renderSidebarCourseNav() {
     if (!el.sidebarCourseNav) return;
-    var html = '<p class="player-v2-sidebar-course-nav__label">Let\'s review our talks with these lessons</p>';
+    var html = '<p class="player-v2-sidebar-course-nav__label">Let\'s review our talks</p>';
 
     course.modules.forEach(function (module, mIndex) {
       module.lessons.forEach(function (lesson, lIndex) {
