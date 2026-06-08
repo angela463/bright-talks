@@ -35,22 +35,30 @@
   </header>
 
   <main class="page-courses-main">
-    <section class="course-library-hero" aria-labelledby="course-library-heading">
+    <section class="course-library-hero course-library-hero--video" aria-labelledby="course-library-heading">
       <div class="course-library-hero__media">
-        <img
-          class="course-library-hero__img"
-          src="images/course-library-hero.png"
-          width="1920"
-          height="1080"
-          alt=""
-          loading="eager"
-          decoding="async"
-        />
+        <video
+          class="course-library-hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        </video>
         <div class="course-library-hero__fade" aria-hidden="true"></div>
       </div>
       <div class="course-library-hero__content">
+        <p class="course-library-hero__eyebrow">Video Library</p>
         <h1 id="course-library-heading">Course Library</h1>
         <p>Browse age based course collections with polished, easy to scan cards and clear pathways into modules.</p>
+        <a
+          class="btn btn-primary course-library-hero__cta"
+          href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0"
+        >Watch welcome video</a>
       </div>
     </section>
 
