@@ -14,17 +14,51 @@
   var mobileNav = document.getElementById('bt-library-mobile-nav');
 
   var state = {
-    courseId: '',
+    type: 'video-courses',
     age: '',
     query: ''
   };
 
+  var typeOptions = [
+    {
+      id: 'video-courses',
+      label: 'Video Courses',
+      count: courses.length,
+      icon: '<svg width="15" height="15" fill="none" stroke-width="2" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="9" rx="1.5"/><path d="M6.5 6.5l3.5 2-3.5 2V6.5z"/></svg>'
+    },
+    {
+      id: 'parent-talks',
+      label: 'Parent Talks',
+      count: 4,
+      icon: '<svg width="15" height="15" fill="none" stroke-width="2" viewBox="0 0 16 16"><path d="M8 1.5a3 3 0 100 6 3 3 0 000-6z"/><path d="M3 14.5c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>'
+    },
+    {
+      id: 'guides',
+      label: 'Guides & Scripts',
+      count: 8,
+      icon: '<svg width="15" height="15" fill="none" stroke-width="2" viewBox="0 0 16 16"><path d="M3 2.5h7l3 3V13a1 1 0 01-1 1H3a1 1 0 01-1-1V3.5a1 1 0 011-1z"/><path d="M10 2.5V5.5h3"/><path d="M5 8h6M5 10.5h4"/></svg>'
+    },
+    {
+      id: 'ebooks',
+      label: 'eBooks',
+      count: 3,
+      icon: '<svg width="15" height="15" fill="none" stroke-width="2" viewBox="0 0 16 16"><path d="M2.5 3.5A1.5 1.5 0 014 2h8a1.5 1.5 0 011.5 1.5v11A1.5 1.5 0 0112 16H4a1.5 1.5 0 01-1.5-1.5v-11z"/><path d="M5.5 5h5M5.5 7.5h5M5.5 10h3"/></svg>'
+    }
+  ];
+
   var ageOptions = [
     { id: '', label: 'All ages' },
-    { id: 'early', label: 'Ages 3–6', match: /early|3 to 6|3–6/i },
-    { id: 'middle', label: 'Ages 9–13', match: /9 to 13|9–13|middle/i },
+    { id: '2-5', label: 'Ages 2–5', match: /early|2.?5|3.?6/i },
+    { id: '6-9', label: 'Ages 6–9', match: /6.?9|middle/i },
+    { id: '10-13', label: 'Ages 10–13', match: /9.?13|10.?13|puberty/i },
     { id: 'teen', label: 'Teens', match: /teen/i }
   ];
+
+  var libraryTitles = {
+    'bt-foundations-early-years': 'Foundations: Early Years',
+    'bt-puberty-conversations': 'Puberty & Growing Up',
+    'bt-teen-digital-safety': 'Teen Safety & Relationships'
+  };
 
   function escText(str) {
     return String(str || '')
@@ -34,18 +68,25 @@
       .replace(/"/g, '&quot;');
   }
 
-  function audienceBadge(audience) {
-    if (/early/i.test(audience)) return 'Ages 3–6';
-    if (/9 to 13|9–13/i.test(audience)) return 'Ages 9–13';
-    if (/teen/i.test(audience)) return 'Teens';
-    return audience;
+  function libraryTitle(course) {
+    return libraryTitles[course.id] || course.title.replace(/\s*\(.*\)$/, '');
+  }
+
+  function audienceBadge(course) {
+    if (course.id === 'bt-foundations-early-years') return 'Ages 2–5';
+    if (course.id === 'bt-puberty-conversations') return 'Ages 10–13';
+    if (course.id === 'bt-teen-digital-safety') return 'Teens';
+    if (/early/i.test(course.audience)) return 'Ages 2–5';
+    if (/9 to 13|9–13|10.?13/i.test(course.audience)) return 'Ages 10–13';
+    if (/teen/i.test(course.audience)) return 'Teens';
+    return course.audience;
   }
 
   function matchesAge(course) {
     if (!state.age) return true;
     var opt = ageOptions.filter(function (o) { return o.id === state.age; })[0];
     if (!opt || !opt.match) return true;
-    return opt.match.test(course.audience + ' ' + course.title);
+    return opt.match.test(course.audience + ' ' + course.title + ' ' + course.id);
   }
 
   function flattenCourseLessons(course) {
@@ -70,6 +111,17 @@
     return String(title || '').replace(/^(?:Lesson|Talk)\s+\d+:\s*/i, '');
   }
 
+  function formatDuration(duration) {
+    var raw = String(duration || '').trim();
+    if (!raw) return '';
+    if (/^\d+m$/i.test(raw)) return raw.replace(/m/i, ' min');
+    if (/^\d+:\d+$/.test(raw)) {
+      var parts = raw.split(':');
+      return parts[0] + ' min';
+    }
+    return raw;
+  }
+
   function lessonThumb(lesson, course, index) {
     if (lesson.heroVisual && lesson.heroVisual.type === 'image' && lesson.heroVisual.src) {
       return lesson.heroVisual.src;
@@ -86,19 +138,28 @@
       '&module=' + moduleIndex + '&lesson=' + lessonIndex;
   }
 
-  function progressSummary(course, progress) {
-    var total = course.lessonCount || flattenCourseLessons(course).length;
-    if (!progress) return 'Not started';
-    var done = Math.max(0, Math.min(total, Math.round((progress / 100) * total)));
-    if (progress >= 100) return total + ' / ' + total + ' done';
-    if (done === 0) return 'In progress';
-    return done + ' / ' + total + ' done';
+  function doneCount(course, progress, total) {
+    if (!progress) return 0;
+    return Math.max(0, Math.min(total, Math.round((progress / 100) * total)));
+  }
+
+  function progressDotsHtml(done, total) {
+    var dots = '';
+    var i;
+    for (i = 0; i < total; i++) {
+      dots += '<span class="bt-library-prog-dot' + (i < done ? ' is-done' : '') + '"></span>';
+    }
+    return dots;
+  }
+
+  function progressSummary(done, total) {
+    if (done <= 0) return 'Not started';
+    if (done >= total) return total + ' of ' + total + ' done';
+    return done + ' of ' + total + ' done';
   }
 
   function isTalkDone(course, progress, lessonIndex, total) {
-    if (!progress) return false;
-    var doneCount = Math.max(0, Math.min(total, Math.round((progress / 100) * total)));
-    return lessonIndex < doneCount;
+    return lessonIndex < doneCount(course, progress, total);
   }
 
   function videoItemHtml(course, entry, lessonIndex, total) {
@@ -120,7 +181,7 @@
       '  </div>' +
       '  <div class="bt-library-video-item__info">' +
       '    <div class="bt-library-video-item__title">' + escText(displayTitle(lesson.title)) + '</div>' +
-      '    <div class="bt-library-video-item__meta">' + escText(talkLabel(lesson.title)) + ' · ' + escText(lesson.duration) + '</div>' +
+      '    <div class="bt-library-video-item__meta">' + escText(talkLabel(lesson.title)) + ' · ' + escText(formatDuration(lesson.duration)) + '</div>' +
       '  </div>' +
       '</a>';
   }
@@ -129,6 +190,7 @@
     var progress = common.resolveProgress(course);
     var lessons = flattenCourseLessons(course);
     var preview = lessons.slice(0, 6);
+    var done = doneCount(course, progress, lessons.length);
     var grid = preview.map(function (entry, i) {
       return videoItemHtml(course, entry, i, lessons.length);
     }).join('');
@@ -137,53 +199,52 @@
       '<article class="bt-library-series" data-course-id="' + escText(course.id) + '">' +
       '  <header class="bt-library-series__head">' +
       '    <div class="bt-library-series__head-text">' +
-      '      <h2>' + escText(course.title) + '</h2>' +
+      '      <h2>' + escText(libraryTitle(course)) + '</h2>' +
       '      <p>' + escText(course.description) + '</p>' +
       '    </div>' +
-      '    <span class="bt-library-series__badge">' + escText(audienceBadge(course.audience)) + '</span>' +
+      '    <span class="bt-library-series__badge">' + escText(audienceBadge(course)) + '</span>' +
       '  </header>' +
       '  <div class="bt-library-video-grid">' + grid + '</div>' +
       '  <footer class="bt-library-series__foot">' +
       '    <a class="bt-library-see-all" href="' + playerHref(course, course.playerEntry ? course.playerEntry.module : 0, course.playerEntry ? course.playerEntry.lesson : 0) + '">' +
-      '      View all ' + lessons.length + ' talks' +
+      '      View all ' + lessons.length + ' lessons' +
       '      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>' +
       '    </a>' +
       '    <div class="bt-library-prog">' +
-      '      <div class="bt-library-prog__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + progress + '">' +
-      '        <span style="width:' + progress + '%"></span>' +
-      '      </div>' +
-      '      <span>' + escText(progressSummary(course, progress)) + '</span>' +
+      '      <div class="bt-library-prog__dots" aria-hidden="true">' + progressDotsHtml(done, lessons.length) + '</div>' +
+      '      <span>' + escText(progressSummary(done, lessons.length)) + '</span>' +
       '    </div>' +
       '  </footer>' +
       '</article>';
   }
 
   function filteredCourses() {
+    if (state.type !== 'video-courses') return [];
+
     return courses.filter(function (course) {
       var q = state.query;
-      var matchesSearch = !q || (course.title + ' ' + course.description + ' ' + course.topic + ' ' + course.audience)
+      var matchesSearch = !q || (course.title + ' ' + course.description + ' ' + course.topic + ' ' + course.audience + ' ' + libraryTitle(course))
         .toLowerCase().indexOf(q) >= 0;
-      var matchesCourse = !state.courseId || course.id === state.courseId;
-      return matchesSearch && matchesCourse && matchesAge(course);
+      return matchesSearch && matchesAge(course);
     });
   }
 
   function renderSidebar() {
     if (!sidebarNav) return;
-    var items = [{ id: '', label: 'All courses', count: courses.length }];
-    courses.forEach(function (course) {
-      items.push({ id: course.id, label: course.title.replace(/\s*\(.*\)$/, ''), count: course.lessonCount });
-    });
 
-    sidebarNav.innerHTML = items.map(function (item) {
-      var active = state.courseId === item.id ? ' is-active' : '';
+    sidebarNav.innerHTML = typeOptions.map(function (item) {
+      var active = state.type === item.id ? ' is-active' : '';
+      var count = item.count;
+      if (item.id === 'video-courses') {
+        count = courses.reduce(function (sum, course) {
+          return sum + flattenCourseLessons(course).length;
+        }, 0);
+      }
       return '' +
-        '<button type="button" class="bt-library-nav-btn' + active + '" data-course="' + escText(item.id) + '">' +
-        '  <span class="bt-library-nav-btn__icon" aria-hidden="true">' +
-        '    <svg width="15" height="15" fill="none" stroke-width="2" viewBox="0 0 16 16"><path d="M2 12.5A2.5 2.5 0 014.5 10H14"/><path d="M4.5 1H14v14H4.5A2.5 2.5 0 012 12.5V3.5A2.5 2.5 0 014.5 1z"/></svg>' +
-        '  </span>' +
+        '<button type="button" class="bt-library-nav-btn' + active + '" data-type="' + escText(item.id) + '">' +
+        '  <span class="bt-library-nav-btn__icon" aria-hidden="true">' + item.icon + '</span>' +
         '  <span class="bt-library-nav-btn__label">' + escText(item.label) + '</span>' +
-        '  <span class="bt-library-nav-btn__count">' + item.count + '</span>' +
+        '  <span class="bt-library-nav-btn__count">' + count + '</span>' +
         '</button>';
     }).join('');
   }
@@ -210,10 +271,25 @@
     }).join('');
   }
 
+  function renderEmptyState(list) {
+    if (!emptyState) return;
+
+    if (state.type !== 'video-courses') {
+      emptyState.hidden = false;
+      emptyState.querySelector('h2').textContent = 'Coming soon';
+      emptyState.querySelector('p').textContent = 'This content type is on the way. Browse Video Courses for now.';
+      return;
+    }
+
+    emptyState.hidden = list.length > 0;
+    emptyState.querySelector('h2').textContent = 'No courses match these filters';
+    emptyState.querySelector('p').textContent = 'Adjust your search or age filter and try again.';
+  }
+
   function render() {
     var list = filteredCourses();
     if (root) root.innerHTML = list.map(seriesBlockHtml).join('');
-    if (emptyState) emptyState.hidden = list.length > 0;
+    renderEmptyState(list);
     renderSidebar();
     renderAgeFilter();
     renderMobileNav();
@@ -229,9 +305,9 @@
 
     if (sidebarNav) {
       sidebarNav.addEventListener('click', function (e) {
-        var btn = e.target.closest('.bt-library-nav-btn[data-course]');
+        var btn = e.target.closest('.bt-library-nav-btn[data-type]');
         if (!btn) return;
-        state.courseId = btn.getAttribute('data-course') || '';
+        state.type = btn.getAttribute('data-type') || 'video-courses';
         render();
       });
     }

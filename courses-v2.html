@@ -13,58 +13,32 @@
   <link rel="stylesheet" href="css/course-experience.css" />
 </head>
 <body class="page-courses-v2 page-bt-library">
-  <div class="bt-library-banner">
-    Start the conversation before the world does —
-    <a href="free-course-signup.html">Try a free course →</a>
-  </div>
-
-  <header class="site-header site-header--landing">
+  <header class="site-header site-header--landing bt-library-header">
     <div class="header-inner header-inner--landing">
       <a href="index.html" class="logo-link">
         <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
       </a>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <a href="courses-v2.html" class="nav-link nav-link--minimal nav-link--current">Video Library</a>
         <a href="courses.html" class="nav-link nav-link--minimal">Courses</a>
-        <a href="courses-v2.html" class="nav-link nav-link--minimal" aria-current="page">Library</a>
-        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
+        <a href="about.html" class="nav-link nav-link--minimal">About</a>
+        <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
       </nav>
-      <a href="free-course-signup.html" class="btn btn-primary">Try a Course for Free</a>
+      <div class="bt-library-header__actions">
+        <a href="free-course-signup.html" class="btn btn-secondary bt-library-sign-in">Sign In</a>
+        <a href="free-course-signup.html" class="btn btn-primary">Try a Course Free</a>
+      </div>
     </div>
   </header>
 
   <main class="bt-library-main">
-    <section class="course-library-hero course-library-hero--video" aria-labelledby="library-hero-heading">
-      <div class="course-library-hero__media">
-        <video
-          class="course-library-hero__video"
-          autoplay
-          muted
-          loop
-          playsinline
-          webkit-playsinline
-          preload="auto"
-          aria-hidden="true"
-        >
-          <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        </video>
-        <div class="course-library-hero__fade" aria-hidden="true"></div>
-      </div>
-      <div class="course-library-hero__content">
-        <p class="course-library-hero__eyebrow">Video Library</p>
-        <h1 id="library-hero-heading">Learn at home,<br />at your own pace.</h1>
-        <p>Short, warm video guides to help you lead honest, age-right conversations with your kids — no script needed.</p>
-        <a
-          class="btn btn-primary course-library-hero__cta"
-          href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0"
-        >Watch welcome video</a>
-      </div>
-    </section>
-
     <div class="bt-library-layout">
       <aside class="bt-library-sidebar" aria-label="Browse library">
-        <p class="bt-library-sidebar__label">Browse courses</p>
-        <nav id="bt-library-sidebar-nav" class="bt-library-sidebar__nav"></nav>
+        <p class="bt-library-sidebar__label">Browse by Type</p>
+        <div class="bt-library-sidebar__panel">
+          <nav id="bt-library-sidebar-nav" class="bt-library-sidebar__nav"></nav>
+        </div>
         <div class="bt-library-sidebar__filters">
           <label class="sr-only" for="course-library-v2-search">Search library</label>
           <input id="course-library-v2-search" type="search" placeholder="Search talks…" />
