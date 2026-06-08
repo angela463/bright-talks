@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Bright Talks Courses V2 library with modern filters, progress, and AI audio-ready learning experiences." />
-  <title>Courses V2 | Bright Talks</title>
+  <meta name="description" content="Bright Talks video library — warm courses and talks to help parents lead honest, age-right conversations at home." />
+  <title>Video Library | Bright Talks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/platform.css" />
   <link rel="stylesheet" href="css/course-experience.css" />
 </head>
-<body class="page-courses-v2">
+<body class="page-courses-v2 page-bt-library">
+  <div class="bt-library-banner">
+    Start the conversation before the world does —
+    <a href="free-course-signup.html">Try a free course →</a>
+  </div>
+
   <header class="site-header site-header--landing">
     <div class="header-inner header-inner--landing">
       <a href="index.html" class="logo-link">
@@ -19,58 +25,64 @@
       </a>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
-        <a href="courses.html" class="nav-link nav-link--minimal">Courses (Current)</a>
-        <a href="courses-v2.html" class="nav-link nav-link--minimal" aria-current="page">Courses V2</a>
+        <a href="courses.html" class="nav-link nav-link--minimal">Courses</a>
+        <a href="courses-v2.html" class="nav-link nav-link--minimal" aria-current="page">Library</a>
+        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
       </nav>
       <a href="free-course-signup.html" class="btn btn-primary">Try a Course for Free</a>
     </div>
   </header>
 
-  <main class="course-v2-main">
-    <section class="course-v2-hero">
-      <div class="page-shell">
-        <p class="eyebrow">New course experience</p>
-        <h1>Bright Talks Course Library</h1>
-        <p>Browse topic-based courses built for practical, parent-led conversations. Track progress and jump back in where you left off.</p>
+  <main class="bt-library-main">
+    <section class="course-library-hero course-library-hero--video" aria-labelledby="library-hero-heading">
+      <div class="course-library-hero__media">
+        <video
+          class="course-library-hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        </video>
+        <div class="course-library-hero__fade" aria-hidden="true"></div>
+      </div>
+      <div class="course-library-hero__content">
+        <p class="course-library-hero__eyebrow">Video Library</p>
+        <h1 id="library-hero-heading">Learn at home,<br />at your own pace.</h1>
+        <p>Short, warm video guides to help you lead honest, age-right conversations with your kids — no script needed.</p>
+        <a
+          class="btn btn-primary course-library-hero__cta"
+          href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0"
+        >Watch welcome video</a>
       </div>
     </section>
 
-    <section class="course-v2-filters-wrap">
-      <div class="page-shell">
-        <div class="course-v2-filters">
-          <input id="course-library-v2-search" type="search" placeholder="Search topics, titles, or outcomes" aria-label="Search courses" />
-          <select id="course-library-v2-topic" aria-label="Filter by topic">
-            <option value="">All topics</option>
-          </select>
-          <select id="course-library-v2-audience" aria-label="Filter by audience">
-            <option value="">All audiences</option>
-          </select>
-          <select id="course-library-v2-duration" aria-label="Filter by duration">
-            <option value="">All durations</option>
-            <option value="short">Short (up to 90 min)</option>
-            <option value="medium">Medium (90 to 150 min)</option>
-            <option value="long">Long (150+ min)</option>
-          </select>
-          <select id="course-library-v2-status" aria-label="Filter by completion status">
-            <option value="">All progress</option>
-            <option value="not-started">Not started</option>
-            <option value="in-progress">In progress</option>
-            <option value="completed">Completed</option>
-          </select>
+    <div class="bt-library-layout">
+      <aside class="bt-library-sidebar" aria-label="Browse library">
+        <p class="bt-library-sidebar__label">Browse courses</p>
+        <nav id="bt-library-sidebar-nav" class="bt-library-sidebar__nav"></nav>
+        <div class="bt-library-sidebar__filters">
+          <label class="sr-only" for="course-library-v2-search">Search library</label>
+          <input id="course-library-v2-search" type="search" placeholder="Search talks…" />
         </div>
-      </div>
-    </section>
+      </aside>
 
-    <section class="course-v2-library">
-      <div class="page-shell">
-        <div id="course-library-v2-grid" class="course-v2-grid"></div>
-        <div id="course-library-v2-empty" class="course-v2-empty" hidden>
+      <div class="bt-library-content">
+        <div id="bt-library-age-filter" class="bt-library-age-filter" role="group" aria-label="Filter by age"></div>
+        <div id="course-library-v2-root" class="bt-library-series-list"></div>
+        <div id="course-library-v2-empty" class="bt-library-empty" hidden>
           <h2>No courses match these filters</h2>
-          <p>Adjust one or more filters and try again.</p>
+          <p>Adjust your search or age filter and try again.</p>
         </div>
       </div>
-    </section>
+    </div>
   </main>
+
+  <nav id="bt-library-mobile-nav" class="bt-library-mobile-nav" aria-label="Library navigation"></nav>
 
   <script src="js/course-experience-data.js"></script>
   <script src="js/course-experience-common.js"></script>
