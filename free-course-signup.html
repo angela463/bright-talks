@@ -31,16 +31,16 @@
         linear-gradient(180deg, rgba(255, 251, 246, 0.97) 0%, rgba(250, 244, 235, 0.99) 45%, rgba(255, 249, 240, 1) 100%);
     }
     .page {
-      max-width: 1080px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 32px 20px 56px;
+      padding: 18px 16px 32px;
     }
     .top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
     .top-nav {
       display: flex;
@@ -63,7 +63,7 @@
     .layout {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 22px;
+      gap: 14px;
     }
     @media (min-width: 900px) {
       .layout {
@@ -78,12 +78,12 @@
       box-shadow: 0 16px 30px rgba(31, 44, 82, 0.08);
     }
     .hero {
-      padding: 28px;
+      padding: 18px 18px 0;
     }
     .eyebrow {
-      margin: 0 0 8px;
+      margin: 0 0 4px;
       color: var(--accent-2);
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -91,26 +91,30 @@
     h1 {
       margin: 0;
       font-family: "Fraunces", serif;
-      font-size: clamp(1.6rem, 2.7vw, 2.2rem);
+      font-size: clamp(1.35rem, 2.4vw, 1.75rem);
       line-height: 1.2;
     }
     .hero p {
-      margin: 12px 0 0;
+      margin: 6px 0 0;
       color: var(--muted);
-      line-height: 1.55;
+      font-size: 0.9rem;
+      line-height: 1.45;
     }
     .form-wrap {
-      padding: 26px;
+      padding: 14px 18px 18px;
     }
     .section-title {
-      margin: 22px 0 14px;
-      font-size: 1rem;
+      margin: 14px 0 8px;
+      font-size: 0.92rem;
       font-weight: 700;
+    }
+    .section-title:first-child {
+      margin-top: 0;
     }
     .grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 8px;
     }
     @media (min-width: 700px) {
       .grid.two {
@@ -122,8 +126,8 @@
     }
     label {
       display: block;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
+      margin-bottom: 3px;
+      font-size: 0.84rem;
       font-weight: 600;
       color: #2f3555;
     }
@@ -131,9 +135,10 @@
     input, select {
       width: 100%;
       border: 1px solid #c8d0ea;
-      border-radius: 12px;
-      padding: 12px 13px;
+      border-radius: 10px;
+      padding: 9px 11px;
       font: inherit;
+      font-size: 0.92rem;
       color: var(--ink);
       background: #fff;
     }
@@ -143,17 +148,17 @@
       border-color: #9f7fff;
     }
     .hint {
-      margin-top: 6px;
-      font-size: 0.78rem;
+      margin-top: 4px;
+      font-size: 0.74rem;
       color: var(--muted);
     }
     .check {
       display: flex;
-      gap: 10px;
-      margin-top: 16px;
+      gap: 8px;
+      margin-top: 10px;
       color: #2f3555;
-      font-size: 0.9rem;
-      line-height: 1.45;
+      font-size: 0.84rem;
+      line-height: 1.4;
     }
     .check input {
       width: 18px;
@@ -162,15 +167,15 @@
       flex: 0 0 auto;
     }
     .btn {
-      margin-top: 18px;
+      margin-top: 12px;
       width: 100%;
       border: 0;
       border-radius: 999px;
       background: linear-gradient(165deg, var(--accent) 0%, var(--accent-2) 100%);
       color: white;
       font-weight: 700;
-      padding: 14px 16px;
-      font-size: 1rem;
+      padding: 11px 14px;
+      font-size: 0.94rem;
       cursor: pointer;
       box-shadow: 0 2px 12px rgba(44, 40, 37, 0.06), 0 2px 8px rgba(200, 120, 60, 0.25);
     }
@@ -179,35 +184,36 @@
       background: var(--accent-2);
     }
     .status {
-      margin-top: 12px;
-      min-height: 1.25rem;
-      font-size: 0.9rem;
+      margin-top: 8px;
+      min-height: 1rem;
+      font-size: 0.84rem;
       font-weight: 600;
     }
     .status.ok { color: var(--ok); }
     .status.err { color: var(--danger); }
     .summary {
-      padding: 22px;
+      padding: 16px;
     }
     .summary h2 {
-      margin: 0 0 8px;
-      font-size: 1.1rem;
+      margin: 0 0 6px;
+      font-size: 1rem;
     }
     .summary p {
-      margin: 6px 0;
+      margin: 4px 0;
       color: var(--muted);
-      font-size: 0.93rem;
-      line-height: 1.5;
+      font-size: 0.86rem;
+      line-height: 1.4;
     }
     .summary ul {
-      margin: 10px 0 0;
-      padding-left: 18px;
+      margin: 6px 0 0;
+      padding-left: 16px;
       color: #31385f;
-      line-height: 1.5;
+      font-size: 0.86rem;
+      line-height: 1.4;
     }
     .summary .total {
-      margin-top: 16px;
-      padding-top: 14px;
+      margin-top: 10px;
+      padding-top: 10px;
       border-top: 1px solid var(--line);
       font-weight: 700;
       color: #20264a;
@@ -233,8 +239,8 @@
       <section class="card">
         <div class="hero">
           <p class="eyebrow">Free Course Entry Point</p>
-          <h1>Get your free lesson and activate Bright Talks membership</h1>
-          <p>Complete all mandatory fields to unlock the free lesson and start your membership access plan.</p>
+          <h1>Start your free lesson</h1>
+          <p>Complete the form below to unlock your lesson and membership access.</p>
         </div>
 
         <form id="member-checkout-form" class="form-wrap" novalidate>
@@ -261,12 +267,6 @@
           </div>
 
           <h2 class="section-title">Payment</h2>
-          <div class="grid">
-            <div>
-              <label for="paymentTotal">Amount due</label>
-              <input id="paymentTotal" name="paymentTotal" value="$39.99" readonly />
-            </div>
-          </div>
           <div class="grid two">
             <div>
               <label for="cardName">Cardholder name <span class="req">*</span></label>
@@ -279,7 +279,7 @@
           </div>
           <div class="grid three">
             <div>
-              <label for="expiry">Expiry (MM/YY) <span class="req">*</span></label>
+              <label for="expiry">Expiry <span class="req">*</span></label>
               <input id="expiry" name="expiry" autocomplete="cc-exp" required placeholder="MM/YY" />
             </div>
             <div>
@@ -287,11 +287,11 @@
               <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" required placeholder="123" />
             </div>
             <div>
-              <label for="zip">Billing ZIP <span class="req">*</span></label>
+              <label for="zip">ZIP <span class="req">*</span></label>
               <input id="zip" name="zip" autocomplete="postal-code" required />
             </div>
           </div>
-          <p class="hint">This is a sample payment UI. Do not use real card details.</p>
+          <p class="hint">Sample payment UI only — do not use real card details.</p>
 
           <label class="check" for="terms">
             <input id="terms" name="terms" type="checkbox" required />
@@ -300,33 +300,6 @@
 
           <button class="btn" type="submit">Complete Membership Payment</button>
           <p id="form-status" class="status" role="status" aria-live="polite"></p>
-        </form>
-
-        <form id="simple-signup-form" class="form-wrap" novalidate>
-          <h2 class="section-title">Simpler signup option</h2>
-          <div class="grid two">
-            <div>
-              <label for="simpleName">Full name <span class="req">*</span></label>
-              <input id="simpleName" name="simpleName" autocomplete="name" required />
-            </div>
-            <div>
-              <label for="simpleEmail">Email <span class="req">*</span></label>
-              <input id="simpleEmail" name="simpleEmail" type="email" autocomplete="email" required />
-            </div>
-          </div>
-          <div class="grid">
-            <div>
-              <label for="simplePaymentTotal">Amount due</label>
-              <input id="simplePaymentTotal" name="simplePaymentTotal" value="$39.99" readonly />
-            </div>
-          </div>
-          <label class="check" for="simpleTerms">
-            <input id="simpleTerms" name="simpleTerms" type="checkbox" required />
-            <span>I agree to the terms and membership policy. <span class="req">*</span></span>
-          </label>
-
-          <button class="btn" type="submit">Join Membership</button>
-          <p id="simple-form-status" class="status" role="status" aria-live="polite"></p>
         </form>
       </section>
 
@@ -371,7 +344,6 @@
       }
 
       bindForm("member-checkout-form", "form-status", "Payment submitted. Member profile created successfully.");
-      bindForm("simple-signup-form", "simple-form-status", "Signup submitted. We will follow up with your membership setup details.");
     })();
   </script>
 </body>
