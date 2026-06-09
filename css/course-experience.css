@@ -1253,6 +1253,14 @@
   min-height: calc(100vh - 4.5rem);
 }
 
+.page-bt-library .course-library-hero {
+  margin-bottom: 0;
+}
+
+.page-bt-library .bt-library-layout {
+  padding-top: 2rem;
+}
+
 .bt-library-layout {
   display: flex;
   max-width: 72rem;
