@@ -21,6 +21,7 @@
 
   /** Course library: only these show “View free lesson”; others show as locked. */
   var COURSE_LIBRARY_OPEN_IDS = ['ages-3-5'];
+  var VIDEO_LIBRARY_HREF = 'courses-v2.html';
 
   var LOCK_ICON_SVG =
     '<svg class="course-lock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
@@ -69,7 +70,7 @@
           metaText = moduleCount + ' modules · ' + lessonCount + ' lessons';
         }
         var ctaHtml = courseLibraryIsOpen(c)
-          ? '<a class="btn btn-primary" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">View free lesson</a>'
+          ? '<a class="btn btn-primary" href="' + VIDEO_LIBRARY_HREF + '">View free lesson</a>'
           : (
             '<span class="btn course-card-cta course-card-cta--locked" role="status" aria-label="Locked">' +
               LOCK_ICON_SVG +
