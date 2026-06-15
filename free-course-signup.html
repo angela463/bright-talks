@@ -325,20 +325,6 @@
         top: 0;
         align-self: start;
       }
-
-      .signup-visual-panel::before {
-        content: "";
-        position: absolute;
-        left: -1px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 0;
-        height: 0;
-        border-top: 18px solid transparent;
-        border-bottom: 18px solid transparent;
-        border-right: 18px solid var(--bg);
-        z-index: 3;
-      }
     }
 
     .signup-visual-panel__bg {
@@ -376,99 +362,14 @@
       font-weight: 600;
     }
 
-    .signup-visual-panel__features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px 16px;
-      margin: 32px 0 0;
-      text-align: left;
-    }
-
-    .signup-feature {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      padding: 12px;
-      margin: -12px;
-      border-radius: 12px;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .signup-feature:hover {
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--ink);
-    }
-
-    .signup-feature:hover .signup-feature__icon {
-      background: rgba(232, 149, 74, 0.15);
-      color: var(--accent-dark);
-    }
-
-    .signup-feature:hover strong,
-    .signup-feature:hover span {
-      color: var(--ink);
-      opacity: 1;
-    }
-
-    .signup-feature__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
-    }
-
-    .signup-feature__icon svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .signup-feature strong {
-      font-size: 0.82rem;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .signup-feature span {
-      font-size: 0.76rem;
-      line-height: 1.4;
-      opacity: 0.92;
-    }
-
-    .signup-visual-panel__trust {
-      margin: 36px 0 0;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      opacity: 0.95;
-    }
-
-    .signup-visual-panel__trust span {
-      opacity: 0.6;
-      margin: 0 6px;
-    }
-
     @media (max-width: 959px) {
       .signup-visual-panel {
         order: -1;
-        min-height: 280px;
-      }
-
-      .signup-visual-panel__features {
-        display: none;
+        min-height: 220px;
       }
 
       .signup-visual-panel__content h2 {
         font-size: 1.35rem;
-      }
-
-      .signup-visual-panel__trust {
-        margin-top: 16px;
-        font-size: 0.75rem;
       }
     }
   </style>
@@ -579,39 +480,6 @@
       <div class="signup-visual-panel__overlay" aria-hidden="true"></div>
       <div class="signup-visual-panel__content">
         <h2>Everything parents need to lead calm, honest conversations at home</h2>
-        <div class="signup-visual-panel__features">
-          <div class="signup-feature">
-            <span class="signup-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3V9z"/></svg>
-            </span>
-            <strong>Age-right video courses</strong>
-            <span>Short lessons matched to your child's stage</span>
-          </div>
-          <div class="signup-feature">
-            <span class="signup-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
-            </span>
-            <strong>Parent-ready scripts</strong>
-            <span>Words you can use in everyday moments</span>
-          </div>
-          <div class="signup-feature">
-            <span class="signup-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            </span>
-            <strong>Full library access</strong>
-            <span>Courses, talks, and guides in one place</span>
-          </div>
-          <div class="signup-feature">
-            <span class="signup-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.5-4 8-7.5 8-11a8 8 0 10-16 0c0 3.5 2.5 7 8 11z"/><circle cx="12" cy="11" r="3"/></svg>
-            </span>
-            <strong>Grows with your family</strong>
-            <span>New content as your child gets older</span>
-          </div>
-        </div>
-        <p class="signup-visual-panel__trust">
-          Start for free <span>•</span> Cancel anytime <span>•</span> Onboarding guide included
-        </p>
       </div>
     </aside>
   </div>
