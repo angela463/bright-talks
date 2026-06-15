@@ -78,10 +78,40 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 0.9rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
     }
 
     .signup-nav a:hover {
-      color: var(--accent-dark);
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .signup-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      margin-left: -10px;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .signup-back:hover {
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .signup-back svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
     }
 
     .signup-form-panel__inner {
@@ -201,7 +231,7 @@
     .btn {
       margin-top: 16px;
       width: 100%;
-      border: 0;
+      border: 2px solid transparent;
       border-radius: 999px;
       background: linear-gradient(165deg, var(--accent) 0%, var(--accent-dark) 100%);
       color: #fff;
@@ -212,12 +242,15 @@
       text-transform: uppercase;
       cursor: pointer;
       box-shadow: 0 4px 16px rgba(232, 149, 74, 0.35);
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(232, 149, 74, 0.42);
+      background: #fff;
+      color: var(--accent-dark);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(44, 40, 37, 0.1);
     }
 
     .status {
@@ -345,7 +378,9 @@
 
     .signup-visual-panel__highlight {
       display: inline;
-      background: linear-gradient(180deg, transparent 55%, rgba(255, 220, 160, 0.55) 55%);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0 6px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
     }
@@ -363,6 +398,26 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 6px;
+      padding: 12px;
+      margin: -12px;
+      border-radius: 12px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .signup-feature:hover {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+    }
+
+    .signup-feature:hover .signup-feature__icon {
+      background: rgba(232, 149, 74, 0.15);
+      color: var(--accent-dark);
+    }
+
+    .signup-feature:hover strong,
+    .signup-feature:hover span {
+      color: var(--ink);
+      opacity: 1;
     }
 
     .signup-feature__icon {
@@ -441,6 +496,11 @@
       </div>
 
       <div class="signup-form-panel__inner">
+        <a href="courses-v2.html" class="signup-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          Back to Sign In
+        </a>
+
         <header class="signup-hero">
           <p class="eyebrow">Free Course Entry Point</p>
           <h1>Start your free lesson</h1>
