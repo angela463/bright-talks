@@ -118,7 +118,7 @@
 
     .signup-form-panel__inner {
       width: 100%;
-      max-width: 440px;
+      max-width: 480px;
       margin: 0 auto;
       flex: 1;
     }
@@ -130,27 +130,6 @@
       border-radius: var(--radius);
       box-shadow: 0 2px 5px rgba(50, 50, 93, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
       overflow: hidden;
-    }
-
-    .stripe-test-banner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: #fff4e5;
-      border-bottom: 1px solid #ffe0b2;
-      color: #9a6700;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-
-    .stripe-test-banner__dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #f5a623;
     }
 
     .stripe-checkout__body {
@@ -286,13 +265,26 @@
     }
 
     .stripe-card-group input {
+      width: 100%;
+      min-width: 0;
+      min-height: 44px;
       border: 0;
       border-radius: 0;
+      padding: 12px 14px;
+      font-size: 1rem;
+      line-height: 1.4;
       box-shadow: none !important;
+    }
+
+    .stripe-card-group input#cardNumber {
+      padding-right: 110px;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
     }
 
     .stripe-card-group input:focus {
       box-shadow: none !important;
+      outline: none;
     }
 
     .stripe-card-group__row {
@@ -305,32 +297,41 @@
     }
 
     .stripe-card-group__row--split {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
     }
 
     .stripe-card-group__row--split input:first-child {
       border-right: 1px solid #e6e9ec;
     }
 
+    .stripe-card-group__row--card {
+      position: relative;
+    }
+
     .stripe-card-icons {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
       gap: 4px;
-      padding: 0 12px 8px;
+      pointer-events: none;
     }
 
     .stripe-card-icons span {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 32px;
+      min-width: 30px;
       height: 20px;
       padding: 0 4px;
       border: 1px solid #e6e9ec;
       border-radius: 3px;
-      font-size: 0.625rem;
+      font-size: 0.5625rem;
       font-weight: 700;
       color: #8898aa;
       letter-spacing: 0.02em;
+      background: #fff;
     }
 
     .stripe-pay-btn {
@@ -369,50 +370,6 @@
     .stripe-powered svg {
       height: 14px;
       width: auto;
-    }
-
-    .stripe-test-helper {
-      margin-top: 16px;
-      padding: 14px 16px;
-      background: #f6f9fc;
-      border: 1px dashed #c4cdd5;
-      border-radius: var(--radius);
-      font-size: 0.8125rem;
-      color: #4f566b;
-      line-height: 1.5;
-    }
-
-    .stripe-test-helper strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--ink);
-      font-size: 0.8125rem;
-    }
-
-    .stripe-test-helper code {
-      font-size: 0.75rem;
-      background: #fff;
-      padding: 1px 5px;
-      border-radius: 4px;
-      border: 1px solid #e6e9ec;
-    }
-
-    .stripe-autofill-btn {
-      margin-top: 10px;
-      padding: 8px 14px;
-      border: 1px solid #c4cdd5;
-      border-radius: 6px;
-      background: #fff;
-      color: var(--ink);
-      font-size: 0.8125rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    .stripe-autofill-btn:hover {
-      background: #f6f9fc;
-      border-color: #8898aa;
     }
 
     .status {
@@ -527,11 +484,6 @@
         </a>
 
         <div class="stripe-checkout">
-          <div class="stripe-test-banner" role="status">
-            <span class="stripe-test-banner__dot" aria-hidden="true"></span>
-            Test mode — no real charges will be made
-          </div>
-
           <div class="stripe-checkout__body">
             <div class="stripe-merchant">
               <img class="stripe-merchant__logo" src="png/Bright-Talks-logo-createoutlines.png" alt="" />
@@ -556,17 +508,17 @@
 
               <p class="stripe-section-label">Payment method</p>
               <div class="stripe-card-group">
-                <div class="stripe-card-group__row">
+                <div class="stripe-card-group__row stripe-card-group__row--card">
                   <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" required aria-label="Card number" />
+                  <div class="stripe-card-icons" aria-hidden="true">
+                    <span>VISA</span>
+                    <span>MC</span>
+                    <span>AMEX</span>
+                  </div>
                 </div>
                 <div class="stripe-card-group__row stripe-card-group__row--split">
                   <input id="expiry" name="expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" required aria-label="Expiry" />
                   <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" required aria-label="CVC" />
-                </div>
-                <div class="stripe-card-icons" aria-hidden="true">
-                  <span>VISA</span>
-                  <span>MC</span>
-                  <span>AMEX</span>
                 </div>
               </div>
 
