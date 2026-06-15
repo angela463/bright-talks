@@ -19,7 +19,7 @@
 
   var courses = window.BRIGHT_TALKS_COURSES || [];
 
-  /** Course library: only these show “View free lesson”; others show as locked. */
+  /** Course library: only these show “Click Courses”; others show as locked. */
   var COURSE_LIBRARY_OPEN_IDS = ['ages-3-5'];
   var VIDEO_LIBRARY_HREF = 'courses-v2.html';
 
@@ -70,7 +70,7 @@
           metaText = moduleCount + ' modules · ' + lessonCount + ' lessons';
         }
         var ctaHtml = courseLibraryIsOpen(c)
-          ? '<a class="btn btn-primary" href="' + VIDEO_LIBRARY_HREF + '">View free lesson</a>'
+          ? '<a class="btn btn-primary" href="' + VIDEO_LIBRARY_HREF + '">Click Courses</a>'
           : (
             '<span class="btn course-card-cta course-card-cta--locked" role="status" aria-label="Locked">' +
               LOCK_ICON_SVG +
@@ -291,7 +291,7 @@
 
       var ctaHtml = unlocked
         ? (
-          '<a class="btn btn-primary lesson-card-cta" href="' + lessonPlayerHref + '">View free lesson</a>'
+          '<a class="btn btn-primary lesson-card-cta" href="' + lessonPlayerHref + '">Click Courses</a>'
         )
         : '';
 
