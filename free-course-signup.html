@@ -16,307 +16,558 @@
       --card: #ffffff;
       --line: #efd8c7;
       --accent: #e8954a;
-      --accent-2: #e8954a;
+      --accent-dark: #c9742e;
       --danger: #b03a2e;
       --ok: #1a7f4f;
       --radius: 16px;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "DM Sans", sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(ellipse 100% 55% at 50% -15%, rgba(253, 232, 220, 0.9) 0%, transparent 52%),
-        linear-gradient(180deg, rgba(255, 251, 246, 0.97) 0%, rgba(250, 244, 235, 0.99) 45%, rgba(255, 249, 240, 1) 100%);
+      background: var(--bg);
     }
-    .page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 18px 16px 32px;
+
+    .signup-page {
+      display: grid;
+      min-height: 100vh;
+      grid-template-columns: 1fr;
     }
-    .top {
+
+    @media (min-width: 960px) {
+      .signup-page {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      }
+    }
+
+    /* ── Left: form panel ── */
+    .signup-form-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: var(--bg);
+      padding: 24px clamp(20px, 4vw, 48px) 40px;
+    }
+
+    .signup-form-panel__top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 14px;
+      margin-bottom: clamp(20px, 4vh, 36px);
     }
-    .top-nav {
+
+    .signup-logo {
+      display: block;
+      height: 36px;
+      width: auto;
+    }
+
+    .signup-nav {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
     }
-    .brand {
-      font-family: "Fraunces", serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--ink);
-    }
-    .home-link {
+
+    .signup-nav a {
       color: var(--muted);
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.9rem;
     }
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
+
+    .signup-nav a:hover {
+      color: var(--accent-dark);
     }
-    @media (min-width: 900px) {
-      .layout {
-        grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
-        align-items: start;
-      }
+
+    .signup-form-panel__inner {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      flex: 1;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: 0 16px 30px rgba(31, 44, 82, 0.08);
+
+    .signup-hero {
+      margin-bottom: 24px;
     }
-    .hero {
-      padding: 18px 18px 0;
-    }
+
     .eyebrow {
-      margin: 0 0 4px;
-      color: var(--accent-2);
+      margin: 0 0 6px;
+      color: var(--accent);
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
-    h1 {
+
+    .signup-hero h1 {
       margin: 0;
       font-family: "Fraunces", serif;
-      font-size: clamp(1.35rem, 2.4vw, 1.75rem);
-      line-height: 1.2;
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      line-height: 1.15;
+      font-weight: 600;
     }
-    .hero p {
-      margin: 6px 0 0;
+
+    .signup-hero p {
+      margin: 10px 0 0;
       color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.45;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
-    .form-wrap {
-      padding: 14px 18px 18px;
+
+    .signup-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(44, 40, 37, 0.06);
+      padding: 22px clamp(18px, 3vw, 28px) 26px;
     }
+
     .section-title {
-      margin: 14px 0 8px;
+      margin: 18px 0 10px;
       font-size: 0.92rem;
       font-weight: 700;
     }
+
     .section-title:first-child {
       margin-top: 0;
     }
+
     .grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 8px;
+      gap: 10px;
     }
-    @media (min-width: 700px) {
-      .grid.two {
-        grid-template-columns: 1fr 1fr;
-      }
-      .grid.three {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
+
+    @media (min-width: 560px) {
+      .grid.two { grid-template-columns: 1fr 1fr; }
+      .grid.three { grid-template-columns: 1fr 1fr 1fr; }
     }
+
     label {
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
       font-size: 0.84rem;
       font-weight: 600;
-      color: #2f3555;
+      color: #3a3530;
     }
+
     .req { color: var(--danger); }
-    input, select {
+
+    input {
       width: 100%;
-      border: 1px solid #c8d0ea;
+      border: 1px solid #d9cfc6;
       border-radius: 10px;
-      padding: 9px 11px;
+      padding: 10px 12px;
       font: inherit;
       font-size: 0.92rem;
       color: var(--ink);
       background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    input:focus, select:focus {
-      outline: 2px solid #b9a3ff;
-      outline-offset: 1px;
-      border-color: #9f7fff;
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232, 149, 74, 0.2);
     }
+
     .hint {
-      margin-top: 4px;
+      margin-top: 6px;
       font-size: 0.74rem;
       color: var(--muted);
     }
+
     .check {
       display: flex;
       gap: 8px;
-      margin-top: 10px;
-      color: #2f3555;
+      margin-top: 14px;
+      color: #3a3530;
       font-size: 0.84rem;
-      line-height: 1.4;
+      line-height: 1.45;
     }
+
     .check input {
       width: 18px;
       height: 18px;
       margin-top: 2px;
       flex: 0 0 auto;
     }
+
     .btn {
-      margin-top: 12px;
+      margin-top: 16px;
       width: 100%;
       border: 0;
       border-radius: 999px;
-      background: linear-gradient(165deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: white;
+      background: linear-gradient(165deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fff;
       font-weight: 700;
-      padding: 11px 14px;
-      font-size: 0.94rem;
+      padding: 13px 16px;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 2px 12px rgba(44, 40, 37, 0.06), 0 2px 8px rgba(200, 120, 60, 0.25);
+      box-shadow: 0 4px 16px rgba(232, 149, 74, 0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
     }
+
     .btn:hover {
-      filter: none;
-      background: var(--accent-2);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(232, 149, 74, 0.42);
     }
+
     .status {
-      margin-top: 8px;
+      margin-top: 10px;
       min-height: 1rem;
       font-size: 0.84rem;
       font-weight: 600;
     }
+
     .status.ok { color: var(--ok); }
     .status.err { color: var(--danger); }
-    .summary {
-      padding: 16px;
+
+    .signup-summary {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 12px;
     }
-    .summary h2 {
-      margin: 0 0 6px;
-      font-size: 1rem;
+
+    .signup-summary h2 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
-    .summary p {
+
+    .signup-summary p {
       margin: 4px 0;
       color: var(--muted);
       font-size: 0.86rem;
-      line-height: 1.4;
+      line-height: 1.45;
     }
-    .summary ul {
-      margin: 6px 0 0;
-      padding-left: 16px;
-      color: #31385f;
+
+    .signup-summary ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: #4a4540;
       font-size: 0.86rem;
-      line-height: 1.4;
+      line-height: 1.5;
     }
-    .summary .total {
-      margin-top: 10px;
-      padding-top: 10px;
+
+    .signup-summary .total {
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid var(--line);
       font-weight: 700;
-      color: #20264a;
+      color: var(--ink);
+      font-size: 0.92rem;
     }
-    .note {
+
+    .signup-summary .note {
       margin-top: 8px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--muted);
+    }
+
+    /* ── Right: visual panel ── */
+    .signup-visual-panel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      overflow: hidden;
+      background: #c9742e;
+    }
+
+    @media (min-width: 960px) {
+      .signup-visual-panel {
+        min-height: 100vh;
+        position: sticky;
+        top: 0;
+        align-self: start;
+      }
+
+      .signup-visual-panel::before {
+        content: "";
+        position: absolute;
+        left: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 18px solid transparent;
+        border-bottom: 18px solid transparent;
+        border-right: 18px solid var(--bg);
+        z-index: 3;
+      }
+    }
+
+    .signup-visual-panel__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        url("images/how-it-works-family.jpg") center center / cover no-repeat;
+    }
+
+    .signup-visual-panel__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        145deg,
+        rgba(232, 149, 74, 0.92) 0%,
+        rgba(201, 116, 46, 0.88) 45%,
+        rgba(180, 90, 30, 0.85) 100%
+      );
+    }
+
+    .signup-visual-panel__content {
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+      padding: clamp(32px, 6vw, 56px) clamp(24px, 5vw, 48px);
+      color: #fff;
+      text-align: center;
+    }
+
+    .signup-visual-panel__content h2 {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .signup-visual-panel__highlight {
+      display: inline;
+      background: linear-gradient(180deg, transparent 55%, rgba(255, 220, 160, 0.55) 55%);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .signup-visual-panel__features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 16px;
+      margin: 32px 0 0;
+      text-align: left;
+    }
+
+    .signup-feature {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .signup-feature__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .signup-feature__icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .signup-feature strong {
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .signup-feature span {
+      font-size: 0.76rem;
+      line-height: 1.4;
+      opacity: 0.92;
+    }
+
+    .signup-visual-panel__trust {
+      margin: 36px 0 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      opacity: 0.95;
+    }
+
+    .signup-visual-panel__trust span {
+      opacity: 0.6;
+      margin: 0 6px;
+    }
+
+    @media (max-width: 959px) {
+      .signup-visual-panel {
+        order: -1;
+        min-height: 280px;
+      }
+
+      .signup-visual-panel__features {
+        display: none;
+      }
+
+      .signup-visual-panel__content h2 {
+        font-size: 1.35rem;
+      }
+
+      .signup-visual-panel__trust {
+        margin-top: 16px;
+        font-size: 0.75rem;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <div class="top">
-      <a class="brand" href="index.html">Bright Talks</a>
-      <nav class="top-nav" aria-label="Quick links">
-        <a class="home-link" href="pricing.html">Pricing</a>
-        <a class="home-link" href="courses.html">Back to courses</a>
-      </nav>
-    </div>
+  <div class="signup-page">
+    <div class="signup-form-panel">
+      <div class="signup-form-panel__top">
+        <a href="index.html" aria-label="Bright Talks home">
+          <img class="signup-logo" src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" />
+        </a>
+        <nav class="signup-nav" aria-label="Quick links">
+          <a href="pricing.html">Pricing</a>
+          <a href="courses.html">Back to courses</a>
+        </nav>
+      </div>
 
-    <div class="layout">
-      <section class="card">
-        <div class="hero">
+      <div class="signup-form-panel__inner">
+        <header class="signup-hero">
           <p class="eyebrow">Free Course Entry Point</p>
           <h1>Start your free lesson</h1>
           <p>Complete the form below to unlock your lesson and membership access.</p>
+        </header>
+
+        <div class="signup-card">
+          <form id="member-checkout-form" novalidate>
+            <h2 class="section-title">Member details</h2>
+            <div class="grid two">
+              <div>
+                <label for="firstName">First name <span class="req">*</span></label>
+                <input id="firstName" name="firstName" autocomplete="given-name" required />
+              </div>
+              <div>
+                <label for="lastName">Last name <span class="req">*</span></label>
+                <input id="lastName" name="lastName" autocomplete="family-name" required />
+              </div>
+            </div>
+            <div class="grid two">
+              <div>
+                <label for="email">Email <span class="req">*</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div>
+                <label for="phone">Phone <span class="req">*</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+              </div>
+            </div>
+
+            <h2 class="section-title">Payment</h2>
+            <div class="grid two">
+              <div>
+                <label for="cardName">Cardholder name <span class="req">*</span></label>
+                <input id="cardName" name="cardName" autocomplete="cc-name" required />
+              </div>
+              <div>
+                <label for="cardNumber">Card number <span class="req">*</span></label>
+                <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" required placeholder="1234 5678 9012 3456" />
+              </div>
+            </div>
+            <div class="grid three">
+              <div>
+                <label for="expiry">Expiry <span class="req">*</span></label>
+                <input id="expiry" name="expiry" autocomplete="cc-exp" required placeholder="MM/YY" />
+              </div>
+              <div>
+                <label for="cvc">CVC <span class="req">*</span></label>
+                <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" required placeholder="123" />
+              </div>
+              <div>
+                <label for="zip">ZIP <span class="req">*</span></label>
+                <input id="zip" name="zip" autocomplete="postal-code" required />
+              </div>
+            </div>
+            <p class="hint">Sample payment UI only — do not use real card details.</p>
+
+            <label class="check" for="terms">
+              <input id="terms" name="terms" type="checkbox" required />
+              <span>I agree to Bright Talks terms and recurring billing policy. <span class="req">*</span></span>
+            </label>
+
+            <button class="btn" type="submit">Complete Membership Payment</button>
+            <p id="form-status" class="status" role="status" aria-live="polite"></p>
+          </form>
         </div>
 
-        <form id="member-checkout-form" class="form-wrap" novalidate>
-          <h2 class="section-title">Member details</h2>
-          <div class="grid two">
-            <div>
-              <label for="firstName">First name <span class="req">*</span></label>
-              <input id="firstName" name="firstName" autocomplete="given-name" required />
-            </div>
-            <div>
-              <label for="lastName">Last name <span class="req">*</span></label>
-              <input id="lastName" name="lastName" autocomplete="family-name" required />
-            </div>
-          </div>
-          <div class="grid two">
-            <div>
-              <label for="email">Email <span class="req">*</span></label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
-            </div>
-            <div>
-              <label for="phone">Phone <span class="req">*</span></label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
-            </div>
-          </div>
-
-          <h2 class="section-title">Payment</h2>
-          <div class="grid two">
-            <div>
-              <label for="cardName">Cardholder name <span class="req">*</span></label>
-              <input id="cardName" name="cardName" autocomplete="cc-name" required />
-            </div>
-            <div>
-              <label for="cardNumber">Card number <span class="req">*</span></label>
-              <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" required placeholder="1234 5678 9012 3456" />
-            </div>
-          </div>
-          <div class="grid three">
-            <div>
-              <label for="expiry">Expiry <span class="req">*</span></label>
-              <input id="expiry" name="expiry" autocomplete="cc-exp" required placeholder="MM/YY" />
-            </div>
-            <div>
-              <label for="cvc">CVC <span class="req">*</span></label>
-              <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" required placeholder="123" />
-            </div>
-            <div>
-              <label for="zip">ZIP <span class="req">*</span></label>
-              <input id="zip" name="zip" autocomplete="postal-code" required />
-            </div>
-          </div>
-          <p class="hint">Sample payment UI only — do not use real card details.</p>
-
-          <label class="check" for="terms">
-            <input id="terms" name="terms" type="checkbox" required />
-            <span>I agree to Bright Talks terms and recurring billing policy. <span class="req">*</span></span>
-          </label>
-
-          <button class="btn" type="submit">Complete Membership Payment</button>
-          <p id="form-status" class="status" role="status" aria-live="polite"></p>
-        </form>
-      </section>
-
-      <aside class="card summary">
-        <h2>Checkout summary</h2>
-        <p><strong>Offer:</strong> 1 free lesson included with signup</p>
-        <p><strong>Access:</strong> Full Bright Talks library + updates</p>
-        <ul>
-          <li>Instant access after successful payment</li>
-          <li>Cancel any time from member dashboard</li>
-          <li>Email receipt and onboarding guide</li>
-        </ul>
-        <p class="total">Total due today: $39.99</p>
-        <p class="note">For production, connect this form to Stripe/PayPal and server-side validation.</p>
-      </aside>
+        <aside class="signup-summary">
+          <h2>Checkout summary</h2>
+          <p><strong>Offer:</strong> 1 free lesson included with signup</p>
+          <p><strong>Access:</strong> Full Bright Talks library + updates</p>
+          <ul>
+            <li>Instant access after successful payment</li>
+            <li>Cancel any time from member dashboard</li>
+            <li>Email receipt and onboarding guide</li>
+          </ul>
+          <p class="total">Total due today: $39.99</p>
+          <p class="note">For production, connect this form to Stripe/PayPal and server-side validation.</p>
+        </aside>
+      </div>
     </div>
-  </main>
+
+    <aside class="signup-visual-panel" aria-label="Bright Talks membership benefits">
+      <div class="signup-visual-panel__bg" aria-hidden="true"></div>
+      <div class="signup-visual-panel__overlay" aria-hidden="true"></div>
+      <div class="signup-visual-panel__content">
+        <h2>
+          Everything parents need to lead
+          <span class="signup-visual-panel__highlight">calm, honest conversations</span>
+          at home
+        </h2>
+        <div class="signup-visual-panel__features">
+          <div class="signup-feature">
+            <span class="signup-feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3V9z"/></svg>
+            </span>
+            <strong>Age-right video courses</strong>
+            <span>Short lessons matched to your child's stage</span>
+          </div>
+          <div class="signup-feature">
+            <span class="signup-feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
+            </span>
+            <strong>Parent-ready scripts</strong>
+            <span>Words you can use in everyday moments</span>
+          </div>
+          <div class="signup-feature">
+            <span class="signup-feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            </span>
+            <strong>Full library access</strong>
+            <span>Courses, talks, and guides in one place</span>
+          </div>
+          <div class="signup-feature">
+            <span class="signup-feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.5-4 8-7.5 8-11a8 8 0 10-16 0c0 3.5 2.5 7 8 11z"/><circle cx="12" cy="11" r="3"/></svg>
+            </span>
+            <strong>Grows with your family</strong>
+            <span>New content as your child gets older</span>
+          </div>
+        </div>
+        <p class="signup-visual-panel__trust">
+          Start for free <span>•</span> Cancel anytime <span>•</span> Onboarding guide included
+        </p>
+      </div>
+    </aside>
+  </div>
 
   <script>
     (function () {
