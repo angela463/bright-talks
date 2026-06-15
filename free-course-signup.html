@@ -4,29 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Claim free course access and complete Bright Talks membership enrollment." />
-  <title>Bright Talks | Free Course Access</title>
+  <title>Bright Talks | Checkout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #fffbf6;
-      --ink: #2c2825;
-      --muted: #6b6b76;
+      --bg: #f6f9fc;
+      --ink: #30313d;
+      --muted: #6b7280;
       --card: #ffffff;
-      --line: #efd8c7;
+      --line: #e6e9ec;
       --accent: #e8954a;
-      --accent-dark: #c9742e;
-      --danger: #b03a2e;
+      --accent-bright: #ffb366;
+      --accent-dark: #e07a2e;
+      --stripe: #635bff;
+      --stripe-hover: #5851ea;
+      --danger: #df1b41;
       --ok: #1a7f4f;
-      --radius: 16px;
+      --radius: 8px;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "DM Sans", sans-serif;
+      font-family: "Inter", "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--ink);
       background: var(--bg);
     }
@@ -43,7 +46,6 @@
       }
     }
 
-    /* ── Left: form panel ── */
     .signup-form-panel {
       display: flex;
       flex-direction: column;
@@ -57,12 +59,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: clamp(20px, 4vh, 36px);
+      margin-bottom: clamp(16px, 3vh, 28px);
     }
 
     .signup-logo {
       display: block;
-      height: 36px;
+      height: 32px;
       width: auto;
     }
 
@@ -76,8 +78,8 @@
     .signup-nav a {
       color: var(--muted);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 500;
+      font-size: 0.875rem;
       padding: 4px 8px;
       border-radius: 6px;
       transition: color 0.15s, background 0.15s;
@@ -92,11 +94,11 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.875rem;
+      font-weight: 500;
       padding: 6px 10px;
       margin-left: -10px;
       border-radius: 8px;
@@ -116,195 +118,326 @@
 
     .signup-form-panel__inner {
       width: 100%;
-      max-width: 520px;
+      max-width: 440px;
       margin: 0 auto;
       flex: 1;
     }
 
-    .signup-hero {
-      margin-bottom: 24px;
-    }
-
-    .eyebrow {
-      margin: 0 0 6px;
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .signup-hero h1 {
-      margin: 0;
-      font-family: "Fraunces", serif;
-      font-size: clamp(1.6rem, 3vw, 2.1rem);
-      line-height: 1.15;
-      font-weight: 600;
-    }
-
-    .signup-hero p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .signup-card {
+    /* ── Stripe-style checkout ── */
+    .stripe-checkout {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      box-shadow: 0 12px 32px rgba(44, 40, 37, 0.06);
-      padding: 22px clamp(18px, 3vw, 28px) 26px;
+      box-shadow: 0 2px 5px rgba(50, 50, 93, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
     }
 
-    .section-title {
-      margin: 18px 0 10px;
-      font-size: 0.92rem;
-      font-weight: 700;
-    }
-
-    .section-title:first-child {
-      margin-top: 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    @media (min-width: 560px) {
-      .grid.two { grid-template-columns: 1fr 1fr; }
-      .grid.three { grid-template-columns: 1fr 1fr 1fr; }
-    }
-
-    label {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.84rem;
+    .stripe-test-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: #fff4e5;
+      border-bottom: 1px solid #ffe0b2;
+      color: #9a6700;
+      font-size: 0.8125rem;
       font-weight: 600;
-      color: #3a3530;
+      letter-spacing: 0.01em;
     }
 
-    .req { color: var(--danger); }
+    .stripe-test-banner__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f5a623;
+    }
 
-    input {
+    .stripe-checkout__body {
+      padding: 24px;
+    }
+
+    .stripe-merchant {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .stripe-merchant__logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    .stripe-merchant__name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .stripe-amount {
+      margin: 0 0 20px;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .stripe-amount span {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .stripe-line-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+    }
+
+    .stripe-line-item strong {
+      display: block;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .stripe-line-item span {
+      color: var(--muted);
+      font-size: 0.8125rem;
+    }
+
+    .stripe-line-item__price {
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .stripe-field {
+      margin-bottom: 16px;
+    }
+
+    .stripe-field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .stripe-field input,
+    .stripe-field select {
       width: 100%;
-      border: 1px solid #d9cfc6;
-      border-radius: 10px;
-      padding: 10px 12px;
+      border: 1px solid #d8dee4;
+      border-radius: 6px;
+      padding: 11px 12px;
       font: inherit;
-      font-size: 0.92rem;
+      font-size: 0.9375rem;
       color: var(--ink);
       background: #fff;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
 
-    input:focus {
+    .stripe-field input::placeholder {
+      color: #a3acb9;
+    }
+
+    .stripe-field input:focus,
+    .stripe-field select:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(232, 149, 74, 0.2);
+      border-color: var(--stripe);
+      box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.15);
     }
 
-    .hint {
-      margin-top: 6px;
-      font-size: 0.74rem;
-      color: var(--muted);
+    .stripe-field input.is-invalid {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(223, 27, 65, 0.12);
     }
 
-    .check {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      color: #3a3530;
-      font-size: 0.84rem;
-      line-height: 1.45;
+    .stripe-field-error {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--danger);
     }
 
-    .check input {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      flex: 0 0 auto;
+    .stripe-section-label {
+      margin: 0 0 10px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink);
     }
 
-    .btn {
-      margin-top: 16px;
-      width: 100%;
-      border: 2px solid transparent;
-      border-radius: 999px;
-      background: linear-gradient(165deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: #fff;
-      font-weight: 700;
-      padding: 13px 16px;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(232, 149, 74, 0.35);
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
+    .stripe-card-group {
+      border: 1px solid #d8dee4;
+      border-radius: 6px;
+      overflow: hidden;
       background: #fff;
-      color: var(--accent-dark);
-      border-color: var(--accent);
-      box-shadow: 0 6px 20px rgba(44, 40, 37, 0.1);
     }
 
-    .status {
-      margin-top: 10px;
-      min-height: 1rem;
-      font-size: 0.84rem;
-      font-weight: 600;
+    .stripe-card-group:focus-within {
+      border-color: var(--stripe);
+      box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.15);
     }
 
-    .status.ok { color: var(--ok); }
-    .status.err { color: var(--danger); }
-
-    .signup-summary {
-      margin-top: 20px;
-      padding: 18px 20px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid var(--line);
-      border-radius: 12px;
+    .stripe-card-group input {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none !important;
     }
 
-    .signup-summary h2 {
-      margin: 0 0 8px;
-      font-size: 0.95rem;
+    .stripe-card-group input:focus {
+      box-shadow: none !important;
+    }
+
+    .stripe-card-group__row {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .stripe-card-group__row + .stripe-card-group__row {
+      border-top: 1px solid #e6e9ec;
+    }
+
+    .stripe-card-group__row--split {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .stripe-card-group__row--split input:first-child {
+      border-right: 1px solid #e6e9ec;
+    }
+
+    .stripe-card-icons {
+      display: flex;
+      gap: 4px;
+      padding: 0 12px 8px;
+    }
+
+    .stripe-card-icons span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 20px;
+      padding: 0 4px;
+      border: 1px solid #e6e9ec;
+      border-radius: 3px;
+      font-size: 0.625rem;
       font-weight: 700;
+      color: #8898aa;
+      letter-spacing: 0.02em;
     }
 
-    .signup-summary p {
-      margin: 4px 0;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
+    .stripe-pay-btn {
+      margin-top: 8px;
+      width: 100%;
+      border: 0;
+      border-radius: 6px;
+      background: var(--stripe);
+      color: #fff;
+      font-weight: 600;
+      padding: 14px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
     }
 
-    .signup-summary ul {
-      margin: 8px 0 0;
-      padding-left: 18px;
-      color: #4a4540;
-      font-size: 0.86rem;
+    .stripe-pay-btn:hover {
+      background: var(--stripe-hover);
+    }
+
+    .stripe-pay-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .stripe-powered {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: #8898aa;
+    }
+
+    .stripe-powered svg {
+      height: 14px;
+      width: auto;
+    }
+
+    .stripe-test-helper {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #f6f9fc;
+      border: 1px dashed #c4cdd5;
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      color: #4f566b;
       line-height: 1.5;
     }
 
-    .signup-summary .total {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      font-weight: 700;
+    .stripe-test-helper strong {
+      display: block;
+      margin-bottom: 6px;
       color: var(--ink);
-      font-size: 0.92rem;
+      font-size: 0.8125rem;
     }
 
-    .signup-summary .note {
-      margin-top: 8px;
-      font-size: 0.74rem;
-      color: var(--muted);
+    .stripe-test-helper code {
+      font-size: 0.75rem;
+      background: #fff;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border: 1px solid #e6e9ec;
+    }
+
+    .stripe-autofill-btn {
+      margin-top: 10px;
+      padding: 8px 14px;
+      border: 1px solid #c4cdd5;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .stripe-autofill-btn:hover {
+      background: #f6f9fc;
+      border-color: #8898aa;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .status.ok {
+      color: #0d6832;
+      background: #e8f5ee;
+      border: 1px solid #b8e0c8;
+    }
+
+    .status.err {
+      color: var(--danger);
+      background: #fef0f3;
+      border: 1px solid #f5c4cf;
+    }
+
+    .status[hidden] {
+      display: none;
     }
 
     /* ── Right: visual panel ── */
@@ -315,7 +448,7 @@
       justify-content: center;
       min-height: 360px;
       overflow: hidden;
-      background: #c9742e;
+      background: var(--accent-bright);
     }
 
     @media (min-width: 960px) {
@@ -330,8 +463,7 @@
     .signup-visual-panel__bg {
       position: absolute;
       inset: 0;
-      background:
-        url("images/how-it-works-family.jpg") center center / cover no-repeat;
+      background: url("images/how-it-works-family.jpg") center center / cover no-repeat;
     }
 
     .signup-visual-panel__overlay {
@@ -339,9 +471,9 @@
       inset: 0;
       background: linear-gradient(
         145deg,
-        rgba(232, 149, 74, 0.92) 0%,
-        rgba(201, 116, 46, 0.88) 45%,
-        rgba(180, 90, 30, 0.85) 100%
+        rgba(255, 190, 120, 0.72) 0%,
+        rgba(255, 168, 88, 0.68) 45%,
+        rgba(255, 150, 70, 0.65) 100%
       );
     }
 
@@ -352,6 +484,7 @@
       padding: clamp(32px, 6vw, 56px) clamp(24px, 5vw, 48px);
       color: #fff;
       text-align: center;
+      text-shadow: 0 1px 12px rgba(80, 40, 10, 0.18);
     }
 
     .signup-visual-panel__content h2 {
@@ -393,85 +526,88 @@
           Back to Sign In
         </a>
 
-        <header class="signup-hero">
-          <p class="eyebrow">Free Course Entry Point</p>
-          <h1>Start your free lesson</h1>
-          <p>Complete the form below to unlock your lesson and membership access.</p>
-        </header>
+        <div class="stripe-checkout">
+          <div class="stripe-test-banner" role="status">
+            <span class="stripe-test-banner__dot" aria-hidden="true"></span>
+            Test mode — no real charges will be made
+          </div>
 
-        <div class="signup-card">
-          <form id="member-checkout-form" novalidate>
-            <h2 class="section-title">Member details</h2>
-            <div class="grid two">
-              <div>
-                <label for="firstName">First name <span class="req">*</span></label>
-                <input id="firstName" name="firstName" autocomplete="given-name" required />
-              </div>
-              <div>
-                <label for="lastName">Last name <span class="req">*</span></label>
-                <input id="lastName" name="lastName" autocomplete="family-name" required />
-              </div>
-            </div>
-            <div class="grid two">
-              <div>
-                <label for="email">Email <span class="req">*</span></label>
-                <input id="email" name="email" type="email" autocomplete="email" required />
-              </div>
-              <div>
-                <label for="phone">Phone <span class="req">*</span></label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" required />
-              </div>
+          <div class="stripe-checkout__body">
+            <div class="stripe-merchant">
+              <img class="stripe-merchant__logo" src="png/Bright-Talks-logo-createoutlines.png" alt="" />
+              <span class="stripe-merchant__name">Bright Talks</span>
             </div>
 
-            <h2 class="section-title">Payment</h2>
-            <div class="grid two">
-              <div>
-                <label for="cardName">Cardholder name <span class="req">*</span></label>
-                <input id="cardName" name="cardName" autocomplete="cc-name" required />
-              </div>
-              <div>
-                <label for="cardNumber">Card number <span class="req">*</span></label>
-                <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" required placeholder="1234 5678 9012 3456" />
-              </div>
-            </div>
-            <div class="grid three">
-              <div>
-                <label for="expiry">Expiry <span class="req">*</span></label>
-                <input id="expiry" name="expiry" autocomplete="cc-exp" required placeholder="MM/YY" />
-              </div>
-              <div>
-                <label for="cvc">CVC <span class="req">*</span></label>
-                <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" required placeholder="123" />
-              </div>
-              <div>
-                <label for="zip">ZIP <span class="req">*</span></label>
-                <input id="zip" name="zip" autocomplete="postal-code" required />
-              </div>
-            </div>
-            <p class="hint">Sample payment UI only — do not use real card details.</p>
+            <p class="stripe-amount">$39.99 <span>USD</span></p>
 
-            <label class="check" for="terms">
-              <input id="terms" name="terms" type="checkbox" required />
-              <span>I agree to Bright Talks terms and recurring billing policy. <span class="req">*</span></span>
-            </label>
+            <div class="stripe-line-item">
+              <div>
+                <strong>Bright Talks Membership</strong>
+                <span>1 free lesson + full library access</span>
+              </div>
+              <div class="stripe-line-item__price">$39.99</div>
+            </div>
 
-            <button class="btn" type="submit">Complete Membership Payment</button>
-            <p id="form-status" class="status" role="status" aria-live="polite"></p>
-          </form>
+            <form id="stripe-checkout-form" novalidate>
+              <div class="stripe-field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+
+              <p class="stripe-section-label">Payment method</p>
+              <div class="stripe-card-group">
+                <div class="stripe-card-group__row">
+                  <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" required aria-label="Card number" />
+                </div>
+                <div class="stripe-card-group__row stripe-card-group__row--split">
+                  <input id="expiry" name="expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" required aria-label="Expiry" />
+                  <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" required aria-label="CVC" />
+                </div>
+                <div class="stripe-card-icons" aria-hidden="true">
+                  <span>VISA</span>
+                  <span>MC</span>
+                  <span>AMEX</span>
+                </div>
+              </div>
+
+              <div class="stripe-field" style="margin-top: 16px;">
+                <label for="cardName">Name on card</label>
+                <input id="cardName" name="cardName" type="text" autocomplete="cc-name" placeholder="Full name" required />
+              </div>
+
+              <div class="stripe-field">
+                <label for="country">Country or region</label>
+                <select id="country" name="country" required>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="AU">Australia</option>
+                </select>
+              </div>
+
+              <div class="stripe-field">
+                <label for="zip">ZIP</label>
+                <input id="zip" name="zip" type="text" autocomplete="postal-code" placeholder="12345" required />
+              </div>
+
+              <button class="stripe-pay-btn" type="submit" id="pay-btn">Pay $39.99</button>
+              <p id="form-status" class="status" role="status" aria-live="polite" hidden></p>
+            </form>
+
+            <p class="stripe-powered">
+              Powered by
+              <svg viewBox="0 0 60 25" fill="#8898aa" aria-hidden="true"><path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 0 1-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.75 2.48-7.57 6.37-7.57 3.92 0 5.87 2.81 5.87 7.4 0 .41-.04 1.13-.06 1.63zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.08 1.02a4.7 4.7 0 0 1 3.23-1.29c2.9 0 5.62 2.6 5.62 7.4 0 5.23-2.7 7.6-5.65 7.6zM40 8.95c-.95 0-1.54.34-1.97.81l.02 6.12c.4.44.98.78 1.95.78 1.52 0 2.54-1.65 2.54-3.87 0-2.15-1.04-3.89-2.54-3.89zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-4.7L32.37 0v3.34l-4.13.88V.88zm-6.88 4.53a5 5 0 0 1 3.44-1.22c3.45 0 5.37 2.55 5.37 6.85 0 4.47-2.1 7.15-5.44 7.15a4.6 4.6 0 0 1-3.38-1.23l-.02 1.05h-3.76V.88l4.12-.87v4.4zm.17 7.32c.92 0 1.63-.38 2.17-.9V9.27c-.55-.52-1.26-.86-2.17-.86-1.66 0-2.64 1.52-2.64 3.57 0 2.05.98 3.55 2.64 3.55zM5.57 9.28c0-.9.73-1.24 1.93-1.24 1.7 0 3.85.52 5.56 1.44V5.86a13.9 13.9 0 0 0-5.45-1.06C3.32 4.8 0 7.12 0 11.93c0 5.82 3.32 7.37 6.61 7.37 2.1 0 3.7-.47 4.45-.99v-3.45c-.98.6-2.73 1.08-4.45 1.08-1.2 0-1.94-.34-1.94-1.24z"/></svg>
+              <span style="font-style: italic;">(demo)</span>
+            </p>
+          </div>
         </div>
 
-        <aside class="signup-summary">
-          <h2>Checkout summary</h2>
-          <p><strong>Offer:</strong> 1 free lesson included with signup</p>
-          <p><strong>Access:</strong> Full Bright Talks library + updates</p>
-          <ul>
-            <li>Instant access after successful payment</li>
-            <li>Cancel any time from member dashboard</li>
-            <li>Email receipt and onboarding guide</li>
-          </ul>
-          <p class="total">Total due today: $39.99</p>
-          <p class="note">For production, connect this form to Stripe/PayPal and server-side validation.</p>
-        </aside>
+        <div class="stripe-test-helper">
+          <strong>Stripe test credentials</strong>
+          Use any email. Card: <code>4242 4242 4242 4242</code> · Expiry: any future date · CVC: any 3 digits · ZIP: any 5 digits.
+          <br />
+          <button type="button" class="stripe-autofill-btn" id="autofill-test-btn">Autofill test data</button>
+        </div>
       </div>
     </div>
 
@@ -486,30 +622,173 @@
 
   <script>
     (function () {
-      function bindForm(formId, statusId, successMessage) {
-        var form = document.getElementById(formId);
-        var statusEl = document.getElementById(statusId);
+      var STORAGE_KEY = "bright_talks_test_accounts";
+      var TEST_DATA = {
+        email: "test.parent@brighttalks.demo",
+        cardNumber: "4242 4242 4242 4242",
+        expiry: "12 / 34",
+        cvc: "123",
+        cardName: "Test Parent",
+        country: "US",
+        zip: "10001"
+      };
 
-        if (!form || !statusEl) return;
+      var form = document.getElementById("stripe-checkout-form");
+      var statusEl = document.getElementById("form-status");
+      var payBtn = document.getElementById("pay-btn");
+      var autofillBtn = document.getElementById("autofill-test-btn");
+      var cardInput = document.getElementById("cardNumber");
+      var expiryInput = document.getElementById("expiry");
 
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          statusEl.className = "status";
+      function formatCardNumber(value) {
+        var digits = value.replace(/\D/g, "").slice(0, 16);
+        return digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
+      }
 
-          if (!form.checkValidity()) {
-            statusEl.textContent = "Please complete all mandatory fields before continuing.";
-            statusEl.classList.add("err");
-            form.reportValidity();
-            return;
-          }
+      function formatExpiry(value) {
+        var digits = value.replace(/\D/g, "").slice(0, 4);
+        if (digits.length <= 2) return digits;
+        return digits.slice(0, 2) + " / " + digits.slice(2);
+      }
 
-          statusEl.textContent = successMessage;
-          statusEl.classList.add("ok");
-          form.reset();
+      function showStatus(message, type) {
+        statusEl.hidden = false;
+        statusEl.className = "status " + type;
+        statusEl.textContent = message;
+      }
+
+      function hideStatus() {
+        statusEl.hidden = true;
+        statusEl.className = "status";
+        statusEl.textContent = "";
+      }
+
+      function getStoredAccounts() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveTestAccount(data) {
+        var accounts = getStoredAccounts();
+        accounts.unshift({
+          id: "bt_test_" + Date.now(),
+          createdAt: new Date().toISOString(),
+          email: data.email,
+          cardLast4: data.cardNumber.replace(/\D/g, "").slice(-4),
+          cardName: data.cardName,
+          country: data.country,
+          zip: data.zip,
+          amount: "39.99",
+          status: "paid_test"
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(accounts.slice(0, 20)));
+      }
+
+      function validateCard(cardNumber) {
+        var digits = cardNumber.replace(/\D/g, "");
+        return digits.length === 16;
+      }
+
+      function validateExpiry(expiry) {
+        var match = expiry.replace(/\s/g, "").match(/^(\d{2})\/?(\d{2})$/);
+        if (!match) return false;
+        var month = parseInt(match[1], 10);
+        var year = 2000 + parseInt(match[2], 10);
+        if (month < 1 || month > 12) return false;
+        var now = new Date();
+        var exp = new Date(year, month);
+        return exp > now;
+      }
+
+      if (cardInput) {
+        cardInput.addEventListener("input", function () {
+          cardInput.value = formatCardNumber(cardInput.value);
         });
       }
 
-      bindForm("member-checkout-form", "form-status", "Payment submitted. Member profile created successfully.");
+      if (expiryInput) {
+        expiryInput.addEventListener("input", function () {
+          expiryInput.value = formatExpiry(expiryInput.value);
+        });
+      }
+
+      if (autofillBtn) {
+        autofillBtn.addEventListener("click", function () {
+          document.getElementById("email").value = TEST_DATA.email;
+          document.getElementById("cardNumber").value = TEST_DATA.cardNumber;
+          document.getElementById("expiry").value = TEST_DATA.expiry;
+          document.getElementById("cvc").value = TEST_DATA.cvc;
+          document.getElementById("cardName").value = TEST_DATA.cardName;
+          document.getElementById("country").value = TEST_DATA.country;
+          document.getElementById("zip").value = TEST_DATA.zip;
+          hideStatus();
+        });
+      }
+
+      if (!form) return;
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        hideStatus();
+
+        var data = {
+          email: document.getElementById("email").value.trim(),
+          cardNumber: document.getElementById("cardNumber").value.trim(),
+          expiry: document.getElementById("expiry").value.trim(),
+          cvc: document.getElementById("cvc").value.trim(),
+          cardName: document.getElementById("cardName").value.trim(),
+          country: document.getElementById("country").value,
+          zip: document.getElementById("zip").value.trim()
+        };
+
+        if (!form.checkValidity()) {
+          showStatus("Please complete all fields before paying.", "err");
+          form.reportValidity();
+          return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          showStatus("Enter a valid email address.", "err");
+          return;
+        }
+
+        if (!validateCard(data.cardNumber)) {
+          showStatus("Enter a valid 16-digit test card number (e.g. 4242 4242 4242 4242).", "err");
+          return;
+        }
+
+        if (!validateExpiry(data.expiry)) {
+          showStatus("Enter a valid future expiry date (MM / YY).", "err");
+          return;
+        }
+
+        if (!/^\d{3,4}$/.test(data.cvc)) {
+          showStatus("Enter a valid CVC (3 or 4 digits).", "err");
+          return;
+        }
+
+        payBtn.disabled = true;
+        payBtn.textContent = "Processing…";
+
+        setTimeout(function () {
+          saveTestAccount(data);
+          var accounts = getStoredAccounts();
+          var account = accounts[0];
+
+          showStatus(
+            "Test payment successful! Account saved for " + data.email +
+            " (ID: " + account.id + "). You can now test sign-in flows with this email.",
+            "ok"
+          );
+
+          payBtn.disabled = false;
+          payBtn.textContent = "Pay $39.99";
+          form.reset();
+        }, 900);
+      });
     })();
   </script>
 </body>
