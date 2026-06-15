@@ -549,16 +549,8 @@
             <p class="stripe-powered">
               Powered by
               <svg viewBox="0 0 60 25" fill="#8898aa" aria-hidden="true"><path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 0 1-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.75 2.48-7.57 6.37-7.57 3.92 0 5.87 2.81 5.87 7.4 0 .41-.04 1.13-.06 1.63zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.08 1.02a4.7 4.7 0 0 1 3.23-1.29c2.9 0 5.62 2.6 5.62 7.4 0 5.23-2.7 7.6-5.65 7.6zM40 8.95c-.95 0-1.54.34-1.97.81l.02 6.12c.4.44.98.78 1.95.78 1.52 0 2.54-1.65 2.54-3.87 0-2.15-1.04-3.89-2.54-3.89zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-4.7L32.37 0v3.34l-4.13.88V.88zm-6.88 4.53a5 5 0 0 1 3.44-1.22c3.45 0 5.37 2.55 5.37 6.85 0 4.47-2.1 7.15-5.44 7.15a4.6 4.6 0 0 1-3.38-1.23l-.02 1.05h-3.76V.88l4.12-.87v4.4zm.17 7.32c.92 0 1.63-.38 2.17-.9V9.27c-.55-.52-1.26-.86-2.17-.86-1.66 0-2.64 1.52-2.64 3.57 0 2.05.98 3.55 2.64 3.55zM5.57 9.28c0-.9.73-1.24 1.93-1.24 1.7 0 3.85.52 5.56 1.44V5.86a13.9 13.9 0 0 0-5.45-1.06C3.32 4.8 0 7.12 0 11.93c0 5.82 3.32 7.37 6.61 7.37 2.1 0 3.7-.47 4.45-.99v-3.45c-.98.6-2.73 1.08-4.45 1.08-1.2 0-1.94-.34-1.94-1.24z"/></svg>
-              <span style="font-style: italic;">(demo)</span>
             </p>
           </div>
-        </div>
-
-        <div class="stripe-test-helper">
-          <strong>Stripe test credentials</strong>
-          Use any email. Card: <code>4242 4242 4242 4242</code> · Expiry: any future date · CVC: any 3 digits · ZIP: any 5 digits.
-          <br />
-          <button type="button" class="stripe-autofill-btn" id="autofill-test-btn">Autofill test data</button>
         </div>
       </div>
     </div>
@@ -575,20 +567,10 @@
   <script>
     (function () {
       var STORAGE_KEY = "bright_talks_test_accounts";
-      var TEST_DATA = {
-        email: "test.parent@brighttalks.demo",
-        cardNumber: "4242 4242 4242 4242",
-        expiry: "12 / 34",
-        cvc: "123",
-        cardName: "Test Parent",
-        country: "US",
-        zip: "10001"
-      };
 
       var form = document.getElementById("stripe-checkout-form");
       var statusEl = document.getElementById("form-status");
       var payBtn = document.getElementById("pay-btn");
-      var autofillBtn = document.getElementById("autofill-test-btn");
       var cardInput = document.getElementById("cardNumber");
       var expiryInput = document.getElementById("expiry");
 
@@ -667,19 +649,6 @@
         });
       }
 
-      if (autofillBtn) {
-        autofillBtn.addEventListener("click", function () {
-          document.getElementById("email").value = TEST_DATA.email;
-          document.getElementById("cardNumber").value = TEST_DATA.cardNumber;
-          document.getElementById("expiry").value = TEST_DATA.expiry;
-          document.getElementById("cvc").value = TEST_DATA.cvc;
-          document.getElementById("cardName").value = TEST_DATA.cardName;
-          document.getElementById("country").value = TEST_DATA.country;
-          document.getElementById("zip").value = TEST_DATA.zip;
-          hideStatus();
-        });
-      }
-
       if (!form) return;
 
       form.addEventListener("submit", function (event) {
@@ -708,7 +677,7 @@
         }
 
         if (!validateCard(data.cardNumber)) {
-          showStatus("Enter a valid 16-digit test card number (e.g. 4242 4242 4242 4242).", "err");
+          showStatus("Enter a valid 16-digit card number.", "err");
           return;
         }
 
@@ -727,12 +696,9 @@
 
         setTimeout(function () {
           saveTestAccount(data);
-          var accounts = getStoredAccounts();
-          var account = accounts[0];
 
           showStatus(
-            "Test payment successful! Account saved for " + data.email +
-            " (ID: " + account.id + "). You can now test sign-in flows with this email.",
+            "Payment successful! Your account for " + data.email + " is ready.",
             "ok"
           );
 
