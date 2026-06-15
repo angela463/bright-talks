@@ -4612,6 +4612,61 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   max-width: 18rem;
 }
 
+/* Pricing page: living room photo background */
+body.page-pricing {
+  background-color: #9aa8b2;
+  background-image: none;
+}
+
+body.page-pricing::before {
+  display: none;
+}
+
+.page-pricing .pricing-page-section {
+  position: relative;
+  min-height: calc(100vh - 5rem);
+  padding: clamp(2.25rem, 5vw, 3.75rem) 0 clamp(2.75rem, 6vw, 4.25rem);
+  border-top: none;
+  background: transparent;
+  overflow: hidden;
+}
+
+.page-pricing .pricing-page-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../images/pricing-hero-living-room.png') center center / cover no-repeat;
+  z-index: 0;
+}
+
+.page-pricing .pricing-page-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 251, 248, 0.72) 45%,
+    rgba(250, 244, 235, 0.82) 100%
+  );
+  z-index: 1;
+}
+
+.page-pricing .pricing-page-section .page-shell {
+  position: relative;
+  z-index: 2;
+}
+
+.page-pricing .pricing-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.page-pricing .pricing-panel-cta {
+  background: rgba(248, 233, 215, 0.95);
+}
+
 @media (max-width: 1080px) {
   .course-format-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
