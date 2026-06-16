@@ -20,10 +20,16 @@
       </a>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
-        <a href="courses-v2.html" class="nav-link nav-link--minimal nav-link--current">Video Library</a>
-        <a href="courses.html" class="nav-link nav-link--minimal">Courses</a>
-        <a href="about.html" class="nav-link nav-link--minimal">About</a>
+        <div class="nav-dropdown">
+          <a href="courses-v2.html" class="nav-link nav-link--minimal nav-trigger nav-link--current" aria-expanded="false" aria-haspopup="true" aria-controls="nav-courses-menu" id="nav-courses-btn">Courses</a>
+          <div id="nav-courses-menu" class="nav-panel nav-panel--courses" role="menu">
+            <a href="courses-v2.html" role="menuitem" aria-current="page">Video Library</a>
+            <a href="course-info.html" role="menuitem">Course info</a>
+            <a href="pricing.html" role="menuitem">Pricing</a>
+          </div>
+        </div>
         <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
+        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
       </nav>
       <div class="bt-library-header__actions">
         <button type="button" class="btn btn-secondary bt-library-sign-in" data-auth-open="sign-in">Sign In</button>
@@ -89,5 +95,6 @@
   <script src="js/course-experience-common.js"></script>
   <script src="js/course-library-v2.js"></script>
   <script src="js/auth-modal.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
