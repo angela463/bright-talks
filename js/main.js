@@ -383,4 +383,10 @@
     initAboutExperienceFormats();
     initHeroBackgroundVideo();
   }
+
+  if (!window.BrightTalksAuthModal && !document.querySelector('script[src*="auth-modal.js"]')) {
+    var authScript = document.createElement('script');
+    authScript.src = 'js/auth-modal.js';
+    document.body.appendChild(authScript);
+  }
 })();

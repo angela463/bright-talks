@@ -1,4 +1,6 @@
 /* Bright Talks – design system (warm, editorial, trustworthy) */
+@import url('auth-modal.css');
+
 :root {
   /* Brand warmth – refined, not saturated */
   --orange: #e8954a;

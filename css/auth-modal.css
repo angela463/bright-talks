@@ -187,3 +187,64 @@
 .auth-modal__footer a:hover {
   text-decoration: underline;
 }
+
+/* Site-wide header Sign In */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.header-sign-in {
+  padding: 0.55rem 1rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.header-sign-in-link {
+  border: 0;
+  background: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #6b7280;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.header-sign-in-link:hover {
+  color: #2c2825;
+  background: #fff;
+}
+
+.signup-back {
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.player-v2-sign-in-btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.player-v2-sign-in-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}

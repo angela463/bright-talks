@@ -219,6 +219,61 @@
     }
   }
 
+  function createSignInButton(className) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = className || 'btn btn-secondary header-sign-in';
+    btn.setAttribute('data-auth-open', 'sign-in');
+    btn.textContent = 'Sign In';
+    return btn;
+  }
+
+  function injectHeaderButtons() {
+    document.querySelectorAll('.site-header .header-inner').forEach(function (header) {
+      if (header.querySelector('[data-auth-open]')) return;
+
+      var libraryActions = header.querySelector('.bt-library-header__actions');
+      if (libraryActions) {
+        libraryActions.insertBefore(
+          createSignInButton('btn btn-secondary bt-library-sign-in'),
+          libraryActions.firstChild
+        );
+        return;
+      }
+
+      var coursesBtn = header.querySelector(':scope > a.btn-primary');
+      if (!coursesBtn) {
+        coursesBtn = header.querySelector('.header-actions a.btn-primary');
+      }
+
+      if (coursesBtn && !coursesBtn.closest('.header-actions')) {
+        var actions = document.createElement('div');
+        actions.className = 'header-actions';
+        coursesBtn.parentNode.insertBefore(actions, coursesBtn);
+        actions.appendChild(createSignInButton());
+        actions.appendChild(coursesBtn);
+        return;
+      }
+
+      if (header.querySelector('.nav')) {
+        var actionsOnly = document.createElement('div');
+        actionsOnly.className = 'header-actions';
+        actionsOnly.appendChild(createSignInButton());
+        header.appendChild(actionsOnly);
+      }
+    });
+
+    var signupNav = document.querySelector('.signup-nav');
+    if (signupNav && !signupNav.querySelector('[data-auth-open]')) {
+      signupNav.insertBefore(createSignInButton('header-sign-in-link'), signupNav.firstChild);
+    }
+
+    var playerBrand = document.querySelector('.player-v2-sidebar__brand');
+    if (playerBrand && !playerBrand.parentElement.querySelector('[data-auth-open]')) {
+      playerBrand.insertAdjacentElement('afterend', createSignInButton('player-v2-sign-in-btn'));
+    }
+  }
+
   function bindTriggers() {
     document.addEventListener('click', function (e) {
       var trigger = e.target.closest('[data-auth-open]');
@@ -235,14 +290,18 @@
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      bindTriggers();
-      initFromHash();
-    });
-  } else {
+  function init() {
+    if (window.__btAuthModalReady) return;
+    window.__btAuthModalReady = true;
+    injectHeaderButtons();
     bindTriggers();
     initFromHash();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 
   window.BrightTalksAuthModal = {

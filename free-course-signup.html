@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/auth-modal.css" />
   <style>
     :root {
       --bg: #f6f9fc;
@@ -459,10 +460,10 @@
       </div>
 
       <div class="signup-form-panel__inner">
-        <a href="courses-v2.html#sign-in" class="signup-back">
+        <button type="button" class="signup-back" data-auth-open="sign-in">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
           Back to Sign In
-        </a>
+        </button>
 
         <div class="stripe-checkout">
           <div class="stripe-checkout__body">
@@ -685,5 +686,6 @@
       });
     })();
   </script>
+  <script src="js/auth-modal.js"></script>
 </body>
 </html>
