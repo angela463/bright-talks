@@ -3812,7 +3812,17 @@ a.nav-link.nav-trigger {
 
 .about-experts__intro {
   margin: 0 auto 0.5rem;
-  max-width: 36rem;
+  max-width: 40rem;
+}
+
+.about-instructor-spotlight.instructor-layout {
+  margin: clamp(1.75rem, 4vw, 2.5rem) auto 0;
+  max-width: 58rem;
+  text-align: left;
+}
+
+.about-instructor-spotlight .instructor-spotlight__body .btn {
+  margin-top: 0.35rem;
 }
 
 .about-expert-grid {
@@ -4420,7 +4430,8 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   color: rgba(85, 80, 76, 0.86);
 }
 
-.course-instructor .instructor-layout {
+.course-instructor .instructor-layout,
+.about-instructor-spotlight.instructor-layout {
   display: grid;
   grid-template-columns: minmax(240px, clamp(280px, 34vw, 420px)) minmax(0, 1fr);
   align-items: start;
@@ -4674,7 +4685,8 @@ body.page-pricing::before {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .course-instructor .instructor-layout {
+  .course-instructor .instructor-layout,
+  .about-instructor-spotlight.instructor-layout {
     grid-template-columns: 1fr;
   }
 
