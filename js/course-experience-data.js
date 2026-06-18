@@ -473,9 +473,67 @@
     };
   }
 
+  function buildMiddleChildhoodCourse(sa) {
+    var lessonTitles = [
+      'Understanding Growing Bodies',
+      'Privacy & Personal Space',
+      'Answering Curious Questions',
+      'Friendships & Boundaries',
+      'Media & Online Curiosity',
+      'Emotions & Self-Esteem',
+      'Family Values & Rules',
+      'Preparing for Puberty Talks',
+      'Keeping Conversations Open'
+    ];
+    var durations = ['12 min', '10 min', '11 min', '9 min', '13 min', '10 min', '8 min', '12 min', '9 min'];
+
+    var lessons = lessonTitles.map(function (title, i) {
+      return {
+        id: 'mc-l' + (i + 1),
+        title: 'Lesson ' + (i + 1) + ': ' + title,
+        summary: 'Practical guidance for parents of children ages 6 to 9.',
+        duration: durations[i],
+        audio: {
+          audioUrl: sa,
+          transcript: title + ' — parent-friendly guidance for middle childhood.',
+          voice: 'Warm Guide v2',
+          duration: durations[i].replace(' min', ':00'),
+          status: 'ready'
+        }
+      };
+    });
+
+    return {
+      id: 'bt-middle-childhood',
+      title: 'Growing Up: Middle Childhood',
+      topic: 'Growing Up',
+      audience: 'Parents of Ages 6 to 9',
+      level: 'Core',
+      description:
+        'Friendships, curiosity, and honest answers as your child grows more independent.',
+      outcome:
+        'Build confidence leading age-appropriate talks about bodies, boundaries, and growing up.',
+      duration: '1h 34m',
+      lessonCount: lessons.length,
+      progress: 0,
+      completed: false,
+      heroImage: courseHeroImages.puberty,
+      playerEntry: { module: 0, lesson: 0 },
+      modules: [
+        {
+          id: 'm-middle-childhood',
+          title: 'Middle Childhood Course',
+          objective: 'Guide children ages 6–9 through curiosity, boundaries, and growing independence.',
+          lessons: lessons
+        }
+      ]
+    };
+  }
+
   /** @type {Course[]} */
   var courses = [
     buildEarlyYearsFoundationsCourse(sampleAudio),
+    buildMiddleChildhoodCourse(sampleAudio),
     {
       id: 'bt-puberty-conversations',
       title: 'Puberty & Growing Up Without Shame',
