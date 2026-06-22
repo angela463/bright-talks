@@ -67,6 +67,7 @@
 
   var courseHeroImages = {
     earlyYears: 'images/pexels-julia-m-cameron-4144230.jpg',
+    middleChildhood: 'images/pexels-julia-m-cameron-4144531.jpg',
     puberty: 'images/pexels-tima-miroshnichenko-5813804.jpg',
     teen: 'images/teen-laptop-couch.png'
   };
@@ -78,6 +79,18 @@
     porn: 'images/promo/promo-05-tablet-learning.png',
     continuing: 'images/pexels-max-fischer-5212331.jpg'
   };
+
+  var middleChildhoodLessonImages = [
+    'images/pexels-julia-m-cameron-4144531.jpg',
+    'images/pexels-karola-g-5478103.jpg',
+    'images/pexels-mikhail-nilov-6893360.jpg',
+    'images/pexels-antonius-ferret-5274618.jpg',
+    'images/promo/promo-04-classroom.png',
+    'images/pexels-artempodrez-6951903.jpg',
+    'images/pexels-bohlemedia-963713.jpg',
+    'images/pexels-hngstrm-1939485.jpg',
+    'images/promo/promo-03-hiking.png'
+  ];
 
   function lessonAudio(sa, transcript, duration) {
     return {
@@ -493,6 +506,11 @@
         title: 'Lesson ' + (i + 1) + ': ' + title,
         summary: 'Practical guidance for parents of children ages 6 to 9.',
         duration: durations[i],
+        heroVisual: {
+          type: 'image',
+          src: middleChildhoodLessonImages[i % middleChildhoodLessonImages.length],
+          alt: title
+        },
         audio: {
           audioUrl: sa,
           transcript: title + ' — parent-friendly guidance for middle childhood.',
@@ -517,7 +535,7 @@
       lessonCount: lessons.length,
       progress: 0,
       completed: false,
-      heroImage: courseHeroImages.puberty,
+      heroImage: courseHeroImages.middleChildhood,
       playerEntry: { module: 0, lesson: 0 },
       modules: [
         {
