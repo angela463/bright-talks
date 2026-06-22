@@ -6,10 +6,10 @@
   --course-v2-border: rgba(203, 157, 112, 0.32);
   --course-v2-accent: #e8954a;
   --course-v2-accent-dark: #d47a38;
-  --course-v2-player-sidebar: #2c2826;
-  --course-v2-player-sidebar-soft: #3a3532;
-  --course-v2-player-sidebar-ink: #f7f2ec;
-  --course-v2-player-sidebar-muted: rgba(247, 242, 236, 0.62);
+  --course-v2-player-sidebar: #ede8e0;
+  --course-v2-player-sidebar-soft: #f5f0e8;
+  --course-v2-player-sidebar-ink: #2a2725;
+  --course-v2-player-sidebar-muted: #6b635c;
   --course-v2-player-main: #e8e2d9;
   --course-v2-player-card: #faf8f4;
   --course-v2-player-accent-soft: #f5e8d8;
@@ -345,14 +345,14 @@
 
 .player-v2-sidebar {
   background: var(--course-v2-player-sidebar);
-  border-right: none;
+  border-right: 1px solid rgba(203, 157, 112, 0.28);
   padding: 1.35rem 1.1rem 1.5rem;
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 0;
   color: var(--course-v2-player-sidebar-ink);
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+  box-shadow: none;
 }
 
 .player-v2-sidebar__brand {
@@ -386,7 +386,7 @@
   font-family: var(--font-display);
   font-size: 1.35rem;
   margin: 0.45rem 0 0;
-  color: #fff;
+  color: var(--course-v2-ink);
   line-height: 1.25;
   font-weight: 600;
 }
@@ -406,8 +406,8 @@
 .player-v2-split-hero {
   position: relative;
   width: 100%;
-  min-height: min(48vh, 480px);
-  background: #1f1b19;
+  height: clamp(180px, 26vw, 260px);
+  background: var(--course-v2-player-main);
   border-radius: 1rem 1rem 0 0;
 }
 
@@ -417,13 +417,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 28%;
+  height: 32%;
   z-index: 4;
   pointer-events: none;
   background: linear-gradient(
     to top,
-    rgba(22, 18, 15, 0.88) 0%,
-    rgba(22, 18, 15, 0.45) 55%,
+    rgba(232, 226, 217, 0.92) 0%,
+    rgba(232, 226, 217, 0.4) 55%,
     transparent 100%
   );
 }
@@ -489,7 +489,7 @@
   flex-direction: column;
   margin-top: 0.35rem;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(203, 157, 112, 0.28);
 }
 
 .player-v2-sidebar-course-nav {
@@ -510,14 +510,14 @@
   line-height: 1.3;
   letter-spacing: -0.01em;
   text-transform: none;
-  color: #f0dcc8;
+  color: var(--course-v2-ink);
 }
 
 .player-v2-sidebar-course-nav__course {
   display: block;
   width: 100%;
   text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(203, 157, 112, 0.35);
   background: var(--course-v2-player-sidebar-soft);
   color: var(--course-v2-player-sidebar-ink);
   border-radius: 0.75rem;
@@ -553,8 +553,8 @@
   display: block;
   width: 100%;
   text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(203, 157, 112, 0.3);
+  background: #faf8f4;
   color: var(--course-v2-player-sidebar-ink);
   border-radius: 0.85rem;
   padding: 0.75rem 0.85rem;
@@ -591,7 +591,7 @@
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
-  color: #f5dcc0;
+  color: var(--course-v2-accent-dark);
 }
 
 .player-v2-sidebar-lesson-mark--welcome {
@@ -600,7 +600,7 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   text-transform: none;
-  color: #f5dcc0;
+  color: var(--course-v2-accent-dark);
 }
 
 .player-v2-sidebar-lesson-title {
@@ -631,7 +631,7 @@
 }
 
 .player-v2-sidebar-course-nav__item.is-active .player-v2-sidebar-lesson-title {
-  color: #fff;
+  color: var(--course-v2-ink);
 }
 
 .player-v2-downloads {
@@ -723,7 +723,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(26, 21, 18, 0.08) 0%, rgba(26, 21, 18, 0.22) 100%);
+  background: linear-gradient(180deg, rgba(250, 248, 244, 0.04) 0%, rgba(232, 226, 217, 0.18) 100%);
 }
 
 .player-v2-canvas-head {
@@ -767,13 +767,13 @@
   border-radius: 0;
   background: linear-gradient(
     to top,
-    rgba(22, 18, 15, 0.92) 0%,
-    rgba(22, 18, 15, 0.78) 100%
+    rgba(237, 232, 224, 0.96) 0%,
+    rgba(237, 232, 224, 0.82) 100%
   );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: none;
-  padding: 0.65rem 1.1rem 0.65rem 1.5rem;
+  padding: 0.55rem 1rem 0.55rem 1.25rem;
 }
 
 .player-v2-split-hero .player-v2-audio h3,
@@ -793,13 +793,14 @@
 }
 
 .player-v2-split-hero .player-v2-audio .player-v2-icon-btn {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.28);
-  color: #fff;
-  width: 2.25rem;
-  height: 2.25rem;
+  background: #fff;
+  border-color: rgba(203, 157, 112, 0.45);
+  color: var(--course-v2-ink);
+  width: 2.1rem;
+  height: 2.1rem;
   flex-shrink: 0;
   margin-left: 0.15rem;
+  box-shadow: 0 2px 8px rgba(55, 38, 22, 0.08);
 }
 
 .player-v2-split-hero .player-v2-audio .player-v2-icon-btn .player-v2-icon--play {
@@ -807,12 +808,12 @@
 }
 
 .player-v2-split-hero .player-v2-audio .player-v2-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: #fffefb;
+  border-color: var(--course-v2-accent);
 }
 
 .player-v2-split-hero .player-v2-audio #player-v2-time {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--course-v2-muted);
   font-size: 0.78rem;
   white-space: nowrap;
   flex-shrink: 0;
@@ -894,11 +895,11 @@
 }
 
 .player-v2-nav-module {
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(203, 157, 112, 0.35);
   border-radius: 0.85rem;
   padding: 0.75rem;
   margin-top: 0.7rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: #faf8f4;
   box-shadow: none;
 }
 
@@ -906,7 +907,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: 0.95rem;
-  color: #fff;
+  color: var(--course-v2-ink);
 }
 
 .player-v2-nav-module p {
@@ -922,8 +923,8 @@
 }
 
 .player-v2-nav-lesson {
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(203, 157, 112, 0.3);
+  background: #fffefb;
   color: var(--course-v2-player-sidebar-ink);
   border-radius: 0.65rem;
   padding: 0.55rem 0.65rem;
@@ -935,7 +936,7 @@
 .player-v2-nav-lesson strong {
   font-weight: 600;
   font-size: 0.84rem;
-  color: #fff;
+  color: var(--course-v2-ink);
 }
 
 .player-v2-nav-lesson:hover {
@@ -1265,7 +1266,7 @@
   }
 
   .player-v2-split-hero {
-    min-height: min(42vw, 280px);
+    height: clamp(160px, 42vw, 220px);
   }
 
   .player-v2-split-body {
