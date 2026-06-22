@@ -91,6 +91,16 @@
     if (title === 'Welcome Video') {
       return '<span class="player-v2-lesson-title-accent">Welcome Video</span>';
     }
+    var match = /^(Talk)\s+(\d+):\s*(.+)$/i.exec(String(title || ''));
+    if (match) {
+      return (
+        '<span class="player-v2-lesson-title-accent">' +
+          '<span class="player-v2-canvas-talk-label">Talk</span> ' +
+          escText(match[2]) + ':' +
+        '</span>' +
+        escText(match[3])
+      );
+    }
     var colonIdx = title.indexOf(':');
     if (colonIdx !== -1) {
       return '<span class="player-v2-lesson-title-accent">' + escText(title.slice(0, colonIdx + 1)) + '</span>' +
