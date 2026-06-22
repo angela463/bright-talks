@@ -7,8 +7,8 @@
   <title>Bright Talks | Checkout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/auth-modal.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
   <style>
     :root {
       --bg: #f6f9fc;
@@ -37,7 +37,7 @@
 
     .signup-page {
       display: grid;
-      min-height: 100vh;
+      min-height: calc(100vh - 4.5rem);
       grid-template-columns: 1fr;
     }
 
@@ -50,45 +50,9 @@
     .signup-form-panel {
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      min-height: calc(100vh - 4.5rem);
       background: var(--bg);
       padding: 24px clamp(20px, 4vw, 48px) 40px;
-    }
-
-    .signup-form-panel__top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: clamp(16px, 3vh, 28px);
-    }
-
-    .signup-logo {
-      display: block;
-      height: 32px;
-      width: auto;
-    }
-
-    .signup-nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .signup-nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.875rem;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: color 0.15s, background 0.15s;
-    }
-
-    .signup-nav a:hover {
-      color: var(--ink);
-      background: #fff;
     }
 
     .signup-back {
@@ -392,9 +356,9 @@
 
     @media (min-width: 960px) {
       .signup-visual-panel {
-        min-height: 100vh;
+        min-height: calc(100vh - 4.5rem);
         position: sticky;
-        top: 0;
+        top: 4.5rem;
         align-self: start;
       }
     }
@@ -446,19 +410,31 @@
     }
   </style>
 </head>
-<body>
+<body class="page-landing page-checkout" id="top">
+  <header class="site-header site-header--landing">
+    <div class="header-inner header-inner--landing">
+      <a href="index.html" class="logo-link">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <nav class="nav nav--landing" aria-label="Main">
+        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <div class="nav-dropdown">
+          <a href="courses-v2.html" class="nav-link nav-link--minimal nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="nav-courses-menu" id="nav-courses-btn">Courses</a>
+          <div id="nav-courses-menu" class="nav-panel nav-panel--courses" role="menu">
+            <a href="courses-v2.html" role="menuitem">Video Library</a>
+            <a href="course-info.html" role="menuitem">Course info</a>
+            <a href="free-course-signup.html" role="menuitem" aria-current="page">Pricing</a>
+          </div>
+        </div>
+        <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
+        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
+      </nav>
+      <a href="courses-v2.html" class="btn btn-primary">Click Courses</a>
+    </div>
+  </header>
+
   <div class="signup-page">
     <div class="signup-form-panel">
-      <div class="signup-form-panel__top">
-        <a href="index.html" aria-label="Bright Talks home">
-          <img class="signup-logo" src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" />
-        </a>
-        <nav class="signup-nav" aria-label="Quick links">
-          <a href="free-course-signup.html" aria-current="page">Pricing</a>
-          <a href="courses-v2.html">Back to courses</a>
-        </nav>
-      </div>
-
       <div class="signup-form-panel__inner">
         <button type="button" class="signup-back" data-auth-open="sign-in">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
@@ -686,6 +662,6 @@
       });
     })();
   </script>
-  <script src="js/auth-modal.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
