@@ -19,8 +19,8 @@
       --accent: #e8954a;
       --accent-bright: #ffb366;
       --accent-dark: #e07a2e;
-      --stripe: #635bff;
-      --stripe-hover: #5851ea;
+      --stripe: #e8954a;
+      --stripe-hover: #d47a38;
       --danger: #df1b41;
       --ok: #1a7f4f;
       --radius: 8px;
@@ -283,18 +283,20 @@
       margin-top: 8px;
       width: 100%;
       border: 0;
-      border-radius: 6px;
-      background: var(--stripe);
+      border-radius: 999px;
+      background: linear-gradient(165deg, var(--stripe) 0%, var(--stripe-hover) 100%);
       color: #fff;
       font-weight: 600;
       padding: 14px 16px;
       font-size: 1rem;
       cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 2px 10px rgba(200, 120, 60, 0.22);
+      transition: filter 0.15s ease, box-shadow 0.15s ease;
     }
 
     .stripe-pay-btn:hover {
-      background: var(--stripe-hover);
+      filter: brightness(1.04);
+      box-shadow: 0 4px 14px rgba(200, 120, 60, 0.28);
     }
 
     .stripe-pay-btn:disabled {
