@@ -54,7 +54,7 @@
 
   var ageOptions = [
     { id: '', label: 'All ages' },
-    { id: '2-5', label: '2–5 yrs', match: /early|2.?5|3.?6/i },
+    { id: '3-5', label: '3–5 yrs', match: /early|3.?5|3.?6/i },
     { id: '6-9', label: '6–9 yrs', match: /6.?9|middle/i },
     { id: '10-13', label: '10–13 yrs', match: /9.?13|10.?13|puberty/i },
     { id: 'teen', label: 'Teens', match: /teen/i }
@@ -91,11 +91,11 @@
   }
 
   function audienceBadge(course) {
-    if (course.id === 'bt-foundations-early-years') return 'Ages 2–5';
+    if (course.id === 'bt-foundations-early-years') return 'Ages 3–5';
     if (course.id === 'bt-middle-childhood') return 'Ages 6–9';
     if (course.id === 'bt-puberty-conversations') return 'Ages 10–13';
     if (course.id === 'bt-teen-digital-safety') return 'Teens';
-    if (/early/i.test(course.audience)) return 'Ages 2–5';
+    if (/early/i.test(course.audience)) return 'Ages 3–5';
     if (/9 to 13|9–13|10.?13/i.test(course.audience)) return 'Ages 10–13';
     if (/teen/i.test(course.audience)) return 'Teens';
     return course.audience;
