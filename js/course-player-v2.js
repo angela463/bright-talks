@@ -280,7 +280,7 @@
     }
     if (el.progressCount) el.progressCount.textContent = done + ' of ' + total;
     if (el.progressMeta) {
-      el.progressMeta.textContent = mins + ' min of talks \u2022 ' + total + ' lessons';
+      el.progressMeta.textContent = mins + ' min of talks, ' + total + ' lessons';
     }
   }
 

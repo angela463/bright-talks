@@ -152,7 +152,7 @@
             bullets: [
               'Understand what Bright Talks offers parents and caregivers of young children.',
               'See how the course is structured and what you can expect in each talk.',
-              'Feel reassured that you can lead these talks with warmth—not fear or embarrassment.'
+              'Feel reassured that you can lead these talks with warmth, not fear or embarrassment.'
             ]
           },
           {
@@ -160,7 +160,7 @@
             type: 'prose',
             paragraphs: [
               'This course walks through six practical topics: bodies and anatomy, boundaries and safety, reproduction, online images, and keeping the conversation going over time.',
-              'Each talk includes short video, parent-friendly guidance, optional audio narration, and space to reflect. You can move at your child’s pace—there is no test and no perfect script.',
+              'Each talk includes short video, parent-friendly guidance, optional audio narration, and space to reflect. You can move at your child’s pace. There is no test and no perfect script.',
               'Bright Talks is built for real homes: busy schedules, curious questions, and the hope that your child will always know they can come to you.'
             ]
           },
@@ -170,7 +170,7 @@
             paragraphs: [
               'Watch the welcome video, then move through the talks in order or jump to what fits your family right now.',
               'Use the handbook and discussion prompts when you are ready. Small, repeated conversations matter more than one long talk.',
-              'If a topic feels new to you, that is okay. You are learning alongside your child—and that honesty builds trust.'
+              'If a topic feels new to you, that is okay. You are learning alongside your child, and that honesty builds trust.'
             ]
           }
         ]
@@ -197,9 +197,9 @@
             title: 'Age-Based Guidance',
             type: 'prose',
             paragraphs: [
-              'Ages 3–4: Short labels during care routines—“This is your arm, this is your knee.” Keep tone matter-of-fact, like naming colors.',
-              'Ages 5–6: Add privacy language—“Some parts are private. We use real names so you always know what I mean.”',
-              'Video placeholders for age bands (3–4 and 5–6) will be added here—use the handbook and scripts below until those clips are ready.'
+              'Ages 3 to 4: Short labels during care routines. “This is your arm, this is your knee.” Keep tone matter-of-fact, like naming colors.',
+              'Ages 5 to 6: Add privacy language. “Some parts are private. We use real names so you always know what I mean.”',
+              'Video placeholders for age bands (3 to 4 and 5 to 6) will be added here. Use the handbook and scripts below until those clips are ready.'
             ]
           },
           {
@@ -231,7 +231,7 @@
             type: 'discussion',
             paragraphs: ['Pick one calm moment this week to name two body parts and one private-area rule.'],
             reflectionLead: 'What phrase will you try first?',
-            reflectionPlaceholder: 'Example: “Your body is strong and good. Some parts are private—we only touch them for washing or health.”'
+            reflectionPlaceholder: 'Example: “Your body is strong and good. Some parts are private. We only touch them for washing or health.”'
           }
         ]
       }),
@@ -257,7 +257,7 @@
             title: 'Boundaries in Everyday Life',
             type: 'prose',
             paragraphs: [
-              'Boundaries are not lectures—they are habits: asking before a hug, knocking before entering a room, and respecting “no” or “not right now.”',
+              'Boundaries are not lectures. They are habits: asking before a hug, knocking before entering a room, and respecting “no” or “not right now.”',
               'Practice consent language often: “Do you want a high five or a wave?” Children learn that their body belongs to them.'
             ]
           },
@@ -265,8 +265,8 @@
             title: 'Doctor, Family & Safe Touch',
             type: 'prose',
             paragraphs: [
-              'Help children understand that some grown-ups help with bodies for health and care—a parent during bath time, a doctor with a parent present. Those moments have a purpose and should never feel secret or scary.',
-              'Unsafe touch is touch that feels confusing, scary, or secret—and children can always tell you. Reassure them: you will listen, you will believe them, and you will help.'
+              'Help children understand that some grown-ups help with bodies for health and care: a parent during bath time, a doctor with a parent present. Those moments have a purpose and should never feel secret or scary.',
+              'Unsafe touch is touch that feels confusing, scary, or secret, and children can always tell you. Reassure them: you will listen, you will believe them, and you will help.'
             ]
           },
           {
@@ -292,7 +292,7 @@
         id: 'lesson-3-reproduction',
         title: 'Talk 3: Reproduction',
         summary:
-          'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3–6.',
+          'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3 to 6.',
         duration: '18m',
         audioDuration: '18:00',
         heroVisual: { type: 'image', src: earlyYearsLessonImages.reproduction, alt: 'Calm parent-child moment' },
@@ -319,9 +319,9 @@
             title: 'Common Questions',
             type: 'prose',
             paragraphs: [
-              '“Did I grow in your tummy?” — Yes, and you can share their birth story in a simple, loving way.',
-              '“How does the baby get out?” — “When the baby is ready, the body pushes the baby out through a special opening called the vagina, or sometimes doctors help through surgery.”',
-              'It is okay to say, “Great question—let me think how to say that simply,” and return when you are ready.'
+              '“Did I grow in your tummy?” Yes, and you can share their birth story in a simple, loving way.',
+              '“How does the baby get out?” “When the baby is ready, the body pushes the baby out through a special opening called the vagina, or sometimes doctors help through surgery.”',
+              'It is okay to say, “Great question. Let me think how to say that simply,” and return when you are ready.'
             ]
           },
           {
@@ -331,7 +331,7 @@
               {
                 label: 'Reproduction Q&A Guide (PDF)',
                 href: '#reproduction-guide-placeholder',
-                description: 'Sample phrases for ages 3–6 (placeholder—full PDF coming soon).'
+                description: 'Sample phrases for ages 3 to 6 (placeholder. Full PDF coming soon).'
               }
             ]
           }
@@ -341,7 +341,7 @@
         id: 'lesson-4-porn',
         title: 'Talk 4: Porn & Inappropriate Images',
         summary:
-          'Prepare calm responses if your child sees confusing images or videos—online or elsewhere—without fear or shame.',
+          'Prepare calm responses if your child sees confusing images or videos online or elsewhere without fear or shame.',
         duration: '20m',
         audioDuration: '20:00',
         heroVisual: { type: 'image', src: earlyYearsLessonImages.porn, alt: 'Parent guiding child at computer' },
@@ -351,7 +351,7 @@
             type: 'objectives',
             bullets: [
               'Understand why early conversations about inappropriate images support safety.',
-              'Know what to say if a child sees something confusing—without panic or punishment.',
+              'Know what to say if a child sees something confusing without panic or punishment.',
               'Set simple family rules for screens and “tell me right away.”'
             ]
           },
@@ -360,7 +360,7 @@
             type: 'prose',
             paragraphs: [
               'This talk is for adults. We do not show graphic content. The goal is to help you respond with steadiness if a young child encounters inappropriate pictures or videos.',
-              'Many children see something by accident—a click, a pop-up, or an older sibling’s device. Your reaction shapes whether they come to you again.'
+              'Many children see something by accident: a click, a pop-up, or an older sibling’s device. Your reaction shapes whether they come to you again.'
             ]
           },
           {
@@ -377,7 +377,7 @@
             type: 'prose',
             paragraphs: [
               'Use devices in shared spaces when possible, enable parental controls, and teach: “If a screen shows something that feels yucky or weird, come get me.”',
-              'Focus on safety and trust—not shame. You are the steady adult in a confusing moment.'
+              'Focus on safety and trust, not shame. You are the steady adult in a confusing moment.'
             ]
           },
           {
@@ -406,7 +406,7 @@
             title: 'Talk Objectives',
             type: 'objectives',
             bullets: [
-              'Plan small, repeatable check-ins—not one “big talk.”',
+              'Plan small, repeatable check-ins, not one “big talk.”',
               'Use scripts that fit your family voice.',
               'Identify next steps and who else should hear the same language.'
             ]
@@ -442,7 +442,7 @@
             title: 'Course Completion',
             type: 'prose',
             paragraphs: [
-              'You have walked through the core early-years path. Revisit any talk when new questions appear—and celebrate the trust you are building.',
+              'You have walked through the core early-years path. Revisit any talk when new questions appear and celebrate the trust you are building.',
               'More age-specific videos and handbooks will be linked here as they are published.'
             ]
           }
@@ -457,7 +457,7 @@
       audience: 'Parents of Early Learners',
       level: 'Starter',
       description:
-        'A structured path for parents and caregivers: welcome, bodies, boundaries, reproduction, online safety, and ongoing conversation—calm, clear, and shame-free.',
+        'A structured path for parents and caregivers: welcome, bodies, boundaries, reproduction, online safety, and ongoing conversation that is calm, clear, and shame-free.',
       outcome:
         'Leave with practical language, handbooks, and scripts you can use this week to build trust and body safety at home.',
       duration: '1h 42m',
@@ -513,7 +513,7 @@
         },
         audio: {
           audioUrl: sa,
-          transcript: title + ' — parent-friendly guidance for middle childhood.',
+          transcript: title + ': parent-friendly guidance for middle childhood.',
           voice: 'Warm Guide v2',
           duration: durations[i].replace(' min', ':00'),
           status: 'ready'
@@ -541,7 +541,7 @@
         {
           id: 'm-middle-childhood',
           title: 'Middle Childhood Course',
-          objective: 'Guide children ages 6–9 through curiosity, boundaries, and growing independence.',
+          objective: 'Guide children ages 6 to 9 through curiosity, boundaries, and growing independence.',
           lessons: lessons
         }
       ]

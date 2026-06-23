@@ -13,7 +13,7 @@
       courseId: 'bt-foundations-early-years',
       num: '01',
       title: 'Foundations: Early Years',
-      age: 'Ages 3–5',
+      age: 'Ages 3 to 5',
       status: 'available',
       statusLabel: 'Available'
     },
@@ -21,7 +21,7 @@
       courseId: 'bt-middle-childhood',
       num: '02',
       title: 'Growing Up: Middle Childhood',
-      age: 'Ages 6–8',
+      age: 'Ages 6 to 8',
       status: 'available',
       statusLabel: 'Available'
     },
@@ -29,7 +29,7 @@
       courseId: 'bt-puberty-conversations',
       num: '03',
       title: 'Puberty & Growing Up Without Shame',
-      age: 'Ages 9–12',
+      age: 'Ages 9 to 12',
       status: 'progress',
       statusLabel: 'In progress'
     },
@@ -109,11 +109,11 @@
       if (isWelcome) {
         statusClass = 'cc-lesson-row__status--start';
         statusLabel = 'Start here';
-        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">Watch welcome →</a>';
+        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">Watch welcome</a>';
       } else if (isFirstTalk) {
         statusClass = 'cc-lesson-row__status--ready';
         statusLabel = 'Ready';
-        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">View talk →</a>';
+        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">View talk</a>';
       } else {
         statusClass = 'cc-lesson-row__status--soon';
         statusLabel = 'Coming soon';
