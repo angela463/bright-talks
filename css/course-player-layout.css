@@ -225,9 +225,9 @@
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card.is-active {
-  border-color: rgba(232, 149, 74, 0.65);
-  background: linear-gradient(135deg, #fff9f2 0%, #fff0df 100%);
-  box-shadow: 0 6px 18px rgba(232, 149, 74, 0.12);
+  border: 2px solid var(--pv2-orange);
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(232, 149, 74, 0.1);
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card__ring {
@@ -241,7 +241,18 @@
 
 .player-v2-layout-revamp .player-v2-lesson-card.is-active .player-v2-lesson-card__ring {
   border-color: var(--pv2-orange);
-  background: rgba(232, 149, 74, 0.2);
+  background: rgba(232, 149, 74, 0.15);
+}
+
+.player-v2-layout-revamp .player-v2-lesson-card.is-active.is-welcome .player-v2-lesson-card__ring::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 0.12rem auto 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--pv2-orange-dark);
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card.is-done .player-v2-lesson-card__ring {
