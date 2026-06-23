@@ -21,7 +21,7 @@
 
   /** Course library: only these show “Click Courses”; others show as locked. */
   var COURSE_LIBRARY_OPEN_IDS = ['ages-3-5'];
-  var VIDEO_LIBRARY_HREF = 'courses-v2.html';
+  var VIDEO_LIBRARY_HREF = 'courses-concept.html';
 
   var LOCK_ICON_SVG =
     '<svg class="course-lock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +

@@ -173,10 +173,28 @@
 
   function initWelcomeVideo() {
     var video = document.getElementById('cc-welcome-video');
+    var soundBtn = document.getElementById('cc-welcome-sound');
     if (!video) return;
+
     var source = video.querySelector('source');
     if (source) source.src = welcomeVideoSrc;
     video.load();
+
+    if (!soundBtn) return;
+
+    function setSoundState(on) {
+      video.muted = !on;
+      video.loop = !on;
+      soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      soundBtn.textContent = on ? 'Sound on' : 'Turn sound on';
+      if (on) {
+        video.play().catch(function () {});
+      }
+    }
+
+    soundBtn.addEventListener('click', function () {
+      setSoundState(video.muted);
+    });
   }
 
   function init() {

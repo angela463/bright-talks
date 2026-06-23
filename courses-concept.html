@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Bright Talks courses — warm, parent-led guides to help families start calm conversations at home." />
-  <title>Courses Concept | Bright Talks</title>
+  <title>Courses | Bright Talks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap" rel="stylesheet" />
@@ -19,7 +19,7 @@
       </a>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
-        <a href="courses-v2.html" class="nav-link nav-link--minimal">Courses</a>
+        <a href="courses-concept.html" class="nav-link nav-link--minimal" aria-current="page">Courses</a>
         <a href="course-info.html" class="nav-link nav-link--minimal">Meet the Instructors</a>
         <a href="free-course-signup.html" class="nav-link nav-link--minimal">Pricing</a>
         <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
@@ -30,65 +30,46 @@
   </header>
 
   <main class="cc-main">
-    <div class="cc-shell">
-      <p class="cc-prototype-badge">Prototype · Concept layout</p>
-    </div>
-
-    <!-- 1. Hero -->
-    <section class="cc-hero" aria-labelledby="cc-hero-heading">
-      <div class="cc-shell">
-        <p class="cc-hero__eyebrow">Bright Talks Courses</p>
-        <h1 id="cc-hero-heading" class="cc-hero__title">Conversations you can lead, at your pace.</h1>
-        <p class="cc-hero__lead">
-          Short, warm video guides for parents and caregivers. Each course walks you through real topics—bodies, boundaries, safety, puberty, and growing up—with language you can use this week at home.
+    <!-- Welcome video hero (girls video from former courses page) -->
+    <section class="cc-welcome-hero" aria-labelledby="cc-welcome-heading">
+      <div class="cc-welcome-hero__media">
+        <video
+          id="cc-welcome-video"
+          class="cc-welcome-hero__video"
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          autoplay
+          preload="auto"
+          aria-label="Welcome video preview"
+        >
+          <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        </video>
+        <div class="cc-welcome-hero__fade" aria-hidden="true"></div>
+      </div>
+      <div class="cc-welcome-hero__content">
+        <span class="cc-welcome-hero__badge">Step 0 · Welcome video</span>
+        <h1 id="cc-welcome-heading" class="cc-welcome-hero__title">Learn at home,<br />at your own pace.</h1>
+        <p class="cc-welcome-hero__lead">
+          Short, warm video guides to help you lead honest, age-right conversations with your kids. No script needed.
         </p>
-        <div class="cc-hero__actions">
-          <a class="btn btn-primary" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">Start with Early Years</a>
-          <a class="btn btn-secondary" href="#cc-series">View All Courses</a>
+        <div class="cc-welcome-hero__actions">
+          <a
+            class="btn btn-primary cc-welcome-hero__cta"
+            href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0"
+          >Watch welcome video</a>
+          <button type="button" class="btn btn-secondary cc-welcome-hero__sound" id="cc-welcome-sound" aria-pressed="false">
+            Turn sound on
+          </button>
         </div>
-        <p class="cc-hero__note">
-          <strong>Parent-led, not lecture-led.</strong> Watch a welcome video, open a talk, and return whenever your child is ready for the next conversation.
+        <p class="cc-welcome-hero__note">
+          Meet Bright Talks, see how the Early Years course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.
         </p>
       </div>
     </section>
 
-    <!-- Welcome video entry -->
-    <section class="cc-welcome" aria-labelledby="cc-welcome-heading">
-      <div class="cc-shell">
-        <div class="cc-welcome__card">
-          <div>
-            <span class="cc-welcome__badge">Step 0 · Your entry point</span>
-            <h2 id="cc-welcome-heading" class="cc-welcome__title">Welcome Video</h2>
-            <p class="cc-welcome__text">
-              Meet Bright Talks, see how the Early Years course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.
-            </p>
-            <a class="cc-welcome__cta" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">
-              Open in course player →
-            </a>
-          </div>
-          <a class="cc-welcome__media" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0" aria-label="Watch welcome video">
-            <video
-              id="cc-welcome-video"
-              class="cc-welcome__video"
-              muted
-              loop
-              playsinline
-              webkit-playsinline
-              autoplay
-              preload="metadata"
-              aria-hidden="true"
-            >
-              <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
-            </video>
-            <div class="cc-welcome__overlay" aria-hidden="true">
-              <span class="cc-welcome__duration">3 min</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. What's Inside -->
+    <!-- What's Inside -->
     <section class="cc-section cc-section--cream" aria-labelledby="cc-inside-heading">
       <div class="cc-shell">
         <header class="cc-section__header">
@@ -102,7 +83,7 @@
       </div>
     </section>
 
-    <!-- 3. Course Series -->
+    <!-- Course Series -->
     <section class="cc-section" id="cc-series" aria-labelledby="cc-series-heading">
       <div class="cc-shell">
         <header class="cc-section__header">
@@ -133,18 +114,12 @@
         </div>
       </div>
     </section>
-
-    <p class="cc-footer-note cc-shell">
-      This is a prototype page for review. The current live courses experience remains at
-      <a href="courses-v2.html">courses-v2.html</a>.
-      Course player unchanged:
-      <a href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">open player</a>.
-    </p>
   </main>
 
   <script src="js/course-experience-data.js"></script>
   <script src="js/course-experience-common.js"></script>
   <script src="js/courses-concept.js"></script>
   <script src="js/auth-modal.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
