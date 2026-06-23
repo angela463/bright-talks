@@ -87,7 +87,6 @@
       return;
     }
 
-    var progress = common.resolveProgress(course);
     var items = [];
     course.modules.forEach(function (module, mIndex) {
       (module.lessons || []).forEach(function (lesson, lIndex) {
@@ -95,18 +94,31 @@
       });
     });
 
-    var doneCount = Math.max(0, Math.min(items.length, Math.round((progress / 100) * items.length)));
-
     root.innerHTML = items.map(function (entry, index) {
       var lesson = entry.lessonData;
       var isWelcome = /^welcome video$/i.test(String(lesson.title || '').trim());
+      var isFirstTalk = !isWelcome && /^talk\s+1:/i.test(String(lesson.title || '').trim());
       var num = lessonNumber(lesson.title, index);
       var rowClass = 'cc-lesson-row' + (isWelcome ? ' cc-lesson-row--welcome' : '');
       var numClass = 'cc-lesson-row__num' + (isWelcome ? ' cc-lesson-row__num--start' : '');
-      var statusClass = isWelcome ? 'cc-lesson-row__status--start' : 'cc-lesson-row__status--ready';
-      var statusLabel = isWelcome ? 'Start here' : (index < doneCount ? 'Completed' : 'Ready');
       var href = playerHref(course.id, entry.module, entry.lesson);
-      var cta = isWelcome ? 'Watch welcome' : 'Open talk';
+      var statusClass;
+      var statusLabel;
+      var ctaHtml;
+
+      if (isWelcome) {
+        statusClass = 'cc-lesson-row__status--start';
+        statusLabel = 'Start here';
+        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">Watch welcome →</a>';
+      } else if (isFirstTalk) {
+        statusClass = 'cc-lesson-row__status--ready';
+        statusLabel = 'Ready';
+        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">View talk →</a>';
+      } else {
+        statusClass = 'cc-lesson-row__status--soon';
+        statusLabel = 'Coming soon';
+        ctaHtml = '<span class="cc-lesson-row__link cc-lesson-row__link--soon">Coming soon</span>';
+      }
 
       return '' +
         '<li class="' + rowClass + '">' +
@@ -118,7 +130,7 @@
           '<div class="cc-lesson-row__meta">' +
             '<span class="cc-lesson-row__time">' + escText(formatDuration(lesson.duration)) + '</span>' +
             '<span class="cc-lesson-row__status ' + statusClass + '">' + escText(statusLabel) + '</span>' +
-            '<a class="cc-lesson-row__link" href="' + escText(href) + '">' + escText(cta) + ' →</a>' +
+            ctaHtml +
           '</div>' +
         '</li>';
     }).join('');

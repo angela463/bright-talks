@@ -348,6 +348,11 @@
   color: var(--cc-brown);
 }
 
+.cc-lesson-row__status--soon {
+  background: rgba(203, 157, 112, 0.16);
+  color: var(--cc-muted);
+}
+
 .cc-lesson-row__link {
   font-size: 0.82rem;
   font-weight: 600;
@@ -357,6 +362,15 @@
 
 .cc-lesson-row__link:hover {
   text-decoration: underline;
+}
+
+.cc-lesson-row__link--soon {
+  color: var(--cc-muted);
+  cursor: default;
+}
+
+.cc-lesson-row__link--soon:hover {
+  text-decoration: none;
 }
 
 /* ─── Course series cards ─── */
