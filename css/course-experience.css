@@ -406,7 +406,8 @@
 .player-v2-split-hero {
   position: relative;
   width: 100%;
-  min-height: min(42vh, 420px);
+  height: min(21vh, 210px);
+  min-height: 160px;
   background: var(--course-v2-player-main);
   border-radius: 1rem 1rem 0 0;
 }
@@ -1274,7 +1275,8 @@
   }
 
   .player-v2-split-hero {
-    min-height: min(38vw, 320px);
+    height: min(32vw, 180px);
+    min-height: 140px;
   }
 
   .player-v2-split-body {
