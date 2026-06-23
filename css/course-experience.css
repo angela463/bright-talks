@@ -406,8 +406,8 @@
 .player-v2-split-hero {
   position: relative;
   width: 100%;
-  height: min(21vh, 210px);
-  min-height: 160px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   background: var(--course-v2-player-main);
   border-radius: 1rem 1rem 0 0;
 }
@@ -712,8 +712,9 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  background: var(--course-v2-player-main);
 }
 
 .player-v2-hero-visual--image {
@@ -1272,11 +1273,6 @@
   .player-v2-lesson-split {
     width: 100%;
     margin: 0;
-  }
-
-  .player-v2-split-hero {
-    height: min(32vw, 180px);
-    min-height: 140px;
   }
 
   .player-v2-split-body {
