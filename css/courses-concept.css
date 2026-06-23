@@ -383,14 +383,6 @@
   box-shadow: 0 16px 36px rgba(74, 55, 38, 0.1);
 }
 
-.cc-series-card--featured {
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-  gap: 1.25rem;
-  background: linear-gradient(135deg, #fffdf9 0%, #fff0e2 100%);
-}
-
 .cc-series-card__top {
   display: flex;
   align-items: center;
@@ -485,20 +477,6 @@
   filter: brightness(1.03);
 }
 
-.cc-series-card__image {
-  border-radius: 0.85rem;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--cc-cream);
-}
-
-.cc-series-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 /* ─── Journey strip ─── */
 .cc-journey {
   padding: clamp(2rem, 4vw, 3rem) 0 clamp(3rem, 6vw, 4.5rem);
@@ -563,11 +541,6 @@
   }
 
   .cc-series-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cc-series-card--featured {
-    grid-column: span 1;
     grid-template-columns: 1fr;
   }
 

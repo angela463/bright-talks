@@ -133,6 +133,25 @@ body.page-courses .site-header .btn.btn-primary:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
 
+.bt-library-concept-link-wrap {
+  position: relative;
+  z-index: 1;
+  margin: 0.85rem 0 0;
+}
+
+.bt-library-concept-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 252, 248, 0.88);
+  text-decoration: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.bt-library-concept-link:hover {
+  color: #fde8d8;
+  text-decoration: underline;
+}
+
 .course-library-hero--video .course-library-hero__fade {
   background: linear-gradient(
     180deg,

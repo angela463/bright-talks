@@ -15,8 +15,7 @@
       title: 'Foundations: Early Years',
       age: 'Ages 3–5',
       status: 'available',
-      statusLabel: 'Available',
-      featured: true
+      statusLabel: 'Available'
     },
     {
       courseId: 'bt-middle-childhood',
@@ -143,30 +142,20 @@
       var course = common.getCourseById(meta.courseId);
       if (!course) return '';
 
-      var featured = meta.featured ? ' cc-series-card--featured' : '';
       var statusClass = 'cc-series-card__status--' + meta.status;
-      var imageHtml = course.heroImage
-        ? '<div class="cc-series-card__image"><img src="' + escText(course.heroImage) + '" alt="" loading="lazy" decoding="async" /></div>'
-        : '';
 
-      var body = '' +
-        '<div class="cc-series-card__content">' +
-          '<div class="cc-series-card__top">' +
-            '<span class="cc-series-card__num">Course ' + escText(meta.num) + '</span>' +
-            '<span class="cc-series-card__age">' + escText(meta.age) + '</span>' +
-          '</div>' +
-          '<h3 class="cc-series-card__title">' + escText(meta.title) + '</h3>' +
-          '<p class="cc-series-card__desc">' + escText(course.description) + '</p>' +
-          '<div class="cc-series-card__footer">' +
-            '<span class="cc-series-card__status ' + statusClass + '">' + escText(meta.statusLabel) + '</span>' +
-            seriesButton(meta, course) +
-          '</div>' +
-        '</div>';
-
-      if (meta.featured) {
-        return '<article class="cc-series-card' + featured + '">' + body + imageHtml + '</article>';
-      }
-      return '<article class="cc-series-card' + featured + '">' + body + '</article>';
+      return '<article class="cc-series-card">' +
+        '<div class="cc-series-card__top">' +
+          '<span class="cc-series-card__num">Course ' + escText(meta.num) + '</span>' +
+          '<span class="cc-series-card__age">' + escText(meta.age) + '</span>' +
+        '</div>' +
+        '<h3 class="cc-series-card__title">' + escText(meta.title) + '</h3>' +
+        '<p class="cc-series-card__desc">' + escText(course.description) + '</p>' +
+        '<div class="cc-series-card__footer">' +
+          '<span class="cc-series-card__status ' + statusClass + '">' + escText(meta.statusLabel) + '</span>' +
+          seriesButton(meta, course) +
+        '</div>' +
+      '</article>';
     }).join('');
   }
 
