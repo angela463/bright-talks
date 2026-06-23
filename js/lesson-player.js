@@ -375,7 +375,7 @@
         ? 'course-player-v2.html?course=bt-foundations-early-years&module=' +
           Math.min(2, Math.max(0, moduleIdx)) +
           '&lesson=0'
-        : 'courses-v2.html';
+        : 'courses-concept.html';
     var courseHref = 'course-detail.html?course=' + encodeURIComponent(course.id);
 
     document.title = title + ' · Bright Talks';
