@@ -389,10 +389,36 @@
     }
   }
 
+  function isWelcomeLesson(lesson) {
+    return /^welcome video$/i.test(String((lesson && lesson.title) || '').trim());
+  }
+
+  function configureHeroVideoPlayback(lesson) {
+    if (!el.heroVisual) return;
+    var welcome = isWelcomeLesson(lesson);
+    el.heroVisual.muted = !welcome;
+    el.heroVisual.loop = !welcome;
+  }
+
   function toggleHeroVideo() {
     if (!el.heroVisual || el.heroVisual.hidden) return;
+    var lesson = getCurrentLesson();
+    var welcome = isWelcomeLesson(lesson);
+
     if (el.heroVisual.paused) {
-      el.heroVisual.play().catch(function () {});
+      if (welcome) {
+        configureHeroVideoPlayback(lesson);
+        if (el.audio) el.audio.pause();
+      }
+      var playAttempt = el.heroVisual.play();
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(function () {
+          if (!welcome) return;
+          el.heroVisual.muted = true;
+          el.heroVisual.play().catch(function () {});
+          updateVideoUI();
+        });
+      }
     } else {
       el.heroVisual.pause();
     }
@@ -419,24 +445,32 @@
     if (mode === 'read' && el.contentCard) {
       el.contentCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    if (mode === 'listen' && el.audio) {
-      el.audio.play().catch(function () {
-        if (el.error) el.error.hidden = false;
-      });
-      updateAudioUI();
+    if (mode === 'listen') {
+      if (el.heroVisual) el.heroVisual.pause();
+      if (el.audio) {
+        el.audio.play().catch(function () {
+          if (el.error) el.error.hidden = false;
+        });
+        updateAudioUI();
+      }
     }
     if (mode === 'watch' && el.heroVisual && !el.heroVisual.hidden) {
-      playHeroVideoWhenReady();
+      playHeroVideoWhenReady(getCurrentLesson());
     }
   }
 
-  function playHeroVideoWhenReady() {
+  function playHeroVideoWhenReady(lesson) {
     if (!el.heroVisual || el.heroVisual.hidden) return;
+    configureHeroVideoPlayback(lesson);
+    var shouldAutoplay = !isWelcomeLesson(lesson);
 
     function tryPlay() {
-      el.heroVisual.muted = true;
       el.heroVisual.setAttribute('playsinline', '');
       el.heroVisual.setAttribute('webkit-playsinline', '');
+      if (!shouldAutoplay) {
+        updateVideoUI();
+        return;
+      }
       var p = el.heroVisual.play();
       if (p && typeof p.catch === 'function') p.catch(function () {});
       updateVideoUI();
@@ -453,7 +487,7 @@
     }
   }
 
-  function forceHeroVideo(src) {
+  function forceHeroVideo(src, lesson) {
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
 
     el.heroImage.hidden = true;
@@ -467,8 +501,7 @@
     el.heroVisual.currentTime = 0;
     el.heroSource.src = src;
     el.heroVisual.load();
-    el.heroVisual.muted = true;
-    playHeroVideoWhenReady();
+    playHeroVideoWhenReady(lesson);
   }
 
   function applyHeroVisual(lesson) {
@@ -477,7 +510,7 @@
 
     if (!hv || !hv.src) {
       if (el.videoStage) el.videoStage.classList.add('is-no-video');
-      forceHeroVideo(el.heroSource.src || 'videos/4982409-hd_1920_1080_25fps.mp4');
+      forceHeroVideo(el.heroSource.src || 'videos/4982409-hd_1920_1080_25fps.mp4', lesson);
       return;
     }
 
@@ -493,7 +526,7 @@
     }
 
     if (el.videoPlay) el.videoPlay.hidden = false;
-    forceHeroVideo(hv.src);
+    forceHeroVideo(hv.src, lesson);
   }
 
   function bindAudioEvents() {
@@ -731,7 +764,7 @@
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) return;
       if (lessonMode === 'watch' && el.heroVisual && !el.heroVisual.hidden) {
-        playHeroVideoWhenReady();
+        playHeroVideoWhenReady(getCurrentLesson());
       }
     });
 
