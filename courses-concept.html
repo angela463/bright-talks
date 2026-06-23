@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bright Talks courses — warm, parent-led guides to help families start calm conversations at home." />
+  <title>Courses Concept | Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/courses-concept.css" />
+</head>
+<body class="page-courses-concept">
+  <header class="site-header site-header--landing">
+    <div class="header-inner header-inner--landing">
+      <a href="index.html" class="logo-link">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
+      </a>
+      <nav class="nav nav--landing" aria-label="Main">
+        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <a href="courses-v2.html" class="nav-link nav-link--minimal">Courses</a>
+        <a href="course-info.html" class="nav-link nav-link--minimal">Meet the Instructors</a>
+        <a href="free-course-signup.html" class="nav-link nav-link--minimal">Pricing</a>
+        <a href="faq.html" class="nav-link nav-link--minimal">FAQs</a>
+        <a href="about.html" class="nav-link nav-link--minimal">Why Bright Talks</a>
+      </nav>
+      <a href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0" class="btn btn-primary">Start Early Years</a>
+    </div>
+  </header>
+
+  <main class="cc-main">
+    <div class="cc-shell">
+      <p class="cc-prototype-badge">Prototype · Concept layout</p>
+    </div>
+
+    <!-- 1. Hero -->
+    <section class="cc-hero" aria-labelledby="cc-hero-heading">
+      <div class="cc-shell">
+        <p class="cc-hero__eyebrow">Bright Talks Courses</p>
+        <h1 id="cc-hero-heading" class="cc-hero__title">Conversations you can lead, at your pace.</h1>
+        <p class="cc-hero__lead">
+          Short, warm video guides for parents and caregivers. Each course walks you through real topics—bodies, boundaries, safety, puberty, and growing up—with language you can use this week at home.
+        </p>
+        <div class="cc-hero__actions">
+          <a class="btn btn-primary" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">Start with Early Years</a>
+          <a class="btn btn-secondary" href="#cc-series">View All Courses</a>
+        </div>
+        <p class="cc-hero__note">
+          <strong>Parent-led, not lecture-led.</strong> Watch a welcome video, open a talk, and return whenever your child is ready for the next conversation.
+        </p>
+      </div>
+    </section>
+
+    <!-- Welcome video entry -->
+    <section class="cc-welcome" aria-labelledby="cc-welcome-heading">
+      <div class="cc-shell">
+        <div class="cc-welcome__card">
+          <div>
+            <span class="cc-welcome__badge">Step 0 · Your entry point</span>
+            <h2 id="cc-welcome-heading" class="cc-welcome__title">Welcome Video</h2>
+            <p class="cc-welcome__text">
+              Meet Bright Talks, see how the Early Years course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.
+            </p>
+            <a class="cc-welcome__cta" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">
+              Open in course player →
+            </a>
+          </div>
+          <a class="cc-welcome__media" href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0" aria-label="Watch welcome video">
+            <video
+              id="cc-welcome-video"
+              class="cc-welcome__video"
+              muted
+              loop
+              playsinline
+              webkit-playsinline
+              autoplay
+              preload="metadata"
+              aria-hidden="true"
+            >
+              <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            </video>
+            <div class="cc-welcome__overlay" aria-hidden="true">
+              <span class="cc-welcome__duration">3 min</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. What's Inside -->
+    <section class="cc-section cc-section--cream" aria-labelledby="cc-inside-heading">
+      <div class="cc-shell">
+        <header class="cc-section__header">
+          <p class="cc-section__kicker">What’s inside</p>
+          <h2 id="cc-inside-heading" class="cc-section__title">Early Years: every talk, in order</h2>
+          <p class="cc-section__intro">
+            Body Safety Foundations walks parents through six practical talks—plus a welcome video. Each row is a real lesson from the current Bright Talks course.
+          </p>
+        </header>
+        <ol id="cc-lesson-list" class="cc-lesson-list" aria-label="Early Years course lessons"></ol>
+      </div>
+    </section>
+
+    <!-- 3. Course Series -->
+    <section class="cc-section" id="cc-series" aria-labelledby="cc-series-heading">
+      <div class="cc-shell">
+        <header class="cc-section__header">
+          <p class="cc-section__kicker">Course series</p>
+          <h2 id="cc-series-heading" class="cc-section__title">Choose the age that fits your child</h2>
+          <p class="cc-section__intro">
+            Move from early body safety through middle childhood, puberty, and teen years. Start where your family is today.
+          </p>
+        </header>
+        <div id="cc-series-grid" class="cc-series-grid"></div>
+      </div>
+    </section>
+
+    <!-- Journey -->
+    <section class="cc-journey" aria-labelledby="cc-journey-heading">
+      <div class="cc-shell">
+        <div class="cc-journey__panel">
+          <h2 id="cc-journey-heading" class="cc-journey__title">How the course journey works</h2>
+          <p class="cc-section__intro" style="margin-top:0">
+            Bright Talks is built for real homes—busy schedules, curious questions, and the hope that your child will always know they can come to you.
+          </p>
+          <ol class="cc-journey__steps">
+            <li><strong>Watch the welcome</strong> See how talks are structured and what to expect.</li>
+            <li><strong>Open a talk</strong> Short video, parent guidance, and optional audio narration.</li>
+            <li><strong>Use the scripts</strong> Take phrases and handbooks into everyday moments.</li>
+            <li><strong>Return anytime</strong> Small, repeated conversations matter more than one big talk.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <p class="cc-footer-note cc-shell">
+      This is a prototype page for review. The current live courses experience remains at
+      <a href="courses-v2.html">courses-v2.html</a>.
+      Course player unchanged:
+      <a href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">open player</a>.
+    </p>
+  </main>
+
+  <script src="js/course-experience-data.js"></script>
+  <script src="js/course-experience-common.js"></script>
+  <script src="js/courses-concept.js"></script>
+  <script src="js/auth-modal.js"></script>
+</body>
+</html>
