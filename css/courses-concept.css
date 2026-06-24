@@ -467,58 +467,10 @@
   filter: brightness(1.03);
 }
 
-/* ─── Journey strip ─── */
-.cc-journey {
-  padding: clamp(2rem, 4vw, 3rem) 0 clamp(3rem, 6vw, 4.5rem);
-}
-
-.cc-journey__panel {
-  padding: clamp(1.25rem, 3vw, 1.75rem);
-  border-radius: 1.15rem;
-  border: 1px solid var(--cc-border);
-  background: linear-gradient(120deg, rgba(255, 253, 249, 0.95) 0%, rgba(253, 232, 216, 0.55) 100%);
-}
-
-.cc-journey__title {
-  margin: 0 0 0.65rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-}
-
-.cc-journey__steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.85rem;
-  margin: 1rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cc-journey__steps li {
-  padding: 0.75rem 0.85rem;
-  border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(203, 157, 112, 0.2);
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: var(--cc-muted);
-}
-
-.cc-journey__steps strong {
-  display: block;
-  margin-bottom: 0.2rem;
-  color: var(--cc-ink);
-  font-size: 0.92rem;
-}
-
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
   .cc-series-grid {
     grid-template-columns: 1fr;
-  }
-
-  .cc-journey__steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -540,9 +492,5 @@
     width: 100%;
     text-align: left;
     padding-top: 0.35rem;
-  }
-
-  .cc-journey__steps {
-    grid-template-columns: 1fr;
   }
 }
