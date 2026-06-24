@@ -1389,6 +1389,17 @@
   cursor: pointer;
 }
 
+.player-v2-layout-revamp .player-v2-toast__icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .player-v2-layout-revamp .player-v2-toast[hidden] {
   display: none !important;
 }
