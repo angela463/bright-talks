@@ -31,12 +31,12 @@
       ],
       quote: ''
     },
-    'nina-okonkwo': {
-      name: 'Nina Okonkwo',
+    'nina-walsh': {
+      name: 'Nina Walsh',
       meta: 'Instructor, Bright Talks',
       focus: 'Puberty & Growing Up',
       photo: 'images/instructors/nina-okonkwo.png',
-      photoAlt: 'Nina Okonkwo holding an orange book and smiling.',
+      photoAlt: 'Nina Walsh holding an orange book and smiling.',
       photoClass: 'instructor-bio-modal__photo--cream',
       paragraphs: [
         'Nina guides parents through puberty conversations with warmth, clarity, and respect for each child&rsquo;s pace.',
@@ -45,12 +45,12 @@
       ],
       quote: ''
     },
-    'maya-chen': {
-      name: 'Maya Chen',
+    'maya-brooks': {
+      name: 'Maya Brooks',
       meta: 'Instructor, Bright Talks',
       focus: 'Teen Digital Safety',
       photo: 'images/instructors/maya-chen.png',
-      photoAlt: 'Maya Chen smiling with arms crossed.',
+      photoAlt: 'Maya Brooks smiling with arms crossed.',
       photoClass: 'instructor-bio-modal__photo--golden',
       paragraphs: [
         'Maya supports parents of teens through digital safety, healthy relationships, and the conversations that feel high-stakes.',

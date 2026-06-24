@@ -4496,6 +4496,10 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   box-shadow: 0 16px 34px rgba(84, 56, 28, 0.11);
 }
 
+.instructor-card__media {
+  position: relative;
+}
+
 .instructor-card__photo {
   border-radius: 0.95rem;
   overflow: hidden;
@@ -4564,43 +4568,32 @@ body.page-courses.page-course-library .single-parent-feature__content p {
 }
 
 .instructor-card__bio-btn {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.55rem;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  margin-top: 0.7rem;
-  padding: 0.38rem 0.72rem 0.38rem 0.55rem;
-  border: 1.5px solid rgba(202, 126, 70, 0.55);
-  border-radius: 999px;
-  background: rgba(255, 252, 247, 0.95);
-  color: #9b623f;
-  font-family: inherit;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-}
-
-.instructor-card__bio-btn:hover {
-  background: #fcebd6;
-  border-color: #ca7e46;
-  transform: translateY(-1px);
-}
-
-.instructor-card__bio-btn-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 2px solid #fff;
   border-radius: 50%;
   background: #e08b3c;
   color: #fff;
-  font-size: 0.9rem;
-  line-height: 1;
+  font-family: inherit;
+  font-size: 1.15rem;
   font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(84, 56, 28, 0.22);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.instructor-card__bio-btn:hover {
+  background: #c9762b;
+  transform: scale(1.06);
 }
 
 .instructor-team__note {
