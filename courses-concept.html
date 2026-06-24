@@ -30,42 +30,33 @@
   </header>
 
   <main class="cc-main">
-    <!-- Welcome video hero (girls video from former courses page) -->
     <section class="cc-welcome-hero" aria-labelledby="cc-welcome-heading">
       <div class="cc-welcome-hero__media">
-        <video
-          id="cc-welcome-video"
-          class="cc-welcome-hero__video"
-          muted
-          loop
-          playsinline
-          webkit-playsinline
-          autoplay
-          preload="auto"
-          aria-label="Welcome video preview"
-        >
-          <source src="videos/4982409-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        </video>
+        <img
+          class="cc-welcome-hero__image"
+          src="images/courses-welcome-hero.png"
+          alt="Two young girls learning together at home on a bed with a laptop."
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          decoding="async"
+        />
         <div class="cc-welcome-hero__fade" aria-hidden="true"></div>
-      </div>
-      <div class="cc-welcome-hero__content">
-        <span class="cc-welcome-hero__badge">Step 0 · Welcome video</span>
-        <h1 id="cc-welcome-heading" class="cc-welcome-hero__title">Learn at home,<br />at your own pace.</h1>
-        <p class="cc-welcome-hero__lead">
-          Short, warm video guides to help you lead honest, age right conversations with your kids. No script needed.
-        </p>
-        <div class="cc-welcome-hero__actions">
-          <a
-            class="btn btn-primary cc-welcome-hero__cta"
-            href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0"
-          >Watch welcome video</a>
-          <button type="button" class="btn btn-secondary cc-welcome-hero__sound" id="cc-welcome-sound" aria-pressed="false">
-            Turn sound on
-          </button>
+        <div class="cc-welcome-hero__content">
+          <h1 id="cc-welcome-heading" class="cc-welcome-hero__title">Learn at home,<br />at your own pace.</h1>
+          <p class="cc-welcome-hero__lead">
+            Short, warm video guides to help you lead honest, age right conversations with your kids. No script needed.
+          </p>
+          <div class="cc-welcome-hero__actions">
+            <a
+              class="btn btn-primary cc-welcome-hero__cta"
+              href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0"
+            >Watch welcome video</a>
+          </div>
+          <p class="cc-welcome-hero__note">
+            Meet Bright Talks, see how the Early Years course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.
+          </p>
         </div>
-        <p class="cc-welcome-hero__note">
-          Meet Bright Talks, see how the Early Years course is organized, and hear why calm, shame-free conversations help young children feel safe and understood.
-        </p>
       </div>
     </section>
 
