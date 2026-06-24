@@ -13,6 +13,10 @@
   var lessonIndex = Number(common.getQueryParam('lesson') || 0);
   var navOpen = window.innerWidth > 960;
   var lessonMode = 'watch';
+  var toastTimer = null;
+  var waveHeights = Array.from({ length: 54 }, function (_, i) {
+    return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
+  });
 
   if (common.getQueryParam('module') === null && common.getQueryParam('lesson') === null) {
     var entry = course.playerEntry || { module: 0, lesson: 0 };
@@ -32,6 +36,9 @@
     offline: document.getElementById('player-v2-offline'),
     error: document.getElementById('player-v2-error'),
     nav: document.getElementById('player-v2-curriculum'),
+    burger: document.getElementById('player-v2-burger'),
+    overlay: document.getElementById('player-v2-overlay'),
+    drawerClose: document.getElementById('player-v2-drawer-close'),
     toggleNav: document.getElementById('player-v2-nav-toggle'),
     title: document.getElementById('player-v2-course-title'),
     lessonPanel: document.getElementById('player-v2-lesson-panel'),
@@ -57,23 +64,25 @@
     videoTime: document.getElementById('player-v2-video-time'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
     sidebarCourseNav: document.getElementById('player-v2-sidebar-course-nav'),
-    audioPanel: document.getElementById('player-v2-audio-panel'),
-    footer: document.querySelector('.player-v2-footer'),
     progressFill: document.getElementById('player-v2-progress-fill'),
     progressCount: document.getElementById('player-v2-progress-count'),
     progressMeta: document.getElementById('player-v2-progress-meta'),
+    progressCopy: document.getElementById('player-v2-progress-copy'),
+    listenPanel: document.getElementById('player-v2-listen-panel'),
+    listenPlay: document.getElementById('player-v2-listen-play'),
+    listenTitle: document.getElementById('player-v2-listen-title'),
+    waveform: document.getElementById('player-v2-waveform'),
+    readPanel: document.getElementById('player-v2-read-panel'),
+    readTranscript: document.getElementById('player-v2-read-transcript'),
+    playingBadge: document.getElementById('player-v2-playing-badge'),
+    toast: document.getElementById('player-v2-toast'),
     lessonPosition: document.getElementById('player-v2-lesson-position'),
     prev: document.getElementById('player-v2-prev'),
     next: document.getElementById('player-v2-next'),
     complete: document.getElementById('player-v2-complete'),
     audio: document.getElementById('player-v2-audio'),
-    playPause: document.getElementById('player-v2-play-pause'),
     seek: document.getElementById('player-v2-seek'),
     time: document.getElementById('player-v2-time'),
-    speed: document.getElementById('player-v2-speed'),
-    transcript: document.getElementById('player-v2-transcript'),
-    transcriptToggle: document.getElementById('player-v2-transcript-toggle'),
-    listenCta: document.getElementById('player-v2-listen-cta'),
     modeTabs: document.querySelectorAll('.player-v2-mode-tabs__btn'),
     contentCard: document.getElementById('player-v2-content-card')
   };
@@ -243,6 +252,88 @@
     }).join('');
   }
 
+  function progressCopyMessage(done, total) {
+    if (done === 0) return "Whenever you're ready, start with the welcome.";
+    if (done >= total) return "All done. You've got this, and so does your little one.";
+    if (done === 1) return 'A lovely start. One gentle talk at a time.';
+    if (done >= total - 1) return "Just one to go. You're nearly there.";
+    return "You're well on your way. Keep it relaxed.";
+  }
+
+  function showCompleteToast(doneCount) {
+    var total = flattenItems().length;
+    var msgs = [
+      "Lovely. That's one talk done.",
+      'Nicely done. Small talks, big difference.',
+      "You're building real momentum now.",
+      'Look at you go. Keep it gentle.',
+      'Almost there. Your child is lucky to have you.'
+    ];
+    var msg = doneCount >= total
+      ? 'You did it. Every talk complete.'
+      : (msgs[Math.min(doneCount, msgs.length) - 1] || msgs[0]);
+
+    if (!el.toast) return;
+    el.toast.innerHTML =
+      '<span class="player-v2-toast__icon" aria-hidden="true">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>' +
+      '</span>' +
+      '<span>' + escText(msg) + '</span>';
+    el.toast.hidden = false;
+
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      if (el.toast) el.toast.hidden = true;
+    }, 3200);
+  }
+
+  function buildWaveform() {
+    if (!el.waveform) return;
+    el.waveform.innerHTML = waveHeights.map(function (h) {
+      return '<span style="height:' + h + 'px"></span>';
+    }).join('');
+    updateWaveformProgress();
+  }
+
+  function updateWaveformProgress() {
+    if (!el.waveform || !el.audio) return;
+    var duration = el.audio.duration || 0;
+    var current = el.audio.currentTime || 0;
+    var pct = duration > 0 ? current / duration : 0;
+    var bars = el.waveform.querySelectorAll('span');
+    var total = bars.length;
+    Array.prototype.forEach.call(bars, function (bar, i) {
+      var filled = ((i + 0.5) / total) <= pct;
+      bar.style.background = filled ? '#E08B3C' : '#E7CBA3';
+    });
+  }
+
+  function renderReadTranscript(lesson) {
+    if (!el.readTranscript) return;
+    var transcript = lesson.audio && lesson.audio.transcript;
+    if (!transcript) {
+      el.readTranscript.innerHTML = '<p>Transcript is not available for this talk yet.</p>';
+      return;
+    }
+    if (Array.isArray(transcript)) {
+      el.readTranscript.innerHTML = transcript.map(function (p) {
+        return '<p>' + escText(p) + '</p>';
+      }).join('');
+      return;
+    }
+    el.readTranscript.innerHTML = '<p>' + escText(transcript) + '</p>';
+  }
+
+  function updateCompleteButton(progressPct, totalLessons) {
+    if (!el.complete) return;
+    var absIdx = absoluteLessonIndex();
+    var done = doneLessonCount(progressPct, totalLessons);
+    var isComplete = absIdx < done;
+    el.complete.classList.toggle('is-complete', isComplete);
+    var textEl = el.complete.querySelector('.player-v2-lesson-toolbar__complete-text');
+    if (textEl) textEl.textContent = isComplete ? 'Completed' : 'Mark complete';
+  }
+
   function renderCallout(lesson) {
     if (!el.callout) return;
     var objectives = (lesson.sections || []).filter(function (s) {
@@ -280,7 +371,10 @@
     }
     if (el.progressCount) el.progressCount.textContent = done + ' of ' + total;
     if (el.progressMeta) {
-      el.progressMeta.textContent = mins + ' min of talks, ' + total + ' lessons';
+      el.progressMeta.textContent = mins + ' min of talks · ' + total + ' lessons';
+    }
+    if (el.progressCopy) {
+      el.progressCopy.textContent = progressCopyMessage(done, total);
     }
   }
 
@@ -304,6 +398,7 @@
           '<span class="player-v2-lesson-card__body">' +
             sidebarTitleHtml(lesson.title) +
             '<span class="player-v2-lesson-card__subtitle">' + escText(truncate(lesson.summary, 72)) + '</span>' +
+            (isDone ? '<span class="player-v2-lesson-card__completed">Completed</span>' : '') +
           '</span>' +
           '<span class="player-v2-lesson-card__duration">' + escText(lesson.duration) + '</span>' +
         '</button>';
