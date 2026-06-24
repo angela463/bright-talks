@@ -55,22 +55,24 @@
   position: absolute;
   inset: 0;
   display: block;
-  width: 100%;
+  width: 118%;
+  max-width: none;
   height: 100%;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: 32% 26%;
+  transform: translateX(8%);
 }
 
 .cc-welcome-hero__fade {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    180deg,
-    rgba(18, 16, 14, 0.08) 0%,
-    rgba(18, 16, 14, 0.02) 28%,
-    rgba(12, 10, 9, 0.22) 62%,
-    rgba(10, 8, 7, 0.62) 82%,
-    rgba(10, 8, 7, 0.78) 100%
+    105deg,
+    rgba(18, 16, 14, 0.05) 0%,
+    rgba(18, 16, 14, 0.02) 34%,
+    rgba(12, 10, 9, 0.18) 58%,
+    rgba(10, 8, 7, 0.55) 78%,
+    rgba(10, 8, 7, 0.72) 100%
   );
   pointer-events: none;
 }
@@ -82,12 +84,12 @@
   max-width: 1160px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2rem) clamp(2.25rem, 5vw, 3.25rem);
+  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2rem, 4.5vw, 2.75rem);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  text-align: center;
+  align-items: flex-end;
+  text-align: right;
 }
 
 .cc-welcome-hero__title {
@@ -112,7 +114,7 @@
 .cc-welcome-hero__actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 0.65rem;
   margin-top: 1.15rem;
 }
@@ -413,6 +415,21 @@
 }
 
 @media (max-width: 640px) {
+  .cc-welcome-hero__image {
+    width: 140%;
+    object-position: 30% 22%;
+    transform: translateX(6%);
+  }
+
+  .cc-welcome-hero__content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .cc-welcome-hero__actions {
+    justify-content: center;
+  }
+
   .cc-lesson-row {
     grid-template-columns: 2.5rem minmax(0, 1fr);
     grid-template-areas:
