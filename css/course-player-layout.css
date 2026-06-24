@@ -959,25 +959,20 @@
   box-shadow: 0 10px 24px rgba(224, 139, 60, 0.34);
 }
 
-.player-v2-layout-revamp .player-v2-listen-panel__play.is-playing::before {
-  content: '';
-  display: block;
-  width: 12px;
-  height: 16px;
-  background:
-    linear-gradient(#fff, #fff) 0 0 / 4px 100% no-repeat,
-    linear-gradient(#fff, #fff) 100% 0 / 4px 100% no-repeat;
+.player-v2-layout-revamp .player-v2-listen-panel__icon-play {
+  margin-left: 3px;
 }
 
-.player-v2-layout-revamp .player-v2-listen-panel__play:not(.is-playing)::before {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 11px solid transparent;
-  border-bottom: 11px solid transparent;
-  border-left: 17px solid #fff;
-  margin-left: 3px;
+.player-v2-layout-revamp .player-v2-listen-panel__play.is-playing .player-v2-listen-panel__icon-play {
+  display: none;
+}
+
+.player-v2-layout-revamp .player-v2-listen-panel__play.is-playing .player-v2-listen-panel__icon-pause {
+  display: block !important;
+}
+
+.player-v2-layout-revamp .player-v2-listen-panel__play:not(.is-playing) .player-v2-listen-panel__icon-pause {
+  display: none !important;
 }
 
 .player-v2-layout-revamp .player-v2-listen-panel__info {
@@ -1032,12 +1027,45 @@
   gap: 14px;
 }
 
-.player-v2-layout-revamp .player-v2-listen-panel__seek {
+.player-v2-layout-revamp .player-v2-seek-track {
   flex: 1;
   min-width: 0;
-  height: 5px;
-  accent-color: var(--pv2-orange);
+  height: 16px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+}
+
+.player-v2-layout-revamp .player-v2-seek-track__rail {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  background: #E7CFAC;
+  border-radius: 999px;
+}
+
+.player-v2-layout-revamp .player-v2-seek-track__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--pv2-orange);
+  border-radius: 999px;
+  transition: width 0.1s linear;
+}
+
+.player-v2-layout-revamp .player-v2-seek-track__knob {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--pv2-orange), 0 1px 3px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
 }
 
 .player-v2-layout-revamp .player-v2-listen-panel__time {
@@ -1059,8 +1087,17 @@
 
 /* ─── Read panel ─── */
 .player-v2-layout-revamp .player-v2-read-panel {
-  padding: 32px 40px 36px;
   background: #fff;
+}
+
+.player-v2-layout-revamp .player-v2-read-panel__audio {
+  padding: 34px 32px 28px;
+  background: radial-gradient(130% 150% at 12% 6%, #FCEFD9 0%, #F6DEBE 100%);
+  border-bottom: 1px solid #F2E8D8;
+}
+
+.player-v2-layout-revamp .player-v2-read-panel__transcript {
+  padding: 28px 40px 36px;
 }
 
 .player-v2-layout-revamp .player-v2-read-panel__head {
@@ -1488,8 +1525,12 @@
     padding: 24px 20px 30px;
   }
 
-  .player-v2-layout-revamp .player-v2-read-panel {
-    padding: 24px 20px 28px;
+  .player-v2-layout-revamp .player-v2-read-panel__audio {
+    padding: 24px 20px 20px;
+  }
+
+  .player-v2-layout-revamp .player-v2-read-panel__transcript {
+    padding: 22px 20px 28px;
   }
 
   .player-v2-layout-revamp .player-v2-lesson-toolbar {

@@ -72,6 +72,16 @@
     listenPlay: document.getElementById('player-v2-listen-play'),
     listenTitle: document.getElementById('player-v2-listen-title'),
     waveform: document.getElementById('player-v2-waveform'),
+    seekTrack: document.getElementById('player-v2-seek-track'),
+    seekFill: document.getElementById('player-v2-seek-fill'),
+    seekKnob: document.getElementById('player-v2-seek-knob'),
+    readPlay: document.getElementById('player-v2-read-play'),
+    readAudioTitle: document.getElementById('player-v2-read-audio-title'),
+    readWaveform: document.getElementById('player-v2-read-waveform'),
+    readSeekTrack: document.getElementById('player-v2-read-seek-track'),
+    readSeekFill: document.getElementById('player-v2-read-seek-fill'),
+    readSeekKnob: document.getElementById('player-v2-read-seek-knob'),
+    readTime: document.getElementById('player-v2-read-time'),
     readPanel: document.getElementById('player-v2-read-panel'),
     readTranscript: document.getElementById('player-v2-read-transcript'),
     playingBadge: document.getElementById('player-v2-playing-badge'),
@@ -81,7 +91,6 @@
     next: document.getElementById('player-v2-next'),
     complete: document.getElementById('player-v2-complete'),
     audio: document.getElementById('player-v2-audio'),
-    seek: document.getElementById('player-v2-seek'),
     time: document.getElementById('player-v2-time'),
     modeTabs: document.querySelectorAll('.player-v2-mode-tabs__btn'),
     contentCard: document.getElementById('player-v2-content-card')
@@ -288,23 +297,69 @@
   }
 
   function buildWaveform() {
-    if (!el.waveform) return;
-    el.waveform.innerHTML = waveHeights.map(function (h) {
+    var html = waveHeights.map(function (h) {
       return '<span style="height:' + h + 'px"></span>';
     }).join('');
+    if (el.waveform) el.waveform.innerHTML = html;
+    if (el.readWaveform) el.readWaveform.innerHTML = html;
     updateWaveformProgress();
   }
 
-  function updateWaveformProgress() {
-    if (!el.waveform || !el.audio) return;
+  function paintWaveform(container) {
+    if (!container || !el.audio) return;
     var duration = el.audio.duration || 0;
     var current = el.audio.currentTime || 0;
     var pct = duration > 0 ? current / duration : 0;
-    var bars = el.waveform.querySelectorAll('span');
+    var bars = container.querySelectorAll('span');
     var total = bars.length;
     Array.prototype.forEach.call(bars, function (bar, i) {
       var filled = ((i + 0.5) / total) <= pct;
       bar.style.background = filled ? '#E08B3C' : '#E7CBA3';
+    });
+  }
+
+  function updateWaveformProgress() {
+    paintWaveform(el.waveform);
+    paintWaveform(el.readWaveform);
+  }
+
+  function updateSeekTrack(track, fill, knob, percent) {
+    var pct = Math.max(0, Math.min(100, percent));
+    if (fill) fill.style.width = pct + '%';
+    if (knob) knob.style.left = pct + '%';
+    if (track) track.setAttribute('aria-valuenow', String(Math.round(pct)));
+  }
+
+  function seekAudioToRatio(ratio) {
+    if (!el.audio || !el.audio.duration) return;
+    var clamped = Math.max(0, Math.min(1, ratio));
+    el.audio.currentTime = clamped * el.audio.duration;
+    updateAudioUI();
+  }
+
+  function seekAudioFromEvent(track, clientX) {
+    if (!track) return;
+    var rect = track.getBoundingClientRect();
+    if (!rect.width) return;
+    seekAudioToRatio((clientX - rect.left) / rect.width);
+  }
+
+  function toggleAudioPlayback() {
+    if (!el.audio) return;
+    if (el.audio.paused) {
+      if (el.heroVisual) el.heroVisual.pause();
+      el.audio.play().catch(function () { if (el.error) el.error.hidden = false; });
+    } else {
+      el.audio.pause();
+    }
+    updateAudioUI();
+  }
+
+  function setAudioPlayButtons(isPlaying) {
+    [el.listenPlay, el.readPlay].forEach(function (btn) {
+      if (!btn) return;
+      btn.classList.toggle('is-playing', isPlaying);
+      btn.setAttribute('aria-label', isPlaying ? 'Pause audio' : 'Play audio');
     });
   }
 
@@ -457,14 +512,13 @@
     if (!el.audio) return;
     var current = el.audio.currentTime || 0;
     var duration = el.audio.duration || 0;
-    var percent = duration > 0 ? Math.round((current / duration) * 100) : 0;
-    if (el.seek) el.seek.value = percent;
-    if (el.time) el.time.textContent = formatTime(current) + ' / ' + formatTime(duration);
-    var isPlaying = !el.audio.paused;
-    if (el.listenPlay) {
-      el.listenPlay.classList.toggle('is-playing', isPlaying);
-      el.listenPlay.setAttribute('aria-label', isPlaying ? 'Pause audio' : 'Play audio');
-    }
+    var percent = duration > 0 ? (current / duration) * 100 : 0;
+    var timeLabel = formatTime(current) + ' / ' + formatTime(duration);
+    if (el.time) el.time.textContent = timeLabel;
+    if (el.readTime) el.readTime.textContent = timeLabel;
+    updateSeekTrack(el.seekTrack, el.seekFill, el.seekKnob, percent);
+    updateSeekTrack(el.readSeekTrack, el.readSeekFill, el.readSeekKnob, percent);
+    setAudioPlayButtons(!el.audio.paused);
     updateWaveformProgress();
   }
 
@@ -540,7 +594,8 @@
 
     if (mode === 'read') {
       if (el.heroVisual) el.heroVisual.pause();
-      if (el.audio) el.audio.pause();
+      if (el.readAudioTitle) el.readAudioTitle.textContent = displayLessonTitle(lesson.title);
+      buildWaveform();
       renderReadTranscript(lesson);
       updateVideoUI();
       updateAudioUI();
@@ -633,33 +688,61 @@
     forceHeroVideo(hv.src, lesson);
   }
 
+  function bindSeekControl(track) {
+    if (!track) return;
+
+    function onPointer(clientX) {
+      seekAudioFromEvent(track, clientX);
+    }
+
+    track.addEventListener('click', function (e) {
+      onPointer(e.clientX);
+    });
+
+    track.addEventListener('keydown', function (e) {
+      if (!el.audio || !el.audio.duration) return;
+      var step = 5;
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        seekAudioToRatio(((el.audio.currentTime / el.audio.duration) * 100 + step) / 100);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        seekAudioToRatio(((el.audio.currentTime / el.audio.duration) * 100 - step) / 100);
+      }
+    });
+  }
+
+  function bindWaveformSeek(wave) {
+    if (!wave) return;
+    wave.addEventListener('click', function (e) {
+      seekAudioFromEvent(wave, e.clientX);
+    });
+    wave.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        seekAudioFromEvent(wave, wave.getBoundingClientRect().left + wave.offsetWidth / 2);
+      }
+    });
+  }
+
   function bindAudioEvents() {
     if (!el.audio) return;
 
     el.audio.addEventListener('timeupdate', updateAudioUI);
     el.audio.addEventListener('loadedmetadata', updateAudioUI);
+    el.audio.addEventListener('play', updateAudioUI);
+    el.audio.addEventListener('pause', updateAudioUI);
     el.audio.addEventListener('error', function () {
       if (el.error) el.error.hidden = false;
     });
 
-    if (el.listenPlay) {
-      el.listenPlay.addEventListener('click', function () {
-        if (el.audio.paused) {
-          if (el.heroVisual) el.heroVisual.pause();
-          el.audio.play().catch(function () { if (el.error) el.error.hidden = false; });
-        } else {
-          el.audio.pause();
-        }
-        updateAudioUI();
-      });
-    }
+    if (el.listenPlay) el.listenPlay.addEventListener('click', toggleAudioPlayback);
+    if (el.readPlay) el.readPlay.addEventListener('click', toggleAudioPlayback);
 
-    if (el.seek) {
-      el.seek.addEventListener('input', function () {
-        if (!el.audio.duration) return;
-        el.audio.currentTime = (Number(el.seek.value) / 100) * el.audio.duration;
-      });
-    }
+    bindSeekControl(el.seekTrack);
+    bindSeekControl(el.readSeekTrack);
+    bindWaveformSeek(el.waveform);
+    bindWaveformSeek(el.readWaveform);
   }
 
   function bindVideoEvents() {
@@ -777,6 +860,8 @@
       if (el.videoNowTitle) {
         el.videoNowTitle.textContent = displayLessonTitle(lesson.title);
       }
+      if (el.listenTitle) el.listenTitle.textContent = displayLessonTitle(lesson.title);
+      if (el.readAudioTitle) el.readAudioTitle.textContent = displayLessonTitle(lesson.title);
       renderPills(lesson);
       if (el.intro) el.intro.textContent = lesson.summary;
       renderCallout(lesson);

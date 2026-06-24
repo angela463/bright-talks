@@ -168,16 +168,24 @@
           <section class="player-v2-listen-panel" id="player-v2-listen-panel" hidden>
             <audio id="player-v2-audio" preload="metadata"></audio>
             <div class="player-v2-listen-panel__head">
-              <button id="player-v2-listen-play" class="player-v2-listen-panel__play" type="button" aria-label="Play or pause audio"></button>
+              <button id="player-v2-listen-play" class="player-v2-listen-panel__play" type="button" aria-label="Play audio">
+                <svg class="player-v2-listen-panel__icon-play" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="#fff"></polygon></svg>
+                <svg class="player-v2-listen-panel__icon-pause" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" hidden><rect x="6" y="5" width="4" height="14" rx="1" fill="#fff"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="#fff"></rect></svg>
+              </button>
               <div class="player-v2-listen-panel__info">
                 <span class="player-v2-listen-panel__kicker">Audio narration</span>
                 <span id="player-v2-listen-title" class="player-v2-listen-panel__title"></span>
               </div>
               <svg class="player-v2-listen-panel__icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"></path><rect x="2" y="14" width="5" height="7" rx="2"></rect><rect x="17" y="14" width="5" height="7" rx="2"></rect></svg>
             </div>
-            <div id="player-v2-waveform" class="player-v2-listen-panel__wave" aria-hidden="true"></div>
+            <div id="player-v2-waveform" class="player-v2-listen-panel__wave" role="button" tabindex="0" aria-label="Seek audio position"></div>
             <div class="player-v2-listen-panel__seek-row">
-              <input id="player-v2-seek" class="player-v2-listen-panel__seek" type="range" min="0" max="100" value="0" aria-label="Audio position" />
+              <div id="player-v2-seek-track" class="player-v2-seek-track" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Audio position" tabindex="0">
+                <div class="player-v2-seek-track__rail">
+                  <div id="player-v2-seek-fill" class="player-v2-seek-track__fill"></div>
+                  <div id="player-v2-seek-knob" class="player-v2-seek-track__knob"></div>
+                </div>
+              </div>
               <span id="player-v2-time" class="player-v2-listen-panel__time">0:00 / 0:00</span>
             </div>
             <div id="player-v2-error" class="player-v2-error" hidden role="alert">
@@ -186,11 +194,36 @@
           </section>
 
           <section class="player-v2-read-panel" id="player-v2-read-panel" hidden>
-            <div class="player-v2-read-panel__head">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-              <span>Video transcript</span>
+            <div class="player-v2-read-panel__audio">
+              <div class="player-v2-listen-panel__head">
+                <button id="player-v2-read-play" class="player-v2-listen-panel__play" type="button" aria-label="Play audio">
+                  <svg class="player-v2-listen-panel__icon-play" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="#fff"></polygon></svg>
+                  <svg class="player-v2-listen-panel__icon-pause" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" hidden><rect x="6" y="5" width="4" height="14" rx="1" fill="#fff"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="#fff"></rect></svg>
+                </button>
+                <div class="player-v2-listen-panel__info">
+                  <span class="player-v2-listen-panel__kicker">Audio narration</span>
+                  <span id="player-v2-read-audio-title" class="player-v2-listen-panel__title"></span>
+                </div>
+                <svg class="player-v2-listen-panel__icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"></path><rect x="2" y="14" width="5" height="7" rx="2"></rect><rect x="17" y="14" width="5" height="7" rx="2"></rect></svg>
+              </div>
+              <div id="player-v2-read-waveform" class="player-v2-listen-panel__wave" role="button" tabindex="0" aria-label="Seek audio position"></div>
+              <div class="player-v2-listen-panel__seek-row">
+                <div id="player-v2-read-seek-track" class="player-v2-seek-track" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Audio position" tabindex="0">
+                  <div class="player-v2-seek-track__rail">
+                    <div id="player-v2-read-seek-fill" class="player-v2-seek-track__fill"></div>
+                    <div id="player-v2-read-seek-knob" class="player-v2-seek-track__knob"></div>
+                  </div>
+                </div>
+                <span id="player-v2-read-time" class="player-v2-listen-panel__time">0:00 / 0:00</span>
+              </div>
             </div>
-            <div id="player-v2-read-transcript" class="player-v2-read-panel__body"></div>
+            <div class="player-v2-read-panel__transcript">
+              <div class="player-v2-read-panel__head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                <span>Video transcript</span>
+              </div>
+              <div id="player-v2-read-transcript" class="player-v2-read-panel__body"></div>
+            </div>
           </section>
 
           <footer class="player-v2-lesson-toolbar player-v2-footer">
