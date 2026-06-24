@@ -1,0 +1,163 @@
+.instructor-bio-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.instructor-bio-modal[hidden] {
+  display: none !important;
+}
+
+.instructor-bio-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(34, 20, 6, 0.46);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.instructor-bio-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 34rem;
+  max-height: min(88vh, 44rem);
+  overflow: auto;
+  padding: 1.35rem 1.35rem 1.5rem;
+  background: #fffdf9;
+  border: 1px solid rgba(224, 196, 164, 0.75);
+  border-radius: 1.15rem;
+  box-shadow: 0 24px 64px rgba(55, 38, 22, 0.18);
+}
+
+.instructor-bio-modal__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 999px;
+  background: rgba(250, 242, 232, 0.95);
+  color: #7a6f63;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.instructor-bio-modal__close:hover {
+  background: #f3e4d2;
+  color: #3f3a36;
+}
+
+.instructor-bio-modal__hero {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-right: 1.5rem;
+}
+
+.instructor-bio-modal__photo {
+  width: 5.5rem;
+  height: 6.75rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  background: #f3ebe0;
+}
+
+.instructor-bio-modal__photo--warm {
+  background: linear-gradient(165deg, #f0b34f 0%, #e08b3c 100%);
+}
+
+.instructor-bio-modal__photo--cream {
+  background: #f2e6d4;
+}
+
+.instructor-bio-modal__photo--golden {
+  background: #e8b84a;
+}
+
+.instructor-bio-modal__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.instructor-bio-modal__intro h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  line-height: 1.15;
+  color: #2a2725;
+}
+
+.instructor-bio-modal__meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #9b623f;
+}
+
+.instructor-bio-modal__focus {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #5f574f;
+}
+
+.instructor-bio-modal__body p {
+  margin: 0 0 0.85rem;
+  color: #3f3a36;
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
+.instructor-bio-modal__body p:last-child {
+  margin-bottom: 0;
+}
+
+.instructor-bio-modal__quote {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid rgba(202, 126, 70, 0.72);
+  border-radius: 0.8rem;
+  background: rgba(250, 242, 232, 0.95);
+  color: #33302c;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.42;
+}
+
+.instructor-bio-modal__quote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9b623f;
+}
+
+@media (max-width: 520px) {
+  .instructor-bio-modal__hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-right: 0;
+  }
+
+  .instructor-bio-modal__photo {
+    margin: 0 auto;
+  }
+}
