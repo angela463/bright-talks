@@ -2972,43 +2972,18 @@ a.nav-link.nav-trigger {
   padding-bottom: clamp(4.25rem, 12vw, 7.5rem);
   padding-left: clamp(1.25rem, 4vw, 2rem);
   padding-right: clamp(1.25rem, 4vw, 2rem);
-  background-color: #e8894a;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 50%
-    ),
-    linear-gradient(
-      165deg,
-      #e88a42 0%,
-      #e8894a 42%,
-      #d9773a 100%
-    );
-}
-
-/* Romans 12:2 band: tiled Bible / journal pattern (same technique as .lp-section--value) */
-.page-home .lp-section--relationship::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  background-color: #fff;
   background-image: url("../images/romans-12-2-bible-pattern.png");
   background-size: 340px auto;
   background-position: 0 0;
   background-repeat: repeat;
-  mix-blend-mode: multiply;
-  opacity: 0.085;
+  border-top: 1px solid rgba(220, 200, 180, 0.2);
+  border-bottom: 1px solid rgba(220, 200, 180, 0.15);
 }
 
 .page-home .lp-section--relationship > .container {
   position: relative;
   z-index: 1;
-}
-
-.page-home .outcome-relationship-line,
-.page-home .outcome-relationship-attribution {
-  text-shadow: 0 1px 22px rgba(0, 0, 0, 0.2);
 }
 
 .outcome-relationship-band {
@@ -3023,7 +2998,7 @@ a.nav-link.nav-trigger {
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.4;
-  color: #fff;
+  color: var(--slate-dark);
   text-align: center;
   text-wrap: balance;
 }
@@ -3040,7 +3015,7 @@ a.nav-link.nav-trigger {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--slate-light);
 }
 
 @media (max-width: 760px) {
