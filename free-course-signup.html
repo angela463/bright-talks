@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Complete Bright Talks membership enrollment and checkout." />
+  <meta name="description" content="Bright Talks membership pricing preview. Checkout is under construction." />
   <title>Bright Talks | Checkout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -345,6 +345,83 @@
       display: none;
     }
 
+    .checkout-prototype {
+      margin-bottom: 20px;
+      padding: 18px 18px 20px;
+      border-radius: 10px;
+      border: 1px solid #f0d4a8;
+      background: linear-gradient(180deg, #fff8ee 0%, #fff3e0 100%);
+      text-align: center;
+    }
+
+    .checkout-prototype__badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      background: #e8954a;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .checkout-prototype__title {
+      margin: 0 0 8px;
+      font-family: "Fraunces", serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .checkout-prototype__text {
+      margin: 0 0 14px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .checkout-prototype__link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .checkout-prototype__link:hover {
+      filter: brightness(1.08);
+    }
+
+    .stripe-checkout-form-preview {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      min-width: 0;
+      opacity: 0.55;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .stripe-checkout-form-preview:disabled .stripe-field input,
+    .stripe-checkout-form-preview:disabled .stripe-field select,
+    .stripe-checkout-form-preview:disabled .stripe-card-group input {
+      background: #f6f8fa;
+      color: #8898aa;
+      cursor: not-allowed;
+    }
+
+    .stripe-checkout-form-preview:disabled .stripe-pay-btn {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     /* ── Right: visual panel ── */
     .signup-visual-panel {
       position: relative;
@@ -449,16 +526,26 @@
               <div class="stripe-line-item__price">$39.99</div>
             </div>
 
+            <div class="checkout-prototype" role="status">
+              <span class="checkout-prototype__badge">Prototype</span>
+              <h3 class="checkout-prototype__title">Checkout is under construction</h3>
+              <p class="checkout-prototype__text">
+                This page previews what membership checkout will look like. You can&rsquo;t enter payment details or complete a purchase yet.
+              </p>
+              <a class="checkout-prototype__link" href="courses-concept.html">Browse courses</a>
+            </div>
+
+            <fieldset class="stripe-checkout-form-preview" disabled aria-label="Checkout preview (not active)">
             <form id="stripe-checkout-form" novalidate>
               <div class="stripe-field">
                 <label for="email">Email</label>
-                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+                <input id="email" name="email" type="email" autocomplete="off" placeholder="you@example.com" disabled tabindex="-1" />
               </div>
 
               <p class="stripe-section-label">Payment method</p>
               <div class="stripe-card-group">
                 <div class="stripe-card-group__row stripe-card-group__row--card">
-                  <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" required aria-label="Card number" />
+                  <input id="cardNumber" name="cardNumber" type="text" placeholder="1234 1234 1234 1234" disabled tabindex="-1" aria-label="Card number" />
                   <div class="stripe-card-icons" aria-hidden="true">
                     <span>VISA</span>
                     <span>MC</span>
@@ -466,19 +553,19 @@
                   </div>
                 </div>
                 <div class="stripe-card-group__row stripe-card-group__row--split">
-                  <input id="expiry" name="expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" required aria-label="Expiry" />
-                  <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" required aria-label="CVC" />
+                  <input id="expiry" name="expiry" type="text" placeholder="MM / YY" disabled tabindex="-1" aria-label="Expiry" />
+                  <input id="cvc" name="cvc" type="text" placeholder="CVC" disabled tabindex="-1" aria-label="CVC" />
                 </div>
               </div>
 
               <div class="stripe-field" style="margin-top: 16px;">
                 <label for="cardName">Name on card</label>
-                <input id="cardName" name="cardName" type="text" autocomplete="cc-name" placeholder="Full name" required />
+                <input id="cardName" name="cardName" type="text" placeholder="Full name" disabled tabindex="-1" />
               </div>
 
               <div class="stripe-field">
                 <label for="country">Country or region</label>
-                <select id="country" name="country" required>
+                <select id="country" name="country" disabled tabindex="-1">
                   <option value="US">United States</option>
                   <option value="CA">Canada</option>
                   <option value="GB">United Kingdom</option>
@@ -488,12 +575,12 @@
 
               <div class="stripe-field">
                 <label for="zip">ZIP</label>
-                <input id="zip" name="zip" type="text" autocomplete="postal-code" placeholder="12345" required />
+                <input id="zip" name="zip" type="text" placeholder="12345" disabled tabindex="-1" />
               </div>
 
-              <button class="stripe-pay-btn" type="submit" id="pay-btn">Pay $39.99</button>
-              <p id="form-status" class="status" role="status" aria-live="polite" hidden></p>
+              <button class="stripe-pay-btn" type="button" id="pay-btn" disabled tabindex="-1">Checkout coming soon</button>
             </form>
+            </fieldset>
 
             <p class="checkout-footer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
@@ -513,122 +600,7 @@
     </aside>
   </div>
 
-  <script>
-    (function () {
-      var form = document.getElementById("stripe-checkout-form");
-      var statusEl = document.getElementById("form-status");
-      var payBtn = document.getElementById("pay-btn");
-      var cardInput = document.getElementById("cardNumber");
-      var expiryInput = document.getElementById("expiry");
-
-      function formatCardNumber(value) {
-        var digits = value.replace(/\D/g, "").slice(0, 16);
-        return digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
-      }
-
-      function formatExpiry(value) {
-        var digits = value.replace(/\D/g, "").slice(0, 4);
-        if (digits.length <= 2) return digits;
-        return digits.slice(0, 2) + " / " + digits.slice(2);
-      }
-
-      function showStatus(message, type) {
-        statusEl.hidden = false;
-        statusEl.className = "status " + type;
-        statusEl.textContent = message;
-      }
-
-      function hideStatus() {
-        statusEl.hidden = true;
-        statusEl.className = "status";
-        statusEl.textContent = "";
-      }
-
-      function validateCard(cardNumber) {
-        var digits = cardNumber.replace(/\D/g, "");
-        return digits.length === 16;
-      }
-
-      function validateExpiry(expiry) {
-        var match = expiry.replace(/\s/g, "").match(/^(\d{2})\/?(\d{2})$/);
-        if (!match) return false;
-        var month = parseInt(match[1], 10);
-        var year = 2000 + parseInt(match[2], 10);
-        if (month < 1 || month > 12) return false;
-        var now = new Date();
-        var exp = new Date(year, month);
-        return exp > now;
-      }
-
-      if (cardInput) {
-        cardInput.addEventListener("input", function () {
-          cardInput.value = formatCardNumber(cardInput.value);
-        });
-      }
-
-      if (expiryInput) {
-        expiryInput.addEventListener("input", function () {
-          expiryInput.value = formatExpiry(expiryInput.value);
-        });
-      }
-
-      if (!form) return;
-
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        hideStatus();
-
-        var data = {
-          email: document.getElementById("email").value.trim(),
-          cardNumber: document.getElementById("cardNumber").value.trim(),
-          expiry: document.getElementById("expiry").value.trim(),
-          cvc: document.getElementById("cvc").value.trim(),
-          cardName: document.getElementById("cardName").value.trim(),
-          country: document.getElementById("country").value,
-          zip: document.getElementById("zip").value.trim()
-        };
-
-        if (!form.checkValidity()) {
-          showStatus("Please complete all fields before paying.", "err");
-          form.reportValidity();
-          return;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-          showStatus("Enter a valid email address.", "err");
-          return;
-        }
-
-        if (!validateCard(data.cardNumber)) {
-          showStatus("Enter a valid 16-digit card number.", "err");
-          return;
-        }
-
-        if (!validateExpiry(data.expiry)) {
-          showStatus("Enter a valid future expiry date (MM / YY).", "err");
-          return;
-        }
-
-        if (!/^\d{3,4}$/.test(data.cvc)) {
-          showStatus("Enter a valid CVC (3 or 4 digits).", "err");
-          return;
-        }
-
-        payBtn.disabled = true;
-        payBtn.textContent = "Processing…";
-
-        setTimeout(function () {
-          showStatus(
-            "We couldn't complete checkout. Payment isn't live yet, and your card was not charged.",
-            "err"
-          );
-
-          payBtn.disabled = false;
-          payBtn.textContent = "Pay $39.99";
-        }, 900);
-      });
-    })();
-  </script>
+  <script src="js/auth-modal.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
