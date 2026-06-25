@@ -4569,6 +4569,32 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   font-size: 1.05rem;
 }
 
+.instructor-card__bio {
+  margin: 0.9rem 0 0;
+}
+
+.instructor-card__bio p {
+  margin: 0 0 0.7rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #4a443d;
+}
+
+.instructor-card__bio p:last-child {
+  margin-bottom: 0;
+}
+
+.instructor-card__quote {
+  margin: 1rem 0 0;
+  padding-left: 0.95rem;
+  border-left: 3px solid var(--orange);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: #2a2725;
+}
+
 .instructor-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 16px 34px rgba(84, 56, 28, 0.11);
