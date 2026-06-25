@@ -4499,6 +4499,7 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   margin: 0;
 }
 
+.instructor-team__header h1,
 .instructor-team__header h2 {
   margin: 0.55rem 0 0;
   font-family: var(--font-display);
