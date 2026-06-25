@@ -110,7 +110,7 @@
         ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">View talk</a>';
       } else {
         statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--soon">Coming soon</span>';
-        ctaHtml = '<span class="cc-lesson-row__link cc-lesson-row__link--soon">Coming soon</span>';
+        ctaHtml = '';
       }
 
       return '' +
