@@ -11,7 +11,7 @@
     {
       courseId: 'bt-foundations-early-years',
       num: '01',
-      title: 'Foundations: Early Years',
+      title: 'Bodies, Biology & Anatomy',
       age: 'Ages 3 to 5',
       status: 'available',
       statusLabel: 'Available'
@@ -19,7 +19,7 @@
     {
       courseId: 'bt-middle-childhood',
       num: '02',
-      title: 'Growing Up: Middle Childhood',
+      title: 'Boundaries & Safety',
       age: 'Ages 6 to 8',
       status: 'available',
       statusLabel: 'Available'
@@ -27,7 +27,7 @@
     {
       courseId: 'bt-puberty-conversations',
       num: '03',
-      title: 'Puberty & Growing Up Without Shame',
+      title: 'Reproduction',
       age: 'Ages 9 to 12',
       status: 'progress',
       statusLabel: 'In progress'
@@ -35,7 +35,7 @@
     {
       courseId: 'bt-teen-digital-safety',
       num: '04',
-      title: 'Teen Digital Safety & Healthy Relationships',
+      title: 'Porn & Inappropriate Images',
       age: 'Teens',
       status: 'soon',
       statusLabel: 'Coming soon'
