@@ -2381,6 +2381,29 @@ a.nav-link.nav-trigger {
   text-wrap: balance;
 }
 
+/* Back faces with multiple paragraphs: read as one vertically centered block */
+.value-card__face--back:has(.value-card-text + .value-card-text) {
+  justify-content: center;
+}
+
+.value-card__face--back .value-card-text:not(:only-child) {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.value-card__face--back .value-card-text:not(:only-child):first-child {
+  padding-top: 1.4rem;
+}
+
+.value-card__face--back .value-card-text:not(:only-child):last-child {
+  padding-bottom: 1.4rem;
+}
+
+.value-card__face--back .value-card-text + .value-card-text {
+  padding-top: 0.85rem;
+}
+
 /* No hover (touch) / reduced motion: stacked layout; clip + flip state neutralized */
 @media (prefers-reduced-motion: reduce), (hover: none) {
   .value-card--flip {
