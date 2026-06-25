@@ -224,7 +224,7 @@
     btn.type = 'button';
     btn.className = className || 'btn btn-secondary header-sign-in';
     btn.setAttribute('data-auth-open', 'sign-in');
-    btn.textContent = 'Sign In';
+    btn.textContent = 'Account';
     return btn;
   }
 
