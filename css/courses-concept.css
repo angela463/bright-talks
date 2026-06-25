@@ -278,6 +278,29 @@
   text-decoration: underline;
 }
 
+.cc-lesson-row__link--btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.42rem 1.05rem;
+  border-radius: 999px;
+  background: var(--cc-accent);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(201, 116, 50, 0.25);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cc-lesson-row__link--btn:hover {
+  background: var(--cc-accent-dark);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(201, 116, 50, 0.3);
+}
+
 .cc-lesson-row__link--soon {
   color: var(--cc-muted);
   cursor: default;

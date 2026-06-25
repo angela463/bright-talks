@@ -101,21 +101,15 @@
       var rowClass = 'cc-lesson-row' + (isWelcome ? ' cc-lesson-row--welcome' : '');
       var numClass = 'cc-lesson-row__num' + (isWelcome ? ' cc-lesson-row__num--start' : '');
       var href = playerHref(course.id, entry.module, entry.lesson);
-      var statusClass;
-      var statusLabel;
+      var statusHtml = '';
       var ctaHtml;
 
       if (isWelcome) {
-        statusClass = 'cc-lesson-row__status--start';
-        statusLabel = 'Start here';
-        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">Watch welcome</a>';
+        ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">Start here</a>';
       } else if (isFirstTalk) {
-        statusClass = 'cc-lesson-row__status--ready';
-        statusLabel = 'Ready';
-        ctaHtml = '<a class="cc-lesson-row__link" href="' + escText(href) + '">View talk</a>';
+        ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">View talk</a>';
       } else {
-        statusClass = 'cc-lesson-row__status--soon';
-        statusLabel = 'Coming soon';
+        statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--soon">Coming soon</span>';
         ctaHtml = '<span class="cc-lesson-row__link cc-lesson-row__link--soon">Coming soon</span>';
       }
 
@@ -128,7 +122,7 @@
           '</div>' +
           '<div class="cc-lesson-row__meta">' +
             '<span class="cc-lesson-row__time">' + escText(formatDuration(lesson.duration)) + '</span>' +
-            '<span class="cc-lesson-row__status ' + statusClass + '">' + escText(statusLabel) + '</span>' +
+            statusHtml +
             ctaHtml +
           '</div>' +
         '</li>';
