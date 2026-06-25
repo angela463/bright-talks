@@ -2972,8 +2972,13 @@ a.nav-link.nav-trigger {
   padding-bottom: clamp(4.25rem, 12vw, 7.5rem);
   padding-left: clamp(1.25rem, 4vw, 2rem);
   padding-right: clamp(1.25rem, 4vw, 2rem);
-  background-color: #fff;
-  background-image: url("../images/romans-12-2-bible-pattern.png");
+  background-color: var(--cream-deep);
+  background-image:
+    linear-gradient(
+      rgba(250, 244, 235, 0.88),
+      rgba(250, 244, 235, 0.88)
+    ),
+    url("../images/romans-12-2-bible-pattern.png");
   background-size: 340px auto;
   background-position: 0 0;
   background-repeat: repeat;
