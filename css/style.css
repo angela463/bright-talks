@@ -4578,6 +4578,25 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   position: relative;
 }
 
+.instructor-card__soon-badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 2;
+  padding: 0.26rem 0.64rem;
+  border-radius: 999px;
+  background: rgba(44, 38, 34, 0.82);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.instructor-card--soon .instructor-card__photo img {
+  opacity: 0.82;
+}
+
 .instructor-card__photo {
   border-radius: 0.95rem;
   overflow: hidden;
