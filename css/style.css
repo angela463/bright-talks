@@ -2208,6 +2208,11 @@ a.nav-link.nav-trigger {
   text-align: center;
 }
 
+.value-why--top {
+  margin-top: 0;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
 .value-why-title {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 1.85rem);
