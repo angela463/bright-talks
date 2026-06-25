@@ -515,8 +515,6 @@
 
   <script>
     (function () {
-      var STORAGE_KEY = "bright_talks_test_accounts";
-
       var form = document.getElementById("stripe-checkout-form");
       var statusEl = document.getElementById("form-status");
       var payBtn = document.getElementById("pay-btn");
@@ -544,30 +542,6 @@
         statusEl.hidden = true;
         statusEl.className = "status";
         statusEl.textContent = "";
-      }
-
-      function getStoredAccounts() {
-        try {
-          return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        } catch (e) {
-          return [];
-        }
-      }
-
-      function saveTestAccount(data) {
-        var accounts = getStoredAccounts();
-        accounts.unshift({
-          id: "bt_test_" + Date.now(),
-          createdAt: new Date().toISOString(),
-          email: data.email,
-          cardLast4: data.cardNumber.replace(/\D/g, "").slice(-4),
-          cardName: data.cardName,
-          country: data.country,
-          zip: data.zip,
-          amount: "39.99",
-          status: "paid_test"
-        });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(accounts.slice(0, 20)));
       }
 
       function validateCard(cardNumber) {
@@ -644,16 +618,13 @@
         payBtn.textContent = "Processing…";
 
         setTimeout(function () {
-          saveTestAccount(data);
-
           showStatus(
-            "Payment successful! Your account for " + data.email + " is ready.",
-            "ok"
+            "We couldn't complete checkout. Payment isn't live yet, and your card was not charged.",
+            "err"
           );
 
           payBtn.disabled = false;
           payBtn.textContent = "Pay $39.99";
-          form.reset();
         }, 900);
       });
     })();
