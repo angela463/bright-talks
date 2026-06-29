@@ -130,7 +130,9 @@
   }
 
   function seriesButton(meta, course) {
-    return '<span class="cc-series-card__btn" aria-disabled="true">Coming soon</span>';
+    var entry = course.playerEntry || { module: 0, lesson: 0 };
+    return '<a class="cc-series-card__btn cc-series-card__btn--primary" href="' +
+      escText(playerHref(course.id, entry.module, entry.lesson)) + '">Get Started</a>';
   }
 
   function renderSeriesCards() {
