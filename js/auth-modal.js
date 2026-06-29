@@ -47,43 +47,56 @@
       '    <button type="button" class="auth-modal__tab" role="tab" aria-selected="false" data-auth-tab="create">Create Account</button>' +
       '  </div>' +
       '  <div class="auth-modal__pane" data-auth-pane="sign-in">' +
+      '    <div class="auth-modal__prototype" role="status">' +
+      '      <span class="auth-modal__prototype-badge">Prototype</span>' +
+      '      <h3 class="auth-modal__prototype-title">Sign in is under construction</h3>' +
+      '      <p class="auth-modal__prototype-text">Accounts are not active in this preview yet. This step is coming soon.</p>' +
+      '    </div>' +
       '    <form id="auth-sign-in-form">' +
+      '      <fieldset class="auth-modal__preview" disabled aria-label="Sign in preview (not active)">' +
       '      <div class="auth-modal__field">' +
       '        <label for="auth-sign-in-email">Email</label>' +
-      '        <input id="auth-sign-in-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />' +
+      '        <input id="auth-sign-in-email" name="email" type="email" autocomplete="off" placeholder="you@example.com" tabindex="-1" />' +
       '      </div>' +
       '      <div class="auth-modal__field">' +
       '        <label for="auth-sign-in-password">Password</label>' +
-      '        <input id="auth-sign-in-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required minlength="6" />' +
+      '        <input id="auth-sign-in-password" name="password" type="password" autocomplete="off" placeholder="Your password" tabindex="-1" />' +
       '      </div>' +
-      '      <button type="submit" class="auth-modal__submit">Sign In</button>' +
+      '      <button type="button" class="auth-modal__submit" tabindex="-1">Sign in coming soon</button>' +
+      '      </fieldset>' +
       '      <p id="auth-sign-in-status" class="auth-modal__status" role="status" aria-live="polite"></p>' +
       '    </form>' +
       '  </div>' +
       '  <div class="auth-modal__pane" data-auth-pane="create" hidden>' +
+      '    <div class="auth-modal__prototype" role="status">' +
+      '      <span class="auth-modal__prototype-badge">Prototype</span>' +
+      '      <h3 class="auth-modal__prototype-title">Create account is under construction</h3>' +
+      '      <p class="auth-modal__prototype-text">Accounts are not active in this preview yet. This step is coming soon.</p>' +
+      '    </div>' +
       '    <form id="auth-create-form">' +
+      '      <fieldset class="auth-modal__preview" disabled aria-label="Create account preview (not active)">' +
       '      <div class="auth-modal__grid">' +
       '        <div class="auth-modal__field">' +
       '          <label for="auth-create-first">First name</label>' +
-      '          <input id="auth-create-first" name="firstName" autocomplete="given-name" required />' +
+      '          <input id="auth-create-first" name="firstName" autocomplete="off" tabindex="-1" />' +
       '        </div>' +
       '        <div class="auth-modal__field">' +
       '          <label for="auth-create-last">Last name</label>' +
-      '          <input id="auth-create-last" name="lastName" autocomplete="family-name" required />' +
+      '          <input id="auth-create-last" name="lastName" autocomplete="off" tabindex="-1" />' +
       '        </div>' +
       '      </div>' +
       '      <div class="auth-modal__field">' +
       '        <label for="auth-create-email">Email</label>' +
-      '        <input id="auth-create-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />' +
+      '        <input id="auth-create-email" name="email" type="email" autocomplete="off" placeholder="you@example.com" tabindex="-1" />' +
       '      </div>' +
       '      <div class="auth-modal__field">' +
       '        <label for="auth-create-password">Password</label>' +
-      '        <input id="auth-create-password" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6" />' +
+      '        <input id="auth-create-password" name="password" type="password" autocomplete="off" placeholder="At least 6 characters" tabindex="-1" />' +
       '      </div>' +
-      '      <button type="submit" class="auth-modal__submit">Create Account</button>' +
+      '      <button type="button" class="auth-modal__submit" tabindex="-1">Create account coming soon</button>' +
+      '      </fieldset>' +
       '      <p id="auth-create-status" class="auth-modal__status" role="status" aria-live="polite"></p>' +
       '    </form>' +
-      '    <p class="auth-modal__footer">Need full membership checkout? <a href="free-course-signup.html">Go to checkout</a></p>' +
       '  </div>' +
       '</div>';
 
@@ -121,9 +134,7 @@
     setStatus(document.getElementById('auth-create-status'), '');
     modal.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
-    var focusTarget = tab === 'create'
-      ? document.getElementById('auth-create-first')
-      : document.getElementById('auth-sign-in-email');
+    var focusTarget = modal.querySelector('.auth-modal__close');
     if (focusTarget) focusTarget.focus();
   }
 
