@@ -4655,8 +4655,8 @@ body.page-courses.page-course-library .single-parent-feature__content p {
 
 .instructor-card__photo--silhouette img {
   object-position: center bottom;
-  /* Warm the grey stock avatars into the beige palette */
-  filter: sepia(0.62) saturate(1.35) hue-rotate(-8deg) brightness(1.04);
+  /* Warm the grey stock avatars into a muted beige/tan palette */
+  filter: sepia(0.45) saturate(0.8) hue-rotate(-6deg) brightness(1.05);
 }
 
 .instructor-card__photo img {
