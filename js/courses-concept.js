@@ -130,7 +130,7 @@
   }
 
   function seriesButton(meta, course) {
-    var started = meta.num === '01' || meta.num === '02';
+    var started = meta.num === '01';
     if (!started) {
       return '<span class="cc-series-card__btn" aria-disabled="true">Coming soon</span>';
     }
