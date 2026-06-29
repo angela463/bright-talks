@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" width="480" height="600" role="img" aria-label="Instructor coming soon">
+  <rect width="480" height="600" fill="#f2e6d4"/>
+  <g fill="#c79a6a">
+    <circle cx="240" cy="225" r="92"/>
+    <path d="M240 340c-104 0-188 70-188 170v90h376v-90c0-100-84-170-188-170z"/>
+  </g>
+</svg>

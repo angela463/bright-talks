@@ -4649,6 +4649,14 @@ body.page-courses.page-course-library .single-parent-feature__content p {
   background: #e8b84a;
 }
 
+.instructor-card__photo--silhouette {
+  background: #f2e6d4;
+}
+
+.instructor-card__photo--silhouette img {
+  object-position: center bottom;
+}
+
 .instructor-card__photo img {
   display: block;
   width: 100%;
