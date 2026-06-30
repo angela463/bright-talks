@@ -2420,7 +2420,7 @@ a.nav-link.nav-trigger {
   color: var(--slate);
   line-height: 1.6;
   text-align: left;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 /* Back faces with multiple paragraphs: read as one vertically centered block */
