@@ -438,14 +438,36 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #E4F2E9;
-  color: #2F8C57;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 3px 8px;
   border-radius: 999px;
+}
+
+.player-v2-layout-revamp .player-v2-lesson-card__completed {
+  background: #E4F2E9;
+  color: #2F8C57;
+}
+
+.player-v2-layout-revamp .player-v2-lesson-card__badge--ready {
+  background: rgba(244, 215, 138, 0.55);
+  color: #6B4E2E;
+}
+
+.player-v2-layout-revamp .player-v2-lesson-card__badge--soon {
+  background: rgba(203, 157, 112, 0.16);
+  color: #9A8570;
+}
+
+.player-v2-layout-revamp .player-v2-lesson-card.is-soon {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.player-v2-layout-revamp .player-v2-lesson-card.is-soon:hover {
+  background: transparent;
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card__duration {
@@ -764,6 +786,61 @@
   height: 100%;
   object-fit: cover;
   z-index: 4;
+  transition: opacity 1.2s ease;
+}
+
+.player-v2-layout-revamp .player-v2-hero-visual.is-splash-hidden {
+  opacity: 0;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-overlay,
+.player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-bar,
+.player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-play,
+.player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-playing-badge {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.player-v2-title-splash {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 2rem;
+  text-align: center;
+  color: #fff;
+  background: radial-gradient(120% 120% at 50% 20%, #F6C98B 0%, #E9A65C 35%, #D98A41 68%, #B96B2C 100%);
+  transition: opacity 1.1s ease;
+}
+
+.player-v2-title-splash__kicker {
+  margin: 0;
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+.player-v2-title-splash__title {
+  margin: 0;
+  max-width: 16ch;
+  font-family: 'Lora', serif;
+  font-size: clamp(1.65rem, 4vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+  text-shadow: 0 2px 18px rgba(60, 30, 8, 0.28);
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-splash-reveal .player-v2-title-splash {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .player-v2-layout-revamp .player-v2-video-overlay {

@@ -107,6 +107,7 @@
       if (isWelcome) {
         ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">Start here</a>';
       } else if (isFirstTalk) {
+        statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--ready">Ready to start</span>';
         ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">View talk</a>';
       } else {
         statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--soon">Coming soon</span>';

@@ -26,6 +26,7 @@
    * @property {'video'|'image'} type
    * @property {string} src
    * @property {string} [alt]
+   * @property {{ introAudio?: string, kicker?: string, title?: string }} [splash]
    *
    * @typedef {Object} Lesson
    * @property {string} id
@@ -64,6 +65,7 @@
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
+  var talk1VideoSrc = 'Heidi/BrightTalks_1_72188.mov';
 
   var courseHeroImages = {
     earlyYears: 'images/pexels-julia-m-cameron-4144230.jpg',
@@ -129,6 +131,7 @@
       opts.transcript || transcriptFromLesson(lesson),
       opts.audioDuration || opts.duration
     );
+    if (opts.availability) lesson.availability = opts.availability;
     return lesson;
   }
 
@@ -177,12 +180,21 @@
       }),
       splitLesson({
         id: 'lesson-1-bodies',
+        availability: 'ready',
         title: 'Talk 1: Bodies, Biology & Anatomy',
         summary:
           'Name body parts clearly and without shame so your child understands privacy, dignity, and that their body belongs to them.',
         duration: '20m',
         audioDuration: '20:00',
-        heroVisual: { type: 'image', src: earlyYearsLessonImages.bodies, alt: 'Parent and child reading together' },
+        heroVisual: {
+          type: 'video',
+          src: talk1VideoSrc,
+          splash: {
+            introAudio: welcomeAudio,
+            kicker: 'Talk 1',
+            title: 'Bodies, Biology & Anatomy'
+          }
+        },
         sections: [
           {
             title: 'Talk Objectives',
@@ -237,6 +249,7 @@
       }),
       splitLesson({
         id: 'lesson-2-boundaries',
+        availability: 'soon',
         title: 'Talk 2: Boundaries & Safety',
         summary:
           'Teach boundaries, safe and unsafe touch, consent in daily life, and who children can tell when something feels wrong.',
@@ -290,6 +303,7 @@
       }),
       splitLesson({
         id: 'lesson-3-reproduction',
+        availability: 'soon',
         title: 'Talk 3: Reproduction',
         summary:
           'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3 to 6.',
@@ -339,6 +353,7 @@
       }),
       splitLesson({
         id: 'lesson-4-porn',
+        availability: 'soon',
         title: 'Talk 4: Porn & Inappropriate Images',
         summary:
           'Prepare calm responses if your child sees confusing images or videos online or elsewhere without fear or shame.',
@@ -395,6 +410,7 @@
       }),
       splitLesson({
         id: 'lesson-5-continuing',
+        availability: 'soon',
         title: 'Talk 5: Continuing the Conversation',
         summary:
           'Build habits and scripts so body-safety talks stay normal, warm, and open as your child grows.',
@@ -462,7 +478,7 @@
         'Leave with practical language, handbooks, and scripts you can use this week to build trust and body safety at home.',
       duration: '1h 42m',
       lessonCount: lessons.length,
-      progress: 38,
+      progress: 17,
       completed: false,
       heroImage: courseHeroImages.earlyYears,
       playerEntry: { module: 0, lesson: 0 },

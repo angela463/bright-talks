@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var KEY = 'brightTalksCourseProgressV2';
+  var KEY = 'brightTalksCourseProgressV3';
 
   function getCourses() {
     return Array.isArray(window.BRIGHT_TALKS_COURSE_EXPERIENCE) ? window.BRIGHT_TALKS_COURSE_EXPERIENCE : [];

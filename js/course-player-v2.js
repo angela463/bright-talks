@@ -14,6 +14,9 @@
   var navOpen = window.innerWidth > 960;
   var lessonMode = 'watch';
   var toastTimer = null;
+  var splashFadeTimer = null;
+  var splashFallbackTimer = null;
+  var splashSequenceId = 0;
   var waveHeights = Array.from({ length: 54 }, function (_, i) {
     return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
   });
@@ -57,6 +60,10 @@
     heroVisual: document.getElementById('player-v2-hero-visual'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
+    titleSplash: document.getElementById('player-v2-title-splash'),
+    titleSplashKicker: document.getElementById('player-v2-title-splash-kicker'),
+    titleSplashTitle: document.getElementById('player-v2-title-splash-title'),
+    splashAudio: document.getElementById('player-v2-splash-audio'),
     videoStage: document.querySelector('.player-v2-video-stage'),
     videoPlay: document.getElementById('player-v2-video-play'),
     videoPlaySmall: document.getElementById('player-v2-video-play-small'),
@@ -119,6 +126,39 @@
     var mod = getCurrentModule();
     if (lessonIndex < 0) lessonIndex = 0;
     if (lessonIndex > mod.lessons.length - 1) lessonIndex = mod.lessons.length - 1;
+    clampToAvailableLesson();
+  }
+
+  function isLessonSoon(lesson) {
+    return !!(lesson && lesson.availability === 'soon');
+  }
+
+  function isLessonReady(lesson) {
+    return !!(lesson && lesson.availability === 'ready');
+  }
+
+  function clampToAvailableLesson() {
+    if (!isLessonSoon(getCurrentLesson())) return;
+    var items = flattenItems();
+    for (var i = 0; i < items.length; i++) {
+      if (!isLessonSoon(items[i].lessonData)) {
+        moduleIndex = items[i].module;
+        lessonIndex = items[i].lesson;
+        return;
+      }
+    }
+  }
+
+  function findAdjacentAvailableLesson(direction) {
+    var items = flattenItems();
+    var current = absoluteLessonIndex();
+    var step = direction > 0 ? 1 : -1;
+    for (var i = current + step; i >= 0 && i < items.length; i += step) {
+      if (!isLessonSoon(items[i].lessonData)) {
+        return { module: items[i].module, lesson: items[i].lesson };
+      }
+    }
+    return null;
   }
 
   function absoluteLessonIndex() {
@@ -126,6 +166,115 @@
     for (var i = 0; i < moduleIndex; i++) idx += course.modules[i].lessons.length;
     idx += lessonIndex;
     return idx;
+  }
+
+  function encodeMediaPath(path) {
+    return String(path || '').split('/').map(function (part) {
+      return encodeURIComponent(part);
+    }).join('/');
+  }
+
+  function videoMimeFromSrc(src) {
+    if (/\.mov$/i.test(src)) return 'video/quicktime';
+    if (/\.webm$/i.test(src)) return 'video/webm';
+    return 'video/mp4';
+  }
+
+  function getHeroSplash(lesson) {
+    var hv = lesson && lesson.heroVisual;
+    return hv && hv.splash ? hv.splash : null;
+  }
+
+  function clearSplashTimers() {
+    if (splashFadeTimer) {
+      clearTimeout(splashFadeTimer);
+      splashFadeTimer = null;
+    }
+    if (splashFallbackTimer) {
+      clearTimeout(splashFallbackTimer);
+      splashFallbackTimer = null;
+    }
+  }
+
+  function cancelTitleSplash() {
+    clearSplashTimers();
+    if (el.splashAudio) {
+      el.splashAudio.pause();
+      el.splashAudio.removeAttribute('src');
+    }
+    if (el.titleSplash) el.titleSplash.hidden = true;
+    if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
+    if (el.heroVisual) el.heroVisual.classList.remove('is-splash-hidden');
+  }
+
+  function beginTitleSplashReveal(sequenceId) {
+    if (sequenceId !== splashSequenceId) return;
+    if (!el.heroVisual || !el.videoStage) return;
+    if (el.splashAudio) el.splashAudio.pause();
+    el.videoStage.classList.add('is-splash-reveal');
+    el.heroVisual.classList.remove('is-splash-hidden');
+    el.heroVisual.muted = false;
+    var playAttempt = el.heroVisual.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') {
+      playAttempt.catch(function () {
+        el.heroVisual.muted = true;
+        el.heroVisual.play().catch(function () {});
+      });
+    }
+    splashFadeTimer = setTimeout(function () {
+      if (sequenceId !== splashSequenceId) return;
+      if (el.titleSplash) el.titleSplash.hidden = true;
+      if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
+      if (el.videoPlay) el.videoPlay.hidden = false;
+      updateVideoUI();
+    }, 1400);
+  }
+
+  function startTitleSplash(lesson) {
+    var splash = getHeroSplash(lesson);
+    if (!splash || !el.titleSplash || !el.splashAudio) return false;
+
+    cancelTitleSplash();
+    var sequenceId = ++splashSequenceId;
+
+    if (el.titleSplashKicker) {
+      el.titleSplashKicker.textContent = splash.kicker || 'Talk';
+    }
+    if (el.titleSplashTitle) {
+      el.titleSplashTitle.textContent = splash.title || displayLessonTitle(lesson.title);
+    }
+
+    el.titleSplash.hidden = false;
+    if (el.videoStage) el.videoStage.classList.add('is-splash-active');
+    if (el.heroVisual) el.heroVisual.classList.add('is-splash-hidden');
+    if (el.videoPlay) el.videoPlay.hidden = true;
+    if (el.playingBadge) el.playingBadge.hidden = true;
+
+    el.splashAudio.src = encodeMediaPath(splash.introAudio || '');
+    el.splashAudio.currentTime = 0;
+    el.splashAudio.load();
+
+    function onIntroEnded() {
+      beginTitleSplashReveal(sequenceId);
+    }
+
+    el.splashAudio.addEventListener('ended', onIntroEnded, { once: true });
+    el.splashAudio.addEventListener('error', onIntroEnded, { once: true });
+
+    var introPlay = el.splashAudio.play();
+    if (introPlay && typeof introPlay.catch === 'function') {
+      introPlay.catch(function () {
+        onIntroEnded();
+      });
+    }
+
+    splashFallbackTimer = setTimeout(function () {
+      if (sequenceId !== splashSequenceId) return;
+      if (!el.splashAudio.paused) return;
+      onIntroEnded();
+    }, 12000);
+
+    return true;
   }
 
   function flattenItems() {
@@ -264,7 +413,7 @@
   function progressCopyMessage(done, total) {
     if (done === 0) return "Whenever you're ready, start with the welcome.";
     if (done >= total) return "All done. You've got this, and so does your little one.";
-    if (done === 1) return 'A lovely start. One gentle talk at a time.';
+    if (done === 1) return 'Welcome complete. Talk 1 is ready to start.';
     if (done >= total - 1) return "Just one to go. You're nearly there.";
     return "You're well on your way. Keep it relaxed.";
   }
@@ -433,6 +582,19 @@
     }
   }
 
+  function lessonStatusBadgeHtml(lesson, isDone) {
+    if (isDone) {
+      return '<span class="player-v2-lesson-card__completed">Completed</span>';
+    }
+    if (isLessonSoon(lesson)) {
+      return '<span class="player-v2-lesson-card__badge player-v2-lesson-card__badge--soon">Coming soon</span>';
+    }
+    if (isLessonReady(lesson)) {
+      return '<span class="player-v2-lesson-card__badge player-v2-lesson-card__badge--ready">Ready to start</span>';
+    }
+    return '';
+  }
+
   function renderSidebarCourseNav(all, progressPct) {
     if (!el.sidebarCourseNav) return;
     var done = doneLessonCount(progressPct, all.length);
@@ -441,19 +603,22 @@
       var lesson = entry.lessonData;
       var active = entry.module === moduleIndex && entry.lesson === lessonIndex;
       var isDone = index < done;
+      var soon = isLessonSoon(lesson);
       var isWelcome = /^welcome video$/i.test(String(lesson.title || '').trim());
       var cls = 'player-v2-lesson-card' +
         (active ? ' is-active' : '') +
         (isDone ? ' is-done' : '') +
-        (isWelcome ? ' is-welcome' : '');
+        (isWelcome ? ' is-welcome' : '') +
+        (soon ? ' is-soon' : '');
 
       return '' +
-        '<button type="button" class="' + cls + '" data-module="' + entry.module + '" data-lesson="' + entry.lesson + '">' +
+        '<button type="button" class="' + cls + '" data-module="' + entry.module + '" data-lesson="' + entry.lesson + '"' +
+          (soon ? ' disabled aria-disabled="true"' : '') + '>' +
           '<span class="player-v2-lesson-card__ring" aria-hidden="true"></span>' +
           '<span class="player-v2-lesson-card__body">' +
             sidebarTitleHtml(lesson.title) +
             '<span class="player-v2-lesson-card__subtitle">' + escText(truncate(lesson.summary, 72)) + '</span>' +
-            (isDone ? '<span class="player-v2-lesson-card__completed">Completed</span>' : '') +
+            lessonStatusBadgeHtml(lesson, isDone) +
           '</span>' +
           '<span class="player-v2-lesson-card__duration">' + escText(lesson.duration) + '</span>' +
         '</button>';
@@ -476,9 +641,12 @@
     var html = course.modules.map(function (module, mIndex) {
       var items = module.lessons.map(function (lesson, lIndex) {
         var active = mIndex === moduleIndex && lIndex === lessonIndex ? ' is-active' : '';
+        var soon = isLessonSoon(lesson);
+        var disabledAttr = soon ? ' disabled aria-disabled="true"' : '';
+        var soonLabel = soon ? ' · Coming soon' : '';
         return '' +
-          '<button class="player-v2-nav-lesson' + active + '" data-module="' + mIndex + '" data-lesson="' + lIndex + '">' +
-          '  <strong>' + escText(lesson.title) + '</strong>' +
+          '<button class="player-v2-nav-lesson' + active + (soon ? ' is-soon' : '') + '" data-module="' + mIndex + '" data-lesson="' + lIndex + '"' + disabledAttr + '>' +
+          '  <strong>' + escText(lesson.title) + soonLabel + '</strong>' +
           '  <span>' + escText(lesson.duration) + '</span>' +
           '</button>';
       }).join('');
@@ -494,6 +662,7 @@
     el.nav.innerHTML = html;
     Array.prototype.forEach.call(el.nav.querySelectorAll('.player-v2-nav-lesson'), function (btn) {
       btn.addEventListener('click', function () {
+        if (btn.disabled || btn.classList.contains('is-soon')) return;
         moduleIndex = Number(btn.getAttribute('data-module'));
         lessonIndex = Number(btn.getAttribute('data-lesson'));
         render();
@@ -547,13 +716,18 @@
   function configureHeroVideoPlayback(lesson) {
     if (!el.heroVisual) return;
     var welcome = isWelcomeLesson(lesson);
-    el.heroVisual.muted = !welcome;
-    el.heroVisual.loop = !welcome;
+    var hasSplash = !!getHeroSplash(lesson);
+    el.heroVisual.muted = hasSplash ? true : !welcome;
+    el.heroVisual.loop = !welcome && !hasSplash;
   }
 
   function toggleHeroVideo() {
     if (!el.heroVisual || el.heroVisual.hidden) return;
     var lesson = getCurrentLesson();
+    if (getHeroSplash(lesson) && el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
+      beginTitleSplashReveal(splashSequenceId);
+      return;
+    }
     var welcome = isWelcomeLesson(lesson);
 
     if (el.heroVisual.paused) {
@@ -593,6 +767,7 @@
     var lesson = getCurrentLesson();
 
     if (mode === 'read') {
+      cancelTitleSplash();
       if (el.heroVisual) el.heroVisual.pause();
       if (el.readAudioTitle) el.readAudioTitle.textContent = displayLessonTitle(lesson.title);
       buildWaveform();
@@ -603,6 +778,7 @@
     }
 
     if (mode === 'listen') {
+      cancelTitleSplash();
       if (el.heroVisual) el.heroVisual.pause();
       if (el.listenTitle) el.listenTitle.textContent = displayLessonTitle(lesson.title);
       buildWaveform();
@@ -614,12 +790,25 @@
     if (el.audio) el.audio.pause();
     updateAudioUI();
     if (el.heroVisual && !el.heroVisual.hidden) {
-      playHeroVideoWhenReady(lesson);
+      if (getHeroSplash(lesson)) {
+        if (el.heroVisual.currentTime > 0.15) {
+          cancelTitleSplash();
+          configureHeroVideoPlayback(lesson);
+          el.heroVisual.muted = false;
+          el.heroVisual.play().catch(function () {});
+          updateVideoUI();
+        } else if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
+          forceHeroVideo(lesson.heroVisual.src, lesson);
+        }
+      } else {
+        playHeroVideoWhenReady(lesson);
+      }
     }
   }
 
   function playHeroVideoWhenReady(lesson) {
     if (!el.heroVisual || el.heroVisual.hidden) return;
+    if (getHeroSplash(lesson)) return;
     configureHeroVideoPlayback(lesson);
     var shouldAutoplay = !isWelcomeLesson(lesson);
 
@@ -658,12 +847,22 @@
 
     el.heroVisual.pause();
     el.heroVisual.currentTime = 0;
-    el.heroSource.src = src;
+    el.heroSource.src = encodeMediaPath(src);
+    el.heroSource.type = videoMimeFromSrc(src);
     el.heroVisual.load();
+    configureHeroVideoPlayback(lesson);
+
+    if (getHeroSplash(lesson) && lessonMode === 'watch') {
+      startTitleSplash(lesson);
+      return;
+    }
+
+    cancelTitleSplash();
     playHeroVideoWhenReady(lesson);
   }
 
   function applyHeroVisual(lesson) {
+    cancelTitleSplash();
     var hv = lesson && lesson.heroVisual;
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
 
@@ -773,24 +972,20 @@
   }
 
   function goToPrevious() {
-    if (lessonIndex > 0) {
-      lessonIndex -= 1;
-    } else if (moduleIndex > 0) {
-      moduleIndex -= 1;
-      lessonIndex = getCurrentModule().lessons.length - 1;
-    }
+    var target = findAdjacentAvailableLesson(-1);
+    if (!target) return;
+    moduleIndex = target.module;
+    lessonIndex = target.lesson;
     render();
   }
 
   function goToNext() {
-    var mod = getCurrentModule();
-    if (lessonIndex < mod.lessons.length - 1) {
-      lessonIndex += 1;
-    } else if (moduleIndex < course.modules.length - 1) {
-      moduleIndex += 1;
-      lessonIndex = 0;
-    }
+    var target = findAdjacentAvailableLesson(1);
+    if (!target) return false;
+    moduleIndex = target.module;
+    lessonIndex = target.lesson;
     render();
+    return true;
   }
 
   function markComplete() {
@@ -813,8 +1008,7 @@
     common.setCourseProgress(course.id, pct);
     showCompleteToast(doneLessonCount(pct, total));
 
-    if (absIdx < total - 1) {
-      goToNext();
+    if (absIdx < total - 1 && goToNext()) {
       return;
     }
     render();
@@ -965,7 +1159,8 @@
     if (el.sidebarCourseNav) {
       el.sidebarCourseNav.addEventListener('click', function (e) {
         var lessonBtn = e.target.closest('.player-v2-lesson-card[data-lesson]');
-        if (lessonBtn && lessonBtn.hasAttribute('data-module')) {
+        if (!lessonBtn || lessonBtn.disabled || lessonBtn.classList.contains('is-soon')) return;
+        if (lessonBtn.hasAttribute('data-module')) {
           e.preventDefault();
           navigateToLesson(
             lessonBtn.getAttribute('data-module'),
