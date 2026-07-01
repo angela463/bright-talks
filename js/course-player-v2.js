@@ -81,7 +81,8 @@
     outroAudio: document.getElementById('player-v2-outro-audio'),
     videoStage: document.querySelector('.player-v2-video-stage'),
     videoPlay: document.getElementById('player-v2-video-play'),
-    videoPlaySmall: document.getElementById('player-v2-video-play-small'),
+    videoBarPlay: document.getElementById('player-v2-video-bar-play'),
+    videoBarPause: document.getElementById('player-v2-video-bar-pause'),
     videoSeek: document.getElementById('player-v2-video-seek'),
     videoTime: document.getElementById('player-v2-video-time'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
@@ -255,20 +256,25 @@
     }
   }
 
-  function updateEmbedVideoUI() {
-    if (!isEmbedLesson(getCurrentLesson())) return;
-    var isPlaying = embedIsPlaying;
+  function setVideoTransportUI(isPlaying, opts) {
+    opts = opts || {};
     if (el.videoPlay) {
       el.videoPlay.hidden = isPlaying;
+      if (!opts.embed) {
+        el.videoPlay.classList.toggle('is-playing', isPlaying);
+      }
     }
-    if (el.videoPlaySmall) {
-      el.videoPlaySmall.classList.toggle('is-playing', isPlaying);
-      el.videoPlaySmall.setAttribute('aria-label', isPlaying ? 'Pause video' : 'Play video');
-    }
-    if (el.videoStage) {
+    if (el.videoBarPlay) el.videoBarPlay.hidden = isPlaying;
+    if (el.videoBarPause) el.videoBarPause.hidden = !isPlaying;
+    if (opts.embed && el.videoStage) {
       el.videoStage.classList.toggle('is-embed-playing', isPlaying);
     }
     if (el.playingBadge) el.playingBadge.hidden = !isPlaying;
+  }
+
+  function updateEmbedVideoUI() {
+    if (!isEmbedLesson(getCurrentLesson())) return;
+    setVideoTransportUI(embedIsPlaying, { embed: true });
     if (el.videoSeek) {
       el.videoSeek.disabled = true;
       el.videoSeek.hidden = true;
@@ -338,11 +344,6 @@
   function pauseEmbedVideo() {
     if (!bunnyPlayer) return;
     bunnyPlayer.pause();
-  }
-
-  function toggleEmbedVideo() {
-    if (embedIsPlaying) pauseEmbedVideo();
-    else playEmbedVideo();
   }
 
   function mountHeroEmbed(lesson) {
@@ -1083,12 +1084,7 @@
       el.videoTime.textContent = formatTime(current) + ' / ' + formatTime(duration);
     }
     var isPlaying = !el.heroVisual.paused;
-    if (el.videoPlay) el.videoPlay.classList.toggle('is-playing', isPlaying);
-    if (el.videoPlaySmall) {
-      el.videoPlaySmall.classList.toggle('is-playing', isPlaying);
-      el.videoPlaySmall.setAttribute('aria-label', isPlaying ? 'Pause video' : 'Play video');
-    }
-    if (el.playingBadge) el.playingBadge.hidden = !isPlaying;
+    setVideoTransportUI(isPlaying, { embed: false });
   }
 
   function isWelcomeLesson(lesson) {
@@ -1103,10 +1099,50 @@
     el.heroVisual.loop = !welcome && !hasSplash;
   }
 
+  function handleVideoPlayClick() {
+    var lesson = getCurrentLesson();
+    if (isEmbedLesson(lesson)) {
+      playEmbedVideo();
+      return;
+    }
+    if (!el.heroVisual || el.heroVisual.hidden || !el.heroVisual.paused) return;
+    if (getHeroSplash(lesson) && el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
+      beginTitleSplashReveal(splashSequenceId);
+      return;
+    }
+    var welcome = isWelcomeLesson(lesson);
+    if (welcome) {
+      configureHeroVideoPlayback(lesson);
+      if (el.audio) el.audio.pause();
+    }
+    var playAttempt = el.heroVisual.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') {
+      playAttempt.catch(function () {
+        if (!welcome) return;
+        el.heroVisual.muted = true;
+        el.heroVisual.play().catch(function () {});
+        updateVideoUI();
+      });
+    }
+    updateVideoUI();
+  }
+
+  function handleVideoPauseClick() {
+    var lesson = getCurrentLesson();
+    if (isEmbedLesson(lesson)) {
+      pauseEmbedVideo();
+      return;
+    }
+    if (!el.heroVisual || el.heroVisual.hidden) return;
+    el.heroVisual.pause();
+    updateVideoUI();
+  }
+
   function toggleHeroVideo() {
     var lesson = getCurrentLesson();
     if (isEmbedLesson(lesson)) {
-      toggleEmbedVideo();
+      if (embedIsPlaying) pauseEmbedVideo();
+      else playEmbedVideo();
       return;
     }
     if (!el.heroVisual || el.heroVisual.hidden) return;
@@ -1364,8 +1400,9 @@
     el.heroVisual.addEventListener('play', updateVideoUI);
     el.heroVisual.addEventListener('pause', updateVideoUI);
 
-    if (el.videoPlay) el.videoPlay.addEventListener('click', toggleHeroVideo);
-    if (el.videoPlaySmall) el.videoPlaySmall.addEventListener('click', toggleHeroVideo);
+    if (el.videoPlay) el.videoPlay.addEventListener('click', handleVideoPlayClick);
+    if (el.videoBarPlay) el.videoBarPlay.addEventListener('click', handleVideoPlayClick);
+    if (el.videoBarPause) el.videoBarPause.addEventListener('click', handleVideoPauseClick);
 
     if (el.videoSeek) {
       el.videoSeek.addEventListener('input', function () {
