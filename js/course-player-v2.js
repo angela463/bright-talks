@@ -82,7 +82,6 @@
     videoStage: document.querySelector('.player-v2-video-stage'),
     videoPlay: document.getElementById('player-v2-video-play'),
     videoPlaySmall: document.getElementById('player-v2-video-play-small'),
-    videoPause: document.getElementById('player-v2-video-pause'),
     videoSeek: document.getElementById('player-v2-video-seek'),
     videoTime: document.getElementById('player-v2-video-time'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
@@ -263,12 +262,8 @@
       el.videoPlay.hidden = isPlaying;
     }
     if (el.videoPlaySmall) {
-      el.videoPlaySmall.hidden = isPlaying;
       el.videoPlaySmall.classList.toggle('is-playing', isPlaying);
       el.videoPlaySmall.setAttribute('aria-label', isPlaying ? 'Pause video' : 'Play video');
-    }
-    if (el.videoPause) {
-      el.videoPause.hidden = !isPlaying;
     }
     if (el.videoStage) {
       el.videoStage.classList.toggle('is-embed-playing', isPlaying);
@@ -1371,7 +1366,6 @@
 
     if (el.videoPlay) el.videoPlay.addEventListener('click', toggleHeroVideo);
     if (el.videoPlaySmall) el.videoPlaySmall.addEventListener('click', toggleHeroVideo);
-    if (el.videoPause) el.videoPause.addEventListener('click', pauseEmbedVideo);
 
     if (el.videoSeek) {
       el.videoSeek.addEventListener('input', function () {

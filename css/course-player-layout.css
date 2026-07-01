@@ -845,10 +845,6 @@
   display: none;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode:not(.is-embed-playing) .player-v2-video-bar__pause {
-  display: none;
-}
-
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-hero-embed {
   opacity: 0;
   pointer-events: none;
@@ -1159,25 +1155,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.player-v2-layout-revamp .player-v2-video-bar__pause {
-  flex: none;
-  border: none;
-  border-radius: 999px;
-  padding: 0.45rem 0.95rem;
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.14);
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.player-v2-layout-revamp .player-v2-video-bar__pause:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
 
 /* ─── Listen panel ─── */
 .player-v2-layout-revamp .player-v2-listen-panel {
