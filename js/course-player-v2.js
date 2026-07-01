@@ -21,6 +21,7 @@
   var embedMessageBound = false;
   var bunnyPlayer = null;
   var embedIsPlaying = false;
+  var embedPendingPlay = false;
   var waveHeights = Array.from({ length: 54 }, function (_, i) {
     return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
   });
@@ -283,6 +284,20 @@
   function destroyBunnyPlayer() {
     bunnyPlayer = null;
     embedIsPlaying = false;
+    embedPendingPlay = false;
+  }
+
+  function unmuteAndPlayEmbed() {
+    if (!bunnyPlayer) return;
+    if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'unmute')) {
+      bunnyPlayer.unmute();
+    } else if (typeof bunnyPlayer.unmute === 'function') {
+      bunnyPlayer.unmute();
+    }
+    if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'setVolume')) {
+      bunnyPlayer.setVolume(100);
+    }
+    bunnyPlayer.play();
   }
 
   function setupBunnyPlayer() {
@@ -291,10 +306,16 @@
       setTimeout(setupBunnyPlayer, 200);
       return;
     }
-    destroyBunnyPlayer();
+    var shouldPlay = embedPendingPlay;
+    bunnyPlayer = null;
+    embedIsPlaying = false;
     bunnyPlayer = new window.playerjs.Player(el.heroEmbed);
     bunnyPlayer.on('ready', function () {
       updateEmbedVideoUI();
+      if (shouldPlay || embedPendingPlay) {
+        embedPendingPlay = false;
+        unmuteAndPlayEmbed();
+      }
     });
     bunnyPlayer.on('play', function () {
       embedIsPlaying = true;
@@ -312,13 +333,11 @@
 
   function playEmbedVideo() {
     if (!bunnyPlayer) {
+      embedPendingPlay = true;
       setupBunnyPlayer();
+      return;
     }
-    if (!bunnyPlayer) return;
-    if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'setMuted')) {
-      bunnyPlayer.setMuted(false);
-    }
-    bunnyPlayer.play();
+    unmuteAndPlayEmbed();
   }
 
   function pauseEmbedVideo() {
@@ -351,7 +370,7 @@
     el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
       autoplay: 'false',
       loop: 'false',
-      muted: 'true',
+      muted: 'false',
       preload: 'true',
       responsive: 'true',
       playerjs: 'true'
