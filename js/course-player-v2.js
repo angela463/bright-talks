@@ -284,7 +284,9 @@
     if (sequenceId !== splashSequenceId) return;
     if (el.titleSplash) el.titleSplash.hidden = true;
     if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
-    if (el.videoPlay) el.videoPlay.hidden = false;
+    if (el.videoPlay) {
+      el.videoPlay.hidden = isEmbedLesson(getCurrentLesson());
+    }
     updateVideoUI();
   }
 

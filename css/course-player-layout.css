@@ -841,6 +841,7 @@
   color: #fff;
   background: radial-gradient(120% 120% at 50% 20%, #F6C98B 0%, #E9A65C 35%, #D98A41 68%, #B96B2C 100%);
   transition: opacity 1.1s ease;
+  cursor: pointer;
 }
 
 .player-v2-title-splash__series {
@@ -880,6 +881,7 @@
 }
 
 .player-v2-outro-splash {
+  z-index: 9;
   background: radial-gradient(120% 120% at 50% 18%, #4F7488 0%, #3C5E70 38%, #2E4A5A 72%, #243B47 100%);
 }
 
@@ -903,9 +905,6 @@
   pointer-events: none;
 }
 
-.player-v2-title-splash {
-  cursor: pointer;
-}
 
 .player-v2-layout-revamp .player-v2-video-overlay {
   position: absolute;
