@@ -16,7 +16,9 @@
   var toastTimer = null;
   var splashFadeTimer = null;
   var splashFallbackTimer = null;
+  var outroTimer = null;
   var splashSequenceId = 0;
+  var embedMessageBound = false;
   var waveHeights = Array.from({ length: 54 }, function (_, i) {
     return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
   });
@@ -58,12 +60,20 @@
     lessonSummary: document.getElementById('player-v2-lesson-summary'),
     lessonSections: document.getElementById('player-v2-lesson-sections'),
     heroVisual: document.getElementById('player-v2-hero-visual'),
+    heroEmbed: document.getElementById('player-v2-hero-embed'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
     titleSplash: document.getElementById('player-v2-title-splash'),
+    titleSplashSeries: document.getElementById('player-v2-title-splash-series'),
     titleSplashKicker: document.getElementById('player-v2-title-splash-kicker'),
     titleSplashTitle: document.getElementById('player-v2-title-splash-title'),
+    outroSplash: document.getElementById('player-v2-outro-splash'),
+    outroSplashSeries: document.getElementById('player-v2-outro-splash-series'),
+    outroSplashKicker: document.getElementById('player-v2-outro-splash-kicker'),
+    outroSplashTitle: document.getElementById('player-v2-outro-splash-title'),
+    outroSplashSubtitle: document.getElementById('player-v2-outro-splash-subtitle'),
     splashAudio: document.getElementById('player-v2-splash-audio'),
+    outroAudio: document.getElementById('player-v2-outro-audio'),
     videoStage: document.querySelector('.player-v2-video-stage'),
     videoPlay: document.getElementById('player-v2-video-play'),
     videoPlaySmall: document.getElementById('player-v2-video-play-small'),
@@ -185,6 +195,67 @@
     return hv && hv.splash ? hv.splash : null;
   }
 
+  function isEmbedLesson(lesson) {
+    return !!(lesson && lesson.heroVisual && lesson.heroVisual.type === 'embed');
+  }
+
+  function embedSrcWithParams(baseSrc, overrides) {
+    var parts = String(baseSrc || '').split('?');
+    var params = new URLSearchParams(parts[1] || '');
+    Object.keys(overrides || {}).forEach(function (key) {
+      params.set(key, overrides[key]);
+    });
+    return parts[0] + '?' + params.toString();
+  }
+
+  function parseEmbedEvent(data) {
+    if (!data) return '';
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (err) {
+        return data === 'ended' ? 'ended' : '';
+      }
+    }
+    if (typeof data !== 'object') return '';
+    if (data.event === 'ended' || data.event === 'finish') return 'ended';
+    if (data.event === 'play') return 'play';
+    return '';
+  }
+
+  function setSplashSeriesText(node, value) {
+    if (!node) return;
+    var text = String(value || '').trim();
+    node.textContent = text;
+    node.hidden = !text;
+  }
+
+  function clearOutroTimers() {
+    if (outroTimer) {
+      clearTimeout(outroTimer);
+      outroTimer = null;
+    }
+  }
+
+  function resetHeroEmbed() {
+    if (!el.heroEmbed) return;
+    el.heroEmbed.hidden = true;
+    el.heroEmbed.classList.remove('is-splash-hidden');
+    el.heroEmbed.removeAttribute('src');
+    if (el.videoStage) el.videoStage.classList.remove('is-embed-mode');
+  }
+
+  function cancelOutroSplash() {
+    clearOutroTimers();
+    if (el.outroAudio) {
+      el.outroAudio.pause();
+      el.outroAudio.removeAttribute('src');
+    }
+    if (el.outroSplash) el.outroSplash.hidden = true;
+    if (el.videoStage) el.videoStage.classList.remove('is-outro-active', 'is-outro-reveal');
+    if (el.heroEmbed) el.heroEmbed.classList.remove('is-splash-hidden');
+  }
+
   function clearSplashTimers() {
     if (splashFadeTimer) {
       clearTimeout(splashFadeTimer);
@@ -205,13 +276,44 @@
     if (el.titleSplash) el.titleSplash.hidden = true;
     if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
     if (el.heroVisual) el.heroVisual.classList.remove('is-splash-hidden');
+    if (el.heroEmbed) el.heroEmbed.classList.remove('is-splash-hidden');
+    cancelOutroSplash();
+  }
+
+  function finishIntroSplash(sequenceId) {
+    if (sequenceId !== splashSequenceId) return;
+    if (el.titleSplash) el.titleSplash.hidden = true;
+    if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
+    if (el.videoPlay) el.videoPlay.hidden = false;
+    updateVideoUI();
+  }
+
+  function revealHeroEmbed(lesson) {
+    if (!el.heroEmbed || !lesson || !lesson.heroVisual) return;
+    el.heroEmbed.hidden = false;
+    el.heroEmbed.classList.remove('is-splash-hidden');
+    el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
+      autoplay: 'true',
+      muted: 'false'
+    });
   }
 
   function beginTitleSplashReveal(sequenceId) {
     if (sequenceId !== splashSequenceId) return;
-    if (!el.heroVisual || !el.videoStage) return;
+    if (!el.videoStage) return;
+    var lesson = getCurrentLesson();
     if (el.splashAudio) el.splashAudio.pause();
     el.videoStage.classList.add('is-splash-reveal');
+
+    if (isEmbedLesson(lesson)) {
+      revealHeroEmbed(lesson);
+      splashFadeTimer = setTimeout(function () {
+        finishIntroSplash(sequenceId);
+      }, 1400);
+      return;
+    }
+
+    if (!el.heroVisual) return;
     el.heroVisual.classList.remove('is-splash-hidden');
     el.heroVisual.muted = false;
     var playAttempt = el.heroVisual.play();
@@ -222,59 +324,133 @@
       });
     }
     splashFadeTimer = setTimeout(function () {
-      if (sequenceId !== splashSequenceId) return;
-      if (el.titleSplash) el.titleSplash.hidden = true;
-      if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
-      if (el.videoPlay) el.videoPlay.hidden = false;
-      updateVideoUI();
+      finishIntroSplash(sequenceId);
     }, 1400);
+  }
+
+  function populateSplashCard(seriesEl, kickerEl, titleEl, splash, lesson) {
+    setSplashSeriesText(seriesEl, splash.series);
+    if (kickerEl) kickerEl.textContent = splash.kicker || 'Talk';
+    if (titleEl) titleEl.textContent = splash.title || displayLessonTitle(lesson.title);
+  }
+
+  function startOutroSplash(lesson) {
+    var splash = getHeroSplash(lesson);
+    var outro = splash && splash.outro;
+    if (!outro || !el.outroSplash || el.outroSplash.hidden === false) return;
+
+    cancelOutroSplash();
+    populateSplashCard(
+      el.outroSplashSeries,
+      el.outroSplashKicker,
+      el.outroSplashTitle,
+      outro,
+      lesson
+    );
+    if (el.outroSplashSubtitle) {
+      el.outroSplashSubtitle.textContent = outro.subtitle || 'Thanks for watching';
+    }
+
+    if (el.heroEmbed) el.heroEmbed.classList.add('is-splash-hidden');
+    el.outroSplash.hidden = false;
+    if (el.videoStage) {
+      el.videoStage.classList.add('is-outro-active');
+      el.videoStage.classList.remove('is-outro-reveal');
+    }
+    if (el.videoPlay) el.videoPlay.hidden = true;
+    if (el.playingBadge) el.playingBadge.hidden = true;
+
+    function finishOutro() {
+      if (el.videoStage) el.videoStage.classList.add('is-outro-reveal');
+      outroTimer = setTimeout(function () {
+        cancelOutroSplash();
+      }, 1400);
+    }
+
+    if (outro.outroAudio && el.outroAudio) {
+      el.outroAudio.src = encodeMediaPath(outro.outroAudio);
+      el.outroAudio.currentTime = 0;
+      el.outroAudio.load();
+      el.outroAudio.addEventListener('ended', finishOutro, { once: true });
+      el.outroAudio.addEventListener('error', finishOutro, { once: true });
+      var outroPlay = el.outroAudio.play();
+      if (outroPlay && typeof outroPlay.catch === 'function') {
+        outroPlay.catch(finishOutro);
+      }
+      outroTimer = setTimeout(function () {
+        if (!el.outroAudio.paused) return;
+        finishOutro();
+      }, 12000);
+      return;
+    }
+
+    outroTimer = setTimeout(finishOutro, 4200);
   }
 
   function startTitleSplash(lesson) {
     var splash = getHeroSplash(lesson);
-    if (!splash || !el.titleSplash || !el.splashAudio) return false;
+    if (!splash || !el.titleSplash) return false;
 
     cancelTitleSplash();
     var sequenceId = ++splashSequenceId;
 
-    if (el.titleSplashKicker) {
-      el.titleSplashKicker.textContent = splash.kicker || 'Talk';
-    }
-    if (el.titleSplashTitle) {
-      el.titleSplashTitle.textContent = splash.title || displayLessonTitle(lesson.title);
-    }
+    populateSplashCard(
+      el.titleSplashSeries,
+      el.titleSplashKicker,
+      el.titleSplashTitle,
+      splash,
+      lesson
+    );
 
     el.titleSplash.hidden = false;
     if (el.videoStage) el.videoStage.classList.add('is-splash-active');
     if (el.heroVisual) el.heroVisual.classList.add('is-splash-hidden');
+    if (el.heroEmbed) el.heroEmbed.classList.add('is-splash-hidden');
     if (el.videoPlay) el.videoPlay.hidden = true;
     if (el.playingBadge) el.playingBadge.hidden = true;
-
-    el.splashAudio.src = encodeMediaPath(splash.introAudio || '');
-    el.splashAudio.currentTime = 0;
-    el.splashAudio.load();
 
     function onIntroEnded() {
       beginTitleSplashReveal(sequenceId);
     }
 
-    el.splashAudio.addEventListener('ended', onIntroEnded, { once: true });
-    el.splashAudio.addEventListener('error', onIntroEnded, { once: true });
-
-    var introPlay = el.splashAudio.play();
-    if (introPlay && typeof introPlay.catch === 'function') {
-      introPlay.catch(function () {
+    if (splash.introAudio && el.splashAudio) {
+      el.splashAudio.src = encodeMediaPath(splash.introAudio);
+      el.splashAudio.currentTime = 0;
+      el.splashAudio.load();
+      el.splashAudio.addEventListener('ended', onIntroEnded, { once: true });
+      el.splashAudio.addEventListener('error', onIntroEnded, { once: true });
+      var introPlay = el.splashAudio.play();
+      if (introPlay && typeof introPlay.catch === 'function') {
+        introPlay.catch(onIntroEnded);
+      }
+      splashFallbackTimer = setTimeout(function () {
+        if (sequenceId !== splashSequenceId) return;
+        if (!el.splashAudio.paused) return;
         onIntroEnded();
-      });
+      }, 12000);
+    } else {
+      splashFallbackTimer = setTimeout(function () {
+        if (sequenceId !== splashSequenceId) return;
+        onIntroEnded();
+      }, 3600);
     }
 
-    splashFallbackTimer = setTimeout(function () {
-      if (sequenceId !== splashSequenceId) return;
-      if (!el.splashAudio.paused) return;
-      onIntroEnded();
-    }, 12000);
-
     return true;
+  }
+
+  function bindEmbedMessages() {
+    if (embedMessageBound) return;
+    embedMessageBound = true;
+    window.addEventListener('message', function (event) {
+      if (event.origin !== 'https://player.mediadelivery.net') return;
+      var lesson = getCurrentLesson();
+      if (!isEmbedLesson(lesson)) return;
+      var evt = parseEmbedEvent(event.data);
+      if (evt === 'ended') startOutroSplash(lesson);
+      if (evt === 'play' && el.outroSplash && !el.outroSplash.hidden) {
+        cancelOutroSplash();
+      }
+    });
   }
 
   function flattenItems() {
@@ -692,6 +868,12 @@
   }
 
   function updateVideoUI() {
+    if (isEmbedLesson(getCurrentLesson())) {
+      if (el.playingBadge) el.playingBadge.hidden = true;
+      if (el.videoTime) el.videoTime.textContent = 'Hosted player';
+      if (el.videoSeek) el.videoSeek.value = 0;
+      return;
+    }
     if (!el.heroVisual || el.heroVisual.hidden) return;
     var current = el.heroVisual.currentTime || 0;
     var duration = el.heroVisual.duration || 0;
@@ -722,8 +904,14 @@
   }
 
   function toggleHeroVideo() {
-    if (!el.heroVisual || el.heroVisual.hidden) return;
     var lesson = getCurrentLesson();
+    if (isEmbedLesson(lesson)) {
+      if (getHeroSplash(lesson) && el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
+        beginTitleSplashReveal(splashSequenceId);
+      }
+      return;
+    }
+    if (!el.heroVisual || el.heroVisual.hidden) return;
     if (getHeroSplash(lesson) && el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
       beginTitleSplashReveal(splashSequenceId);
       return;
@@ -803,6 +991,10 @@
       } else {
         playHeroVideoWhenReady(lesson);
       }
+    } else if (isEmbedLesson(lesson) && el.heroEmbed && !el.heroEmbed.hidden) {
+      if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
+        forceHeroEmbed(lesson.heroVisual.src, lesson);
+      }
     }
   }
 
@@ -835,8 +1027,34 @@
     }
   }
 
+  function forceHeroEmbed(src, lesson) {
+    if (!el.heroEmbed || !el.heroVisual || !el.heroImage) return;
+
+    resetHeroEmbed();
+    el.heroImage.hidden = true;
+    el.heroImage.removeAttribute('src');
+    el.heroVisual.pause();
+    el.heroVisual.hidden = true;
+    if (el.videoStage) {
+      el.videoStage.classList.remove('is-image-mode', 'is-no-video');
+      el.videoStage.classList.add('is-embed-mode');
+    }
+    if (el.videoPlay) el.videoPlay.hidden = true;
+    if (el.playingBadge) el.playingBadge.hidden = true;
+
+    if (getHeroSplash(lesson) && lessonMode === 'watch') {
+      startTitleSplash(lesson);
+      return;
+    }
+
+    cancelTitleSplash();
+    revealHeroEmbed(lesson);
+  }
+
   function forceHeroVideo(src, lesson) {
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
+
+    resetHeroEmbed();
 
     el.heroImage.hidden = true;
     el.heroImage.removeAttribute('src');
@@ -873,16 +1091,27 @@
     }
 
     if (hv.type === 'image') {
+      resetHeroEmbed();
       el.heroVisual.pause();
       el.heroVisual.hidden = true;
       el.heroImage.hidden = false;
       el.heroImage.src = hv.src;
       el.heroImage.alt = hv.alt || 'Talk illustration';
-      if (el.videoStage) el.videoStage.classList.add('is-image-mode');
+      if (el.videoStage) {
+        el.videoStage.classList.add('is-image-mode');
+        el.videoStage.classList.remove('is-embed-mode');
+      }
       if (el.videoPlay) el.videoPlay.hidden = true;
       return;
     }
 
+    if (hv.type === 'embed') {
+      forceHeroEmbed(hv.src, lesson);
+      return;
+    }
+
+    resetHeroEmbed();
+    if (el.videoStage) el.videoStage.classList.remove('is-embed-mode');
     if (el.videoPlay) el.videoPlay.hidden = false;
     forceHeroVideo(hv.src, lesson);
   }
