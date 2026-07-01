@@ -977,6 +977,17 @@
 
     if (el.audio) el.audio.pause();
     updateAudioUI();
+
+    if (isEmbedLesson(lesson)) {
+      if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
+        if (!el.heroEmbed || !el.heroEmbed.src) {
+          forceHeroEmbed(lesson.heroVisual.src, lesson);
+        }
+      }
+      updateVideoUI();
+      return;
+    }
+
     if (el.heroVisual && !el.heroVisual.hidden) {
       if (getHeroSplash(lesson)) {
         if (el.heroVisual.currentTime > 0.15) {
@@ -990,10 +1001,6 @@
         }
       } else {
         playHeroVideoWhenReady(lesson);
-      }
-    } else if (isEmbedLesson(lesson) && el.heroEmbed && !el.heroEmbed.hidden) {
-      if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
-        forceHeroEmbed(lesson.heroVisual.src, lesson);
       }
     }
   }
@@ -1356,6 +1363,14 @@
     setOnlineState();
     setNavState();
     setLessonMode('watch');
+    bindEmbedMessages();
+
+    if (el.titleSplash) {
+      el.titleSplash.addEventListener('click', function () {
+        if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) return;
+        beginTitleSplashReveal(splashSequenceId);
+      });
+    }
 
     setTimeout(function () {
       if (el.preloader) el.preloader.classList.add('is-hidden');
