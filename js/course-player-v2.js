@@ -19,6 +19,8 @@
   var outroTimer = null;
   var splashSequenceId = 0;
   var embedMessageBound = false;
+  var bunnyPlayer = null;
+  var embedIsPlaying = false;
   var waveHeights = Array.from({ length: 54 }, function (_, i) {
     return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
   });
@@ -79,6 +81,7 @@
     videoStage: document.querySelector('.player-v2-video-stage'),
     videoPlay: document.getElementById('player-v2-video-play'),
     videoPlaySmall: document.getElementById('player-v2-video-play-small'),
+    videoPause: document.getElementById('player-v2-video-pause'),
     videoSeek: document.getElementById('player-v2-video-seek'),
     videoTime: document.getElementById('player-v2-video-time'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
@@ -222,6 +225,7 @@
     if (typeof data !== 'object') return '';
     if (data.event === 'ended' || data.event === 'finish') return 'ended';
     if (data.event === 'play') return 'play';
+    if (data.event === 'pause') return 'pause';
     return '';
   }
 
@@ -241,10 +245,124 @@
 
   function resetHeroEmbed() {
     if (!el.heroEmbed) return;
+    bunnyPlayer = null;
+    embedIsPlaying = false;
     el.heroEmbed.classList.add('is-splash-hidden');
     el.heroEmbed.classList.remove('is-visible');
     el.heroEmbed.removeAttribute('src');
-    if (el.videoStage) el.videoStage.classList.remove('is-embed-mode', 'is-embed-visible');
+    if (el.videoStage) {
+      el.videoStage.classList.remove('is-embed-mode', 'is-embed-visible', 'is-embed-playing');
+    }
+  }
+
+  function updateEmbedVideoUI() {
+    if (!isEmbedLesson(getCurrentLesson())) return;
+    var isPlaying = embedIsPlaying;
+    if (el.videoPlay) {
+      el.videoPlay.hidden = isPlaying;
+    }
+    if (el.videoPlaySmall) {
+      el.videoPlaySmall.hidden = isPlaying;
+      el.videoPlaySmall.classList.toggle('is-playing', isPlaying);
+      el.videoPlaySmall.setAttribute('aria-label', isPlaying ? 'Pause video' : 'Play video');
+    }
+    if (el.videoPause) {
+      el.videoPause.hidden = !isPlaying;
+    }
+    if (el.videoStage) {
+      el.videoStage.classList.toggle('is-embed-playing', isPlaying);
+    }
+    if (el.playingBadge) el.playingBadge.hidden = !isPlaying;
+    if (el.videoSeek) {
+      el.videoSeek.disabled = true;
+      el.videoSeek.hidden = true;
+    }
+    if (el.videoTime) el.videoTime.textContent = '';
+  }
+
+  function destroyBunnyPlayer() {
+    bunnyPlayer = null;
+    embedIsPlaying = false;
+  }
+
+  function setupBunnyPlayer() {
+    if (!el.heroEmbed || !el.heroEmbed.src) return;
+    if (typeof window.playerjs === 'undefined' || !window.playerjs.Player) {
+      setTimeout(setupBunnyPlayer, 200);
+      return;
+    }
+    destroyBunnyPlayer();
+    bunnyPlayer = new window.playerjs.Player(el.heroEmbed);
+    bunnyPlayer.on('ready', function () {
+      updateEmbedVideoUI();
+    });
+    bunnyPlayer.on('play', function () {
+      embedIsPlaying = true;
+      updateEmbedVideoUI();
+    });
+    bunnyPlayer.on('pause', function () {
+      embedIsPlaying = false;
+      updateEmbedVideoUI();
+    });
+    bunnyPlayer.on('ended', function () {
+      embedIsPlaying = false;
+      updateEmbedVideoUI();
+    });
+  }
+
+  function playEmbedVideo() {
+    if (!bunnyPlayer) {
+      setupBunnyPlayer();
+    }
+    if (!bunnyPlayer) return;
+    if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'setMuted')) {
+      bunnyPlayer.setMuted(false);
+    }
+    bunnyPlayer.play();
+  }
+
+  function pauseEmbedVideo() {
+    if (!bunnyPlayer) return;
+    bunnyPlayer.pause();
+  }
+
+  function toggleEmbedVideo() {
+    if (embedIsPlaying) pauseEmbedVideo();
+    else playEmbedVideo();
+  }
+
+  function mountHeroEmbed(lesson) {
+    if (!el.heroEmbed || !el.heroVisual || !el.heroImage || !lesson || !lesson.heroVisual) return;
+
+    cancelTitleSplash();
+    el.heroImage.hidden = true;
+    el.heroImage.removeAttribute('src');
+    el.heroVisual.pause();
+    el.heroVisual.hidden = true;
+
+    if (el.videoStage) {
+      el.videoStage.classList.remove('is-image-mode', 'is-no-video');
+      el.videoStage.classList.add('is-embed-mode', 'is-embed-visible');
+    }
+
+    destroyBunnyPlayer();
+    el.heroEmbed.classList.remove('is-splash-hidden');
+    el.heroEmbed.classList.add('is-visible');
+    el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
+      autoplay: 'false',
+      loop: 'false',
+      muted: 'true',
+      preload: 'true',
+      responsive: 'true',
+      playerjs: 'true'
+    });
+
+    el.heroEmbed.onload = function () {
+      setupBunnyPlayer();
+    };
+
+    if (el.videoPlay) el.videoPlay.hidden = false;
+    updateEmbedVideoUI();
   }
 
   function cancelOutroSplash() {
@@ -503,9 +621,18 @@
       var lesson = getCurrentLesson();
       if (!isEmbedLesson(lesson)) return;
       var evt = parseEmbedEvent(event.data);
-      if (evt === 'ended') startOutroSplash(lesson);
-      if (evt === 'play' && el.outroSplash && !el.outroSplash.hidden) {
-        cancelOutroSplash();
+      if (evt === 'play') {
+        embedIsPlaying = true;
+        updateEmbedVideoUI();
+      }
+      if (evt === 'pause') {
+        embedIsPlaying = false;
+        updateEmbedVideoUI();
+      }
+      if (evt === 'ended') {
+        embedIsPlaying = false;
+        updateEmbedVideoUI();
+        startOutroSplash(lesson);
       }
     });
   }
@@ -926,12 +1053,14 @@
 
   function updateVideoUI() {
     if (isEmbedLesson(getCurrentLesson())) {
-      if (el.playingBadge) el.playingBadge.hidden = true;
-      if (el.videoTime) el.videoTime.textContent = '';
-      if (el.videoSeek) el.videoSeek.value = 0;
+      updateEmbedVideoUI();
       return;
     }
     if (!el.heroVisual || el.heroVisual.hidden) return;
+    if (el.videoSeek) {
+      el.videoSeek.hidden = false;
+      el.videoSeek.disabled = false;
+    }
     var current = el.heroVisual.currentTime || 0;
     var duration = el.heroVisual.duration || 0;
     var percent = duration > 0 ? Math.round((current / duration) * 100) : 0;
@@ -963,9 +1092,7 @@
   function toggleHeroVideo() {
     var lesson = getCurrentLesson();
     if (isEmbedLesson(lesson)) {
-      if (getHeroSplash(lesson) && el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
-        beginTitleSplashReveal(splashSequenceId);
-      }
+      toggleEmbedVideo();
       return;
     }
     if (!el.heroVisual || el.heroVisual.hidden) return;
@@ -1036,10 +1163,8 @@
     updateAudioUI();
 
     if (isEmbedLesson(lesson)) {
-      if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
-        if (!el.heroEmbed || !el.heroEmbed.classList.contains('is-visible')) {
-          forceHeroEmbed(lesson.heroVisual.src, lesson);
-        }
+      if (!el.heroEmbed || !el.heroEmbed.classList.contains('is-visible')) {
+        mountHeroEmbed(lesson);
       }
       updateVideoUI();
       return;
@@ -1092,27 +1217,7 @@
   }
 
   function forceHeroEmbed(src, lesson) {
-    if (!el.heroEmbed || !el.heroVisual || !el.heroImage) return;
-
-    resetHeroEmbed();
-    el.heroImage.hidden = true;
-    el.heroImage.removeAttribute('src');
-    el.heroVisual.pause();
-    el.heroVisual.hidden = true;
-    if (el.videoStage) {
-      el.videoStage.classList.remove('is-image-mode', 'is-no-video');
-      el.videoStage.classList.add('is-embed-mode');
-    }
-    if (el.videoPlay) el.videoPlay.hidden = true;
-    if (el.playingBadge) el.playingBadge.hidden = true;
-
-    if (getHeroSplash(lesson) && lessonMode === 'watch') {
-      startTitleSplash(lesson);
-      return;
-    }
-
-    cancelTitleSplash();
-    revealHeroEmbed(lesson);
+    mountHeroEmbed(lesson);
   }
 
   function forceHeroVideo(src, lesson) {
@@ -1247,6 +1352,7 @@
 
     if (el.videoPlay) el.videoPlay.addEventListener('click', toggleHeroVideo);
     if (el.videoPlaySmall) el.videoPlaySmall.addEventListener('click', toggleHeroVideo);
+    if (el.videoPause) el.videoPause.addEventListener('click', pauseEmbedVideo);
 
     if (el.videoSeek) {
       el.videoSeek.addEventListener('input', function () {

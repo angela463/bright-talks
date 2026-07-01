@@ -828,10 +828,24 @@
   cursor: default;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-play,
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-bar,
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-playing-badge,
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-visible .player-v2-video-overlay {
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-overlay,
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-playing-badge {
+  display: none;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-play {
+  z-index: 12;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-bar {
+  z-index: 12;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-playing .player-v2-video-play {
+  display: none;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode:not(.is-embed-playing) .player-v2-video-bar__pause {
   display: none;
 }
 
@@ -1143,6 +1157,26 @@
   font-size: 13px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+.player-v2-layout-revamp .player-v2-video-bar__pause {
+  flex: none;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.player-v2-layout-revamp .player-v2-video-bar__pause:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 /* ─── Listen panel ─── */
