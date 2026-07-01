@@ -67,6 +67,8 @@
     titleSplashSeries: document.getElementById('player-v2-title-splash-series'),
     titleSplashKicker: document.getElementById('player-v2-title-splash-kicker'),
     titleSplashTitle: document.getElementById('player-v2-title-splash-title'),
+    splashPlay: document.getElementById('player-v2-splash-play'),
+    splashStart: document.getElementById('player-v2-splash-start'),
     outroSplash: document.getElementById('player-v2-outro-splash'),
     outroSplashSeries: document.getElementById('player-v2-outro-splash-series'),
     outroSplashKicker: document.getElementById('player-v2-outro-splash-kicker'),
@@ -239,10 +241,10 @@
 
   function resetHeroEmbed() {
     if (!el.heroEmbed) return;
-    el.heroEmbed.hidden = true;
-    el.heroEmbed.classList.remove('is-splash-hidden');
+    el.heroEmbed.classList.add('is-splash-hidden');
+    el.heroEmbed.classList.remove('is-visible');
     el.heroEmbed.removeAttribute('src');
-    if (el.videoStage) el.videoStage.classList.remove('is-embed-mode');
+    if (el.videoStage) el.videoStage.classList.remove('is-embed-mode', 'is-embed-visible');
   }
 
   function cancelOutroSplash() {
@@ -276,7 +278,10 @@
     if (el.titleSplash) el.titleSplash.hidden = true;
     if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
     if (el.heroVisual) el.heroVisual.classList.remove('is-splash-hidden');
-    if (el.heroEmbed) el.heroEmbed.classList.remove('is-splash-hidden');
+    if (el.heroEmbed) {
+      el.heroEmbed.classList.add('is-splash-hidden');
+      el.heroEmbed.classList.remove('is-visible');
+    }
     cancelOutroSplash();
   }
 
@@ -290,14 +295,54 @@
     updateVideoUI();
   }
 
+  function preloadHeroEmbed(lesson) {
+    if (!el.heroEmbed || !lesson || !lesson.heroVisual) return;
+    if (el.videoStage) el.videoStage.classList.add('is-embed-mode');
+    el.heroEmbed.classList.add('is-splash-hidden');
+    el.heroEmbed.classList.remove('is-visible');
+    el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
+      autoplay: 'false',
+      loop: 'false',
+      muted: 'false',
+      preload: 'true',
+      responsive: 'true'
+    });
+  }
+
   function revealHeroEmbed(lesson) {
     if (!el.heroEmbed || !lesson || !lesson.heroVisual) return;
-    el.heroEmbed.hidden = false;
+    if (!el.heroEmbed.src) {
+      preloadHeroEmbed(lesson);
+    }
     el.heroEmbed.classList.remove('is-splash-hidden');
-    el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
-      autoplay: 'true',
-      muted: 'false'
-    });
+    el.heroEmbed.classList.add('is-visible');
+    if (el.videoStage) {
+      el.videoStage.classList.add('is-embed-mode', 'is-embed-visible');
+    }
+  }
+
+  function updateSplashAudioUI() {
+    if (!el.splashPlay || !el.splashAudio) return;
+    var playing = !el.splashAudio.paused && !el.splashAudio.ended;
+    el.splashPlay.classList.toggle('is-playing', playing);
+    el.splashPlay.setAttribute('aria-label', playing ? 'Pause intro music' : 'Play intro music');
+    var playIcon = el.splashPlay.querySelector('.player-v2-title-splash__icon-play');
+    var pauseIcon = el.splashPlay.querySelector('.player-v2-title-splash__icon-pause');
+    if (playIcon) playIcon.hidden = playing;
+    if (pauseIcon) pauseIcon.hidden = !playing;
+  }
+
+  function toggleSplashAudio() {
+    if (!el.splashAudio || !el.splashAudio.src) return;
+    if (el.splashAudio.paused) {
+      var playAttempt = el.splashAudio.play();
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(function () {});
+      }
+    } else {
+      el.splashAudio.pause();
+    }
+    updateSplashAudioUI();
   }
 
   function beginTitleSplashReveal(sequenceId) {
@@ -305,6 +350,7 @@
     if (!el.videoStage) return;
     var lesson = getCurrentLesson();
     if (el.splashAudio) el.splashAudio.pause();
+    updateSplashAudioUI();
     el.videoStage.classList.add('is-splash-reveal');
 
     if (isEmbedLesson(lesson)) {
@@ -407,9 +453,14 @@
     el.titleSplash.hidden = false;
     if (el.videoStage) el.videoStage.classList.add('is-splash-active');
     if (el.heroVisual) el.heroVisual.classList.add('is-splash-hidden');
-    if (el.heroEmbed) el.heroEmbed.classList.add('is-splash-hidden');
     if (el.videoPlay) el.videoPlay.hidden = true;
     if (el.playingBadge) el.playingBadge.hidden = true;
+
+    if (isEmbedLesson(lesson)) {
+      preloadHeroEmbed(lesson);
+    } else if (el.heroEmbed) {
+      el.heroEmbed.classList.add('is-splash-hidden');
+    }
 
     function onIntroEnded() {
       beginTitleSplashReveal(sequenceId);
@@ -423,14 +474,18 @@
       el.splashAudio.addEventListener('error', onIntroEnded, { once: true });
       var introPlay = el.splashAudio.play();
       if (introPlay && typeof introPlay.catch === 'function') {
-        introPlay.catch(onIntroEnded);
+        introPlay.catch(function () {
+          updateSplashAudioUI();
+        });
       }
+      updateSplashAudioUI();
       splashFallbackTimer = setTimeout(function () {
         if (sequenceId !== splashSequenceId) return;
         if (!el.splashAudio.paused) return;
         onIntroEnded();
       }, 12000);
     } else {
+      updateSplashAudioUI();
       splashFallbackTimer = setTimeout(function () {
         if (sequenceId !== splashSequenceId) return;
         onIntroEnded();
@@ -872,7 +927,7 @@
   function updateVideoUI() {
     if (isEmbedLesson(getCurrentLesson())) {
       if (el.playingBadge) el.playingBadge.hidden = true;
-      if (el.videoTime) el.videoTime.textContent = 'Hosted player';
+      if (el.videoTime) el.videoTime.textContent = '';
       if (el.videoSeek) el.videoSeek.value = 0;
       return;
     }
@@ -982,7 +1037,7 @@
 
     if (isEmbedLesson(lesson)) {
       if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
-        if (!el.heroEmbed || !el.heroEmbed.src) {
+        if (!el.heroEmbed || !el.heroEmbed.classList.contains('is-visible')) {
           forceHeroEmbed(lesson.heroVisual.src, lesson);
         }
       }
@@ -1367,9 +1422,21 @@
     setLessonMode('watch');
     bindEmbedMessages();
 
-    if (el.titleSplash) {
-      el.titleSplash.addEventListener('click', function () {
-        if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) return;
+    if (el.splashAudio) {
+      el.splashAudio.addEventListener('play', updateSplashAudioUI);
+      el.splashAudio.addEventListener('pause', updateSplashAudioUI);
+    }
+
+    if (el.splashPlay) {
+      el.splashPlay.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleSplashAudio();
+      });
+    }
+
+    if (el.splashStart) {
+      el.splashStart.addEventListener('click', function (e) {
+        e.stopPropagation();
         beginTitleSplashReveal(splashSequenceId);
       });
     }
