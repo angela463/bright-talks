@@ -867,8 +867,8 @@
 .player-v2-title-splash {
   position: absolute;
   inset: 0;
-  z-index: 8;
-  display: flex;
+  z-index: 12;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -878,6 +878,11 @@
   color: #fff;
   background: radial-gradient(125% 125% at 50% 16%, #FCE9A8 0%, #F6C98B 30%, #E9A65C 58%, #D98A41 82%, #C97A35 100%);
   transition: opacity 1.1s ease;
+}
+
+.player-v2-title-splash.is-active,
+.player-v2-title-splash:not([hidden]) {
+  display: flex;
 }
 
 .player-v2-title-splash__logo {

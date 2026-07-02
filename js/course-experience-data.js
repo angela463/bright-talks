@@ -64,7 +64,7 @@
 
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
-  var talk1IntroAudio = 'audio files/Warm Windows, Open Minds.mp3';
+  var talk1IntroAudio = 'audio/Warm Windows, Open Minds.mp3';
   var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
   var talk1EmbedSrc =
