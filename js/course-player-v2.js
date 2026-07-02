@@ -78,7 +78,6 @@
     titleSplashKicker: document.getElementById('player-v2-title-splash-kicker'),
     titleSplashTitle: document.getElementById('player-v2-title-splash-title'),
     splashPlay: document.getElementById('player-v2-splash-play'),
-    splashRestart: document.getElementById('player-v2-splash-restart'),
     outroSplash: document.getElementById('player-v2-outro-splash'),
     outroSplashSeries: document.getElementById('player-v2-outro-splash-series'),
     outroSplashKicker: document.getElementById('player-v2-outro-splash-kicker'),
@@ -89,8 +88,9 @@
     videoStage: document.querySelector('.player-v2-video-stage'),
     videoAwaiting: document.getElementById('player-v2-video-awaiting'),
     videoPlay: document.getElementById('player-v2-video-play'),
-    videoBarPlay: document.getElementById('player-v2-video-bar-play'),
     videoBarPause: document.getElementById('player-v2-video-bar-pause'),
+    videoBarRestart: document.getElementById('player-v2-video-bar-restart'),
+    videoBarPlay: document.getElementById('player-v2-video-bar-play'),
     videoSeek: document.getElementById('player-v2-video-seek'),
     videoTime: document.getElementById('player-v2-video-time'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
@@ -276,6 +276,15 @@
     var splashActive = !!(el.videoStage && el.videoStage.classList.contains('is-splash-active'));
     var outroActive = !!(el.videoStage && el.videoStage.classList.contains('is-outro-active'));
     var showAwaiting = !isPlaying && !splashActive && !outroActive;
+    var lesson = getCurrentLesson();
+    var showRestart = !!(opts.embed || getHeroSplash(lesson));
+
+    if (splashActive) {
+      updateSplashTransportUI();
+      return;
+    }
+
+    if (el.splashPlay) el.splashPlay.hidden = true;
 
     if (el.videoAwaiting) {
       if (opts.embed) {
@@ -284,15 +293,30 @@
         el.videoAwaiting.hidden = !showAwaiting || !el.heroVisual || el.heroVisual.hidden;
       }
     }
-    if (el.videoBarPlay) {
-      el.videoBarPlay.hidden = isPlaying || (opts.embed && showAwaiting);
-    }
+    if (el.videoBarPlay) el.videoBarPlay.hidden = true;
     if (el.videoBarPause) el.videoBarPause.hidden = !isPlaying;
+    if (el.videoBarRestart) el.videoBarRestart.hidden = !showRestart || outroActive;
     if (opts.embed && el.videoStage) {
       el.videoStage.classList.toggle('is-embed-playing', isPlaying);
       el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying && showAwaiting);
+      el.videoStage.classList.toggle('is-transport-bar-visible', showRestart && !outroActive);
+    } else if (el.videoStage && showRestart && !outroActive) {
+      el.videoStage.classList.add('is-transport-bar-visible');
     }
     if (el.playingBadge) el.playingBadge.hidden = !isPlaying;
+  }
+
+  function updateSplashTransportUI() {
+    var splashActive = !!(el.videoStage && el.videoStage.classList.contains('is-splash-active'));
+    if (!splashActive) return;
+
+    var playing = introPlaybackStarted && !introPlaybackPaused;
+    if (el.splashPlay) el.splashPlay.hidden = false;
+    if (el.videoBarPlay) el.videoBarPlay.hidden = true;
+    if (el.videoBarPause) el.videoBarPause.hidden = !playing;
+    if (el.videoBarRestart) el.videoBarRestart.hidden = false;
+    if (el.videoAwaiting) el.videoAwaiting.hidden = true;
+    if (el.videoStage) el.videoStage.classList.add('is-transport-bar-visible');
   }
 
   function updateEmbedVideoUI() {
@@ -506,7 +530,12 @@
       el.splashAudio.removeAttribute('src');
     }
     hideTitleSplash();
-    if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
+    if (el.splashPlay) el.splashPlay.hidden = true;
+    if (el.videoBarRestart) el.videoBarRestart.hidden = true;
+    if (el.videoBarPause) el.videoBarPause.hidden = true;
+    if (el.videoStage) {
+      el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal', 'is-transport-bar-visible');
+    }
     if (el.heroVisual) el.heroVisual.classList.remove('is-splash-hidden');
     if (el.heroEmbed) {
       el.heroEmbed.classList.add('is-splash-hidden');
@@ -520,6 +549,7 @@
     if (el.splashAudio) el.splashAudio.pause();
     introSplashLessonKey = '';
     hideTitleSplash();
+    if (el.splashPlay) el.splashPlay.hidden = true;
     if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
     revealEmbedPlayer();
     updateVideoUI();
@@ -553,14 +583,7 @@
   }
 
   function updateSplashAudioUI() {
-    if (!el.splashPlay) return;
-    var playing = introPlaybackStarted && !introPlaybackPaused;
-    el.splashPlay.classList.toggle('is-playing', playing);
-    el.splashPlay.setAttribute('aria-label', playing ? 'Pause intro' : 'Play intro');
-    var playIcon = el.splashPlay.querySelector('.player-v2-title-splash__icon-play');
-    var pauseIcon = el.splashPlay.querySelector('.player-v2-title-splash__icon-pause');
-    if (playIcon) playIcon.hidden = playing;
-    if (pauseIcon) pauseIcon.hidden = !playing;
+    updateSplashTransportUI();
   }
 
   function clearIntroRevealTimer() {
@@ -648,7 +671,32 @@
       return;
     }
     if (introPlaybackPaused) resumeIntroPlayback(sequenceId);
-    else pauseIntroPlayback();
+  }
+
+  function handleSplashPlayClick(e) {
+    if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+    toggleIntroPlayback(splashSequenceId);
+  }
+
+  function handleVideoRestartClick(e) {
+    if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+    var lesson = getCurrentLesson();
+    if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
+      restartIntroSplash();
+      return;
+    }
+    if (isEmbedLesson(lesson)) {
+      restartEmbedTalk(lesson);
+      return;
+    }
+    if (!el.heroVisual || el.heroVisual.hidden) return;
+    el.heroVisual.pause();
+    el.heroVisual.currentTime = 0;
+    if (getHeroSplash(lesson)) {
+      startTitleSplash(lesson);
+      return;
+    }
+    updateVideoUI();
   }
 
   function bindPressFeedback(btn) {
@@ -672,6 +720,7 @@
     if (!el.videoStage) return;
     var lesson = getCurrentLesson();
     if (el.splashAudio) el.splashAudio.pause();
+    if (el.splashPlay) el.splashPlay.hidden = true;
     updateSplashAudioUI();
     el.videoStage.classList.add('is-splash-reveal');
 
@@ -743,6 +792,8 @@
     }
     if (el.videoAwaiting) el.videoAwaiting.hidden = true;
     if (el.playingBadge) el.playingBadge.hidden = true;
+    if (el.videoBarPause) el.videoBarPause.hidden = true;
+    if (el.videoBarRestart) el.videoBarRestart.hidden = true;
 
     function finishOutro() {
       if (el.videoStage) el.videoStage.classList.add('is-outro-reveal');
@@ -799,8 +850,10 @@
       el.heroEmbed.classList.remove('is-visible');
     }
     if (el.videoAwaiting) el.videoAwaiting.hidden = true;
+    if (el.splashPlay) el.splashPlay.hidden = false;
     if (el.videoBarPlay) el.videoBarPlay.hidden = true;
     if (el.videoBarPause) el.videoBarPause.hidden = true;
+    if (el.videoBarRestart) el.videoBarRestart.hidden = false;
     if (el.playingBadge) el.playingBadge.hidden = true;
 
     ensureEmbedLoaded(lesson);
@@ -1336,6 +1389,10 @@
 
   function handleVideoPauseClick() {
     var lesson = getCurrentLesson();
+    if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
+      pauseIntroPlayback();
+      return;
+    }
     if (isEmbedLesson(lesson)) {
       pauseEmbedVideo();
       return;
@@ -1785,23 +1842,12 @@
 
     if (el.splashPlay) {
       bindPressFeedback(el.splashPlay);
-      el.splashPlay.addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleIntroPlayback(splashSequenceId);
-      });
+      el.splashPlay.addEventListener('click', handleSplashPlayClick);
     }
 
-    if (el.splashRestart) {
-      bindPressFeedback(el.splashRestart);
-      el.splashRestart.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var lesson = getCurrentLesson();
-        if (isEmbedLesson(lesson) && el.videoStage && !el.videoStage.classList.contains('is-splash-active')) {
-          restartEmbedTalk(lesson);
-          return;
-        }
-        restartIntroSplash();
-      });
+    if (el.videoBarRestart) {
+      bindPressFeedback(el.videoBarRestart);
+      el.videoBarRestart.addEventListener('click', handleVideoRestartClick);
     }
 
     setTimeout(function () {
