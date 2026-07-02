@@ -25,6 +25,9 @@
   var introSplashLessonKey = '';
   var userStartedEmbed = false;
   var introPlaybackStarted = false;
+  var introPlaybackPaused = false;
+  var introRevealRemainingMs = 0;
+  var introRevealTimerStartedAt = 0;
   var waveHeights = Array.from({ length: 54 }, function (_, i) {
     return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
   });
@@ -494,6 +497,9 @@
   function cancelTitleSplash() {
     clearSplashTimers();
     introPlaybackStarted = false;
+    introPlaybackPaused = false;
+    introRevealRemainingMs = 0;
+    introRevealTimerStartedAt = 0;
     introSplashLessonKey = '';
     if (el.splashAudio) {
       el.splashAudio.pause();
@@ -548,12 +554,61 @@
 
   function updateSplashAudioUI() {
     if (!el.splashPlay) return;
-    el.splashPlay.classList.toggle('is-playing', introPlaybackStarted);
+    var playing = introPlaybackStarted && !introPlaybackPaused;
+    el.splashPlay.classList.toggle('is-playing', playing);
+    el.splashPlay.setAttribute('aria-label', playing ? 'Pause intro' : 'Play intro');
+    var playIcon = el.splashPlay.querySelector('.player-v2-title-splash__icon-play');
+    var pauseIcon = el.splashPlay.querySelector('.player-v2-title-splash__icon-pause');
+    if (playIcon) playIcon.hidden = playing;
+    if (pauseIcon) pauseIcon.hidden = !playing;
+  }
+
+  function clearIntroRevealTimer() {
+    if (splashFallbackTimer) {
+      clearTimeout(splashFallbackTimer);
+      splashFallbackTimer = null;
+    }
+  }
+
+  function scheduleIntroReveal(sequenceId, delayMs) {
+    clearIntroRevealTimer();
+    introRevealRemainingMs = delayMs;
+    introRevealTimerStartedAt = Date.now();
+    splashFallbackTimer = setTimeout(function () {
+      if (sequenceId !== splashSequenceId) return;
+      beginTitleSplashReveal(sequenceId);
+    }, delayMs);
+  }
+
+  function pauseIntroPlayback() {
+    if (!introPlaybackStarted || introPlaybackPaused) return;
+    clearIntroRevealTimer();
+    var elapsed = Date.now() - introRevealTimerStartedAt;
+    introRevealRemainingMs = Math.max(0, introRevealRemainingMs - elapsed);
+    if (el.splashAudio) el.splashAudio.pause();
+    introPlaybackPaused = true;
+    updateSplashAudioUI();
+  }
+
+  function resumeIntroPlayback(sequenceId) {
+    if (!introPlaybackStarted || !introPlaybackPaused) return;
+    if (el.splashAudio && el.splashAudio.src) {
+      var playAttempt = el.splashAudio.play();
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(function () {});
+      }
+    }
+    introPlaybackPaused = false;
+    scheduleIntroReveal(sequenceId, introRevealRemainingMs);
+    updateSplashAudioUI();
   }
 
   function restartIntroSplash() {
     clearSplashTimers();
     introPlaybackStarted = false;
+    introPlaybackPaused = false;
+    introRevealRemainingMs = 0;
+    introRevealTimerStartedAt = 0;
     if (el.splashAudio) {
       el.splashAudio.pause();
       el.splashAudio.currentTime = 0;
@@ -570,6 +625,7 @@
     if (!splash) return;
 
     introPlaybackStarted = true;
+    introPlaybackPaused = false;
     var introDurationMs = getIntroDurationMs(splash);
 
     if (splash.introAudio && el.splashAudio) {
@@ -582,12 +638,33 @@
         playAttempt.catch(function () {});
       }
     }
+    scheduleIntroReveal(sequenceId, introDurationMs);
     updateSplashAudioUI();
+  }
 
-    splashFallbackTimer = setTimeout(function () {
-      if (sequenceId !== splashSequenceId) return;
-      beginTitleSplashReveal(sequenceId);
-    }, introDurationMs);
+  function toggleIntroPlayback(sequenceId) {
+    if (!introPlaybackStarted) {
+      startIntroPlayback(sequenceId);
+      return;
+    }
+    if (introPlaybackPaused) resumeIntroPlayback(sequenceId);
+    else pauseIntroPlayback();
+  }
+
+  function bindPressFeedback(btn) {
+    if (!btn) return;
+    function pressOn() {
+      btn.classList.add('is-pressed');
+    }
+    function pressOff() {
+      btn.classList.remove('is-pressed');
+    }
+    btn.addEventListener('mousedown', pressOn);
+    btn.addEventListener('mouseup', pressOff);
+    btn.addEventListener('mouseleave', pressOff);
+    btn.addEventListener('touchstart', pressOn, { passive: true });
+    btn.addEventListener('touchend', pressOff);
+    btn.addEventListener('touchcancel', pressOff);
   }
 
   function beginTitleSplashReveal(sequenceId) {
@@ -712,6 +789,9 @@
 
     showTitleSplash();
     introPlaybackStarted = false;
+    introPlaybackPaused = false;
+    introRevealRemainingMs = 0;
+    introRevealTimerStartedAt = 0;
     if (el.videoStage) el.videoStage.classList.add('is-splash-active');
     if (el.heroVisual) el.heroVisual.classList.add('is-splash-hidden');
     if (el.heroEmbed) {
@@ -1704,13 +1784,15 @@
     }
 
     if (el.splashPlay) {
+      bindPressFeedback(el.splashPlay);
       el.splashPlay.addEventListener('click', function (e) {
         e.stopPropagation();
-        startIntroPlayback(splashSequenceId);
+        toggleIntroPlayback(splashSequenceId);
       });
     }
 
     if (el.splashRestart) {
+      bindPressFeedback(el.splashRestart);
       el.splashRestart.addEventListener('click', function (e) {
         e.stopPropagation();
         var lesson = getCurrentLesson();

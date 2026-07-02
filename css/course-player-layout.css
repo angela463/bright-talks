@@ -929,33 +929,52 @@
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .player-v2-title-splash__icon-btn--play {
   background: rgba(255, 255, 255, 0.94);
   color: var(--pv2-orange-deep, #C97A35);
-  box-shadow: 0 10px 28px rgba(60, 30, 8, 0.24);
+  box-shadow: 0 8px 0 rgba(143, 78, 24, 0.28), 0 10px 28px rgba(60, 30, 8, 0.22);
+}
+
+.player-v2-title-splash__icon-btn--play:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 9px 0 rgba(143, 78, 24, 0.3), 0 12px 30px rgba(60, 30, 8, 0.26);
+}
+
+.player-v2-title-splash__icon-btn--play:active,
+.player-v2-title-splash__icon-btn--play.is-pressed {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(143, 78, 24, 0.24), 0 4px 14px rgba(60, 30, 8, 0.18);
+}
+
+.player-v2-title-splash__icon-btn--play.is-playing {
+  background: rgba(255, 255, 255, 0.98);
+  color: #9A4E12;
 }
 
 .player-v2-title-splash__icon-btn--restart {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
-  box-shadow: 0 8px 22px rgba(60, 30, 8, 0.2);
+  box-shadow: 0 6px 0 rgba(60, 30, 8, 0.22), 0 8px 22px rgba(60, 30, 8, 0.18);
   border: 2px solid rgba(255, 255, 255, 0.55);
 }
 
-.player-v2-title-splash__icon-btn:hover {
-  transform: translateY(-1px) scale(1.03);
+.player-v2-title-splash__icon-btn--restart:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.24);
 }
 
-.player-v2-title-splash__icon-btn--play:hover {
-  box-shadow: 0 12px 30px rgba(60, 30, 8, 0.28);
+.player-v2-title-splash__icon-btn--restart:active,
+.player-v2-title-splash__icon-btn--restart.is-pressed {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 rgba(60, 30, 8, 0.2), 0 4px 12px rgba(60, 30, 8, 0.14);
 }
 
-.player-v2-title-splash__icon-btn.is-playing {
-  opacity: 0.72;
-  pointer-events: none;
+.player-v2-title-splash__icon-restart {
+  display: block;
 }
 
 .player-v2-title-splash__series {
