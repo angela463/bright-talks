@@ -482,7 +482,10 @@
 
     ensureEmbedLoaded(lesson);
 
-    if (getHeroSplash(lesson) && lessonMode === 'watch') {
+    var splashConfig = getHeroSplash(lesson);
+    if (splashConfig) prepareSplashAudio(splashConfig);
+
+    if (splashConfig && lessonMode === 'watch') {
       if (!isIntroSplashActive(lesson)) {
         startTitleSplash(lesson);
       }
@@ -582,6 +585,46 @@
     }
   }
 
+  function prepareSplashAudio(splash) {
+    if (!splash || !splash.introAudio || !el.splashAudio) return;
+    var src = encodeMediaPath(splash.introAudio);
+    var track = splash.introAudio;
+    var current = el.splashAudio.currentSrc || el.splashAudio.src || '';
+    if (!current || current.indexOf(track) === -1) {
+      el.splashAudio.src = src;
+      el.splashAudio.preload = 'auto';
+      el.splashAudio.load();
+      return;
+    }
+    el.splashAudio.preload = 'auto';
+    if (el.splashAudio.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+      el.splashAudio.load();
+    }
+  }
+
+  function playSplashAudioNow(fromStart) {
+    if (!el.splashAudio || !el.splashAudio.src) return;
+    if (fromStart) el.splashAudio.currentTime = 0;
+
+    function tryPlay() {
+      var attempt = el.splashAudio.play();
+      if (attempt && typeof attempt.catch === 'function') {
+        attempt.catch(function () {});
+      }
+    }
+
+    if (el.splashAudio.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      tryPlay();
+      return;
+    }
+
+    tryPlay();
+    el.splashAudio.addEventListener('loadeddata', function onLoadedData() {
+      el.splashAudio.removeEventListener('loadeddata', onLoadedData);
+      if (el.splashAudio.paused) tryPlay();
+    }, { once: true });
+  }
+
   function updateSplashAudioUI() {
     updateSplashTransportUI();
   }
@@ -615,12 +658,7 @@
 
   function resumeIntroPlayback(sequenceId) {
     if (!introPlaybackStarted || !introPlaybackPaused) return;
-    if (el.splashAudio && el.splashAudio.src) {
-      var playAttempt = el.splashAudio.play();
-      if (playAttempt && typeof playAttempt.catch === 'function') {
-        playAttempt.catch(function () {});
-      }
-    }
+    playSplashAudioNow(false);
     introPlaybackPaused = false;
     scheduleIntroReveal(sequenceId, introRevealRemainingMs);
     updateSplashAudioUI();
@@ -640,6 +678,11 @@
     updateSplashAudioUI();
   }
 
+  function restartIntroSplashAndPlay() {
+    restartIntroSplash();
+    startIntroPlayback(splashSequenceId);
+  }
+
   function startIntroPlayback(sequenceId) {
     if (sequenceId !== splashSequenceId || introPlaybackStarted) return;
 
@@ -651,16 +694,8 @@
     introPlaybackPaused = false;
     var introDurationMs = getIntroDurationMs(splash);
 
-    if (splash.introAudio && el.splashAudio) {
-      if (!el.splashAudio.src) {
-        el.splashAudio.src = encodeMediaPath(splash.introAudio);
-        el.splashAudio.load();
-      }
-      var playAttempt = el.splashAudio.play();
-      if (playAttempt && typeof playAttempt.catch === 'function') {
-        playAttempt.catch(function () {});
-      }
-    }
+    prepareSplashAudio(splash);
+    playSplashAudioNow(true);
     scheduleIntroReveal(sequenceId, introDurationMs);
     updateSplashAudioUI();
   }
@@ -682,7 +717,7 @@
     if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
     var lesson = getCurrentLesson();
     if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
-      restartIntroSplash();
+      restartIntroSplashAndPlay();
       return;
     }
     if (isEmbedLesson(lesson)) {
@@ -693,7 +728,9 @@
     el.heroVisual.pause();
     el.heroVisual.currentTime = 0;
     if (getHeroSplash(lesson)) {
-      startTitleSplash(lesson);
+      if (startTitleSplash(lesson)) {
+        startIntroPlayback(splashSequenceId);
+      }
       return;
     }
     updateVideoUI();
@@ -858,11 +895,7 @@
 
     ensureEmbedLoaded(lesson);
 
-    if (splash.introAudio && el.splashAudio) {
-      el.splashAudio.src = encodeMediaPath(splash.introAudio);
-      el.splashAudio.currentTime = 0;
-      el.splashAudio.load();
-    }
+    prepareSplashAudio(splash);
     updateSplashAudioUI();
 
     return true;
@@ -1355,7 +1388,9 @@
       el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play');
     }
     cancelOutroSplash();
-    startTitleSplash(lesson);
+    if (startTitleSplash(lesson)) {
+      startIntroPlayback(splashSequenceId);
+    }
   }
 
   function handleVideoPlayClick(e) {
