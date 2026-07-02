@@ -23,6 +23,7 @@
   var embedIsPlaying = false;
   var embedPendingPlay = false;
   var introSplashLessonKey = '';
+  var userStartedEmbed = false;
   var waveHeights = Array.from({ length: 54 }, function (_, i) {
     return 5 + Math.round(Math.abs(Math.sin(i * 0.55 + 1)) * 20) + (i % 4) * 3;
   });
@@ -250,19 +251,28 @@
     if (!el.heroEmbed) return;
     bunnyPlayer = null;
     embedIsPlaying = false;
+    embedPendingPlay = false;
+    userStartedEmbed = false;
     el.heroEmbed.classList.add('is-splash-hidden');
     el.heroEmbed.classList.remove('is-visible');
     el.heroEmbed.removeAttribute('src');
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-embed-mode', 'is-embed-visible', 'is-embed-playing');
+      el.videoStage.classList.remove(
+        'is-embed-mode',
+        'is-embed-visible',
+        'is-embed-playing',
+        'is-embed-awaiting-play'
+      );
     }
   }
 
   function setVideoTransportUI(isPlaying, opts) {
     opts = opts || {};
     if (el.videoPlay) {
-      el.videoPlay.hidden = isPlaying;
-      if (!opts.embed) {
+      if (opts.embed) {
+        el.videoPlay.removeAttribute('hidden');
+      } else {
+        el.videoPlay.hidden = isPlaying;
         el.videoPlay.classList.toggle('is-playing', isPlaying);
       }
     }
@@ -270,6 +280,7 @@
     if (el.videoBarPause) el.videoBarPause.hidden = !isPlaying;
     if (opts.embed && el.videoStage) {
       el.videoStage.classList.toggle('is-embed-playing', isPlaying);
+      el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying);
     }
     if (el.playingBadge) el.playingBadge.hidden = !isPlaying;
   }
@@ -288,6 +299,16 @@
     bunnyPlayer = null;
     embedIsPlaying = false;
     embedPendingPlay = false;
+    userStartedEmbed = false;
+  }
+
+  function pauseEmbedIfAutostarted() {
+    if (!bunnyPlayer || userStartedEmbed) return;
+    try {
+      bunnyPlayer.pause();
+    } catch (err) {}
+    embedIsPlaying = false;
+    updateEmbedVideoUI();
   }
 
   function unmuteAndPlayEmbed() {
@@ -314,13 +335,18 @@
     embedIsPlaying = false;
     bunnyPlayer = new window.playerjs.Player(el.heroEmbed);
     bunnyPlayer.on('ready', function () {
+      pauseEmbedIfAutostarted();
       updateEmbedVideoUI();
-      if (shouldPlay || embedPendingPlay) {
+      if (userStartedEmbed && (shouldPlay || embedPendingPlay)) {
         embedPendingPlay = false;
         unmuteAndPlayEmbed();
       }
     });
     bunnyPlayer.on('play', function () {
+      if (!userStartedEmbed) {
+        pauseEmbedIfAutostarted();
+        return;
+      }
       embedIsPlaying = true;
       updateEmbedVideoUI();
     });
@@ -335,6 +361,7 @@
   }
 
   function playEmbedVideo() {
+    userStartedEmbed = true;
     if (!bunnyPlayer) {
       embedPendingPlay = true;
       setupBunnyPlayer();
@@ -381,7 +408,7 @@
     var nextSrc = embedSrcWithParams(lesson.heroVisual.src, {
       autoplay: 'false',
       loop: 'false',
-      muted: 'false',
+      muted: 'true',
       preload: 'true',
       responsive: 'true',
       playerjs: 'true'
@@ -407,13 +434,16 @@
   function applyEmbedHero(lesson) {
     if (!el.heroEmbed || !el.heroVisual || !el.heroImage || !lesson || !lesson.heroVisual) return;
 
+    userStartedEmbed = false;
+    embedIsPlaying = false;
+
     el.heroImage.hidden = true;
     el.heroImage.removeAttribute('src');
     el.heroVisual.pause();
     el.heroVisual.hidden = true;
 
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing');
+      el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play');
     }
 
     ensureEmbedLoaded(lesson);
@@ -489,7 +519,7 @@
     el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
       autoplay: 'false',
       loop: 'false',
-      muted: 'false',
+      muted: 'true',
       preload: 'true',
       responsive: 'true',
       playerjs: 'true'
@@ -699,6 +729,10 @@
       if (!isEmbedLesson(lesson)) return;
       var evt = parseEmbedEvent(event.data);
       if (evt === 'play') {
+        if (!userStartedEmbed) {
+          pauseEmbedIfAutostarted();
+          return;
+        }
         embedIsPlaying = true;
         updateEmbedVideoUI();
       }

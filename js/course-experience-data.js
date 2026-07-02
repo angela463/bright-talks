@@ -69,7 +69,7 @@
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
   var talk1EmbedSrc =
     'https://player.mediadelivery.net/embed/695172/fb174fe3-ea85-4043-bb6f-2857f074378a' +
-    '?autoplay=false&loop=false&muted=false&preload=true&responsive=true&playerjs=true';
+    '?autoplay=false&loop=false&muted=true&preload=true&responsive=true&playerjs=true';
 
   var courseHeroImages = {
     earlyYears: 'images/pexels-julia-m-cameron-4144230.jpg',
