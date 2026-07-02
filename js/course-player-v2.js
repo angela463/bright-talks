@@ -67,6 +67,7 @@
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
     titleSplash: document.getElementById('player-v2-title-splash'),
+    titleSplashLogo: document.getElementById('player-v2-title-splash-logo'),
     titleSplashSeries: document.getElementById('player-v2-title-splash-series'),
     titleSplashKicker: document.getElementById('player-v2-title-splash-kicker'),
     titleSplashTitle: document.getElementById('player-v2-title-splash-title'),
@@ -348,6 +349,7 @@
 
   function mountHeroEmbed(lesson) {
     if (!el.heroEmbed || !el.heroVisual || !el.heroImage || !lesson || !lesson.heroVisual) return;
+    if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) return;
 
     cancelTitleSplash();
     el.heroImage.hidden = true;
@@ -356,13 +358,13 @@
     el.heroVisual.hidden = true;
 
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-image-mode', 'is-no-video');
-      el.videoStage.classList.add('is-embed-mode', 'is-embed-visible');
+      el.videoStage.classList.remove('is-image-mode', 'is-no-video', 'is-embed-visible', 'is-embed-playing');
+      el.videoStage.classList.add('is-embed-mode');
     }
 
     destroyBunnyPlayer();
-    el.heroEmbed.classList.remove('is-splash-hidden');
-    el.heroEmbed.classList.add('is-visible');
+    el.heroEmbed.classList.add('is-splash-hidden');
+    el.heroEmbed.classList.remove('is-visible');
     el.heroEmbed.src = embedSrcWithParams(lesson.heroVisual.src, {
       autoplay: 'false',
       loop: 'false',
@@ -376,6 +378,14 @@
       setupBunnyPlayer();
     };
 
+    if (getHeroSplash(lesson) && lessonMode === 'watch') {
+      startTitleSplash(lesson);
+      return;
+    }
+
+    el.heroEmbed.classList.remove('is-splash-hidden');
+    el.heroEmbed.classList.add('is-visible');
+    if (el.videoStage) el.videoStage.classList.add('is-embed-visible');
     if (el.videoPlay) el.videoPlay.hidden = false;
     updateEmbedVideoUI();
   }
@@ -420,11 +430,9 @@
 
   function finishIntroSplash(sequenceId) {
     if (sequenceId !== splashSequenceId) return;
+    if (el.splashAudio) el.splashAudio.pause();
     if (el.titleSplash) el.titleSplash.hidden = true;
     if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
-    if (el.videoPlay) {
-      el.videoPlay.hidden = isEmbedLesson(getCurrentLesson());
-    }
     updateVideoUI();
   }
 
@@ -438,7 +446,8 @@
       loop: 'false',
       muted: 'false',
       preload: 'true',
-      responsive: 'true'
+      responsive: 'true',
+      playerjs: 'true'
     });
   }
 
@@ -490,7 +499,7 @@
       revealHeroEmbed(lesson);
       splashFadeTimer = setTimeout(function () {
         finishIntroSplash(sequenceId);
-      }, 1400);
+      }, 900);
       return;
     }
 
@@ -513,6 +522,20 @@
     setSplashSeriesText(seriesEl, splash.series);
     if (kickerEl) kickerEl.textContent = splash.kicker || 'Talk';
     if (titleEl) titleEl.textContent = splash.title || displayLessonTitle(lesson.title);
+    if (el.titleSplashLogo) {
+      if (splash.logoSrc) {
+        el.titleSplashLogo.src = encodeMediaPath(splash.logoSrc);
+        el.titleSplashLogo.hidden = false;
+      } else {
+        el.titleSplashLogo.hidden = true;
+        el.titleSplashLogo.removeAttribute('src');
+      }
+    }
+  }
+
+  function getIntroDurationMs(splash) {
+    var duration = Number(splash && splash.introDurationMs);
+    return duration > 0 ? duration : 7000;
   }
 
   function startOutroSplash(lesson) {
@@ -574,6 +597,8 @@
 
     cancelTitleSplash();
     var sequenceId = ++splashSequenceId;
+    var introDurationMs = getIntroDurationMs(splash);
+    var autoIntro = introDurationMs > 0;
 
     populateSplashCard(
       el.titleSplashSeries,
@@ -584,18 +609,19 @@
     );
 
     el.titleSplash.hidden = false;
+    el.titleSplash.classList.toggle('player-v2-title-splash--auto', autoIntro);
     if (el.videoStage) el.videoStage.classList.add('is-splash-active');
     if (el.heroVisual) el.heroVisual.classList.add('is-splash-hidden');
+    if (el.heroEmbed) {
+      el.heroEmbed.classList.add('is-splash-hidden');
+      el.heroEmbed.classList.remove('is-visible');
+    }
     if (el.videoPlay) el.videoPlay.hidden = true;
+    if (el.videoBarPlay) el.videoBarPlay.hidden = true;
+    if (el.videoBarPause) el.videoBarPause.hidden = true;
     if (el.playingBadge) el.playingBadge.hidden = true;
 
-    if (isEmbedLesson(lesson)) {
-      preloadHeroEmbed(lesson);
-    } else if (el.heroEmbed) {
-      el.heroEmbed.classList.add('is-splash-hidden');
-    }
-
-    function onIntroEnded() {
+    function onIntroComplete() {
       beginTitleSplashReveal(sequenceId);
     }
 
@@ -603,27 +629,16 @@
       el.splashAudio.src = encodeMediaPath(splash.introAudio);
       el.splashAudio.currentTime = 0;
       el.splashAudio.load();
-      el.splashAudio.addEventListener('ended', onIntroEnded, { once: true });
-      el.splashAudio.addEventListener('error', onIntroEnded, { once: true });
       var introPlay = el.splashAudio.play();
       if (introPlay && typeof introPlay.catch === 'function') {
-        introPlay.catch(function () {
-          updateSplashAudioUI();
-        });
+        introPlay.catch(function () {});
       }
-      updateSplashAudioUI();
-      splashFallbackTimer = setTimeout(function () {
-        if (sequenceId !== splashSequenceId) return;
-        if (!el.splashAudio.paused) return;
-        onIntroEnded();
-      }, 12000);
-    } else {
-      updateSplashAudioUI();
-      splashFallbackTimer = setTimeout(function () {
-        if (sequenceId !== splashSequenceId) return;
-        onIntroEnded();
-      }, 3600);
     }
+
+    splashFallbackTimer = setTimeout(function () {
+      if (sequenceId !== splashSequenceId) return;
+      onIntroComplete();
+    }, introDurationMs);
 
     return true;
   }
@@ -1213,7 +1228,8 @@
     updateAudioUI();
 
     if (isEmbedLesson(lesson)) {
-      if (!el.heroEmbed || !el.heroEmbed.classList.contains('is-visible')) {
+      if ((!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) &&
+          (!el.heroEmbed || !el.heroEmbed.classList.contains('is-visible'))) {
         mountHeroEmbed(lesson);
       }
       updateVideoUI();
@@ -1299,7 +1315,10 @@
   }
 
   function applyHeroVisual(lesson) {
-    cancelTitleSplash();
+    var splashActive = el.videoStage && el.videoStage.classList.contains('is-splash-active');
+    if (!(splashActive && isEmbedLesson(lesson))) {
+      cancelTitleSplash();
+    }
     var hv = lesson && lesson.heroVisual;
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
 

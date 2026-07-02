@@ -26,7 +26,7 @@
    * @property {'video'|'image'|'embed'} type
    * @property {string} src
    * @property {string} [alt]
-   * @property {{ introAudio?: string, series?: string, kicker?: string, title?: string, outro?: { series?: string, kicker?: string, title?: string, subtitle?: string, outroAudio?: string } }} [splash]
+   * @property {{ introAudio?: string, introDurationMs?: number, logoSrc?: string, series?: string, kicker?: string, title?: string, outro?: { series?: string, kicker?: string, title?: string, subtitle?: string, outroAudio?: string } }} [splash]
    *
    * @typedef {Object} Lesson
    * @property {string} id
@@ -64,6 +64,8 @@
 
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
+  var talk1IntroAudio = 'audio files/Warm Windows, Open Minds.mp3';
+  var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
   var talk1EmbedSrc =
     'https://player.mediadelivery.net/embed/695172/fb174fe3-ea85-4043-bb6f-2857f074378a' +
@@ -190,7 +192,14 @@
         audioDuration: '20:00',
         heroVisual: {
           type: 'embed',
-          src: talk1EmbedSrc
+          src: talk1EmbedSrc,
+          splash: {
+            introAudio: talk1IntroAudio,
+            introDurationMs: 7000,
+            logoSrc: brightTalksLogo,
+            kicker: 'Talk 1',
+            title: 'Bodies, Biology & Anatomy'
+          }
         },
         sections: [
           {
