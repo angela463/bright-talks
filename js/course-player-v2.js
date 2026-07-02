@@ -1818,8 +1818,13 @@
       applyHeroVisual(lesson);
 
       if (el.audio && lesson.audio && lesson.audio.audioUrl) {
+        if (el.error) el.error.hidden = true;
         el.audio.src = lesson.audio.audioUrl;
         el.audio.load();
+        el.audio.addEventListener('loadedmetadata', function () {
+          if (el.error) el.error.hidden = true;
+          updateAudioUI();
+        }, { once: true });
       }
       renderReadTranscript(lesson);
       if (el.error) el.error.hidden = !lesson.audio || lesson.audio.status !== 'failed';

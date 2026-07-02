@@ -65,6 +65,8 @@
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
   var talk1IntroAudio = 'audio/Warm Windows, Open Minds.mp3';
+  var talk1ListenAudio =
+    'https://vz-02a1a166-7fe.b-cdn.net/fb174fe3-ea85-4043-bb6f-2857f074378a/play_720p.mp4';
   var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
   var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
   var talk1EmbedSrc =
@@ -98,11 +100,11 @@
     'images/promo/promo-03-hiking.png'
   ];
 
-  function lessonAudio(sa, transcript, duration) {
+  function lessonAudio(sa, transcript, duration, voice) {
     return {
       audioUrl: sa,
       transcript: transcript,
-      voice: 'Warm Guide v1',
+      voice: voice || 'Warm Guide v1',
       duration: duration,
       status: 'ready'
     };
@@ -133,7 +135,8 @@
     lesson.audio = lessonAudio(
       opts.audioUrl || sampleAudio,
       opts.transcript || transcriptFromLesson(lesson),
-      opts.audioDuration || opts.duration
+      opts.audioDuration || opts.duration,
+      opts.audioVoice
     );
     if (opts.availability) lesson.availability = opts.availability;
     return lesson;
@@ -189,7 +192,9 @@
         summary:
           'Name body parts clearly and without shame so your child understands privacy, dignity, and that their body belongs to them.',
         duration: '20m',
-        audioDuration: '20:00',
+        audioDuration: '05:54',
+        audioUrl: talk1ListenAudio,
+        audioVoice: 'Heidi Cooper',
         heroVisual: {
           type: 'embed',
           src: talk1EmbedSrc,
