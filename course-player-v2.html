@@ -182,9 +182,15 @@
               <span class="player-v2-playing-badge__dot" aria-hidden="true"></span>
               <span>Playing</span>
             </div>
-            <button id="player-v2-video-play" class="player-v2-video-play" type="button" aria-label="Play video">
-              <span class="player-v2-video-play__icon" aria-hidden="true"></span>
-            </button>
+            <div id="player-v2-video-awaiting" class="player-v2-video-awaiting" hidden>
+              <div class="player-v2-video-awaiting__actions">
+                <button id="player-v2-video-play" class="player-v2-video-awaiting__play" type="button" aria-label="Play video">
+                  <span class="player-v2-video-play__icon" aria-hidden="true"></span>
+                  <span class="player-v2-video-awaiting__label">Play</span>
+                </button>
+                <button id="player-v2-video-start-over" class="player-v2-video-awaiting__restart" type="button">Start over</button>
+              </div>
+            </div>
             <div class="player-v2-video-bar">
               <button id="player-v2-video-bar-play" class="player-v2-video-bar__btn player-v2-video-bar__btn--play" type="button" aria-label="Play video"></button>
               <button id="player-v2-video-bar-pause" class="player-v2-video-bar__btn player-v2-video-bar__btn--pause" type="button" aria-label="Pause video" hidden></button>
