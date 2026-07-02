@@ -143,12 +143,13 @@
               <p id="player-v2-title-splash-series" class="player-v2-title-splash__series" hidden></p>
               <p id="player-v2-title-splash-kicker" class="player-v2-title-splash__kicker"></p>
               <h2 id="player-v2-title-splash-title" class="player-v2-title-splash__title"></h2>
-              <div class="player-v2-title-splash__controls" hidden>
-                <button type="button" id="player-v2-splash-play" class="player-v2-title-splash__play" aria-label="Play intro music">
-                  <svg class="player-v2-title-splash__icon-play" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"></polygon></svg>
-                  <svg class="player-v2-title-splash__icon-pause" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" hidden><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+              <div class="player-v2-title-splash__controls">
+                <button type="button" id="player-v2-splash-play" class="player-v2-title-splash__icon-btn player-v2-title-splash__icon-btn--play" aria-label="Play intro">
+                  <svg class="player-v2-title-splash__icon-play" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"></polygon></svg>
                 </button>
-                <button type="button" id="player-v2-splash-start" class="player-v2-title-splash__start">Start talk</button>
+                <button type="button" id="player-v2-splash-restart" class="player-v2-title-splash__icon-btn player-v2-title-splash__icon-btn--restart" aria-label="Start over">
+                  <svg class="player-v2-title-splash__icon-restart" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"></path><polyline points="3 4 3 12 11 12"></polyline></svg>
+                </button>
               </div>
             </div>
             <div id="player-v2-outro-splash" class="player-v2-title-splash player-v2-outro-splash" hidden>
@@ -183,13 +184,9 @@
               <span>Playing</span>
             </div>
             <div id="player-v2-video-awaiting" class="player-v2-video-awaiting" hidden>
-              <div class="player-v2-video-awaiting__actions">
-                <button id="player-v2-video-play" class="player-v2-video-awaiting__play" type="button" aria-label="Play video">
-                  <span class="player-v2-video-play__icon" aria-hidden="true"></span>
-                  <span class="player-v2-video-awaiting__label">Play</span>
-                </button>
-                <button id="player-v2-video-start-over" class="player-v2-video-awaiting__restart" type="button">Start over</button>
-              </div>
+              <button id="player-v2-video-play" class="player-v2-video-awaiting__play" type="button" aria-label="Play video">
+                <span class="player-v2-video-play__icon" aria-hidden="true"></span>
+              </button>
             </div>
             <div class="player-v2-video-bar">
               <button id="player-v2-video-bar-play" class="player-v2-video-bar__btn player-v2-video-bar__btn--play" type="button" aria-label="Play video"></button>
