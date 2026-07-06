@@ -800,7 +800,6 @@
     el.videoStage.classList.add('is-splash-reveal');
 
     if (isEmbedLesson(lesson)) {
-      revealEmbedPlayer();
       updateVideoControlsState();
       splashFadeTimer = setTimeout(function () {
         finishIntroSplash(sequenceId);
