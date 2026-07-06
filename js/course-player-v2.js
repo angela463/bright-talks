@@ -116,6 +116,7 @@
     readTranscript: document.getElementById('player-v2-read-transcript'),
     playingBadge: document.getElementById('player-v2-playing-badge'),
     embedCenterPlay: document.getElementById('player-v2-embed-center-play'),
+    embedPlayShield: document.getElementById('player-v2-embed-play-shield'),
     toast: document.getElementById('player-v2-toast'),
     lessonPosition: document.getElementById('player-v2-lesson-position'),
     prev: document.getElementById('player-v2-prev'),
@@ -328,6 +329,7 @@
       !userStartedEmbed;
 
     if (el.embedCenterPlay) el.embedCenterPlay.hidden = !showEmbedCenterPlay;
+    if (el.embedPlayShield) el.embedPlayShield.hidden = !showEmbedCenterPlay;
     if (el.videoBarPlay) el.videoBarPlay.hidden = !!showEmbedCenterPlay;
 
     if (isEmbed && el.videoStage) {
@@ -429,6 +431,7 @@
   function playEmbedVideo() {
     userStartedEmbed = true;
     if (el.embedCenterPlay) el.embedCenterPlay.hidden = true;
+    if (el.embedPlayShield) el.embedPlayShield.hidden = true;
     if (!bunnyPlayer) {
       embedPendingPlay = true;
       setupBunnyPlayer();
