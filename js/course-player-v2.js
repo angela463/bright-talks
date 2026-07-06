@@ -288,6 +288,7 @@
   function updateVideoControlsState() {
     var lesson = getCurrentLesson();
     var splashActive = !!(el.videoStage && el.videoStage.classList.contains('is-splash-active'));
+    var splashReveal = !!(el.videoStage && el.videoStage.classList.contains('is-splash-reveal'));
     var outroActive = !!(el.videoStage && el.videoStage.classList.contains('is-outro-active'));
     var isEmbed = isEmbedLesson(lesson);
     var showControls = shouldShowVideoControls(lesson);
@@ -302,7 +303,7 @@
     }
 
     var isPlaying = false;
-    if (splashActive) {
+    if (splashActive && !splashReveal) {
       isPlaying = introPlaybackStarted && !introPlaybackPaused;
     } else if (isEmbed) {
       isPlaying = embedIsPlaying;
@@ -316,7 +317,7 @@
 
     if (isEmbed && el.videoStage) {
       var embedStarted = userStartedEmbed || embedIsPlaying;
-      el.videoStage.classList.toggle('is-embed-playing', isPlaying && !splashActive);
+      el.videoStage.classList.toggle('is-embed-playing', isPlaying && (!splashActive || splashReveal));
       el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying && !splashActive && !outroActive);
       el.videoStage.classList.toggle('is-embed-started', embedStarted);
     }
