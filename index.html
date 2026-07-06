@@ -97,10 +97,10 @@
 
             <div class="promo-chrome" id="promo-chrome" role="group" aria-label="Video playback" hidden>
               <button type="button" class="promo-play-toggle" id="promo-toggle" aria-pressed="true" aria-label="Pause">
-                <svg id="promo-icon-pause" class="promo-toggle-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <svg class="promo-toggle-svg promo-icon-pause" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path fill="currentColor" d="M6 5h4v14H6V5zm8 0h4v14h-4V5z" />
                 </svg>
-                <svg id="promo-icon-play" class="promo-toggle-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                <svg class="promo-toggle-svg promo-icon-play" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
                   <path fill="currentColor" d="M8 5v14l11-7.02L8 5z" />
                 </svg>
               </button>
@@ -117,9 +117,9 @@
                   <div class="promo-scrub-fill" id="promo-fill"></div>
                 </div>
                 <div class="promo-times">
-                  <span id="promo-elapsed">0:00</span>
+                  <span data-promo-elapsed id="promo-elapsed">0:00</span>
                   <span class="promo-times-sep" aria-hidden="true">/</span>
-                  <span id="promo-total">0:00</span>
+                  <span data-promo-total id="promo-total">0:00</span>
                 </div>
               </div>
               <button type="button" class="promo-icon-btn" data-promo-replay aria-label="Replay from the beginning">

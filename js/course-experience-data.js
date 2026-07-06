@@ -222,11 +222,7 @@
         duration: '3 min',
         audioDuration: '03:00',
         audioUrl: welcomeAudio,
-        heroVisual: {
-          type: 'video',
-          src: welcomeVideoSrc,
-          poster: 'images/promo/promo-07-family-walk.png'
-        },
+        heroVisual: { type: 'promo' },
         sections: [
           {
             title: 'Talk Objectives',

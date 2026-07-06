@@ -24,6 +24,7 @@
   var embedPendingPlay = false;
   var introSplashLessonKey = '';
   var userStartedEmbed = false;
+  var welcomePromoInstance = null;
   var introPlaybackStarted = false;
   var introPlaybackPaused = false;
   var introRevealRemainingMs = 0;
@@ -72,6 +73,7 @@
     heroEmbed: document.getElementById('player-v2-hero-embed'),
     heroSource: document.getElementById('player-v2-hero-source'),
     heroImage: document.getElementById('player-v2-hero-image'),
+    welcomePromoRoot: document.getElementById('player-v2-promo-root'),
     titleSplash: document.getElementById('player-v2-title-splash'),
     titleSplashLogo: document.getElementById('player-v2-title-splash-logo'),
     titleSplashSeries: document.getElementById('player-v2-title-splash-series'),
@@ -207,6 +209,47 @@
       el.audio.src = src;
       el.audio.load();
     }
+  }
+
+  function isPromoWelcome(lesson) {
+    return !!(lesson && lesson.heroVisual && lesson.heroVisual.type === 'promo');
+  }
+
+  function pauseWelcomePromo() {
+    if (welcomePromoInstance && welcomePromoInstance.pause) welcomePromoInstance.pause();
+  }
+
+  function hideWelcomePromo() {
+    pauseWelcomePromo();
+    if (el.welcomePromoRoot) el.welcomePromoRoot.hidden = true;
+    if (el.videoStage) el.videoStage.classList.remove('is-welcome-promo');
+  }
+
+  function mountWelcomePromo() {
+    if (!el.welcomePromoRoot || !window.BrightTalksPromoSlideshow) return;
+    if (!welcomePromoInstance) {
+      welcomePromoInstance = window.BrightTalksPromoSlideshow.mount(el.welcomePromoRoot);
+    }
+  }
+
+  function applyPromoHero(lesson) {
+    resetHeroEmbed();
+    if (el.heroVisual) {
+      el.heroVisual.pause();
+      el.heroVisual.hidden = true;
+    }
+    if (el.heroImage) {
+      el.heroImage.hidden = true;
+      el.heroImage.removeAttribute('src');
+    }
+    if (el.heroEmbed) el.heroEmbed.hidden = true;
+    if (el.videoStage) {
+      el.videoStage.classList.remove('is-embed-mode', 'is-image-mode', 'is-no-video', 'is-welcome-video');
+      el.videoStage.classList.add('is-welcome-promo');
+    }
+    if (el.welcomePromoRoot) el.welcomePromoRoot.hidden = false;
+    mountWelcomePromo();
+    updateVideoControlsState();
   }
 
   function syncWelcomeVisual(lesson, narrationPlaying) {
@@ -360,6 +403,7 @@
 
   function shouldShowVideoControls(lesson) {
     if (lessonMode !== 'watch' || !lesson) return false;
+    if (isPromoWelcome(lesson)) return false;
     if (el.videoStage && el.videoStage.classList.contains('is-outro-active')) return false;
     if (isEmbedLesson(lesson) || getHeroSplash(lesson)) return true;
     if (isWelcomeLesson(lesson) && el.heroImage && !el.heroImage.hidden) return true;
@@ -368,6 +412,11 @@
 
   function updateVideoControlsState() {
     var lesson = getCurrentLesson();
+    if (isPromoWelcome(lesson)) {
+      if (el.playingBadge) el.playingBadge.hidden = true;
+      if (el.videoStage) el.videoStage.classList.remove('is-transport-bar-visible');
+      return;
+    }
     var splashActive = !!(el.videoStage && el.videoStage.classList.contains('is-splash-active'));
     var splashReveal = !!(el.videoStage && el.videoStage.classList.contains('is-splash-reveal'));
     var outroActive = !!(el.videoStage && el.videoStage.classList.contains('is-outro-active'));
@@ -1657,6 +1706,7 @@
 
     if (mode === 'read') {
       cancelTitleSplash();
+      pauseWelcomePromo();
       if (el.heroVisual) el.heroVisual.pause();
       if (el.readAudioTitle) el.readAudioTitle.textContent = displayLessonTitle(lesson.title);
       buildWaveform();
@@ -1668,6 +1718,7 @@
 
     if (mode === 'listen') {
       cancelTitleSplash();
+      pauseWelcomePromo();
       if (el.heroVisual) el.heroVisual.pause();
       if (isWelcomeLesson(lesson) && el.audio) el.audio.pause();
       if (el.listenTitle) el.listenTitle.textContent = displayLessonTitle(lesson.title);
@@ -1797,11 +1848,17 @@
   }
 
   function applyHeroVisual(lesson) {
+    if (!isPromoWelcome(lesson)) hideWelcomePromo();
     if (!isIntroSplashActive(lesson)) {
       cancelTitleSplash();
     }
     var hv = lesson && lesson.heroVisual;
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
+
+    if (hv && hv.type === 'promo') {
+      applyPromoHero(lesson);
+      return;
+    }
 
     if (!hv || !hv.src) {
       if (el.videoStage) el.videoStage.classList.add('is-no-video');
