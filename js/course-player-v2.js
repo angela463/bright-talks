@@ -1423,8 +1423,16 @@
     if (!el.heroVisual) return;
     var welcome = isWelcomeLesson(lesson);
     var hasSplash = !!getHeroSplash(lesson);
-    el.heroVisual.muted = hasSplash ? true : !welcome;
+    el.heroVisual.muted = hasSplash || welcome;
     el.heroVisual.loop = !!welcome;
+    if (welcome) {
+      el.heroVisual.setAttribute('muted', '');
+      el.heroVisual.setAttribute('loop', '');
+      el.heroVisual.setAttribute('playsinline', '');
+      el.heroVisual.setAttribute('webkit-playsinline', '');
+    } else {
+      el.heroVisual.removeAttribute('loop');
+    }
   }
 
   function restartEmbedTalk(lesson) {
@@ -1462,8 +1470,9 @@
     }
     var welcome = isWelcomeLesson(lesson);
     if (welcome) {
-      configureHeroVideoPlayback(lesson);
       if (el.audio) el.audio.pause();
+      el.heroVisual.muted = false;
+      el.heroVisual.removeAttribute('muted');
     }
     var playAttempt = el.heroVisual.play();
     if (playAttempt && typeof playAttempt.catch === 'function') {
@@ -1599,17 +1608,16 @@
     if (!el.heroVisual || el.heroVisual.hidden) return;
     if (getHeroSplash(lesson)) return;
     configureHeroVideoPlayback(lesson);
-    var shouldAutoplay = !isWelcomeLesson(lesson);
 
     function tryPlay() {
       el.heroVisual.setAttribute('playsinline', '');
       el.heroVisual.setAttribute('webkit-playsinline', '');
-      if (!shouldAutoplay) {
-        updateVideoUI();
-        return;
-      }
       var p = el.heroVisual.play();
-      if (p && typeof p.catch === 'function') p.catch(function () {});
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          updateVideoUI();
+        });
+      }
       updateVideoUI();
     }
 
