@@ -7,12 +7,12 @@
   <title>Course Player | Bright Talks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/course-experience.css" />
   <link rel="stylesheet" href="css/course-player-layout.css" />
 </head>
-<body class="page-course-player-v2 player-v2-layout-revamp">
+<body class="page-course-player-v2 player-v2-layout-revamp page-landing" id="top">
   <div id="player-v2-preloader" class="player-v2-preloader" aria-live="polite">
     <div class="player-v2-preloader__dots" aria-hidden="true"><span></span><span></span><span></span></div>
     <p>Loading lesson experience...</p>
@@ -24,25 +24,23 @@
 
   <div id="player-v2-toast" class="player-v2-toast" role="status" hidden></div>
 
-  <header class="player-v2-site-header">
-    <div class="player-v2-site-header__inner">
-      <button id="player-v2-burger" class="player-v2-site-header__burger" type="button" aria-label="Open talks menu">
+  <header class="site-header site-header--landing player-v2-top-header">
+    <div class="header-inner header-inner--landing">
+      <button id="player-v2-burger" class="player-v2-top-header__burger" type="button" aria-label="Open talks menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
-      <a href="index.html" class="player-v2-site-header__logo" aria-label="Bright Talks home">
-        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" />
+      <a href="index.html" class="logo-link" aria-label="Bright Talks home">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
       </a>
-      <nav class="player-v2-site-header__nav" aria-label="Main">
-        <a href="index.html">Home</a>
-        <a href="courses-concept.html" aria-current="page">Courses</a>
+      <nav class="nav nav--landing" aria-label="Main">
+        <a href="index.html" class="nav-link nav-link--minimal">Home</a>
+        <a href="courses-concept.html" class="nav-link nav-link--minimal" aria-current="page">Courses</a>
+        <a href="course-info.html" class="nav-link nav-link--minimal">Meet the Instructors</a>
+        <a href="free-course-signup.html" class="nav-link nav-link--minimal">Pricing</a>
       </nav>
-      <div class="player-v2-site-header__actions">
-        <button type="button" class="player-v2-site-header__account" data-auth-open="sign-in">Sign In</button>
-        <a class="player-v2-site-header__back" href="courses-concept.html">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-          Back to Courses
-        </a>
-        <button id="player-v2-nav-toggle" class="player-v2-site-header__menu" type="button" aria-label="Toggle lesson menu">Menu</button>
+      <div class="player-v2-top-header__actions">
+        <button type="button" class="nav-link nav-link--minimal player-v2-top-header__sign-in" data-auth-open="sign-in">Sign In</button>
+        <a class="btn btn-secondary player-v2-top-header__back" href="courses-concept.html">Back to Courses</a>
       </div>
     </div>
   </header>
