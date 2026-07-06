@@ -265,7 +265,8 @@
         'is-embed-mode',
         'is-embed-visible',
         'is-embed-playing',
-        'is-embed-awaiting-play'
+        'is-embed-awaiting-play',
+        'is-embed-started'
       );
     }
   }
@@ -489,7 +490,7 @@
     el.heroVisual.hidden = true;
 
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play');
+      el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play', 'is-embed-started');
     }
 
     ensureEmbedLoaded(lesson);
@@ -1383,7 +1384,7 @@
     }
     destroyBunnyPlayer();
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play');
+      el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play', 'is-embed-started');
     }
     cancelOutroSplash();
     if (startTitleSplash(lesson)) {

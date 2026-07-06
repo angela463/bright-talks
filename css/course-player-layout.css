@@ -70,6 +70,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .player-v2-layout-revamp .player-v2-top-header__burger {
@@ -779,17 +780,12 @@
   pointer-events: none;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-started .player-v2-hero-embed.is-visible {
-  opacity: 1;
-  pointer-events: auto;
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-hero-embed.is-visible {
+  pointer-events: none;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play .player-v2-video-bar {
   z-index: 16;
-}
-
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-playing .player-v2-hero-embed.is-visible {
-  pointer-events: auto;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-bar {
