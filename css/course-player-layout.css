@@ -717,16 +717,33 @@
   transition: opacity 1.2s ease;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-hero-visual {
+.player-v2-layout-revamp .player-v2-video-stage.is-welcome-video {
+  background: #2a2622;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-hero-visual--image {
   opacity: 1;
-  z-index: 5;
+  z-index: 7;
+  object-position: center;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-hero-visual:not(.player-v2-hero-visual--image) {
+  opacity: 1;
+  z-index: 8;
+  object-position: center;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-video-placeholder,
 .player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-hero-embed {
+  display: none !important;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-video-stage__glow,
+.player-v2-layout-revamp .player-v2-video-stage.is-welcome-video .player-v2-video-stage__shade {
+  opacity: 0.28;
 }
 
 .player-v2-layout-revamp .player-v2-hero-visual.is-splash-hidden {
