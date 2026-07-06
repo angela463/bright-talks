@@ -63,7 +63,7 @@
    */
 
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
-  var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
+  var welcomeAudio = 'audio files/Bright Talks v1.mp3';
   var talk1IntroAudio = 'audio/Warm Windows, Open Minds.mp3';
   var talk1VideoSrc =
     'https://vz-02a1a166-7fe.b-cdn.net/fb174fe3-ea85-4043-bb6f-2857f074378a/play_720p.mp4';
