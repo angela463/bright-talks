@@ -1,9 +1,12 @@
 /**
- * Bright Talks homepage promo: local image slides + layered music + voiceover.
- * Slides follow the voiceover clock; scene/caption lengths are smoothed to keep an even pace.
+ * Bright Talks promo: local image slides + voiceover.
+ * Mount on any `.promo-video` root (homepage or course player welcome).
  */
 (function () {
   'use strict';
+
+  function mountPromoSlideshow(root) {
+    if (!root) return null;
 
   /* Promo audio tracks (paths are URI-encoded for spaces / punctuation) */
   var PROMO_MUSIC_SRC = null;
@@ -71,20 +74,17 @@
   /** Keep first caption hidden until narration actually starts. */
   var FIRST_CAPTION_DELAY_MS = 650;
 
-  var root = document.getElementById('promo-root');
-  if (!root) return;
-
-  var layerEls = root.querySelectorAll('[data-promo-layer]');
-  var captionEl = root.querySelector('[data-promo-caption]');
-  var bigPlay = document.getElementById('promo-big-play');
-  var chrome = document.getElementById('promo-chrome');
-  var toggleBtn = document.getElementById('promo-toggle');
-  var iconPause = document.getElementById('promo-icon-pause');
-  var iconPlay = document.getElementById('promo-icon-play');
-  var fill = document.getElementById('promo-fill');
-  var scrub = document.getElementById('promo-scrub');
-  var elapsedEl = document.getElementById('promo-elapsed');
-  var totalEl = document.getElementById('promo-total');
+    var layerEls = root.querySelectorAll('[data-promo-layer]');
+    var captionEl = root.querySelector('[data-promo-caption]');
+    var bigPlay = root.querySelector('.promo-big-play');
+    var chrome = root.querySelector('.promo-chrome');
+    var toggleBtn = root.querySelector('.promo-play-toggle');
+    var iconPause = toggleBtn ? toggleBtn.querySelector('.promo-icon-pause') : null;
+    var iconPlay = toggleBtn ? toggleBtn.querySelector('.promo-icon-play') : null;
+    var fill = root.querySelector('.promo-scrub-fill');
+    var scrub = root.querySelector('.promo-scrub');
+    var elapsedEl = root.querySelector('[data-promo-elapsed]');
+    var totalEl = root.querySelector('[data-promo-total]');
   var btnReplay = root.querySelector('[data-promo-replay]');
   var btnMute = root.querySelector('[data-promo-mute]');
   var muteSlash = btnMute ? btnMute.querySelector('.promo-volume-slash') : null;
@@ -592,9 +592,38 @@
     syncMuteIcon();
   }
 
-  document.documentElement.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
+    root.style.setProperty('--promo-fade-ms', fadeMs + 'ms');
 
-  if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
-  applyScene(0, true);
-  updateProgressUi();
+    if (totalEl) totalEl.textContent = formatClock(totalMs / 1000);
+    applyScene(0, true);
+    updateProgressUi();
+
+    return {
+      pause: function () {
+        if (playing) stopSequence(false);
+      },
+      destroy: function () {
+        clearSlideTimer();
+        stopProgressTicker();
+        playing = false;
+        releaseAudio();
+        frozenElapsedMs = null;
+        root.classList.remove('is-playing');
+        if (bigPlay) bigPlay.hidden = false;
+        if (chrome) chrome.hidden = true;
+        applyScene(0, true);
+        updateProgressUi();
+      },
+      isPlaying: function () {
+        return playing;
+      }
+    };
+  }
+
+  window.BrightTalksPromoSlideshow = {
+    mount: mountPromoSlideshow
+  };
+
+  var promoHome = document.getElementById('promo-root');
+  if (promoHome) window.BrightTalksPromoSlideshow.mount(promoHome);
 })();
