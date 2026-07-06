@@ -51,7 +51,25 @@
 
 /* ─── Site header (matches landing pages) ─── */
 .player-v2-layout-revamp .player-v2-top-header .header-inner--landing {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   max-width: var(--pv2-max-w);
+}
+
+.player-v2-layout-revamp .player-v2-top-header__start {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.player-v2-layout-revamp .player-v2-top-header .nav--landing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .player-v2-layout-revamp .player-v2-top-header__burger {
@@ -76,6 +94,8 @@
   gap: 0.65rem;
   flex-shrink: 0;
   margin-left: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .player-v2-layout-revamp .player-v2-top-header__sign-in {
@@ -753,27 +773,19 @@
   display: none;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-awaiting {
-  z-index: 15;
-}
-
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play .player-v2-hero-embed,
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play .player-v2-hero-embed.is-visible {
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play:not(.is-embed-started) .player-v2-hero-embed,
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play:not(.is-embed-started) .player-v2-hero-embed.is-visible {
+  opacity: 0;
   pointer-events: none;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play .player-v2-video-awaiting {
-  display: flex !important;
-  z-index: 15;
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-started .player-v2-hero-embed.is-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play .player-v2-video-bar {
   z-index: 16;
-}
-
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-playing .player-v2-video-awaiting {
-  display: none !important;
-  pointer-events: none;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-embed-playing .player-v2-hero-embed.is-visible {
@@ -801,7 +813,6 @@
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-overlay,
-.player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-awaiting,
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-playing-badge {
   opacity: 0;
   pointer-events: none;

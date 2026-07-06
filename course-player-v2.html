@@ -26,12 +26,14 @@
 
   <header class="site-header site-header--landing player-v2-top-header">
     <div class="header-inner header-inner--landing">
-      <button id="player-v2-burger" class="player-v2-top-header__burger" type="button" aria-label="Open talks menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-      <a href="index.html" class="logo-link" aria-label="Bright Talks home">
-        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
-      </a>
+      <div class="player-v2-top-header__start">
+        <button id="player-v2-burger" class="player-v2-top-header__burger" type="button" aria-label="Open talks menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <a href="index.html" class="logo-link" aria-label="Bright Talks home">
+          <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" class="logo-img" />
+        </a>
+      </div>
       <nav class="nav nav--landing" aria-label="Main">
         <a href="index.html" class="nav-link nav-link--minimal">Home</a>
         <a href="courses-concept.html" class="nav-link nav-link--minimal" aria-current="page">Courses</a>
@@ -172,11 +174,6 @@
             <div id="player-v2-playing-badge" class="player-v2-playing-badge" hidden>
               <span class="player-v2-playing-badge__dot" aria-hidden="true"></span>
               <span>Playing</span>
-            </div>
-            <div id="player-v2-video-awaiting" class="player-v2-video-awaiting" hidden aria-hidden="true">
-              <button id="player-v2-video-play" class="player-v2-video-awaiting__play" type="button" aria-label="Play video" tabindex="-1">
-                <span class="player-v2-video-play__icon" aria-hidden="true"></span>
-              </button>
             </div>
             <div class="player-v2-video-bar">
               <div class="player-v2-video-bar__transport" role="group" aria-label="Video playback controls">
