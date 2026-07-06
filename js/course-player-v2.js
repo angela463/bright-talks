@@ -317,9 +317,10 @@
 
     if (isEmbed && el.videoStage) {
       var embedStarted = userStartedEmbed || embedIsPlaying;
+      var introHandoff = splashReveal && !splashActive;
       el.videoStage.classList.toggle('is-embed-playing', isPlaying && (!splashActive || splashReveal));
       el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying && !splashActive && !outroActive);
-      el.videoStage.classList.toggle('is-embed-started', embedStarted);
+      el.videoStage.classList.toggle('is-embed-started', embedStarted && (!splashActive || introHandoff));
     }
 
     if (el.playingBadge) el.playingBadge.hidden = !isPlaying || splashActive;
@@ -773,20 +774,18 @@
     if (!el.videoStage) return;
     var lesson = getCurrentLesson();
     if (el.splashAudio) el.splashAudio.pause();
-    introPlaybackStarted = false;
-    introPlaybackPaused = false;
     el.videoStage.classList.add('is-splash-reveal');
 
     if (isEmbedLesson(lesson)) {
-      revealEmbedPlayer();
-      playEmbedVideo();
-      updateEmbedVideoUI();
+      updateVideoControlsState();
       splashFadeTimer = setTimeout(function () {
         finishIntroSplash(sequenceId);
-      }, 420);
+      }, 900);
       return;
     }
 
+    introPlaybackStarted = false;
+    introPlaybackPaused = false;
     updateVideoControlsState();
 
     if (!el.heroVisual) return;
@@ -910,6 +909,7 @@
 
     prepareSplashAudio(splash);
     updateVideoControlsState();
+    startIntroPlayback(splashSequenceId);
 
     return true;
   }
