@@ -200,7 +200,7 @@
           src: talk1EmbedSrc,
           splash: {
             introAudio: talk1IntroAudio,
-            introDurationMs: 10000,
+            introDurationMs: 6000,
             logoSrc: brightTalksLogo,
             kicker: 'Talk 1',
             title: 'Bodies, Biology & Anatomy'

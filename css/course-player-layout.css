@@ -807,6 +807,7 @@
   pointer-events: none;
 }
 
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-bar,
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-bar,
 .player-v2-layout-revamp .player-v2-video-stage.is-transport-bar-visible .player-v2-video-bar {
   opacity: 1;
@@ -1058,7 +1059,7 @@
   margin-left: 5px;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage:has(.player-v2-video-bar__btn--pause:not([hidden])) .player-v2-playing-badge[hidden] {
+.player-v2-layout-revamp .player-v2-video-stage:has(.player-v2-video-bar__btn--pause:not(:disabled)) .player-v2-playing-badge[hidden] {
   display: inline-flex !important;
 }
 
@@ -1068,18 +1069,25 @@
   right: 0;
   bottom: 0;
   z-index: 7;
-  height: 50px;
+  height: 56px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 14px;
-  background: rgba(20, 10, 2, 0.72);
+  gap: 12px;
+  padding: 0 16px;
+  background: linear-gradient(180deg, rgba(12, 8, 4, 0) 0%, rgba(12, 8, 4, 0.72) 28%, rgba(12, 8, 4, 0.92) 100%);
+}
+
+.player-v2-layout-revamp .player-v2-video-bar__transport {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
 }
 
 .player-v2-layout-revamp .player-v2-video-bar__btn {
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.16);
@@ -1089,24 +1097,20 @@
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, opacity 0.15s ease;
 }
 
-.player-v2-layout-revamp .player-v2-video-bar__btn:hover {
-  background: rgba(255, 255, 255, 0.24);
+.player-v2-layout-revamp .player-v2-video-bar__btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.28);
 }
 
-.player-v2-layout-revamp .player-v2-video-bar__btn--pause::before {
-  content: '';
-  display: block;
-  width: 10px;
-  height: 12px;
-  background:
-    linear-gradient(#fff, #fff) 0 0 / 3px 100% no-repeat,
-    linear-gradient(#fff, #fff) 100% 0 / 3px 100% no-repeat;
+.player-v2-layout-revamp .player-v2-video-bar__btn.is-disabled,
+.player-v2-layout-revamp .player-v2-video-bar__btn:disabled {
+  opacity: 0.38;
+  cursor: default;
 }
 
-.player-v2-layout-revamp .player-v2-video-bar__btn--restart svg {
+.player-v2-layout-revamp .player-v2-video-bar__btn svg {
   display: block;
 }
 
