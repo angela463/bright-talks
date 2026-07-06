@@ -115,6 +115,7 @@
     readPanel: document.getElementById('player-v2-read-panel'),
     readTranscript: document.getElementById('player-v2-read-transcript'),
     playingBadge: document.getElementById('player-v2-playing-badge'),
+    embedCenterPlay: document.getElementById('player-v2-embed-center-play'),
     toast: document.getElementById('player-v2-toast'),
     lessonPosition: document.getElementById('player-v2-lesson-position'),
     prev: document.getElementById('player-v2-prev'),
@@ -315,10 +316,20 @@
     setTransportBtn(el.videoBarPause, isPlaying);
     setTransportBtn(el.videoBarRestart, true);
 
+    var embedVisible = !!(el.videoStage && el.videoStage.classList.contains('is-embed-visible'));
+    var embedStarted = userStartedEmbed || embedIsPlaying;
+    var showEmbedFrame = embedStarted || (embedVisible && !splashActive && !outroActive);
+    var showEmbedCenterPlay = isEmbed &&
+      !splashActive &&
+      !outroActive &&
+      embedVisible &&
+      showEmbedFrame &&
+      !isPlaying;
+
+    if (el.embedCenterPlay) el.embedCenterPlay.hidden = !showEmbedCenterPlay;
+    if (el.videoBarPlay) el.videoBarPlay.hidden = !!showEmbedCenterPlay;
+
     if (isEmbed && el.videoStage) {
-      var embedStarted = userStartedEmbed || embedIsPlaying;
-      var embedVisible = el.videoStage.classList.contains('is-embed-visible');
-      var showEmbedFrame = embedStarted || (embedVisible && !splashActive && !outroActive);
       el.videoStage.classList.toggle('is-embed-playing', isPlaying && (!splashActive || splashReveal));
       el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying && !splashActive && !outroActive);
       el.videoStage.classList.toggle('is-embed-started', showEmbedFrame);
@@ -1409,7 +1420,7 @@
 
   function handleVideoPlayClick(e) {
     if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
-    if (el.videoBarPlay && el.videoBarPlay.disabled) return;
+    if (el.videoBarPlay && e && e.currentTarget === el.videoBarPlay && el.videoBarPlay.disabled) return;
     var lesson = getCurrentLesson();
     if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
       if (!introPlaybackStarted) startIntroPlayback(splashSequenceId);
@@ -1725,6 +1736,14 @@
 
     if (el.videoBarPlay) el.videoBarPlay.addEventListener('click', handleVideoPlayClick);
     if (el.videoBarPause) el.videoBarPause.addEventListener('click', handleVideoPauseClick);
+
+    if (el.embedCenterPlay) {
+      bindPressFeedback(el.embedCenterPlay);
+      el.embedCenterPlay.addEventListener('click', function (e) {
+        if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+        handleVideoPlayClick(e);
+      });
+    }
 
     if (el.videoSeek) {
       el.videoSeek.addEventListener('input', function () {
