@@ -68,7 +68,7 @@
   var talk1ListenAudio =
     'https://vz-02a1a166-7fe.b-cdn.net/fb174fe3-ea85-4043-bb6f-2857f074378a/play_720p.mp4';
   var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
-  var welcomeVideoSrc = 'videos/4982409-hd_1920_1080_25fps.mp4';
+  var welcomeVideoSrc = 'videos/hero-home-loop.mp4';
   var talk1EmbedSrc =
     'https://player.mediadelivery.net/embed/695172/fb174fe3-ea85-4043-bb6f-2857f074378a' +
     '?autoplay=false&loop=false&muted=true&preload=true&responsive=true&playerjs=true';

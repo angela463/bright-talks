@@ -73,6 +73,14 @@
   z-index: 1;
 }
 
+.player-v2-layout-revamp .player-v2-top-header__cta {
+  flex-shrink: 0;
+  margin-left: auto;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
 .player-v2-layout-revamp .player-v2-top-header__burger {
   display: none;
   align-items: center;
@@ -87,27 +95,6 @@
   cursor: pointer;
   color: var(--pv2-brown);
   padding: 0;
-}
-
-.player-v2-layout-revamp .player-v2-top-header__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  flex-shrink: 0;
-  margin-left: auto;
-  position: relative;
-  z-index: 1;
-}
-
-.player-v2-layout-revamp .player-v2-top-header__sign-in {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.player-v2-layout-revamp .player-v2-top-header__back {
-  white-space: nowrap;
 }
 
 /* ─── Mobile overlay ─── */
@@ -817,7 +804,8 @@
 
 .player-v2-layout-revamp .player-v2-video-stage.is-embed-mode .player-v2-video-bar,
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-bar,
-.player-v2-layout-revamp .player-v2-video-stage.is-transport-bar-visible .player-v2-video-bar {
+.player-v2-layout-revamp .player-v2-video-stage.is-transport-bar-visible .player-v2-video-bar,
+.player-v2-layout-revamp.player-v2-mode-watch .player-v2-video-stage:not(.is-image-mode):not(.is-no-video) .player-v2-video-bar {
   opacity: 1;
   pointer-events: auto;
   z-index: 16;
@@ -1726,11 +1714,7 @@
 }
 
 @media (max-width: 620px) {
-  .player-v2-layout-revamp .player-v2-top-header__sign-in {
-    display: none;
-  }
-
-  .player-v2-layout-revamp .player-v2-top-header__back {
+  .player-v2-layout-revamp .player-v2-top-header__cta {
     padding-left: 14px;
     padding-right: 14px;
     font-size: 0.875rem;

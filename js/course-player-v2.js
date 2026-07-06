@@ -750,6 +750,15 @@
       }
       return;
     }
+    configureHeroVideoPlayback(lesson);
+    var playAttempt = el.heroVisual.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') {
+      playAttempt.catch(function () {
+        if (!isWelcomeLesson(lesson)) return;
+        el.heroVisual.muted = true;
+        el.heroVisual.play().catch(function () {});
+      });
+    }
     updateVideoUI();
   }
 
@@ -1386,7 +1395,7 @@
     var welcome = isWelcomeLesson(lesson);
     var hasSplash = !!getHeroSplash(lesson);
     el.heroVisual.muted = hasSplash ? true : !welcome;
-    el.heroVisual.loop = !welcome && !hasSplash;
+    el.heroVisual.loop = !!welcome;
   }
 
   function restartEmbedTalk(lesson) {
@@ -1629,7 +1638,7 @@
 
     if (!hv || !hv.src) {
       if (el.videoStage) el.videoStage.classList.add('is-no-video');
-      forceHeroVideo(el.heroSource.src || 'videos/4982409-hd_1920_1080_25fps.mp4', lesson);
+      forceHeroVideo(el.heroSource.src || 'videos/hero-home-loop.mp4', lesson);
       return;
     }
 
