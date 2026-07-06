@@ -761,9 +761,8 @@
   display: none;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play:not(.is-embed-started) .player-v2-hero-embed,
-.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play:not(.is-embed-started) .player-v2-hero-embed.is-visible {
-  opacity: 0;
+.player-v2-layout-revamp .player-v2-video-stage.is-embed-awaiting-play.is-embed-started .player-v2-hero-embed.is-visible {
+  opacity: 1;
   pointer-events: none;
 }
 

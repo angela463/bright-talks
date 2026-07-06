@@ -317,10 +317,11 @@
 
     if (isEmbed && el.videoStage) {
       var embedStarted = userStartedEmbed || embedIsPlaying;
-      var introHandoff = splashReveal && !splashActive;
+      var embedVisible = el.videoStage.classList.contains('is-embed-visible');
+      var showEmbedFrame = embedStarted || (embedVisible && !splashActive && !outroActive);
       el.videoStage.classList.toggle('is-embed-playing', isPlaying && (!splashActive || splashReveal));
       el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying && !splashActive && !outroActive);
-      el.videoStage.classList.toggle('is-embed-started', embedStarted && (!splashActive || introHandoff));
+      el.videoStage.classList.toggle('is-embed-started', showEmbedFrame);
     }
 
     if (el.playingBadge) el.playingBadge.hidden = !isPlaying || splashActive;
@@ -779,6 +780,7 @@
     el.videoStage.classList.add('is-splash-reveal');
 
     if (isEmbedLesson(lesson)) {
+      revealEmbedPlayer();
       updateVideoControlsState();
       splashFadeTimer = setTimeout(function () {
         finishIntroSplash(sequenceId);
