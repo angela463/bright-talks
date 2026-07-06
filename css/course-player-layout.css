@@ -799,8 +799,9 @@
 
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-reveal .player-v2-hero-embed.is-visible {
   opacity: 1;
-  pointer-events: auto;
+  pointer-events: none;
   z-index: 10;
+  transition: opacity 0.42s ease;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-reveal .player-v2-splash-center-play {
@@ -932,6 +933,7 @@
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-reveal .player-v2-title-splash {
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.42s ease;
 }
 
 .player-v2-outro-splash {
