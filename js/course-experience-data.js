@@ -74,6 +74,67 @@
     'https://player.mediadelivery.net/embed/695172/fb174fe3-ea85-4043-bb6f-2857f074378a' +
     '?autoplay=false&loop=false&muted=true&preload=true&responsive=true&playerjs=true';
 
+  var talk1ReadScript = [
+    {
+      title: 'Introduction',
+      paragraphs: [
+        'Hi, and welcome to Bright Talks.',
+        'As parents, many of us want our children to grow up feeling confident, safe, and comfortable in their own bodies. But for many families, conversations about bodies can feel awkward because no one modeled those conversations for us growing up.',
+        'The good news is that these discussions do not have to be complicated. One of the simplest ways to build confidence and body safety from an early age is by teaching children the correct names for their body parts.',
+        'Today we will talk about why that matters, how it supports healthy development, and how it creates a foundation for future conversations as your child grows.'
+      ]
+    },
+    {
+      title: 'Why Naming Body Parts Correctly Matters',
+      paragraphs: [
+        'When children are learning about the world, we naturally teach them the names of things. We teach them words like eyes, ears, elbows, knees, fingers, and toes. Private body parts are no different.',
+        'Using correct anatomical names helps children understand that every part of their body has value and purpose. It removes confusion and helps normalize healthy conversations about bodies.',
+        'Sometimes parents use nicknames or phrases like “private parts” or “no-no zones” because it feels more comfortable. While these terms are often well-intentioned, they can sometimes create confusion or unintentionally communicate that certain parts of the body are embarrassing or shameful.',
+        'Instead, using accurate language helps children understand their bodies in a healthy, age-appropriate way.'
+      ]
+    },
+    {
+      title: 'Building Confidence and Communication',
+      paragraphs: [
+        'Teaching correct body terminology is not about introducing adult topics too early. It is about helping children develop confidence and communication skills.',
+        'When children have the vocabulary to describe their bodies, they become more comfortable asking questions, expressing concerns, and talking openly with trusted adults. This creates an environment where conversations feel natural rather than awkward.',
+        'And when children know they can ask questions without fear or embarrassment, they are much more likely to come to their parents when they need guidance.'
+      ]
+    },
+    {
+      title: 'Supporting Body Safety',
+      paragraphs: [
+        'There is also an important safety benefit. If a child is injured, experiencing discomfort, or needs medical attention, using correct terminology helps them communicate clearly with parents, caregivers, and healthcare providers.',
+        'Clear language reduces misunderstanding and helps adults respond appropriately when children need help. Body safety begins with body awareness, and body awareness begins with understanding our bodies.'
+      ]
+    },
+    {
+      title: 'Looking Ahead: Preparing for Future Conversations',
+      paragraphs: [
+        'Many parents worry that teaching correct body terminology will lead to questions they are not ready to answer. In reality, these early conversations often make future discussions much easier.',
+        'Children who grow up hearing age-appropriate information from trusted parents are often more comfortable talking about sensitive topics later in life. As children mature, parents can gradually introduce conversations about relationships, intimacy, sexuality, reproduction, and God’s design for marriage and family.',
+        'These discussions do not need to happen all at once. The goal is many small conversations over time. Each conversation builds upon the last.'
+      ]
+    },
+    {
+      title: 'A Christian Perspective',
+      paragraphs: [
+        'As Christian parents, we believe our bodies are created by God and are inherently good. Teaching children about their bodies is not something to fear. It is an opportunity to help them understand their value, dignity, and purpose.',
+        'When conversations about bodies are grounded in truth, love, and respect, children learn that their bodies are gifts to be cared for and stewarded well. This foundation also prepares them to understand God’s design for relationships, marriage, intimacy, and sexuality as they grow older.'
+      ]
+    },
+    {
+      title: 'Wrapping Up',
+      paragraphs: [
+        'As we close this lesson, remember that you do not need to have all the answers, and you do not need to have one perfect conversation. What matters most is that you are willing to start.',
+        'Every small conversation you have with your child helps build trust, confidence, and connection. By teaching them about their bodies in a healthy, age-appropriate way, you are creating a foundation for future conversations that will feel more natural and less intimidating as they grow.',
+        'If this feels new or uncomfortable, that is okay. Many parents are learning alongside their children. The fact that you are here, investing time in these conversations, already makes a difference.',
+        'Take a moment to reflect on one small step you can take this week. Maybe it is introducing correct body terminology, answering a question with confidence, or simply creating space for curiosity and conversation. You do not have to do everything today. Just take the next step.',
+        'In our next lesson, we will build on this foundation by exploring boundaries and body safety — helping children understand personal space, consent, trusted adults, and how to communicate when something does not feel right.'
+      ]
+    }
+  ];
+
   var courseHeroImages = {
     earlyYears: 'images/pexels-julia-m-cameron-4144230.jpg',
     middleChildhood: 'images/pexels-julia-m-cameron-4144531.jpg',
@@ -112,6 +173,11 @@
   }
 
   function transcriptFromLesson(lesson) {
+    if (lesson.readScript && lesson.readScript.length) {
+      return lesson.readScript.map(function (sec) {
+        return [sec.title].concat(sec.paragraphs || []).join('\n\n');
+      }).join('\n\n');
+    }
     var parts = [lesson.title, lesson.summary];
     (lesson.sections || []).forEach(function (sec) {
       parts.push(sec.title);
@@ -133,6 +199,7 @@
       heroVisual: opts.heroVisual,
       sections: opts.sections
     };
+    if (opts.readScript) lesson.readScript = opts.readScript;
     lesson.audio = lessonAudio(
       opts.audioUrl || sampleAudio,
       opts.transcript || transcriptFromLesson(lesson),
@@ -196,6 +263,7 @@
         audioDuration: '05:54',
         audioUrl: talk1ListenAudio,
         audioVoice: 'Heidi Cooper',
+        readScript: talk1ReadScript,
         heroVisual: {
           type: 'embed',
           src: talk1EmbedSrc,
@@ -222,17 +290,17 @@
             title: 'Age-Based Guidance',
             type: 'prose',
             paragraphs: [
-              'Ages 3 to 4: Short labels during care routines. “This is your arm, this is your knee.” Keep tone matter-of-fact, like naming colors.',
-              'Ages 5 to 6: Add privacy language. “Some parts are private. We use real names so you always know what I mean.”',
-              'Video placeholders for age bands (3 to 4 and 5 to 6) will be added here. Use the handbook and scripts below until those clips are ready.'
+              'Ages 3 to 4: Short labels during care routines. “This is your arm, this is your knee.” Keep your tone matter-of-fact, like naming colors.',
+              'Ages 5 to 6: Add privacy language. “Some parts are private. We use real names so you always know what I mean.”'
             ]
           },
           {
-            title: 'Why Naming Matters',
-            type: 'prose',
-            paragraphs: [
-              'Clear names reduce confusion and help children tell a trusted adult if something feels wrong. Nicknames alone can make it harder for a child to be understood in a stressful moment.',
-              'You can pair warmth with accuracy: “Some families use a nickname, and the real name is ___.” Shame-free language teaches that every part of the body deserves respect.'
+            title: 'Phrases to Try',
+            type: 'scripts',
+            scripts: [
+              '“Every part of your body has a name. We use real names so you always know what I mean.”',
+              '“Your body is strong and good. Some parts are private. We only touch them for washing or health.”',
+              '“If something feels confusing or uncomfortable, you can always tell me.”'
             ]
           },
           {

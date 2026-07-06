@@ -1392,6 +1392,23 @@
   text-wrap: pretty;
 }
 
+.player-v2-layout-revamp .player-v2-read-script {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.player-v2-layout-revamp .player-v2-section-card--read .player-v2-section-card__title {
+  font-size: 21px;
+}
+
+.player-v2-layout-revamp .player-v2-section-card--read .player-v2-section-card__p {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  line-height: 1.82;
+  color: #3A3328;
+}
+
 .player-v2-layout-revamp .player-v2-read-panel__body p:last-child {
   margin-bottom: 0;
 }

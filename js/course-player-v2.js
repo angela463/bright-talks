@@ -1201,6 +1201,22 @@
 
   function renderReadTranscript(lesson) {
     if (!el.readTranscript) return;
+    if (lesson.readScript && lesson.readScript.length) {
+      el.readTranscript.innerHTML =
+        '<div class="player-v2-read-script">' +
+        lesson.readScript.map(function (sec, i) {
+          var sid = 'player-v2-read-sec-' + i;
+          var h = '<section class="player-v2-section-card player-v2-section-card--read" aria-labelledby="' + sid + '">';
+          h += '<h3 id="' + sid + '" class="player-v2-section-card__title">' + escText(sec.title) + '</h3>';
+          (sec.paragraphs || []).forEach(function (p) {
+            h += '<p class="player-v2-section-card__p">' + escText(p) + '</p>';
+          });
+          h += '</section>';
+          return h;
+        }).join('') +
+        '</div>';
+      return;
+    }
     var transcript = lesson.audio && lesson.audio.transcript;
     if (!transcript) {
       el.readTranscript.innerHTML = '<p>Transcript is not available for this talk yet.</p>';
