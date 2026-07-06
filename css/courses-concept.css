@@ -1,33 +1,18 @@
-/* courses-concept.css — experimental editorial courses landing */
+/* courses-concept.css — courses landing (grey/beige + orange course accents) */
 
 .page-courses-concept {
-  --cc-bg: #f5f0e8;
-  --cc-surface: #fffdf9;
-  --cc-cream: #faf8f4;
-  --cc-peach: #fde8d8;
-  --cc-peach-soft: #fff4eb;
-  --cc-ink: #2c2622;
-  --cc-muted: #6f6258;
-  --cc-brown: #4a3f38;
+  --cc-bg: #e8e4de;
+  --cc-surface: #f5f2ec;
+  --cc-cream: #efebe4;
+  --cc-ink: #2e2a26;
+  --cc-muted: #6f6860;
+  --cc-brown: #4a4540;
+  --cc-grey-border: rgba(110, 102, 94, 0.22);
   --cc-accent: #e8954a;
   --cc-accent-dark: #c97432;
-  --cc-yellow: #f4d78a;
-  --cc-border: rgba(203, 157, 112, 0.32);
   --cc-max: 72rem;
   color: var(--cc-ink);
-  background:
-    radial-gradient(ellipse 90% 55% at 12% -8%, rgba(255, 244, 230, 0.9) 0%, transparent 52%),
-    radial-gradient(ellipse 70% 45% at 95% 15%, rgba(253, 232, 210, 0.55) 0%, transparent 48%),
-    var(--cc-bg);
-}
-
-.page-courses-concept .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255, 253, 249, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(203, 157, 112, 0.22);
+  background: var(--cc-bg);
 }
 
 .cc-main {
@@ -109,36 +94,16 @@
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
 
-.cc-welcome-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.65rem;
-  margin-top: 1.15rem;
-}
-
-.cc-welcome-hero__cta {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-}
-
-.cc-welcome-hero__note {
-  margin: 0.95rem 0 0;
-  max-width: 32rem;
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: rgba(255, 252, 248, 0.88);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-}
-
 /* ─── Section headers ─── */
 .cc-section {
   padding: clamp(2rem, 4vw, 3rem) 0;
+  background: var(--cc-surface);
 }
 
 .cc-section--cream {
-  background: linear-gradient(180deg, rgba(255, 253, 249, 0.65) 0%, rgba(250, 248, 244, 0.9) 100%);
-  border-top: 1px solid rgba(203, 157, 112, 0.18);
-  border-bottom: 1px solid rgba(203, 157, 112, 0.18);
+  background: var(--cc-cream);
+  border-top: 1px solid var(--cc-grey-border);
+  border-bottom: 1px solid var(--cc-grey-border);
 }
 
 .cc-section__header {
@@ -151,7 +116,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cc-accent-dark);
+  color: var(--cc-muted);
 }
 
 .cc-section__title {
@@ -160,6 +125,7 @@
   font-size: clamp(1.85rem, 4vw, 2.75rem);
   line-height: 1.08;
   letter-spacing: -0.02em;
+  color: var(--cc-ink);
 }
 
 .cc-section__intro {
@@ -169,12 +135,12 @@
   line-height: 1.62;
 }
 
-/* ─── Lesson list (editorial rows) ─── */
+/* ─── Lesson list (orange accents on left numbers + CTAs) ─── */
 .cc-lesson-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 2px solid var(--cc-ink);
+  border-top: 2px solid rgba(74, 69, 64, 0.35);
 }
 
 .cc-lesson-row {
@@ -183,11 +149,11 @@
   gap: clamp(0.75rem, 2vw, 1.5rem);
   align-items: start;
   padding: clamp(1rem, 2.2vw, 1.35rem) 0;
-  border-bottom: 1px solid rgba(203, 157, 112, 0.28);
+  border-bottom: 1px solid var(--cc-grey-border);
 }
 
 .cc-lesson-row--welcome {
-  background: linear-gradient(90deg, rgba(244, 215, 138, 0.14) 0%, transparent 42%);
+  background: linear-gradient(90deg, rgba(232, 149, 74, 0.08) 0%, transparent 42%);
   margin: 0 -0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -208,7 +174,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--cc-brown);
+  color: var(--cc-accent-dark);
 }
 
 .cc-lesson-row__body h3 {
@@ -216,6 +182,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 2vw, 1.35rem);
   line-height: 1.2;
+  color: var(--cc-ink);
 }
 
 .cc-lesson-row__body p {
@@ -238,7 +205,7 @@
 .cc-lesson-row__time {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--cc-brown);
+  color: var(--cc-muted);
   white-space: nowrap;
 }
 
@@ -253,24 +220,24 @@
 }
 
 .cc-lesson-row__status--start {
-  background: rgba(232, 149, 74, 0.18);
+  background: rgba(232, 149, 74, 0.16);
   color: var(--cc-accent-dark);
 }
 
 .cc-lesson-row__status--ready {
-  background: rgba(244, 215, 138, 0.4);
+  background: rgba(110, 102, 94, 0.12);
   color: var(--cc-brown);
 }
 
 .cc-lesson-row__status--soon {
-  background: rgba(203, 157, 112, 0.16);
+  background: rgba(110, 102, 94, 0.1);
   color: var(--cc-muted);
 }
 
 .cc-lesson-row__link {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--cc-accent-dark);
+  color: var(--cc-brown);
   text-decoration: none;
 }
 
@@ -289,7 +256,7 @@
   font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(201, 116, 50, 0.25);
+  box-shadow: 0 4px 12px rgba(201, 116, 50, 0.22);
   transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -298,7 +265,7 @@
   color: #fff;
   text-decoration: none;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(201, 116, 50, 0.3);
+  box-shadow: 0 6px 16px rgba(201, 116, 50, 0.26);
 }
 
 .cc-lesson-row__link--soon {
@@ -310,7 +277,7 @@
   text-decoration: none;
 }
 
-/* ─── Course series cards ─── */
+/* ─── Course series cards (neutral; orange on course number only) ─── */
 .cc-series-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -323,15 +290,15 @@
   min-height: 100%;
   padding: clamp(1rem, 2.2vw, 1.35rem);
   border-radius: 1.1rem;
-  border: 1px solid var(--cc-border);
-  background: var(--cc-surface);
-  box-shadow: 0 12px 30px rgba(74, 55, 38, 0.06);
+  border: 1px solid var(--cc-grey-border);
+  background: #f9f7f3;
+  box-shadow: 0 8px 22px rgba(46, 42, 38, 0.04);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cc-series-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgba(74, 55, 38, 0.1);
+  box-shadow: 0 12px 28px rgba(46, 42, 38, 0.07);
 }
 
 .cc-series-card__top {
@@ -354,10 +321,10 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--cc-brown);
+  color: var(--cc-muted);
   padding: 0.22rem 0.55rem;
   border-radius: 999px;
-  background: rgba(244, 215, 138, 0.35);
+  background: rgba(110, 102, 94, 0.1);
 }
 
 .cc-series-card__title {
@@ -365,6 +332,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 2.2vw, 1.55rem);
   line-height: 1.15;
+  color: var(--cc-ink);
 }
 
 .cc-series-card__desc {
@@ -382,7 +350,7 @@
   gap: 0.75rem;
   margin-top: 1rem;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(203, 157, 112, 0.22);
+  border-top: 1px solid var(--cc-grey-border);
 }
 
 .cc-series-card__status {
@@ -390,10 +358,11 @@
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+  color: var(--cc-muted);
 }
 
-.cc-series-card__status--available { color: #9a5c28; }
-.cc-series-card__status--progress { color: var(--cc-accent-dark); }
+.cc-series-card__status--available { color: var(--cc-brown); }
+.cc-series-card__status--progress { color: var(--cc-muted); }
 .cc-series-card__status--soon { color: var(--cc-muted); }
 
 .cc-series-card__btn {
@@ -402,30 +371,43 @@
   justify-content: center;
   padding: 0.5rem 0.95rem;
   border-radius: 999px;
-  border: 1px solid rgba(203, 157, 112, 0.45);
+  border: 1px solid var(--cc-grey-border);
   background: #fff;
   color: var(--cc-ink);
   font-size: 0.84rem;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .cc-series-card__btn--primary {
-  background: linear-gradient(165deg, var(--cc-accent) 0%, var(--cc-accent-dark) 100%);
+  background: var(--cc-brown);
   border-color: transparent;
   color: #fff;
 }
 
 .cc-series-card__btn:hover {
-  border-color: var(--cc-accent);
-  color: var(--cc-accent-dark);
+  border-color: rgba(110, 102, 94, 0.45);
+  background: #f3f0eb;
+  color: var(--cc-ink);
 }
 
 .cc-series-card__btn--primary:hover {
+  background: #3d3834;
   color: #fff;
-  filter: brightness(1.03);
+  filter: none;
+}
+
+/* ─── Footer on courses page ─── */
+.page-courses-concept .site-footer--landing {
+  background: #e3dfd8;
+  border-top: 1px solid var(--cc-grey-border);
+}
+
+.page-courses-concept .footer-copy,
+.page-courses-concept .footer-privacy {
+  color: var(--cc-muted);
 }
 
 /* ─── Responsive ─── */
