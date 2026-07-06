@@ -65,8 +65,9 @@
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio/Soft Start, Safe Space.mp3';
   var talk1IntroAudio = 'audio/Warm Windows, Open Minds.mp3';
-  var talk1ListenAudio =
+  var talk1VideoSrc =
     'https://vz-02a1a166-7fe.b-cdn.net/fb174fe3-ea85-4043-bb6f-2857f074378a/play_720p.mp4';
+  var talk1ListenAudio = talk1VideoSrc;
   var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
   var welcomeVideoSrc = 'videos/hero-home-loop.mp4';
   var talk1EmbedSrc =
@@ -198,6 +199,7 @@
         heroVisual: {
           type: 'embed',
           src: talk1EmbedSrc,
+          previewSrc: talk1VideoSrc,
           splash: {
             introAudio: talk1IntroAudio,
             introDurationMs: 6000,

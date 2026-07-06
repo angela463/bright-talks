@@ -22,6 +22,8 @@
   var bunnyPlayer = null;
   var embedIsPlaying = false;
   var embedPendingPlay = false;
+  var embedPendingSeek = 0;
+  var embedFrozenTime = 0;
   var introSplashLessonKey = '';
   var userStartedEmbed = false;
   var introPlaybackStarted = false;
@@ -209,6 +211,78 @@
     return hv && hv.splash ? hv.splash : null;
   }
 
+  function getEmbedPreviewSrc(lesson) {
+    var hv = lesson && lesson.heroVisual;
+    return hv && hv.previewSrc ? hv.previewSrc : '';
+  }
+
+  function setEmbedIframeVisible(visible) {
+    if (!el.heroEmbed) return;
+    el.heroEmbed.classList.toggle('is-visible', visible);
+    el.heroEmbed.classList.toggle('is-splash-hidden', !visible);
+  }
+
+  function syncEmbedFrozenFrame(shouldShow) {
+    var lesson = getCurrentLesson();
+    if (!isEmbedLesson(lesson) || !el.heroVisual || !el.heroSource) return;
+
+    var previewSrc = getEmbedPreviewSrc(lesson);
+    if (!shouldShow || !previewSrc) {
+      el.heroVisual.classList.remove('is-embed-preview');
+      if (!shouldShow) {
+        el.heroVisual.pause();
+        if (!isWelcomeLesson(lesson)) el.heroVisual.hidden = true;
+      }
+      return;
+    }
+
+    setEmbedIframeVisible(false);
+    el.heroVisual.hidden = false;
+    el.heroVisual.classList.remove('is-splash-hidden');
+    el.heroVisual.classList.add('is-embed-preview');
+    el.heroVisual.muted = true;
+    el.heroVisual.loop = false;
+    el.heroVisual.setAttribute('playsinline', '');
+    el.heroVisual.setAttribute('webkit-playsinline', '');
+    el.heroVisual.preload = 'metadata';
+
+    if (el.heroSource.getAttribute('src') !== previewSrc) {
+      el.heroSource.src = previewSrc;
+      el.heroSource.type = videoMimeFromSrc(previewSrc);
+      el.heroVisual.load();
+    }
+
+    var seekTo = embedFrozenTime || 0;
+    function applySeek() {
+      try {
+        if (seekTo > 0.25) el.heroVisual.currentTime = seekTo;
+        else el.heroVisual.currentTime = 0;
+      } catch (err) {}
+      el.heroVisual.pause();
+    }
+
+    if (el.heroVisual.readyState >= 1) applySeek();
+    else el.heroVisual.addEventListener('loadeddata', applySeek, { once: true });
+  }
+
+  function seekEmbedThenPlay(time) {
+    if (!bunnyPlayer) return;
+    var start = function () {
+      embedPendingSeek = 0;
+      unmuteAndPlayEmbed();
+    };
+    if (time > 0.25) {
+      if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'setCurrentTime')) {
+        bunnyPlayer.setCurrentTime(time);
+      } else if (typeof bunnyPlayer.setCurrentTime === 'function') {
+        bunnyPlayer.setCurrentTime(time);
+      }
+      setTimeout(start, 120);
+      return;
+    }
+    start();
+  }
+
   function isEmbedLesson(lesson) {
     return !!(lesson && lesson.heroVisual && lesson.heroVisual.type === 'embed');
   }
@@ -329,6 +403,15 @@
     if (el.embedCenterPlay) el.embedCenterPlay.hidden = !showEmbedCenterPlay;
     if (el.videoBarPlay) el.videoBarPlay.hidden = !!showEmbedCenterPlay;
 
+    var showFrozenFrame = isEmbed &&
+      !isPlaying &&
+      !splashActive &&
+      !outroActive &&
+      embedVisible &&
+      showEmbedFrame;
+    syncEmbedFrozenFrame(showFrozenFrame);
+    if (isEmbed && isPlaying) setEmbedIframeVisible(true);
+
     if (isEmbed && el.videoStage) {
       el.videoStage.classList.toggle('is-embed-playing', isPlaying && (!splashActive || splashReveal));
       el.videoStage.classList.toggle('is-embed-awaiting-play', !isPlaying && !splashActive && !outroActive);
@@ -360,6 +443,8 @@
     bunnyPlayer = null;
     embedIsPlaying = false;
     embedPendingPlay = false;
+    embedPendingSeek = 0;
+    embedFrozenTime = 0;
     userStartedEmbed = false;
   }
 
@@ -392,6 +477,7 @@
       return;
     }
     var shouldPlay = embedPendingPlay;
+    var seekOnReady = embedPendingSeek;
     bunnyPlayer = null;
     embedIsPlaying = false;
     bunnyPlayer = new window.playerjs.Player(el.heroEmbed);
@@ -400,7 +486,8 @@
       updateEmbedVideoUI();
       if (userStartedEmbed && (shouldPlay || embedPendingPlay)) {
         embedPendingPlay = false;
-        unmuteAndPlayEmbed();
+        if (seekOnReady > 0.25) seekEmbedThenPlay(seekOnReady);
+        else unmuteAndPlayEmbed();
       }
     });
     bunnyPlayer.on('play', function () {
@@ -409,11 +496,24 @@
         return;
       }
       embedIsPlaying = true;
+      syncEmbedFrozenFrame(false);
+      setEmbedIframeVisible(true);
       updateEmbedVideoUI();
     });
     bunnyPlayer.on('pause', function () {
+      if (!userStartedEmbed) {
+        pauseEmbedIfAutostarted();
+        return;
+      }
       embedIsPlaying = false;
-      updateEmbedVideoUI();
+      if (typeof bunnyPlayer.getCurrentTime === 'function') {
+        bunnyPlayer.getCurrentTime(function (time) {
+          embedFrozenTime = Number(time) || 0;
+          updateEmbedVideoUI();
+        });
+      } else {
+        updateEmbedVideoUI();
+      }
     });
     bunnyPlayer.on('ended', function () {
       embedIsPlaying = false;
@@ -423,12 +523,22 @@
 
   function playEmbedVideo() {
     userStartedEmbed = true;
+    var seekTo = embedFrozenTime;
+    embedFrozenTime = 0;
+    syncEmbedFrozenFrame(false);
+    setEmbedIframeVisible(true);
+    embedPendingSeek = seekTo;
+
     if (!bunnyPlayer) {
       embedPendingPlay = true;
       setupBunnyPlayer();
       return;
     }
-    unmuteAndPlayEmbed();
+    if (seekTo > 0.25) seekEmbedThenPlay(seekTo);
+    else {
+      embedPendingSeek = 0;
+      unmuteAndPlayEmbed();
+    }
   }
 
   function pauseEmbedVideo() {
@@ -487,7 +597,6 @@
   function revealEmbedPlayer() {
     if (!el.heroEmbed) return;
     el.heroEmbed.classList.remove('is-splash-hidden');
-    el.heroEmbed.classList.add('is-visible');
     if (el.videoStage) el.videoStage.classList.add('is-embed-visible');
     updateEmbedVideoUI();
   }
@@ -497,11 +606,14 @@
 
     userStartedEmbed = false;
     embedIsPlaying = false;
+    embedFrozenTime = 0;
+    embedPendingSeek = 0;
 
     el.heroImage.hidden = true;
     el.heroImage.removeAttribute('src');
     el.heroVisual.pause();
     el.heroVisual.hidden = true;
+    el.heroVisual.classList.remove('is-embed-preview');
 
     if (el.videoStage) {
       el.videoStage.classList.remove('is-embed-visible', 'is-embed-playing', 'is-embed-awaiting-play', 'is-embed-started');
