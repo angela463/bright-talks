@@ -1272,6 +1272,18 @@
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-embed-center-play,
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-embed-play-shield {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-embed-booting {
+  background: #101010;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-embed-booting .player-v2-hero-embed {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar {

@@ -415,6 +415,7 @@
     if (active) {
       talk1MainDurationSec = parseDurationToSeconds(lesson.audio && lesson.audio.duration) || 354;
       applyTalk1Volume();
+      hideTalk1EmbedOverlays();
       updateTalk1VideoUI();
     } else {
       resetTalk1PlayerState();
@@ -480,23 +481,78 @@
     updateVideoControlsState();
   }
 
+  function hideTalk1EmbedOverlays() {
+    if (el.embedCenterPlay) {
+      el.embedCenterPlay.hidden = true;
+      el.embedCenterPlay.setAttribute('hidden', '');
+    }
+    if (el.embedPlayShield) {
+      el.embedPlayShield.hidden = true;
+      el.embedPlayShield.setAttribute('hidden', '');
+    }
+  }
+
+  function getTalk1EmbedParams(forPlayback) {
+    return {
+      autoplay: forPlayback ? 'true' : 'false',
+      loop: 'false',
+      muted: forPlayback ? 'false' : 'true',
+      preload: 'true',
+      responsive: 'true',
+      playerjs: 'true',
+      compactControls: 'true'
+    };
+  }
+
+  function revealTalk1EmbedWhenPlaying() {
+    if (!isTalk1Lesson(getCurrentLesson())) return;
+    if (el.heroEmbed) {
+      el.heroEmbed.classList.remove('is-splash-hidden');
+      el.heroEmbed.classList.add('is-visible');
+    }
+    if (el.videoStage) {
+      el.videoStage.classList.add('is-embed-started', 'is-embed-playing');
+      el.videoStage.classList.remove('is-talk1-embed-booting', 'is-embed-awaiting-play');
+    }
+    hideTalk1EmbedOverlays();
+    updateTalk1VideoUI();
+  }
+
   function autoPlayTalk1MainVideo() {
     var lesson = getCurrentLesson();
     if (!isTalk1Lesson(lesson)) return;
     talk1Phase = 'main';
     userStartedEmbed = true;
     embedPendingPlay = true;
-    if (el.embedCenterPlay) el.embedCenterPlay.hidden = true;
-    if (el.embedPlayShield) el.embedPlayShield.hidden = true;
-    revealEmbedPlayer();
+    hideTalk1EmbedOverlays();
     if (el.videoStage) {
-      el.videoStage.classList.add('is-embed-started', 'is-embed-playing');
+      el.videoStage.classList.add('is-embed-mode', 'is-embed-visible', 'is-talk1-embed-booting');
       el.videoStage.classList.remove('is-embed-awaiting-play');
+    }
+    if (el.heroEmbed) {
+      el.heroEmbed.classList.add('is-splash-hidden');
+      el.heroEmbed.classList.remove('is-visible');
+      var nextSrc = embedSrcWithParams(lesson.heroVisual.src, getTalk1EmbedParams(true));
+      if (el.heroEmbed.src !== nextSrc) {
+        destroyBunnyPlayer();
+        el.heroEmbed.src = nextSrc;
+        el.heroEmbed.onload = function () {
+          setupBunnyPlayer();
+        };
+      } else if (!bunnyPlayer) {
+        setupBunnyPlayer();
+      }
     }
     playEmbedVideo();
     applyTalk1Volume();
     startTalk1ProgressPolling();
     updateTalk1VideoUI();
+    setTimeout(function () {
+      if (!isTalk1Lesson(getCurrentLesson())) return;
+      if (talk1Phase !== 'main') return;
+      if (!el.videoStage || !el.videoStage.classList.contains('is-talk1-embed-booting')) return;
+      revealTalk1EmbedWhenPlaying();
+    }, 2500);
   }
 
   function seekTalk1Unified(ratio) {
@@ -529,16 +585,21 @@
 
     talk1Phase = 'main';
     hideTitleSplash();
-    if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
-    revealEmbedPlayer();
+    if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal', 'is-talk1-embed-booting');
     userStartedEmbed = true;
     talk1EmbedCurrentSec = Math.max(0, target - introSec);
+    hideTalk1EmbedOverlays();
 
     function seekEmbed() {
       if (!bunnyPlayer || !bunnyPlayer.setCurrentTime) return;
       bunnyPlayer.setCurrentTime(talk1EmbedCurrentSec);
       applyTalk1Volume();
-      if (isTalk1Playing()) bunnyPlayer.play();
+      if (isTalk1Playing()) {
+        bunnyPlayer.play();
+        revealTalk1EmbedWhenPlaying();
+      } else {
+        revealTalk1EmbedWhenPlaying();
+      }
     }
 
     if (!bunnyPlayer) {
@@ -694,7 +755,10 @@
       el.audio &&
       el.audio.paused;
     var showCenterPlay = showEmbedCenterPlay || showWelcomeCenterPlay;
-    if (isTalk1Lesson(lesson)) showCenterPlay = false;
+    if (isTalk1Lesson(lesson)) {
+      showCenterPlay = false;
+      hideTalk1EmbedOverlays();
+    }
 
     if (el.embedCenterPlay) el.embedCenterPlay.hidden = !showCenterPlay;
     if (el.embedPlayShield) el.embedPlayShield.hidden = !showCenterPlay;
@@ -739,6 +803,7 @@
   }
 
   function pauseEmbedIfAutostarted() {
+    if (isTalk1Lesson(getCurrentLesson())) return;
     if (!bunnyPlayer || userStartedEmbed) return;
     try {
       bunnyPlayer.pause();
@@ -794,7 +859,10 @@
         return;
       }
       embedIsPlaying = true;
-      if (isTalk1Lesson(getCurrentLesson())) talk1Phase = 'main';
+      if (isTalk1Lesson(getCurrentLesson())) {
+        revealTalk1EmbedWhenPlaying();
+        talk1Phase = 'main';
+      }
       updateEmbedVideoUI();
     });
     bunnyPlayer.on('pause', function () {
@@ -868,14 +936,17 @@
     }
     el.heroEmbed.classList.add('is-splash-hidden');
     el.heroEmbed.classList.remove('is-visible');
-    var nextSrc = embedSrcWithParams(lesson.heroVisual.src, {
-      autoplay: 'false',
-      loop: 'false',
-      muted: 'true',
-      preload: 'true',
-      responsive: 'true',
-      playerjs: 'true'
-    });
+    var embedParams = isTalk1Lesson(lesson)
+      ? getTalk1EmbedParams(false)
+      : {
+        autoplay: 'false',
+        loop: 'false',
+        muted: 'true',
+        preload: 'true',
+        responsive: 'true',
+        playerjs: 'true'
+      };
+    var nextSrc = embedSrcWithParams(lesson.heroVisual.src, embedParams);
     if (el.heroEmbed.src !== nextSrc) {
       el.heroEmbed.src = nextSrc;
       el.heroEmbed.onload = function () {
@@ -1356,6 +1427,7 @@
           return;
         }
         embedIsPlaying = true;
+        if (isTalk1Lesson(lesson)) revealTalk1EmbedWhenPlaying();
         updateEmbedVideoUI();
       }
       if (evt === 'pause') {
