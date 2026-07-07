@@ -266,6 +266,7 @@
         readScript: talk1ReadScript,
         heroVisual: {
           type: 'embed',
+          playerStyle: 'unified',
           src: talk1EmbedSrc,
           previewSrc: talk1VideoSrc,
           splash: {

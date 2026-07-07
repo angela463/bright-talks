@@ -22,6 +22,13 @@
   var bunnyPlayer = null;
   var embedIsPlaying = false;
   var embedPendingPlay = false;
+  var talk1Phase = 'idle';
+  var talk1MainDurationSec = 354;
+  var talk1EmbedCurrentSec = 0;
+  var talk1ProgressTimer = null;
+  var talk1Volume = 1;
+  var talk1Muted = false;
+  var talk1Seeking = false;
   var introSplashLessonKey = '';
   var userStartedEmbed = false;
   var welcomePromoInstance = null;
@@ -94,6 +101,10 @@
     videoBarPlay: document.getElementById('player-v2-video-bar-play'),
     videoSeek: document.getElementById('player-v2-video-seek'),
     videoTime: document.getElementById('player-v2-video-time'),
+    videoBarMute: document.getElementById('player-v2-video-bar-mute'),
+    videoBarVolume: document.getElementById('player-v2-video-bar-volume'),
+    videoBarVolumeWrap: document.getElementById('player-v2-video-bar-volume-wrap'),
+    videoBarFullscreen: document.getElementById('player-v2-video-bar-fullscreen'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
     sidebarCourseNav: document.getElementById('player-v2-sidebar-course-nav'),
     progressFill: document.getElementById('player-v2-progress-fill'),
@@ -337,6 +348,221 @@
     return !!(lesson && lesson.heroVisual && lesson.heroVisual.type === 'embed');
   }
 
+  function isTalk1Lesson(lesson) {
+    return !!(lesson && lesson.id === 'lesson-1-bodies');
+  }
+
+  function parseDurationToSeconds(label) {
+    var raw = String(label || '').trim();
+    if (!raw) return 0;
+    var parts = raw.split(':').map(function (part) {
+      return Number(part);
+    });
+    if (parts.some(function (n) { return Number.isNaN(n); })) return 0;
+    if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    if (parts.length === 2) return parts[0] * 60 + parts[1];
+    return parts[0] || 0;
+  }
+
+  function getTalk1IntroDurationSec(lesson) {
+    return getIntroDurationMs(getHeroSplash(lesson)) / 1000;
+  }
+
+  function getTalk1TotalDurationSec(lesson) {
+    return getTalk1IntroDurationSec(lesson) + talk1MainDurationSec;
+  }
+
+  function stopTalk1ProgressPolling() {
+    if (talk1ProgressTimer) {
+      clearInterval(talk1ProgressTimer);
+      talk1ProgressTimer = null;
+    }
+  }
+
+  function startTalk1ProgressPolling() {
+    if (!isTalk1Lesson(getCurrentLesson())) return;
+    stopTalk1ProgressPolling();
+    talk1ProgressTimer = setInterval(function () {
+      var lesson = getCurrentLesson();
+      if (!isTalk1Lesson(lesson)) return;
+      if (talk1Phase === 'intro' && el.splashAudio && !el.splashAudio.paused) {
+        updateTalk1VideoUI();
+        return;
+      }
+      if (talk1Phase !== 'main' || !bunnyPlayer) return;
+      if (bunnyPlayer.getCurrentTime) {
+        bunnyPlayer.getCurrentTime(function (seconds) {
+          talk1EmbedCurrentSec = Number(seconds) || 0;
+          updateTalk1VideoUI();
+        });
+      }
+    }, 250);
+  }
+
+  function resetTalk1PlayerState() {
+    talk1Phase = 'idle';
+    talk1EmbedCurrentSec = 0;
+    talk1Seeking = false;
+    stopTalk1ProgressPolling();
+  }
+
+  function syncTalk1PlayerChrome(lesson) {
+    var active = isTalk1Lesson(lesson);
+    if (el.videoStage) el.videoStage.classList.toggle('is-talk1-player', active);
+    if (el.videoBarVolumeWrap) el.videoBarVolumeWrap.hidden = !active;
+    if (el.videoBarFullscreen) el.videoBarFullscreen.hidden = !active;
+    if (el.videoBarRestart) el.videoBarRestart.hidden = active;
+    if (active) {
+      talk1MainDurationSec = parseDurationToSeconds(lesson.audio && lesson.audio.duration) || 354;
+      applyTalk1Volume();
+      updateTalk1VideoUI();
+    } else {
+      resetTalk1PlayerState();
+    }
+  }
+
+  function applyTalk1Volume() {
+    var level = talk1Muted ? 0 : talk1Volume;
+    if (el.splashAudio) el.splashAudio.volume = level;
+    if (el.videoBarVolume) el.videoBarVolume.value = String(Math.round(talk1Volume * 100));
+    if (el.videoBarMute) {
+      el.videoBarMute.setAttribute('aria-pressed', talk1Muted ? 'true' : 'false');
+      el.videoBarMute.setAttribute('aria-label', talk1Muted ? 'Unmute' : 'Mute');
+      var iconVol = el.videoBarMute.querySelector('.player-v2-video-bar__icon-volume');
+      var iconMuted = el.videoBarMute.querySelector('.player-v2-video-bar__icon-muted');
+      if (iconVol) iconVol.hidden = talk1Muted;
+      if (iconMuted) iconMuted.hidden = !talk1Muted;
+    }
+    if (!bunnyPlayer) return;
+    if (talk1Muted) {
+      if (bunnyPlayer.mute) bunnyPlayer.mute();
+      else if (bunnyPlayer.setVolume) bunnyPlayer.setVolume(0);
+      return;
+    }
+    if (bunnyPlayer.unmute) bunnyPlayer.unmute();
+    else if (bunnyPlayer.setVolume) bunnyPlayer.setVolume(Math.round(talk1Volume * 100));
+  }
+
+  function getTalk1CurrentTimeSec(lesson) {
+    if (talk1Phase === 'main' || talk1Phase === 'ended') {
+      return getTalk1IntroDurationSec(lesson) + talk1EmbedCurrentSec;
+    }
+    if (talk1Phase === 'intro' && el.splashAudio) {
+      return el.splashAudio.currentTime || 0;
+    }
+    return 0;
+  }
+
+  function isTalk1Playing() {
+    if (talk1Phase === 'intro') return introPlaybackStarted && !introPlaybackPaused;
+    if (talk1Phase === 'main') return embedIsPlaying;
+    return false;
+  }
+
+  function updateTalk1VideoUI() {
+    var lesson = getCurrentLesson();
+    if (!isTalk1Lesson(lesson)) return;
+    var total = getTalk1TotalDurationSec(lesson);
+    var current = getTalk1CurrentTimeSec(lesson);
+    var percent = total > 0 ? Math.min(100, (current / total) * 100) : 0;
+    if (el.videoSeek && !talk1Seeking) {
+      el.videoSeek.disabled = false;
+      el.videoSeek.hidden = false;
+      el.videoSeek.value = String(percent);
+    }
+    if (el.videoTime) {
+      el.videoTime.textContent = formatTime(current) + ' / ' + formatTime(total);
+    }
+    var playing = isTalk1Playing();
+    setTransportBtn(el.videoBarPlay, !playing);
+    setTransportBtn(el.videoBarPause, playing);
+    setTransportBtn(el.videoBarRestart, true);
+    updateVideoControlsState();
+  }
+
+  function autoPlayTalk1MainVideo() {
+    var lesson = getCurrentLesson();
+    if (!isTalk1Lesson(lesson)) return;
+    talk1Phase = 'main';
+    userStartedEmbed = true;
+    embedPendingPlay = true;
+    if (el.embedCenterPlay) el.embedCenterPlay.hidden = true;
+    if (el.embedPlayShield) el.embedPlayShield.hidden = true;
+    revealEmbedPlayer();
+    if (el.videoStage) {
+      el.videoStage.classList.add('is-embed-started', 'is-embed-playing');
+      el.videoStage.classList.remove('is-embed-awaiting-play');
+    }
+    playEmbedVideo();
+    applyTalk1Volume();
+    startTalk1ProgressPolling();
+    updateTalk1VideoUI();
+  }
+
+  function seekTalk1Unified(ratio) {
+    var lesson = getCurrentLesson();
+    if (!isTalk1Lesson(lesson)) return;
+    var introSec = getTalk1IntroDurationSec(lesson);
+    var total = getTalk1TotalDurationSec(lesson);
+    var target = Math.max(0, Math.min(total, ratio * total));
+
+    if (target < introSec) {
+      talk1Phase = 'intro';
+      talk1EmbedCurrentSec = 0;
+      pauseEmbedVideo();
+      if (el.heroEmbed) {
+        el.heroEmbed.classList.add('is-splash-hidden');
+        el.heroEmbed.classList.remove('is-visible');
+      }
+      if (el.videoStage) {
+        el.videoStage.classList.add('is-splash-active');
+        el.videoStage.classList.remove('is-splash-reveal', 'is-embed-playing');
+      }
+      showTitleSplash();
+      if (el.splashAudio) {
+        el.splashAudio.currentTime = target;
+        if (isTalk1Playing()) el.splashAudio.play().catch(function () {});
+      }
+      introPlaybackStarted = true;
+      return;
+    }
+
+    talk1Phase = 'main';
+    hideTitleSplash();
+    if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
+    revealEmbedPlayer();
+    userStartedEmbed = true;
+    talk1EmbedCurrentSec = Math.max(0, target - introSec);
+
+    function seekEmbed() {
+      if (!bunnyPlayer || !bunnyPlayer.setCurrentTime) return;
+      bunnyPlayer.setCurrentTime(talk1EmbedCurrentSec);
+      applyTalk1Volume();
+      if (isTalk1Playing()) bunnyPlayer.play();
+    }
+
+    if (!bunnyPlayer) {
+      ensureEmbedLoaded(lesson);
+      setupBunnyPlayer();
+      setTimeout(seekEmbed, 400);
+    } else {
+      seekEmbed();
+    }
+  }
+
+  function toggleTalk1Fullscreen() {
+    if (!el.videoStage) return;
+    var doc = document;
+    var active = doc.fullscreenElement || doc.webkitFullscreenElement;
+    if (!active) {
+      var req = el.videoStage.requestFullscreen || el.videoStage.webkitRequestFullscreen;
+      if (req) req.call(el.videoStage);
+      return;
+    }
+    var exit = doc.exitFullscreen || doc.webkitExitFullscreen;
+    if (exit) exit.call(doc);
+  }
+
   function embedSrcWithParams(baseSrc, overrides) {
     var parts = String(baseSrc || '').split('?');
     var params = new URLSearchParams(parts[1] || '');
@@ -405,6 +631,7 @@
 
   function shouldShowVideoControls(lesson) {
     if (lessonMode !== 'watch' || !lesson) return false;
+    if (isTalk1Lesson(lesson)) return true;
     if (isPromoWelcome(lesson)) return false;
     if (el.videoStage && el.videoStage.classList.contains('is-outro-active')) return false;
     if (isEmbedLesson(lesson) || getHeroSplash(lesson)) return true;
@@ -467,6 +694,7 @@
       el.audio &&
       el.audio.paused;
     var showCenterPlay = showEmbedCenterPlay || showWelcomeCenterPlay;
+    if (isTalk1Lesson(lesson)) showCenterPlay = false;
 
     if (el.embedCenterPlay) el.embedCenterPlay.hidden = !showCenterPlay;
     if (el.embedPlayShield) el.embedPlayShield.hidden = !showCenterPlay;
@@ -491,6 +719,10 @@
 
   function updateEmbedVideoUI() {
     if (!isEmbedLesson(getCurrentLesson())) return;
+    if (isTalk1Lesson(getCurrentLesson())) {
+      updateTalk1VideoUI();
+      return;
+    }
     updateVideoControlsState();
     if (el.videoSeek) {
       el.videoSeek.disabled = true;
@@ -517,13 +749,17 @@
 
   function unmuteAndPlayEmbed() {
     if (!bunnyPlayer) return;
-    if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'unmute')) {
-      bunnyPlayer.unmute();
-    } else if (typeof bunnyPlayer.unmute === 'function') {
-      bunnyPlayer.unmute();
-    }
-    if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'setVolume')) {
-      bunnyPlayer.setVolume(100);
+    if (isTalk1Lesson(getCurrentLesson())) {
+      applyTalk1Volume();
+    } else {
+      if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'unmute')) {
+        bunnyPlayer.unmute();
+      } else if (typeof bunnyPlayer.unmute === 'function') {
+        bunnyPlayer.unmute();
+      }
+      if (bunnyPlayer.supports && bunnyPlayer.supports('method', 'setVolume')) {
+        bunnyPlayer.setVolume(100);
+      }
     }
     bunnyPlayer.play();
   }
@@ -540,6 +776,12 @@
     bunnyPlayer = new window.playerjs.Player(el.heroEmbed);
     bunnyPlayer.on('ready', function () {
       pauseEmbedIfAutostarted();
+      if (isTalk1Lesson(getCurrentLesson()) && bunnyPlayer.getDuration) {
+        bunnyPlayer.getDuration(function (duration) {
+          if (duration > 0) talk1MainDurationSec = duration;
+          updateTalk1VideoUI();
+        });
+      }
       updateEmbedVideoUI();
       if (userStartedEmbed && (shouldPlay || embedPendingPlay)) {
         embedPendingPlay = false;
@@ -552,6 +794,7 @@
         return;
       }
       embedIsPlaying = true;
+      if (isTalk1Lesson(getCurrentLesson())) talk1Phase = 'main';
       updateEmbedVideoUI();
     });
     bunnyPlayer.on('pause', function () {
@@ -564,8 +807,18 @@
     });
     bunnyPlayer.on('ended', function () {
       embedIsPlaying = false;
+      if (isTalk1Lesson(getCurrentLesson())) talk1Phase = 'ended';
       updateEmbedVideoUI();
     });
+    if (isTalk1Lesson(getCurrentLesson())) {
+      bunnyPlayer.on('timeupdate', function (data) {
+        if (talk1Phase !== 'main') return;
+        if (data && typeof data.seconds === 'number') {
+          talk1EmbedCurrentSec = data.seconds;
+        }
+        updateTalk1VideoUI();
+      });
+    }
   }
 
   function playEmbedVideo() {
@@ -731,8 +984,12 @@
     hideTitleSplash();
     if (el.videoStage) el.videoStage.classList.remove('is-splash-active', 'is-splash-reveal');
     if (isEmbedLesson(lesson)) {
-      revealEmbedPlayer();
-      updateEmbedVideoUI();
+      if (isTalk1Lesson(lesson)) {
+        autoPlayTalk1MainVideo();
+      } else {
+        revealEmbedPlayer();
+        updateEmbedVideoUI();
+      }
       return;
     }
     updateVideoUI();
@@ -806,7 +1063,8 @@
   }
 
   function updateSplashAudioUI() {
-    updateSplashTransportUI();
+    if (isTalk1Lesson(getCurrentLesson())) updateTalk1VideoUI();
+    else updateSplashTransportUI();
   }
 
   function clearIntroRevealTimer() {
@@ -872,6 +1130,10 @@
     prepareSplashAudio(splash);
     playSplashAudioNow(true);
     scheduleIntroReveal(sequenceId, introDurationMs);
+    if (isTalk1Lesson(lesson)) {
+      talk1Phase = 'intro';
+      startTalk1ProgressPolling();
+    }
     updateSplashAudioUI();
   }
 
@@ -1102,8 +1364,9 @@
       }
       if (evt === 'ended') {
         embedIsPlaying = false;
+        if (isTalk1Lesson(lesson)) talk1Phase = 'ended';
         updateEmbedVideoUI();
-        startOutroSplash(lesson);
+        if (!isTalk1Lesson(lesson)) startOutroSplash(lesson);
       }
     });
   }
@@ -1587,6 +1850,7 @@
 
   function restartEmbedTalk(lesson) {
     pauseEmbedVideo();
+    resetTalk1PlayerState();
     if (el.heroEmbed) {
       el.heroEmbed.classList.add('is-splash-hidden');
       el.heroEmbed.classList.remove('is-visible');
@@ -1604,6 +1868,25 @@
     if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
     if (el.videoBarPlay && e && e.currentTarget === el.videoBarPlay && el.videoBarPlay.disabled) return;
     var lesson = getCurrentLesson();
+    if (isTalk1Lesson(lesson)) {
+      if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
+        if (!introPlaybackStarted) {
+          talk1Phase = 'intro';
+          startIntroPlayback(splashSequenceId);
+        } else if (introPlaybackPaused) {
+          resumeIntroPlayback(splashSequenceId);
+        }
+        updateTalk1VideoUI();
+        return;
+      }
+      if (talk1Phase === 'main' || talk1Phase === 'ended') {
+        talk1Phase = 'main';
+        playEmbedVideo();
+        startTalk1ProgressPolling();
+        updateTalk1VideoUI();
+        return;
+      }
+    }
     if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
       if (!introPlaybackStarted) startIntroPlayback(splashSequenceId);
       else if (introPlaybackPaused) resumeIntroPlayback(splashSequenceId);
@@ -1638,6 +1921,18 @@
   function handleVideoPauseClick() {
     if (el.videoBarPause && el.videoBarPause.disabled) return;
     var lesson = getCurrentLesson();
+    if (isTalk1Lesson(lesson)) {
+      if (talk1Phase === 'intro' || (el.videoStage && el.videoStage.classList.contains('is-splash-active'))) {
+        pauseIntroPlayback();
+        updateTalk1VideoUI();
+        return;
+      }
+      if (talk1Phase === 'main') {
+        pauseEmbedVideo();
+        updateTalk1VideoUI();
+        return;
+      }
+    }
     if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
       pauseIntroPlayback();
       return;
@@ -1984,6 +2279,15 @@
     if (el.videoSeek) {
       el.videoSeek.addEventListener('input', function () {
         var lesson = getCurrentLesson();
+        if (isTalk1Lesson(lesson)) {
+          talk1Seeking = true;
+          var total = getTalk1TotalDurationSec(lesson);
+          var current = (Number(el.videoSeek.value) / 100) * total;
+          if (el.videoTime) {
+            el.videoTime.textContent = formatTime(current) + ' / ' + formatTime(total);
+          }
+          return;
+        }
         if (isWelcomeLesson(lesson) && el.audio && el.audio.duration) {
           el.audio.currentTime = (Number(el.videoSeek.value) / 100) * el.audio.duration;
           updateVideoUI();
@@ -1992,7 +2296,54 @@
         if (!el.heroVisual.duration) return;
         el.heroVisual.currentTime = (Number(el.videoSeek.value) / 100) * el.heroVisual.duration;
       });
+      el.videoSeek.addEventListener('change', function () {
+        var lesson = getCurrentLesson();
+        if (isTalk1Lesson(lesson)) {
+          seekTalk1Unified(Number(el.videoSeek.value) / 100);
+          talk1Seeking = false;
+          updateTalk1VideoUI();
+        }
+      });
     }
+
+    if (el.splashAudio) {
+      el.splashAudio.addEventListener('timeupdate', function () {
+        if (isTalk1Lesson(getCurrentLesson()) && talk1Phase === 'intro') {
+          updateTalk1VideoUI();
+        }
+      });
+    }
+
+    if (el.videoBarMute) {
+      el.videoBarMute.addEventListener('click', function () {
+        if (!isTalk1Lesson(getCurrentLesson())) return;
+        talk1Muted = !talk1Muted;
+        applyTalk1Volume();
+      });
+    }
+
+    if (el.videoBarVolume) {
+      el.videoBarVolume.addEventListener('input', function () {
+        if (!isTalk1Lesson(getCurrentLesson())) return;
+        talk1Volume = Math.max(0, Math.min(1, Number(el.videoBarVolume.value) / 100));
+        if (talk1Volume > 0) talk1Muted = false;
+        applyTalk1Volume();
+      });
+    }
+
+    if (el.videoBarFullscreen) {
+      el.videoBarFullscreen.addEventListener('click', function (e) {
+        if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+        if (!isTalk1Lesson(getCurrentLesson())) return;
+        toggleTalk1Fullscreen();
+      });
+    }
+
+    document.addEventListener('fullscreenchange', function () {
+      if (!isTalk1Lesson(getCurrentLesson()) || !el.videoBarFullscreen) return;
+      var active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      el.videoBarFullscreen.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
+    });
   }
 
   function bindModeTabs() {
@@ -2106,6 +2457,7 @@
       updateCompleteButton(progressPct, all.length);
 
       applyHeroVisual(lesson);
+      syncTalk1PlayerChrome(lesson);
 
       if (el.audio && lesson.audio && lesson.audio.audioUrl) {
         if (el.error) el.error.hidden = true;
