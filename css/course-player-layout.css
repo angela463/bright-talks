@@ -1286,6 +1286,18 @@
   visibility: hidden !important;
 }
 
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-splash-reveal .player-v2-hero-embed.is-visible,
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-embed-reveal .player-v2-hero-embed.is-visible {
+  opacity: 1;
+  visibility: visible;
+  z-index: 3;
+  transition: opacity 0.9s ease;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-splash-reveal .player-v2-title-splash {
+  z-index: 15;
+}
+
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar {
   height: auto;
   min-height: 52px;
