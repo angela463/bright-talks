@@ -196,7 +196,9 @@
   }
 
   function encodeMediaPath(path) {
-    return String(path || '').split('/').map(function (part) {
+    var raw = String(path || '');
+    if (/^https?:\/\//i.test(raw)) return raw;
+    return raw.split('/').map(function (part) {
       return encodeURIComponent(part);
     }).join('/');
   }

@@ -67,7 +67,7 @@
   var talk1IntroAudio = 'audio/Warm Windows, Open Minds.mp3';
   var talk1VideoSrc =
     'https://vz-02a1a166-7fe.b-cdn.net/fb174fe3-ea85-4043-bb6f-2857f074378a/play_720p.mp4';
-  var talk1ListenAudio = talk1VideoSrc;
+  var talk1ListenAudio = 'audio/talk-1-bodies-biology-anatomy.m4a';
   var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
   var welcomeVideoSrc = 'videos/hero-home-loop.mp4'; // Same clip as homepage hero (index.html)
   var talk1EmbedSrc =
