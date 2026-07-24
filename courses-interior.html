@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bright Talks alternate course interior: Thinkific-style lesson layout for parent-led conversations." />
+  <title>Course Interior (Preview) | Bright Talks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/courses-interior.css" />
+</head>
+<body class="ci-page" id="top">
+  <div class="ci-prototype-banner" role="status">
+    <p>
+      <strong>Alternate layout preview</strong> — Thinkific-style course interior.
+      Does not replace the current player.
+    </p>
+    <div class="ci-prototype-banner__actions">
+      <a href="course-player-v2.html?course=bt-foundations-early-years&amp;module=0&amp;lesson=0">Open current player</a>
+      <a href="courses-concept.html">Back to Courses</a>
+    </div>
+  </div>
+
+  <header class="ci-topbar">
+    <div class="ci-topbar__start">
+      <button id="ci-sidebar-toggle" class="ci-icon-btn" type="button" aria-label="Toggle curriculum" aria-controls="ci-sidebar" aria-expanded="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="index.html" class="ci-logo" aria-label="Bright Talks home">
+        <img src="png/Bright-Talks-logo-createoutlines.png" alt="Bright Talks" />
+      </a>
+      <div class="ci-topbar__course">
+        <p class="ci-topbar__kicker">Now taking</p>
+        <h1 id="ci-course-title" class="ci-topbar__title">Course</h1>
+      </div>
+    </div>
+    <div class="ci-topbar__end">
+      <div class="ci-progress" aria-label="Course progress">
+        <span id="ci-progress-label" class="ci-progress__label">0%</span>
+        <div class="ci-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span id="ci-progress-fill" class="ci-progress__fill"></span>
+        </div>
+      </div>
+      <a href="courses-concept.html" class="ci-exit">Exit course</a>
+    </div>
+  </header>
+
+  <div class="ci-shell">
+    <aside id="ci-sidebar" class="ci-sidebar" aria-label="Course curriculum">
+      <div class="ci-sidebar__head">
+        <p class="ci-sidebar__heading">Curriculum</p>
+        <p id="ci-sidebar-meta" class="ci-sidebar__meta">0 of 0 complete</p>
+      </div>
+      <nav id="ci-curriculum" class="ci-curriculum" aria-label="Lessons"></nav>
+    </aside>
+
+    <div id="ci-overlay" class="ci-overlay" hidden></div>
+
+    <main class="ci-main" id="ci-main">
+      <article class="ci-lesson" aria-live="polite">
+        <div class="ci-media">
+          <div id="ci-media-frame" class="ci-media__frame">
+            <iframe
+              id="ci-embed"
+              class="ci-media__embed"
+              title="Lesson video"
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowfullscreen
+              hidden
+            ></iframe>
+            <video id="ci-video" class="ci-media__video" playsinline controls preload="metadata" hidden></video>
+            <img id="ci-image" class="ci-media__image" alt="" hidden decoding="async" />
+            <div id="ci-media-fallback" class="ci-media__fallback" hidden>
+              <p id="ci-media-fallback-title" class="ci-media__fallback-title"></p>
+              <p class="ci-media__fallback-copy">Watch mode for this talk is coming soon. Use the lesson notes below, or open the current Bright Talks player.</p>
+              <a id="ci-media-fallback-link" class="ci-btn ci-btn--ghost" href="#">Open current player</a>
+            </div>
+          </div>
+        </div>
+
+        <header class="ci-lesson__head">
+          <p id="ci-module-label" class="ci-lesson__module"></p>
+          <h2 id="ci-lesson-title" class="ci-lesson__title"></h2>
+          <p id="ci-lesson-summary" class="ci-lesson__summary"></p>
+          <div class="ci-lesson__meta">
+            <span id="ci-lesson-duration" class="ci-chip"></span>
+            <span id="ci-lesson-type" class="ci-chip ci-chip--soft">Video lesson</span>
+          </div>
+        </header>
+
+        <div id="ci-lesson-body" class="ci-lesson__body"></div>
+
+        <footer class="ci-lesson__footer">
+          <button id="ci-prev" class="ci-btn ci-btn--ghost" type="button">Previous</button>
+          <button id="ci-complete" class="ci-btn ci-btn--primary" type="button">
+            <span id="ci-complete-label">Complete and continue</span>
+          </button>
+          <button id="ci-next" class="ci-btn ci-btn--ghost" type="button">Next</button>
+        </footer>
+      </article>
+    </main>
+  </div>
+
+  <script src="js/course-experience-data.js"></script>
+  <script src="js/course-experience-common.js"></script>
+  <script src="js/courses-interior.js"></script>
+</body>
+</html>
