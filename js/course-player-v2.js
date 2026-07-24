@@ -1880,7 +1880,7 @@
 
   function renderPills(lesson) {
     if (!el.pills) return;
-    var pills = ['<span class="player-v2-pill">' + escText(lesson.duration) + '</span>'];
+    var pills = [];
     if (/welcome/i.test(lesson.title)) {
       pills.push('<span class="player-v2-pill player-v2-pill--soft">&#9825; No perfect script needed</span>');
     } else {

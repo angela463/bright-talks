@@ -18,7 +18,6 @@
     moduleLabel: document.getElementById('ci-module-label'),
     lessonTitle: document.getElementById('ci-lesson-title'),
     lessonSummary: document.getElementById('ci-lesson-summary'),
-    lessonDuration: document.getElementById('ci-lesson-duration'),
     lessonType: document.getElementById('ci-lesson-type'),
     lessonBody: document.getElementById('ci-lesson-body'),
     embed: document.getElementById('ci-embed'),
@@ -370,10 +369,6 @@
     if (el.moduleLabel) el.moduleLabel.textContent = module.title || 'Course';
     if (el.lessonTitle) el.lessonTitle.textContent = lesson.title || '';
     if (el.lessonSummary) el.lessonSummary.textContent = lesson.summary || '';
-    if (el.lessonDuration) {
-      el.lessonDuration.textContent = lesson.duration || '';
-      el.lessonDuration.hidden = !lesson.duration;
-    }
     if (el.lessonType) {
       el.lessonType.textContent =
         lesson.heroVisual && lesson.heroVisual.type === 'promo'
