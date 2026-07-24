@@ -24,3 +24,6 @@ video1563471072.mp4 add .gitignoregit commit -m Ignore large video filegit push 
 *.mov
 *.mov
 *.mp4
+
+# Unused local asset
+png/infinity-vector-icon_97886-20542.avif
