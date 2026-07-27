@@ -1238,6 +1238,10 @@
   display: block;
 }
 
+.player-v2-layout-revamp .player-v2-video-bar__btn svg[hidden] {
+  display: none !important;
+}
+
 .player-v2-layout-revamp .player-v2-video-stage.is-splash-active .player-v2-video-bar__btn--play:not(:disabled) {
   background: rgba(255, 255, 255, 0.38);
   backdrop-filter: blur(10px);
@@ -1272,6 +1276,7 @@
 /* Talk 1: YouTube-style unified player */
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player {
   cursor: default;
+  overflow: hidden;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-overlay,
@@ -1293,12 +1298,28 @@
   visibility: hidden !important;
 }
 
-.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-splash-reveal .player-v2-hero-embed.is-visible,
-.player-v2-layout-revamp .player-v2-video-stage.is-talk1-embed-reveal .player-v2-hero-embed.is-visible {
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-hero-embed.is-visible {
   opacity: 1;
   visibility: visible;
   z-index: 3;
+  /* Crop Bunny's native control bar below the stage so only our bar shows */
+  inset: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: calc(100% + 110px) !important;
+  pointer-events: none !important;
   transition: opacity 0.9s ease;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-splash-reveal .player-v2-hero-embed.is-visible,
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-embed-reveal .player-v2-hero-embed.is-visible,
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-embed-mode .player-v2-hero-embed.is-visible,
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-embed-playing .player-v2-hero-embed.is-visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-splash-reveal .player-v2-title-splash {
@@ -1306,12 +1327,21 @@
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar {
+  z-index: 20;
   height: auto;
   min-height: 52px;
   flex-wrap: wrap;
   gap: 8px 10px;
   padding: 10px 12px 12px;
-  background: linear-gradient(180deg, rgba(12, 8, 4, 0) 0%, rgba(12, 8, 4, 0.82) 24%, rgba(12, 8, 4, 0.96) 100%);
+  /* Fully opaque so Bunny chrome cannot show through */
+  background: linear-gradient(180deg, rgba(12, 8, 4, 0.88) 0%, rgba(12, 8, 4, 0.97) 40%, #0c0804 100%);
+  pointer-events: auto;
+}
+
+/* One play/pause affordance at a time (avoid play+pause side by side) */
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar__btn.is-disabled,
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar__btn:disabled {
+  display: none !important;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar__seek {
@@ -1320,6 +1350,7 @@
   height: 6px;
   accent-color: var(--pv2-orange);
   margin: 0;
+  background: transparent;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-video-bar__transport {
@@ -1362,9 +1393,13 @@
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player:fullscreen .player-v2-hero-embed.is-visible,
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player:-webkit-full-screen .player-v2-hero-embed.is-visible {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: calc(100% - 56px);
+  inset: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  /* Keep room for our bar, plus crop Bunny native controls */
+  height: calc(100% - 56px + 110px) !important;
+  pointer-events: none !important;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player:fullscreen .player-v2-title-splash,
