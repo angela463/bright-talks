@@ -1310,6 +1310,22 @@
   transition: opacity 0.9s ease;
 }
 
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-hero-visual--image {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player:not(.is-embed-mode) .player-v2-hero-visual {
+  z-index: 10;
+  background: #101010;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-talk1-player .player-v2-hero-visual.is-splash-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-embed-visible .player-v2-hero-visual,
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-embed-visible .player-v2-hero-visual--image,
 .player-v2-layout-revamp .player-v2-video-stage.is-talk1-player.is-embed-playing .player-v2-hero-visual,
