@@ -722,6 +722,28 @@
   object-fit: cover;
   z-index: 4;
   transition: opacity 1.2s ease;
+  background: #101010;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video {
+  background: #101010;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-hero-visual {
+  object-fit: contain;
+  background: #101010;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-hero-embed {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-video-stage__shade,
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-video-stage__glow,
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-video-placeholder {
+  display: none !important;
 }
 
 .player-v2-layout-revamp .player-v2-video-stage.is-welcome-promo {

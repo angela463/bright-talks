@@ -898,6 +898,7 @@
     el.heroEmbed.classList.add('is-splash-hidden');
     el.heroEmbed.classList.remove('is-visible');
     el.heroEmbed.removeAttribute('src');
+    el.heroEmbed.setAttribute('hidden', '');
     if (el.videoStage) {
       el.videoStage.classList.remove(
         'is-embed-mode',
@@ -983,7 +984,14 @@
       lessonMode === 'watch' &&
       el.audio &&
       el.audio.paused;
-    var showCenterPlay = showEmbedCenterPlay || showWelcomeCenterPlay;
+    var showPlainCenterPlay = isPlainHtmlTalkVideo(lesson) &&
+      !splashActive &&
+      !outroActive &&
+      lessonMode === 'watch' &&
+      el.heroVisual &&
+      !el.heroVisual.hidden &&
+      el.heroVisual.paused;
+    var showCenterPlay = showEmbedCenterPlay || showWelcomeCenterPlay || showPlainCenterPlay;
     if (isUnifiedTalkLesson(lesson)) {
       showCenterPlay = false;
       hideTalk1EmbedOverlays();
@@ -1182,9 +1190,10 @@
     if (!el.heroEmbed || !lesson || !lesson.heroVisual) return;
     if (!isEmbedLesson(lesson)) return;
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-image-mode', 'is-no-video');
+      el.videoStage.classList.remove('is-image-mode', 'is-no-video', 'is-html-talk-video');
       el.videoStage.classList.add('is-embed-mode');
     }
+    el.heroEmbed.removeAttribute('hidden');
     el.heroEmbed.classList.add('is-splash-hidden');
     el.heroEmbed.classList.remove('is-visible');
     var embedParams = isTalk1Lesson(lesson)
@@ -2436,6 +2445,8 @@
     }
 
     function tryPlay() {
+      el.heroVisual.classList.remove('is-splash-hidden');
+      el.heroVisual.hidden = false;
       el.heroVisual.setAttribute('playsinline', '');
       el.heroVisual.setAttribute('webkit-playsinline', '');
       var p = el.heroVisual.play();
@@ -2454,12 +2465,25 @@
         el.heroVisual.removeEventListener('loadeddata', onData);
         tryPlay();
       });
+      el.heroVisual.addEventListener('error', function onErr() {
+        el.heroVisual.removeEventListener('error', onErr);
+        updateVideoUI();
+      });
       tryPlay();
     }
   }
 
   function forceHeroEmbed(src, lesson) {
     mountHeroEmbed(lesson);
+  }
+
+  function isPlainHtmlTalkVideo(lesson) {
+    return !!(lesson &&
+      lesson.heroVisual &&
+      lesson.heroVisual.type === 'video' &&
+      !isUnifiedTalkLesson(lesson) &&
+      !isWelcomeLesson(lesson) &&
+      !isPromoWelcome(lesson));
   }
 
   function forceHeroVideo(src, lesson) {
@@ -2472,7 +2496,8 @@
     el.heroVisual.hidden = false;
     el.heroVisual.classList.remove('is-splash-hidden', 'is-embed-preview');
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-image-mode', 'is-no-video', 'is-embed-mode');
+      el.videoStage.classList.remove('is-image-mode', 'is-no-video', 'is-embed-mode', 'is-talk1-player');
+      el.videoStage.classList.toggle('is-html-talk-video', isPlainHtmlTalkVideo(lesson));
       setWelcomeVideoStage(lesson);
     }
 
@@ -2486,6 +2511,7 @@
     } else {
       el.heroVisual.removeAttribute('poster');
     }
+    el.heroVisual.removeAttribute('controls');
     el.heroVisual.load();
     configureHeroVideoPlayback(lesson);
 

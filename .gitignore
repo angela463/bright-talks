@@ -19,10 +19,14 @@
 14351611_3840_2160_60fps.mp4
 *_3840_2160*_60fps.mp4
 video1563471072.mp4
-video1563471072.mp4
-video1563471072.mp4 add .gitignoregit commit -m Ignore large video filegit push origin main --forceecho video1563471072.mp4
 *.mov
 *.mp4
+!videos/talk-2-boundaries.mp4
+!videos/hero-home-loop.mp4
+!videos/kid_cheering.mp4
+!videos/promise-quiet-bg.mp4
+!videos/4982409-hd_1920_1080_25fps.mp4
+!videos/6299087-uhd_3840_2160_25fps.mp4
 *.m4v
 
 # Unused local asset

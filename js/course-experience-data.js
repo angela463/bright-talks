@@ -697,15 +697,7 @@
         readScript: talk2ReadScript,
         heroVisual: {
           type: 'video',
-          playerStyle: 'unified',
-          src: talk2VideoSrc,
-          splash: {
-            introAudio: talk1IntroAudio,
-            introDurationMs: 6000,
-            logoSrc: brightTalksLogo,
-            kicker: 'Talk 2',
-            title: 'Boundaries & Safety'
-          }
+          src: talk2VideoSrc
         },
         sections: [
           {
