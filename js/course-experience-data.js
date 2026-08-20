@@ -65,8 +65,7 @@
   var sampleAudio = 'audio/Bright Talks Voice Over.m4a';
   var welcomeAudio = 'audio files/Bright Talks v1.mp3';
   var talk1IntroAudio = 'audio/Warm Windows, Open Minds.mp3';
-  var talk1VideoSrc =
-    'https://vz-02a1a166-7fe.b-cdn.net/fb174fe3-ea85-4043-bb6f-2857f074378a/play_720p.mp4';
+  var talk1VideoSrc = 'videos/talk-1-bodies.mp4';
   var talk1ListenAudio = 'audio/talk-1-bodies-biology-anatomy.m4a';
   var brightTalksLogo = 'png/Bright-Talks-logo-createoutlines.png';
   var welcomeVideoSrc = 'videos/hero-home-loop.mp4'; // Same clip as homepage hero (index.html)
@@ -622,17 +621,8 @@
         audioVoice: 'Heidi Cooper',
         readScript: talk1ReadScript,
         heroVisual: {
-          type: 'embed',
-          playerStyle: 'unified',
-          src: talk1EmbedSrc,
-          previewSrc: talk1VideoSrc,
-          splash: {
-            introAudio: talk1IntroAudio,
-            introDurationMs: 6000,
-            logoSrc: brightTalksLogo,
-            kicker: 'Talk 1',
-            title: 'Bodies, Biology & Anatomy'
-          }
+          type: 'video',
+          src: talk1VideoSrc
         },
         sections: [
           {

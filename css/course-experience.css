@@ -721,6 +721,10 @@
   display: block;
 }
 
+.player-v2-hero-visual--image[hidden] {
+  display: none !important;
+}
+
 .player-v2-hero-visual-scrim {
   position: absolute;
   inset: 0;

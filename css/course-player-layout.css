@@ -732,8 +732,13 @@
 .player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-hero-visual {
   object-fit: contain;
   background: #101010;
+  z-index: 8;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: none;
 }
 
+.player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-hero-visual--image,
 .player-v2-layout-revamp .player-v2-video-stage.is-html-talk-video .player-v2-hero-embed {
   display: none !important;
   visibility: hidden !important;

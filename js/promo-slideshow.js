@@ -601,6 +601,7 @@
     return {
       pause: function () {
         if (playing) stopSequence(false);
+        else pauseAudio();
       },
       destroy: function () {
         clearSlideTimer();
