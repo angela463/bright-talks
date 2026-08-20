@@ -73,7 +73,7 @@
   var talk1EmbedSrc =
     'https://player.mediadelivery.net/embed/695172/fb174fe3-ea85-4043-bb6f-2857f074378a' +
     '?autoplay=false&loop=false&muted=true&preload=true&responsive=true&playerjs=true';
-  var talk2VideoSrc = 'videos/talk-2-boundaries.m4v';
+  var talk2VideoSrc = 'videos/talk-2-boundaries.mp4';
 
   var talk1ReadScript = [
     {

@@ -681,7 +681,7 @@
   function forceUnifiedHtmlPlayback(attempt) {
     var lesson = getCurrentLesson();
     if (!isUnifiedHtmlVideo(lesson) || talk1Phase !== 'main' || talk1MainPaused) return;
-    if (!el.heroVisual) return;
+    if (!el.heroVisual || !el.heroSource) return;
     attempt = attempt || 0;
     talk1MainPaused = false;
     hideTalk1EmbedOverlays();
@@ -691,30 +691,59 @@
     }
     el.heroVisual.hidden = false;
     el.heroVisual.classList.remove('is-splash-hidden', 'is-embed-preview');
+    if (el.videoStage) {
+      el.videoStage.classList.remove('is-embed-mode', 'is-embed-visible', 'is-embed-playing', 'is-image-mode');
+    }
+
+    var expectedSrc = encodeMediaPath(lesson.heroVisual.src);
+    var currentSrc = el.heroSource.getAttribute('src') || '';
+    if (!currentSrc || currentSrc.indexOf(lesson.heroVisual.src) === -1) {
+      el.heroSource.src = expectedSrc;
+      el.heroSource.type = videoMimeFromSrc(lesson.heroVisual.src);
+      el.heroVisual.load();
+    }
+
     el.heroVisual.muted = talk1Muted;
     el.heroVisual.volume = talk1Muted ? 0 : talk1Volume;
     el.heroVisual.setAttribute('playsinline', '');
     el.heroVisual.setAttribute('webkit-playsinline', '');
-    var playAttempt = el.heroVisual.play();
-    if (playAttempt && typeof playAttempt.catch === 'function') {
-      playAttempt.catch(function () {
-        if (talk1Muted) return;
-        el.heroVisual.muted = true;
-        el.heroVisual.play().catch(function () {});
-      });
-    }
-    if (el.heroVisual.duration > 0) talk1MainDurationSec = el.heroVisual.duration;
-    updateTalk1VideoUI();
-    if (!el.heroVisual.paused) return;
-    if (attempt >= 8) return;
-    setTimeout(function () {
+
+    function tryPlay() {
       if (!isUnifiedHtmlVideo(getCurrentLesson()) || talk1Phase !== 'main' || talk1MainPaused) return;
-      if (el.heroVisual && !el.heroVisual.paused) {
-        updateTalk1VideoUI();
-        return;
+      var playAttempt = el.heroVisual.play();
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(function () {
+          if (talk1Muted) return;
+          el.heroVisual.muted = true;
+          el.heroVisual.play().catch(function () {});
+        });
       }
-      forceUnifiedHtmlPlayback(attempt + 1);
-    }, 280);
+      if (el.heroVisual.duration > 0) talk1MainDurationSec = el.heroVisual.duration;
+      updateTalk1VideoUI();
+      if (!el.heroVisual.paused) return;
+      if (attempt >= 10) return;
+      setTimeout(function () {
+        forceUnifiedHtmlPlayback(attempt + 1);
+      }, 300);
+    }
+
+    if (el.heroVisual.readyState >= 2) {
+      tryPlay();
+      return;
+    }
+
+    el.heroVisual.addEventListener('loadeddata', function onReady() {
+      el.heroVisual.removeEventListener('loadeddata', onReady);
+      tryPlay();
+    }, { once: true });
+    el.heroVisual.addEventListener('error', function onErr() {
+      el.heroVisual.removeEventListener('error', onErr);
+      if (attempt >= 10) return;
+      setTimeout(function () {
+        forceUnifiedHtmlPlayback(attempt + 1);
+      }, 400);
+    }, { once: true });
+    tryPlay();
   }
 
   function finishUnifiedHtmlVideo() {
@@ -723,8 +752,16 @@
     talk1Phase = 'main';
     talk1MainPaused = false;
     hideTalk1EmbedOverlays();
+    resetHeroEmbed();
     if (el.videoStage) {
-      el.videoStage.classList.remove('is-talk1-embed-booting', 'is-embed-awaiting-play', 'is-image-mode');
+      el.videoStage.classList.remove(
+        'is-talk1-embed-booting',
+        'is-talk1-embed-reveal',
+        'is-embed-awaiting-play',
+        'is-image-mode',
+        'is-splash-active',
+        'is-splash-reveal'
+      );
     }
     forceUnifiedHtmlPlayback(0);
     applyTalk1Volume();
@@ -1143,6 +1180,7 @@
 
   function ensureEmbedLoaded(lesson) {
     if (!el.heroEmbed || !lesson || !lesson.heroVisual) return;
+    if (!isEmbedLesson(lesson)) return;
     if (el.videoStage) {
       el.videoStage.classList.remove('is-image-mode', 'is-no-video');
       el.videoStage.classList.add('is-embed-mode');
@@ -1493,6 +1531,18 @@
     if (el.splashAudio) el.splashAudio.pause();
     el.videoStage.classList.add('is-splash-reveal');
 
+    if (isUnifiedHtmlVideo(lesson)) {
+      talk1Phase = 'main';
+      talk1MainPaused = false;
+      resetHeroEmbed();
+      updateTalk1VideoUI();
+      forceUnifiedHtmlPlayback(0);
+      splashFadeTimer = setTimeout(function () {
+        finishIntroSplash(sequenceId);
+      }, 900);
+      return;
+    }
+
     if (isEmbedLesson(lesson)) {
       if (isTalk1Lesson(lesson)) prepareTalk1EmbedReveal();
       updateVideoControlsState();
@@ -1623,7 +1673,11 @@
       el.heroEmbed.classList.add('is-splash-hidden');
       el.heroEmbed.classList.remove('is-visible');
     }
-    ensureEmbedLoaded(lesson);
+    if (isEmbedLesson(lesson)) {
+      ensureEmbedLoaded(lesson);
+    } else {
+      resetHeroEmbed();
+    }
 
     prepareSplashAudio(splash);
     updateVideoControlsState();
