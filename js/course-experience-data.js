@@ -75,6 +75,7 @@
   var talk2VideoSrc = 'videos/talk-2-boundaries.mp4';
   var talk3VideoSrc = 'videos/talk-3-reproduction.mp4';
   var talk4VideoSrc = 'videos/talk-4-porn-images.mp4';
+  var talk5VideoSrc = 'videos/talk-5-continuing.mp4';
 
   var talk1ReadScript = [
     {
@@ -857,10 +858,13 @@
         title: 'Talk 5: Continuing the Conversation',
         summary:
           'Build habits and scripts so body-safety talks stay normal, warm, and open as your child grows.',
-        duration: '16m',
-        audioDuration: '16:00',
+        duration: '5m',
+        audioDuration: '05:25',
         readScript: talk5ReadScript,
-        heroVisual: { type: 'image', src: earlyYearsLessonImages.continuing, alt: 'Parent and child talking' },
+        heroVisual: {
+          type: 'video',
+          src: talk5VideoSrc
+        },
         sections: [
           {
             title: 'Talk Objectives',
