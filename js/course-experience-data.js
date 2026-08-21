@@ -494,6 +494,617 @@
     }
   ];
 
+  var mcTalk1ReadScript = [
+    {
+      title: 'Introduction',
+      paragraphs: [
+        'Hi, and welcome to Bright Talks.',
+        'As parents, many of us want our children to grow up feeling confident, safe, and comfortable in their own bodies. But for many families, conversations about bodies and growing up can feel awkward because no one modeled those conversations for us growing up.',
+        'The good news is that these discussions don\'t have to be complicated.',
+        'As children move into the ages of six, seven, and eight, something begins to change. They\'re noticing more. They\'re asking more questions. They may start comparing their bodies with friends or siblings, becoming more aware of privacy, or wondering why boys and girls are different.',
+        'That growing curiosity isn\'t something we need to shut down.',
+        'It\'s an invitation to stay connected.'
+      ]
+    },
+    {
+      title: 'Growing Bodies, Growing Awareness',
+      paragraphs: [
+        'Children develop at different rates, and during these years, they\'re becoming increasingly aware that bodies don\'t all look the same.',
+        'They may notice differences in height, weight, hair, skin, or body shape. They may become more modest or suddenly want privacy when getting dressed.',
+        'These are normal parts of growing up.',
+        'When your child makes an observation or asks a question, try to respond calmly and matter-of- factly.',
+        'You might say: "Everyone\'s body grows a little differently, and that\'s okay."',
+        'Or: "Your body will keep changing as you get older. If you ever have questions about those changes, you can always ask me."',
+        'Simple responses like these communicate something powerful:',
+        'There is nothing embarrassing about growing up.'
+      ]
+    },
+    {
+      title: 'Curiosity Is Normal',
+      paragraphs: [
+        'At this age, questions may also become more specific.',
+        'Your child might ask why bodies are different, where babies come from, or something they heard from a friend at school.',
+        'Sometimes those questions catch us completely off guard.',
+        'Our instinct might be to change the subject or wonder, "Why are they asking me this already?"',
+        'But curiosity is a normal part of childhood development. Children are constantly trying to understand how the world works including their own bodies.',
+        'You don\'t have to give them every detail.',
+        'Listen to the question they\'re actually asking, give a simple and truthful answer, and then pause.',
+        'Often, that\'s enough.',
+        'And when you don\'t know what to say, it\'s okay to respond:',
+        '"That\'s a good question. Let me think about the best way to answer it, and we\'ll talk about it together."',
+        'You\'re showing your child that questions are welcome, even when the answers take a little time.'
+      ]
+    },
+    {
+      title: 'Preparing for Changes Ahead',
+      paragraphs: [
+        'As your child\'s curiosity grows, one of the best things you can do is stay curious too.',
+        'When they ask a question, you don\'t always have to rush to give an answer. Sometimes you can simply ask:',
+        '"What made you think about that?"',
+        'or, "What have you heard about that already?"',
+        'Those small questions can tell you a lot about what your child is thinking, what they may be hearing from others, and what they\'re actually ready to understand.',
+        'Most importantly, they keep the conversation open.',
+        'When we respond to curiosity with curiosity-not embarrassment or alarm-we show our children that questions are welcome here. And that helps establish something we want them to carry into every stage of growing up:',
+        '"I can always talk to my parent about this."',
+        'For some children, the earliest signs of puberty can begin sooner than parents expect, while for others those changes will come several years later.',
+        'That\'s why these years are a wonderful time to begin preparing-not because something needs to happen right now, but because children feel more confident when changes don\'t come as a complete surprise.'
+      ]
+    },
+    {
+      title: 'A Christian Perspective',
+      paragraphs: [
+        'As Christians, we believe our bodies were intentionally created by God and are worthy of care and respect.',
+        'And while every person develops differently, those differences don\'t determine their value.',
+        'Science helps us understand how bodies grow and develop.',
+        'Our faith reminds us that through every stage of that development, our worth remains the same.',
+        'When we speak about growing bodies without embarrassment or shame, we help our children see their bodies as something to understand, care for, and be grateful for.'
+      ]
+    },
+    {
+      title: 'Key Takeaway',
+      paragraphs: [
+        'Your child\'s growing curiosity isn\'t a problem to solve.',
+        'It\'s an opportunity to strengthen your relationship.',
+        'Every question gives you another chance to say: "You can talk to me."',
+        'Every honest answer builds trust.',
+        'And every calm conversation today makes the bigger conversations tomorrow a little easier.'
+      ]
+    },
+    {
+      title: 'Wrapping Up',
+      paragraphs: [
+        'As we finish today\'s lesson, remember that you don\'t need to prepare your child for every change all at once.',
+        'You\'re simply laying the foundation.',
+        'Keep listening.',
+        'Keep answering honestly.',
+        'And keep reminding your child that growing up is nothing to be ashamed of and that you\'ll be there to walk through it with them.',
+        'As their world continues to expand, however, you won\'t be the only voice they hear.',
+        'Friends, classmates, older children, media, and everyday conversations may introduce ideas or words your child doesn\'t understand.',
+        'In our next talk, we\'ll explore When Kids Hear Things From Friends and how to respond when your child comes home and asks a question you weren\'t expecting.',
+        'We\'ll help you turn those surprising moments into opportunities for connection rather than panic.',
+        'We\'ll see you in the next lesson.'
+      ]
+    }
+  ];
+
+  var mcTalk2ReadScript = [
+    {
+      title: 'Introduction',
+      paragraphs: [
+        'Hi, and welcome to Bright Talks.',
+        'As parents, many of us want our children to grow up feeling confident, safe, and comfortable coming to us with their questions. But as children grow, something important begins to change:',
+        'We\'re no longer the only voices they hear.',
+        'Friends, classmates, older siblings, media, and conversations at school begin introducing new words, ideas, and questions-sometimes long before we expected them.',
+        'And eventually, your child may come home and say something that completely catches you off guard.',
+        'When that happens, your first instinct might be: "Where did you hear THAT?"',
+        'Take a breath.',
+        'Because that unexpected question may actually be an invitation.',
+        'Today, we\'re going to talk about how to respond with curiosity instead of panic so your child continues seeing you as a safe and trusted source.'
+      ]
+    },
+    {
+      title: 'When Other Voices Enter the Conversation',
+      paragraphs: [
+        'At six, seven, and eight, friendships become increasingly important.',
+        'Children talk.',
+        'They compare experiences.',
+        'They repeat things they\'ve heard from siblings, adults, television, online content, or other kids and they don\'t always understand what those things actually mean.',
+        'So when your child brings home a new word or idea, remember:',
+        'Hearing something isn\'t the same as understanding it.',
+        'Before correcting them or jumping into an explanation, find out what they actually know.',
+        'You might ask: "What do you think that means?"',
+        '"Where did you hear that?"',
+        'or simply, "Tell me more about that."',
+        'Their answer may surprise you.',
+        'Sometimes the conversation you were preparing yourself to have isn\'t the conversation your child needs at all.'
+      ]
+    },
+    {
+      title: 'Respond to Curiosity With Curiosity',
+      paragraphs: [
+        'Remember what we talked about in our last lesson: Respond to curiosity with curiosity.',
+        'If your child asks an uncomfortable question, try not to let your facial expression answer before your words do.',
+        'Pause.',
+        'Listen.',
+        'Stay curious.',
+        'You don\'t have to immediately correct every word or explain everything they might eventually need to know.',
+        'First, understand what they\'re asking.',
+        'Then give a truthful, simple, age appropriate response. And pause again.',
+        'Let your child\'s curiosity, not your anxiety help determine where the conversation goes next.'
+      ]
+    },
+    {
+      title: 'When a Friend Shares Something Inappropriate',
+      paragraphs: [
+        'Sometimes what your child hears may be inaccurate, inappropriate, or simply more mature than they\'re ready to understand.',
+        'Those moments can feel unsettling.',
+        'But they also give you an opportunity to reinforce an important message:',
+        '"I\'m really glad you told me."',
+        'You can explain that sometimes kids hear or repeat things they don\'t fully understand, and your child never has to feel embarrassed about coming to you.',
+        'If what they heard isn\'t accurate, gently give them the truth.',
+        'If it\'s something they\'re not ready to understand fully, you can say:',
+        '"There\'s more to that, and we\'ll keep talking about it as you get older. For now, here\'s what I want you to know."',
+        'You\'re not avoiding the conversation.',
+        'You\'re meeting your child where they are.'
+      ]
+    },
+    {
+      title: 'Helping Them Navigate Their Friendships',
+      paragraphs: [
+        'We also don\'t want children to believe that a friend is automatically "bad" because they said something inappropriate.',
+        'That child may simply be repeating something they heard somewhere else.',
+        'Instead, help your child learn what they can do when a conversation makes them uncomfortable.',
+        'They can change the subject.',
+        'They can walk away.',
+        'They can say, "I don\'t want to talk about that."',
+        'And they can always come tell you.',
+        'This gives children permission to have boundaries with their peers without teaching them to fear their friends.'
+      ]
+    },
+    {
+      title: 'A Christian Perspective',
+      paragraphs: [
+        'As Christian parents, we want our children to learn how to recognize truth while also treating other people with grace.',
+        'Not everything they hear will reflect your family\'s beliefs or God\'s design for bodies, relationships, and sexuality.',
+        'That\'s why our goal isn\'t to shelter children from every different idea.',
+        'It\'s to give them a strong foundation so they know where to bring those ideas when they encounter them.',
+        'We can help our children seek what is true while responding to others with kindness, wisdom, and compassion.'
+      ]
+    },
+    {
+      title: 'Key Takeaway',
+      paragraphs: [
+        'When your child comes home with a surprising question, remember:',
+        'Pause. Get curious. Clarify. Connect.',
+        'You don\'t have to panic.',
+        'You don\'t have to know exactly what to say.',
+        'And you don\'t have to turn every question into a thirty-minute lesson.',
+        'Sometimes the most important thing you can say is simply:',
+        '"I\'m glad you came to me."',
+        'Because every time your child brings something confusing to you and is met with calmness, honesty, and love, they\'re learning:',
+        '"I can bring the hard things here."'
+      ]
+    },
+    {
+      title: 'Wrapping Up',
+      paragraphs: [
+        'As we finish today\'s lesson, remember that you won\'t always be able to control what your child hears.',
+        'But you can influence where they go to make sense of it.',
+        'Stay curious.',
+        'Listen before you react.',
+        'Answer honestly.',
+        'And keep reminding your child that there is no question too awkward, confusing, or embarrassing to bring home.',
+        'As their curiosity continues to grow, some of those questions will naturally become bigger and more specific.',
+        'In our next talk, Questions About Babies, Sex & Where We Come From, we\'ll help you navigate those moments with honest, age appropriate answers without giving your child more information than they\'re ready for.',
+        'And we\'ll introduce a simple approach you can use when those bigger questions arrive:'
+      ]
+    }
+  ];
+
+  var mcTalk3ReadScript = [
+    {
+      title: 'Introduction',
+      paragraphs: [
+        'Hi, and welcome to Bright Talks.',
+        'As parents, many of us want our children to grow up feeling confident, safe, and comfortable coming to us with their questions. But as those questions become more specific, it can sometimes feel harder to know exactly what to say.',
+        'At six, seven, and eight, questions about babies, pregnancy, growing bodies, and things they may have heard from others can begin to come up.',
+        'And when they do, you might find yourself wondering: "How much should I actually tell them?"',
+        'The good news is that you don\'t have to explain everything at once.',
+        'Today, we\'re going to talk about how to answer these bigger questions honestly, simply, and in a way that meets your child right where they are.'
+      ]
+    },
+    {
+      title: 'Start With What They Already Know',
+      paragraphs: [
+        'When your child asks, "How are babies made?" resist the urge to immediately launch into an explanation.',
+        'Remember what we\'ve been practicing: Stay curious.',
+        'Try asking: "What made you think about that?"',
+        'or, "What do you already know about where babies come from?"',
+        'Their answer gives you a starting point.',
+        'Maybe they\'re wondering how a baby gets inside a mother\'s body.',
+        'Maybe a friend said something at school.',
+        'Maybe someone in your family is pregnant.',
+        'Understanding the question behind the question helps you give your child the information they\'re actually looking for.'
+      ]
+    },
+    {
+      title: 'Answer. Pause. Listen.',
+      paragraphs: [
+        'Here\'s a simple approach you can use:',
+        'First, keep your answer simple, truthful, and appropriate for what your child is asking.',
+        'You might say: "Babies begin with something very small from a mom called an egg and something very small from a dad called sperm. When they come together, a baby can begin to grow inside the mom\'s uterus."',
+        'Then pause.',
+        'Give your child a moment to take that in.',
+        'They may be completely satisfied with that answer and move right along to something else.',
+        'Or they may have another question.',
+        'Either response is okay.',
+        'If they ask how the sperm and egg come together, you can add another layer:',
+        '"One way a pregnancy can begin is through something called sexual intercourse. This is a private way adults can share intimacy, and it allows sperm from the man\'s body to reach an egg inside the woman\'s body. If you have questions about how that happens, you can always ask me."',
+        'Then pause again.',
+        'You aren\'t avoiding the next question.',
+        'You\'re simply allowing your child to decide when they\'re ready to ask it.'
+      ]
+    },
+    {
+      title: 'When Bigger Questions Come Up',
+      paragraphs: [
+        'As children grow, they may hear words or ask questions that surprise you, including questions about sex.',
+        'Remember, your child\'s understanding of a word may be very different from yours.',
+        'Before explaining, stay curious.',
+        'You might simply ask: "What have you heard about that?"',
+        'or, "What do you think that means?"',
+        'Their answer will help you understand what they\'re really asking and how much they\'re ready to know.',
+        'If they\'re asking about how babies begin, you can explain that sexual intercourse is one way adults can share intimacy that may lead to pregnancy.',
+        'You don\'t have to explain every detail unless your child continues asking questions.',
+        'For Christian families, you can also gently connect the conversation to your family\'s beliefs:',
+        '"We believe God created our bodies, love, marriage, and families with purpose. As you get older, we\'ll keep talking about what that means together."',
+        'The goal isn\'t to give your child everything they will eventually need to know.',
+        'It\'s to give them enough truth for today and the confidence to come back tomorrow.'
+      ]
+    },
+    {
+      title: 'Science and Faith Together',
+      paragraphs: [
+        'Science gives us an incredible understanding of how human life begins.',
+        'At this age, children can begin learning simple biological concepts like eggs, sperm, pregnancy, and how babies grow inside the uterus.',
+        'And those scientific truths can exist naturally alongside your family\'s faith.',
+        'As Christians, we believe human life has value and that our bodies, relationships, marriage, and sexuality are part of God\'s intentional design.',
+        'Science helps us understand how our bodies and reproduction work.',
+        'Faith helps us talk about the meaning, responsibility, love, and values surrounding them.',
+        'We don\'t have to teach everything at once.',
+        'Both of these conversations can deepen as your child grows.'
+      ]
+    },
+    {
+      title: 'It\'s Okay If This Feels Awkward',
+      paragraphs: [
+        'If these conversations weren\'t modeled for you growing up, even saying words like sperm, egg, or sexual intercourse with your child may feel uncomfortable at first.',
+        'That\'s okay.',
+        'You don\'t have to pretend the conversation feels effortless.',
+        'What\'s important is that our discomfort doesn\'t accidentally communicate that their curiosity is something to be embarrassed about.',
+        'Take your time.',
+        'Stay calm.',
+        'And if you\'re caught completely off guard, you can always say:',
+        '"That\'s an important question. I want to give you a good answer. Can we talk about it a little later?"',
+        'Just make sure you come back to it.',
+        'Every time you do, you\'re reinforcing something important:',
+        '"You can ask me about this."'
+      ]
+    },
+    {
+      title: 'Key Takeaway',
+      paragraphs: [
+        'You don\'t need to give your six, seven, or eight year old everything you know about reproduction.',
+        'Give them what they\'re ready for.',
+        'Answer honestly. Pause. Listen.',
+        'If another question comes, answer that question too.',
+        'Over time, those small conversations build a much bigger understanding of bodies, reproduction, relationships, and your family\'s values.',
+        'More importantly, they build trust.'
+      ]
+    },
+    {
+      title: 'Wrapping Up',
+      paragraphs: [
+        'As we finish today\'s lesson, remember that your goal isn\'t to have one perfect conversation.',
+        'It\'s to create a relationship where your child never has to wonder whether they\'re allowed to ask.',
+        'Stay curious.',
+        'Use truthful, age appropriate language.',
+        'Let their questions guide the pace.',
+        'And remember that every calm answer today makes it easier for your child to come back tomorrow.',
+        'As children become more independent, however, knowing the facts is only part of what they need.',
+        'They also need confidence navigating situations when you aren\'t right beside them.',
+        'In our next talk, Boundaries, Secrets & Staying Safe, we\'ll build on what your child already knows about body safety and help you prepare them for friendships, school, activities, trusted adults, secrets, and situations that simply don\'t feel right.',
+        'Because as their independence grows, we want their confidence and their voice to grow with it.',
+        'We\'ll see you in the next lesson.'
+      ]
+    }
+  ];
+
+  var mcTalk4ReadScript = [
+    {
+      title: 'Introduction',
+      paragraphs: [
+        'Hi, and welcome to Bright Talks.',
+        'As parents, many of us want our children to grow up feeling confident, safe, and comfortable coming to us when something doesn\'t feel right.',
+        'As children grow, however, their world begins to grow too.',
+        'They\'re spending more time at school, with friends, at activities, and around trusted adults outside the home. And while that growing independence is a healthy part of childhood, it also gives us an opportunity to strengthen something we\'ve been teaching from the very beginning:',
+        'Your body deserves respect, your boundaries matter, and you can always ask for help.',
+        'Today, we\'re going to talk about helping children recognize their boundaries, understand the difference between secrets and surprises, identify trusted adults, and know what to do when a situation leaves them feeling uncomfortable or confused.'
+      ]
+    },
+    {
+      title: 'Boundaries Grow With Them',
+      paragraphs: [
+        'When children were younger, boundaries may have sounded simple:',
+        '"You don\'t have to give someone a hug if you don\'t want to."',
+        'At six, seven, and eight, we can begin expanding that conversation.',
+        'Boundaries aren\'t only about physical touch.',
+        'They\'re also about personal space, privacy, words, play, and situations that make us uncomfortable.',
+        'Maybe a friend won\'t stop wrestling after your child says they\'re done.',
+        'Maybe someone keeps teasing them after they\'ve asked them to stop.',
+        'Maybe another child wants to show them something that makes them uncomfortable.',
+        'These everyday situations give children opportunities to practice recognizing and communicating their boundaries.',
+        'You can remind them: "If something doesn\'t feel right, you can speak up, step away, and find an adult you trust."'
+      ]
+    },
+    {
+      title: 'Helping Children Use Their Voice',
+      paragraphs: [
+        'Knowing they have a boundary is one thing.',
+        'Knowing how to communicate it is another.',
+        'That\'s why practicing simple phrases at home can be so helpful.',
+        '"Please stop."',
+        '"I don\'t like that."',
+        '"I need some space."',
+        '"I\'m going to tell an adult."',
+        'Children don\'t need the perfect words.',
+        'They need to know that they\'re allowed to use their voice.',
+        'And we can reinforce that lesson in everyday family life by listening when they communicate a reasonable boundary to us.',
+        'When children see that their words matter at home, they\'re learning how to use those words when we\'re not there.'
+      ]
+    },
+    {
+      title: 'Secrets and Surprises',
+      paragraphs: [
+        'This age is also a good time to talk about the difference between secrets and surprises.',
+        'A surprise is something we\'re keeping quiet for a little while because eventually someone will find out like a birthday present or a special celebration.',
+        'But children should never feel responsible for keeping something hidden because someone tells them they\'ll get in trouble, makes them feel afraid, or asks them not to tell their parents.',
+        'Especially when it involves their body, touching, inappropriate pictures, or something that made them uncomfortable.',
+        'You might tell your child: "No one should ask you to keep something from me that makes you feel scared, worried, or uncomfortable. You can always tell me even if someone told you not to."',
+        'And then give them one more reassurance: "You won\'t be in trouble for telling me."',
+        'That can be incredibly important for a child to hear.'
+      ]
+    },
+    {
+      title: 'Who Are Your Safe Adults?',
+      paragraphs: [
+        'As children become more independent, they also need to know who they can turn to when you aren\'t nearby.',
+        'Sit down together and identify a few trusted adults in their world.',
+        'Maybe it\'s a grandparent.',
+        'A teacher.',
+        'A coach.',
+        'A relative.',
+        'A trusted adult from church or another activity.',
+        'Instead of only saying, "Find an adult," help your child know which adults you trust and why.',
+        'You can even ask: "If you were at school and needed help, who could you talk to?"',
+        '"What about soccer practice?"',
+        '"What if you couldn\'t reach me?"',
+        'These aren\'t conversations meant to make children afraid.',
+        'They\'re simply giving them a plan.',
+        'Preparation creates confidence.'
+      ]
+    },
+    {
+      title: 'When Something Doesn\'t Feel Right',
+      paragraphs: [
+        'Sometimes children won\'t know exactly why a situation feels uncomfortable.',
+        'That\'s okay.',
+        'They don\'t have to prove that something is wrong before asking for help.',
+        'Teach your child that if something feels confusing, uncomfortable, or unsafe, they can:',
+        'Speak up. Step away. Tell a trusted adult.',
+        'And if the first adult doesn\'t understand or doesn\'t help?',
+        'Tell another trusted adult.',
+        'Keep telling until someone listens.',
+        'This isn\'t about teaching children that everyone around them is dangerous.',
+        'It\'s about teaching them that they never have to handle an uncomfortable situation alone.'
+      ]
+    },
+    {
+      title: 'A Christian Perspective',
+      paragraphs: [
+        'As Christians, we believe every person is created in the image of God and deserves dignity, care, and respect.',
+        'That includes our children.',
+        'Teaching boundaries isn\'t teaching children to fear others. It\'s helping them understand that they have value and that other people do too.',
+        'We can teach children to respect someone else\'s "no" while also knowing that their own "no" matters.',
+        'We can teach kindness without requiring silence.',
+        'And we can teach respect for adults while helping children understand that if an adult ever asks them to do something unsafe, inappropriate, or secretive, they can always come to us.'
+      ]
+    },
+    {
+      title: 'Key Takeaway',
+      paragraphs: [
+        'As your child\'s independence grows, their confidence and voice can grow with it.',
+        'Help them remember: Speak up. Step away. Tell a trusted adult.',
+        'And perhaps most importantly: They can always tell you.',
+        'Even if they\'re embarrassed.',
+        'Even if they broke a rule.',
+        'Even if someone told them not to.',
+        'Even if they aren\'t quite sure what happened.',
+        'The goal isn\'t for your child to know exactly what to do in every possible situation.',
+        'It\'s for them to know they never have to navigate those situations alone.'
+      ]
+    },
+    {
+      title: 'Wrapping Up',
+      paragraphs: [
+        'As we finish today\'s lesson, remember that body safety isn\'t about raising fearful children.',
+        'It\'s about raising children who know their boundaries, recognize their value, use their voice, and know where to turn when they need help.',
+        'Practice these conversations during calm, everyday moments.',
+        'Ask questions.',
+        'Listen carefully.',
+        'And remind your child often: "Whatever happens, you can always come to me."',
+        'Because every time we respond with calmness, honesty, and love, we\'re building the trust they\'ll need as their world continues to grow.',
+        'And that brings us to our final talk.',
+        'In Keeping the Door Open, we\'ll bring everything we\'ve learned together and explore how to protect that trust as your child moves toward the preteen years so that as their questions get bigger, their willingness to come to you grows right alongside them.',
+        'We\'ll see you in the next lesson.'
+      ]
+    }
+  ];
+
+  var mcTalk5ReadScript = [
+    {
+      title: 'Introduction',
+      paragraphs: [
+        'Hi, and welcome to Bright Talks.',
+        'As parents, many of us want our children to grow up feeling confident, safe, and comfortable coming to us with their questions.',
+        'Throughout this course, we\'ve talked about growing bodies, growing curiosity, things children may hear from friends, questions about reproduction, and how to strengthen boundaries and body safety.',
+        'But underneath every one of those conversations has been something even more important:',
+        'Trust.',
+        'Because the goal isn\'t simply for your child to know the right information.',
+        'It\'s for them to know where they can always go when they need help making sense of it.',
+        'Today, we\'re going to talk about how to keep that door open as your child grows.'
+      ]
+    },
+    {
+      title: 'Trust Is Built in Small Moments',
+      paragraphs: [
+        'Trust usually isn\'t built during one big conversation.',
+        'It\'s built in ordinary moments.',
+        'When your child tells you something surprising.',
+        'When they admit they made a mistake.',
+        'When they ask an awkward question.',
+        'When they tell you something a friend said.',
+        'How we respond in those small moments teaches children what they can bring to us in the future.',
+        'Sometimes the most powerful response is simply: "I\'m really glad you told me."',
+        'That doesn\'t mean you agree with everything they say or that there won\'t sometimes be consequences.',
+        'It simply tells your child: "You can tell me the truth, and we\'ll figure it out together."'
+      ]
+    },
+    {
+      title: 'Listen Before You React',
+      paragraphs: [
+        'As children grow, eventually they\'re going to tell us something we weren\'t expecting.',
+        'And sometimes our faces react before our words do.',
+        'Before correcting, questioning, or jumping immediately into advice, try to pause and listen.',
+        'You might say: "Tell me more."',
+        '"How did that make you feel?"',
+        'or, "What do you think about what happened?"',
+        'Remember one of the ideas we\'ve practiced throughout this course:',
+        'Respond to curiosity with curiosity.',
+        'When we stay curious, we\'re not only gathering information.',
+        'We\'re showing our children that their thoughts matter to us.'
+      ]
+    },
+    {
+      title: 'Keep Creating Opportunities to Talk',
+      paragraphs: [
+        'Not every meaningful conversation needs to begin with: "We need to talk."',
+        'In fact, some of the best conversations happen when we\'re doing something else.',
+        'Driving in the car.',
+        'Making dinner.',
+        'Walking the dog.',
+        'Getting ready for bed.',
+        'Those everyday moments can make bigger conversations feel much less intimidating.',
+        'You can also create simple check-ins: "What\'s something that made you happy today?"',
+        '"Did anything happen that confused you?"',
+        '"Did you hear anything today that you have questions about?"',
+        'Your child may not always have something to say.',
+        'That\'s okay.',
+        'You\'re showing them that the door is open.'
+      ]
+    },
+    {
+      title: 'When They Tell You Something Hard',
+      paragraphs: [
+        'There may come a day when your child tells you something that worries you.',
+        'Maybe they broke a family rule.',
+        'Maybe they saw something inappropriate.',
+        'Maybe a friend said something confusing.',
+        'Or maybe something happened that made them uncomfortable or afraid.',
+        'In those moments, your child will be watching your response.',
+        'Take a breath.',
+        'Listen.',
+        'And remind them: "Thank you for telling me. We\'ll figure out what to do together."',
+        'You can address the behavior or situation after you\'ve made sure your child knows they are safe, heard, and loved.',
+        'Grace doesn\'t mean ignoring difficult things.',
+        'It means making sure difficult things don\'t have to be faced alone.'
+      ]
+    },
+    {
+      title: 'Preparing for the Next Stage',
+      paragraphs: [
+        'Six, seven, and eight can feel like such a special window.',
+        'Your child is becoming more independent, but they still need your guidance in so many ways.',
+        'Over the next several years, that independence will continue to grow.',
+        'Their bodies will change.',
+        'Friendships may become more complicated.',
+        'Technology will play a larger role.',
+        'Their questions about relationships, sexuality, and growing up will become deeper.',
+        'You don\'t have to prepare for all of that today.',
+        'You\'re preparing the relationship that will carry you through it.',
+        'Every conversation you\'re having now is laying a foundation for the conversations you\'ll have later.'
+      ]
+    },
+    {
+      title: 'A Christian Perspective',
+      paragraphs: [
+        'As Christian parents, we want our children to know God\'s truth but we also want them to understand the grace and love that surround it.',
+        'Throughout Scripture, we see a God who invites us to come to Him honestly. We don\'t have to hide our questions, our struggles, or even our mistakes from Him.',
+        'That\'s something we can model in our homes too.',
+        'You might tell your child: "God loves you, and there is nothing you could ever ask me that would make me stop loving you. Even if you make a mistake or something happens that you\'re afraid to tell me about, I want you to come to me. We can talk about it, pray about it, and figure out what to do together."',
+        'That doesn\'t mean every choice is the right choice or that boundaries and consequences disappear.',
+        'It means love comes before the lecture.',
+        'As your child grows, you can also begin helping them understand why your family believes what it believes.',
+        'Instead of only saying: "Because that\'s our rule," you might say:',
+        '"Our family believes God created us with purpose, and we want the choices we make to reflect the way He asks us to love and respect ourselves and other people."',
+        'And when your child has a question you aren\'t sure how to answer, you can model something else:',
+        '"That\'s a really good question. Let\'s think about what we know, what the Bible teaches us, and what we can learn together."',
+        'You don\'t have to be afraid of your child\'s questions.',
+        'Questions can become opportunities to help faith grow from something your child has simply been told into something they\'re beginning to understand.',
+        'Our goal isn\'t simply to raise children who can repeat what their parents believe.',
+        'We want to raise children who know they can seek truth, ask hard questions, receive grace when they stumble, and grow in wisdom as their faith becomes increasingly their own.',
+        'Truth gives them direction. Grace gives them somewhere to return. And love keeps the door open.'
+      ]
+    },
+    {
+      title: 'Key Takeaway',
+      paragraphs: [
+        'If there\'s one thing we hope you remember from this course, let it be this:',
+        'You don\'t need to have every answer. You need to keep the door open.',
+        'Keep listening.',
+        'Keep asking questions.',
+        'Keep telling the truth.',
+        'Keep showing up.',
+        'Because every time your child comes to you and is met with love, honesty, and calm guidance, you\'re reinforcing something they\'ll carry with them:',
+        '"I can bring the hard things here."'
+      ]
+    },
+    {
+      title: 'Wrapping Up',
+      paragraphs: [
+        'As we close this course, remember that these five talks were never meant to prepare you for one perfect conversation.',
+        'They were meant to help you begin hundreds of small ones.',
+        'Your child\'s questions will change.',
+        'Their body will change.',
+        'Their friendships will change.',
+        'And the world around them will continue to change too.',
+        'But through all of it, you can remain something steady:',
+        'A parent who listens.',
+        'A parent who tells the truth.',
+        'A parent who leads with both wisdom and grace.',
+        'And a parent whose door remains open.',
+        'You don\'t have to know exactly what every stage will bring.',
+        'The truth stays consistent. The depth grows with your child.',
+        'And when the next question comes, you\'ll be ready to meet them there.',
+        'Thank you for allowing Bright Talks to walk alongside your family during this stage.',
+        'Keep talking.',
+        'Keep listening.',
+        'And most importantly keep the door open.',
+        'We\'ll see you in the next stage of Bright Talks.'
+      ]
+    }
+  ];
+
   var courseHeroImages = {
     earlyYears: 'images/pexels-julia-m-cameron-4144230.jpg',
     middleChildhood: 'images/pexels-julia-m-cameron-4144531.jpg',
@@ -994,7 +1605,7 @@
           paragraphs: [
             'Watch the welcome, then work through the talks in order or jump to what your family needs now.',
             'Practice small check-ins in ordinary moments—the car, bedtime, after school.',
-            'When Heidi’s Ages 6–8 videos are linked here, they will play in the same Watch player you already use.'
+            'Talk videos currently use a temporary Ages 3–5 stand-in so you can preview the player layout. Final Ages 6–8 videos will replace them when ready.'
           ]
         }
       ]
@@ -1006,7 +1617,7 @@
         title: 'Talk 1: Growing Bodies & Growing Curiosity',
         summary:
           'Respond calmly when children notice body differences, ask new questions, and want more privacy.',
-        image: middleChildhoodLessonImages[0],
+        readScript: mcTalk1ReadScript,
         objectives: [
           'Treat growing curiosity as connection, not a problem to shut down.',
           'Give simple, matter-of-fact answers about body differences and change.',
@@ -1018,7 +1629,7 @@
         title: 'Talk 2: When Kids Hear Things From Friends',
         summary:
           'Respond with curiosity—not panic—when a child brings home unexpected words or ideas.',
-        image: middleChildhoodLessonImages[1],
+        readScript: mcTalk2ReadScript,
         objectives: [
           'Pause and learn what your child actually heard and understands.',
           'Correct gently when something is inaccurate or too mature.',
@@ -1030,7 +1641,7 @@
         title: 'Talk 3: Questions About Babies, Sex & Where We Come From',
         summary:
           'Answer reproduction questions simply and truthfully without oversharing or shutting down.',
-        image: middleChildhoodLessonImages[2],
+        readScript: mcTalk3ReadScript,
         objectives: [
           'Match the depth of your answer to the question being asked.',
           'Use calm, accurate language about babies and growing up.',
@@ -1042,7 +1653,7 @@
         title: 'Talk 4: Boundaries, Secrets & Staying Safe',
         summary:
           'Strengthen body safety language: privacy, surprises vs secrets, and telling a trusted adult.',
-        image: middleChildhoodLessonImages[3],
+        readScript: mcTalk4ReadScript,
         objectives: [
           'Practice speak up, step away, and tell a trusted adult.',
           'Distinguish surprises from unsafe secrets.',
@@ -1054,7 +1665,7 @@
         title: 'Talk 5: Keeping the Door Open',
         summary:
           'Build everyday habits of listening and trust so bigger preteen conversations still come to you.',
-        image: middleChildhoodLessonImages[4],
+        readScript: mcTalk5ReadScript,
         objectives: [
           'Use small moments to reinforce “you can tell me.”',
           'Listen before reacting when something unexpected comes up.',
@@ -1066,15 +1677,17 @@
     var talkLessons = talks.map(function (talk) {
       return splitLesson({
         id: talk.id,
-        availability: 'soon',
+        availability: 'ready',
         title: talk.title,
         summary: talk.summary,
-        duration: '—',
-        audioDuration: '00:00',
+        duration: '6m',
+        audioDuration: '05:54',
+        audioUrl: talk1ListenAudio,
+        audioVoice: 'Heidi Cooper',
+        readScript: talk.readScript,
         heroVisual: {
-          type: 'image',
-          src: talk.image,
-          alt: talk.title
+          type: 'video',
+          src: talk1VideoSrc
         },
         sections: [
           {
@@ -1087,7 +1700,7 @@
             type: 'prose',
             paragraphs: [
               talk.summary,
-              'Heidi’s Ages 6–8 video for this talk will appear in Watch mode once the encode is linked. Until then, use the Read tab and these objectives to prepare.'
+              'Layout preview: Watch mode currently plays the Ages 3–5 Talk 1 video as a stand-in until Heidi’s Ages 6–8 encodes are linked. Use Read mode for the full Ages 6–8 script.'
             ]
           }
         ]
@@ -1096,7 +1709,7 @@
 
     return {
       id: 'bt-middle-childhood',
-      title: 'Growing Up: Middle Childhood',
+      title: 'Growing Up: Ages 6 to 8',
       topic: 'Growing Up',
       audience: 'Parents of Ages 6 to 8',
       level: 'Core',
@@ -1104,7 +1717,7 @@
         'Five parent talks for ages 6 to 8: growing curiosity, friends’ voices, reproduction questions, boundaries, and keeping trust open.',
       outcome:
         'Build confidence leading age-appropriate talks as your child’s world expands beyond home.',
-      duration: 'Coming soon',
+      duration: 'About 30m (preview)',
       lessonCount: 1 + talkLessons.length,
       progress: 0,
       completed: false,
@@ -1119,7 +1732,7 @@
         },
         {
           id: 'm-mc-parent-talks',
-          title: 'Parent Talks',
+          title: 'Ages 6–8 Parent Talks',
           objective:
             'Walk through curiosity, peer conversations, reproduction questions, safety, and ongoing trust.',
           lessons: talkLessons

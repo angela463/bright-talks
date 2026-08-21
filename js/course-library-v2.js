@@ -62,7 +62,7 @@
 
   var libraryTitles = {
     'bt-foundations-early-years': 'Foundations: Early Years',
-    'bt-middle-childhood': 'Growing Up: Middle Childhood',
+    'bt-middle-childhood': 'Growing Up: Ages 6 to 8',
     'bt-puberty-conversations': 'Puberty & Changing Bodies',
     'bt-teen-digital-safety': 'Teen Safety & Relationships'
   };
