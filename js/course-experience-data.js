@@ -73,6 +73,8 @@
     'https://player.mediadelivery.net/embed/695172/fb174fe3-ea85-4043-bb6f-2857f074378a' +
     '?autoplay=false&loop=false&muted=true&preload=true&responsive=true&playerjs=true';
   var talk2VideoSrc = 'videos/talk-2-boundaries.mp4';
+  var talk3VideoSrc = 'videos/talk-3-reproduction.mp4';
+  var talk4VideoSrc = 'videos/talk-4-porn-images.mp4';
 
   var talk1ReadScript = [
     {
@@ -740,10 +742,13 @@
         title: 'Talk 3: Reproduction',
         summary:
           'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3 to 6.',
-        duration: '18m',
-        audioDuration: '18:00',
+        duration: '5m',
+        audioDuration: '04:35',
         readScript: talk3ReadScript,
-        heroVisual: { type: 'image', src: earlyYearsLessonImages.reproduction, alt: 'Calm parent-child moment' },
+        heroVisual: {
+          type: 'video',
+          src: talk3VideoSrc
+        },
         sections: [
           {
             title: 'Talk Objectives',
@@ -791,10 +796,13 @@
         title: 'Talk 4: Porn & Inappropriate Images',
         summary:
           'Prepare calm responses if your child sees confusing images or videos online or elsewhere without fear or shame.',
-        duration: '20m',
-        audioDuration: '20:00',
+        duration: '5m',
+        audioDuration: '05:27',
         readScript: talk4ReadScript,
-        heroVisual: { type: 'image', src: earlyYearsLessonImages.porn, alt: 'Parent guiding child at computer' },
+        heroVisual: {
+          type: 'video',
+          src: talk4VideoSrc
+        },
         sections: [
           {
             title: 'Talk Objectives',
