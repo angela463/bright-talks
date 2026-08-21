@@ -1,25 +1,23 @@
-/* courses-concept.js — experimental courses landing */
+/* courses-concept.js — courses landing with age-band accordion */
 (function () {
   'use strict';
 
   var common = window.CourseExperienceCommon;
   if (!common) return;
 
-  var EARLY_YEARS_ID = 'bt-foundations-early-years';
-
   var seriesMeta = [
     {
       courseId: 'bt-foundations-early-years',
       num: '01',
-      title: 'Bodies, Biology & Anatomy',
-      age: 'Ages 3 to 5',
+      title: 'Body Safety Foundations',
+      age: 'Ages 3 to 6',
       status: 'available',
       statusLabel: 'Available'
     },
     {
       courseId: 'bt-middle-childhood',
       num: '02',
-      title: 'Boundaries & Safety',
+      title: 'Growing Up',
       age: 'Ages 6 to 8',
       status: 'available',
       statusLabel: 'Available'
@@ -27,7 +25,7 @@
     {
       courseId: 'bt-puberty-conversations',
       num: '03',
-      title: 'Reproduction',
+      title: 'Puberty Conversations',
       age: 'Ages 9 to 12',
       status: 'progress',
       statusLabel: 'In progress'
@@ -35,10 +33,29 @@
     {
       courseId: 'bt-teen-digital-safety',
       num: '04',
-      title: 'Porn & Inappropriate Images',
+      title: 'Teen Digital Safety',
       age: 'Teens',
       status: 'soon',
       statusLabel: 'Coming soon'
+    }
+  ];
+
+  var ageBands = [
+    {
+      id: 'ages-3-6',
+      courseId: 'bt-foundations-early-years',
+      label: 'Ages 3 to 6',
+      title: 'Body Safety Foundations',
+      blurb: 'Welcome plus five parent talks on bodies, boundaries, reproduction, online images, and keeping conversations going.',
+      openByDefault: true
+    },
+    {
+      id: 'ages-6-8',
+      courseId: 'bt-middle-childhood',
+      label: 'Ages 6 to 8',
+      title: 'Growing Up',
+      blurb: 'Five parent talks for growing curiosity, friends’ voices, bigger questions, boundaries, and keeping the door open.',
+      openByDefault: false
     }
   ];
 
@@ -57,7 +74,7 @@
 
   function formatDuration(duration) {
     var raw = String(duration || '').trim();
-    if (!raw) return '';
+    if (!raw || raw === '—') return '';
     if (/^\d+m$/i.test(raw)) return raw.replace(/m/i, ' min');
     if (/min/i.test(raw)) return raw;
     return raw;
@@ -76,64 +93,124 @@
     return String(index + 1);
   }
 
-  function renderLessonList() {
-    var root = document.getElementById('cc-lesson-list');
-    if (!root) return;
+  function isLessonSoon(lesson) {
+    return !!(lesson && lesson.availability === 'soon');
+  }
 
-    var course = common.getCourseById(EARLY_YEARS_ID);
-    if (!course) {
-      root.innerHTML = '<li class="cc-lesson-row"><div class="cc-lesson-row__body"><p>Lessons loading…</p></div></li>';
-      return;
-    }
-
+  function flattenCourseLessons(course) {
     var items = [];
-    course.modules.forEach(function (module, mIndex) {
+    (course.modules || []).forEach(function (module, mIndex) {
       (module.lessons || []).forEach(function (lesson, lIndex) {
         items.push({ module: mIndex, lesson: lIndex, lessonData: lesson });
       });
     });
+    return items;
+  }
 
-    root.innerHTML = items.map(function (entry, index) {
-      var lesson = entry.lessonData;
-      var isWelcome = /^welcome video$/i.test(String(lesson.title || '').trim());
-      var isFirstTalk = !isWelcome && /^talk\s+1:/i.test(String(lesson.title || '').trim());
-      var num = lessonNumber(lesson.title, index);
-      var rowClass = 'cc-lesson-row' + (isWelcome ? ' cc-lesson-row--welcome' : '');
-      var numClass = 'cc-lesson-row__num' + (isWelcome ? ' cc-lesson-row__num--start' : '');
-      var href = playerHref(course.id, entry.module, entry.lesson);
-      var statusHtml = '';
-      var ctaHtml;
+  function lessonRowHtml(course, entry, index) {
+    var lesson = entry.lessonData;
+    var isWelcome = /^welcome video$/i.test(String(lesson.title || '').trim());
+    var soon = isLessonSoon(lesson);
+    var num = lessonNumber(lesson.title, index);
+    var rowClass = 'cc-lesson-row' + (isWelcome ? ' cc-lesson-row--welcome' : '');
+    var numClass = 'cc-lesson-row__num' + (isWelcome ? ' cc-lesson-row__num--start' : '');
+    var href = playerHref(course.id, entry.module, entry.lesson);
+    var statusHtml = '';
+    var ctaHtml = '';
 
-      if (isWelcome) {
-        ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">Start here</a>';
-      } else if (isFirstTalk) {
-        statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--ready">Ready to start</span>';
-        ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">View talk</a>';
-      } else {
-        statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--soon">Coming soon</span>';
-        ctaHtml = '';
-      }
+    if (soon) {
+      statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--soon">Coming soon</span>';
+    } else if (isWelcome) {
+      statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--start">Start here</span>';
+      ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">Open</a>';
+    } else {
+      statusHtml = '<span class="cc-lesson-row__status cc-lesson-row__status--ready">Ready</span>';
+      ctaHtml = '<a class="cc-lesson-row__link cc-lesson-row__link--btn" href="' + escText(href) + '">View talk</a>';
+    }
+
+    return '' +
+      '<li class="' + rowClass + '">' +
+        '<div class="' + numClass + '">' + escText(num) + '</div>' +
+        '<div class="cc-lesson-row__body">' +
+          '<h3>' + escText(displayLessonTitle(lesson.title)) + '</h3>' +
+          '<p>' + escText(lesson.summary) + '</p>' +
+        '</div>' +
+        '<div class="cc-lesson-row__meta">' +
+          '<span class="cc-lesson-row__time">' + escText(formatDuration(lesson.duration)) + '</span>' +
+          statusHtml +
+          ctaHtml +
+        '</div>' +
+      '</li>';
+  }
+
+  function renderAgeAccordion() {
+    var root = document.getElementById('cc-age-accordion');
+    if (!root) return;
+
+    root.innerHTML = ageBands.map(function (band) {
+      var course = common.getCourseById(band.courseId);
+      if (!course) return '';
+
+      var items = flattenCourseLessons(course);
+      var talkCount = items.filter(function (entry) {
+        return !/^welcome video$/i.test(String(entry.lessonData.title || '').trim());
+      }).length;
+      var isOpen = !!band.openByDefault;
+      var panelId = 'cc-age-panel-' + band.id;
+      var toggleId = 'cc-age-toggle-' + band.id;
 
       return '' +
-        '<li class="' + rowClass + '">' +
-          '<div class="' + numClass + '">' + escText(num) + '</div>' +
-          '<div class="cc-lesson-row__body">' +
-            '<h3>' + escText(displayLessonTitle(lesson.title)) + '</h3>' +
-            '<p>' + escText(lesson.summary) + '</p>' +
+        '<section class="cc-age-band' + (isOpen ? ' is-open' : '') + '" data-age-band="' + escText(band.id) + '">' +
+          '<button type="button" class="cc-age-band__toggle" id="' + toggleId + '"' +
+            ' aria-expanded="' + (isOpen ? 'true' : 'false') + '"' +
+            ' aria-controls="' + panelId + '">' +
+            '<span class="cc-age-band__mark" aria-hidden="true"></span>' +
+            '<span class="cc-age-band__copy">' +
+              '<span class="cc-age-band__label">' + escText(band.label) + '</span>' +
+              '<span class="cc-age-band__title">' + escText(band.title) + '</span>' +
+              '<span class="cc-age-band__blurb">' + escText(band.blurb) + '</span>' +
+            '</span>' +
+            '<span class="cc-age-band__aside">' +
+              '<span class="cc-age-band__count">' + talkCount + ' talks</span>' +
+              '<svg class="cc-age-band__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+            '</span>' +
+          '</button>' +
+          '<div class="cc-age-band__panel" id="' + panelId + '" role="region" aria-labelledby="' + toggleId + '"' +
+            (isOpen ? '' : ' hidden') + '>' +
+            '<ol class="cc-lesson-list">' +
+              items.map(function (entry, index) {
+                return lessonRowHtml(course, entry, index);
+              }).join('') +
+            '</ol>' +
           '</div>' +
-          '<div class="cc-lesson-row__meta">' +
-            '<span class="cc-lesson-row__time">' + escText(formatDuration(lesson.duration)) + '</span>' +
-            statusHtml +
-            ctaHtml +
-          '</div>' +
-        '</li>';
+        '</section>';
     }).join('');
   }
 
+  function bindAgeAccordion() {
+    var root = document.getElementById('cc-age-accordion');
+    if (!root) return;
+
+    root.addEventListener('click', function (e) {
+      var toggle = e.target.closest('.cc-age-band__toggle');
+      if (!toggle) return;
+
+      var band = toggle.closest('.cc-age-band');
+      if (!band) return;
+
+      var willOpen = !band.classList.contains('is-open');
+      var panel = band.querySelector('.cc-age-band__panel');
+
+      band.classList.toggle('is-open', willOpen);
+      toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      if (panel) panel.hidden = !willOpen;
+    });
+  }
+
   function seriesButton(meta, course) {
-    var started = meta.num === '01';
-    if (!started) {
-      return '<span class="cc-series-card__btn" aria-disabled="true">Coming soon</span>';
+    if (meta.status === 'soon' || meta.status === 'progress') {
+      return '<span class="cc-series-card__btn" aria-disabled="true">' +
+        escText(meta.statusLabel) + '</span>';
     }
     var entry = course.playerEntry || { module: 0, lesson: 0 };
     return '<a class="cc-series-card__btn cc-series-card__btn--primary" href="' +
@@ -166,7 +243,8 @@
   }
 
   function init() {
-    renderLessonList();
+    renderAgeAccordion();
+    bindAgeAccordion();
     renderSeriesCards();
   }
 

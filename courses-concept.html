@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/courses-concept.css" />
+  <link rel="stylesheet" href="css/courses-concept.css?v=cc-accordion" />
 </head>
 <body class="page-courses-concept page-landing" id="top">
   <header class="site-header site-header--landing">
@@ -68,12 +68,12 @@
       <div class="cc-shell">
         <header class="cc-section__header">
           <p class="cc-section__kicker">What’s inside</p>
-          <h2 id="cc-inside-heading" class="cc-section__title">Every talk, in order</h2>
+          <h2 id="cc-inside-heading" class="cc-section__title">Browse talks by age</h2>
           <p class="cc-section__intro">
-            Body Safety Foundations walks parents through six practical talks, plus a welcome video. Each row is a real lesson from the current Bright Talks course.
+            Open an age group to see every talk in order. Start with Ages 3 to 6, then continue into Ages 6 to 8 as your child grows.
           </p>
         </header>
-        <ol id="cc-lesson-list" class="cc-lesson-list" aria-label="Early Years course lessons"></ol>
+        <div id="cc-age-accordion" class="cc-age-accordion" aria-label="Course talks by age"></div>
       </div>
     </section>
   </main>
@@ -90,9 +90,9 @@
     </div>
   </footer>
 
-  <script src="js/course-experience-data.js"></script>
+  <script src="js/course-experience-data.js?v=cc-accordion"></script>
   <script src="js/course-experience-common.js"></script>
-  <script src="js/courses-concept.js"></script>
+  <script src="js/courses-concept.js?v=cc-accordion"></script>
   <script src="js/auth-modal.js"></script>
   <script src="js/main.js"></script>
 </body>

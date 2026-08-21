@@ -135,6 +135,122 @@
   line-height: 1.62;
 }
 
+/* ─── Age-band accordion ─── */
+.cc-age-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.cc-age-band {
+  border: 1.5px solid var(--cc-grey-border);
+  border-radius: 1rem;
+  background: #fff;
+  overflow: hidden;
+}
+
+.cc-age-band__toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 1.1rem 1.15rem;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+.cc-age-band__toggle:hover {
+  background: rgba(232, 149, 74, 0.06);
+}
+
+.cc-age-band__mark {
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 116, 50, 0.45);
+  background: #fff;
+}
+
+.cc-age-band.is-open .cc-age-band__mark {
+  border-color: var(--cc-accent-dark);
+  background: radial-gradient(circle at center, var(--cc-accent) 0 40%, #fff 42%);
+}
+
+.cc-age-band__copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cc-age-band__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cc-accent-dark);
+}
+
+.cc-age-band__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--cc-ink);
+}
+
+.cc-age-band__blurb {
+  margin-top: 0.15rem;
+  color: var(--cc-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  max-width: 40rem;
+}
+
+.cc-age-band__aside {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.15rem;
+}
+
+.cc-age-band__count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cc-muted);
+  white-space: nowrap;
+}
+
+.cc-age-band__chevron {
+  color: var(--cc-muted);
+  transition: transform 0.18s ease;
+}
+
+.cc-age-band.is-open .cc-age-band__chevron {
+  transform: rotate(180deg);
+}
+
+.cc-age-band__panel {
+  padding: 0 1rem 0.85rem;
+  border-top: 1px solid var(--cc-grey-border);
+}
+
+.cc-age-band__panel[hidden] {
+  display: none;
+}
+
+.cc-age-band .cc-lesson-list {
+  border-top: 0;
+}
+
 /* ─── Lesson list (orange accents on left numbers + CTAs) ─── */
 .cc-lesson-list {
   list-style: none;
@@ -418,6 +534,17 @@
 }
 
 @media (max-width: 640px) {
+  .cc-age-band__toggle {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .cc-age-band__aside {
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 2rem;
+  }
+
   .cc-lesson-row {
     grid-template-columns: 2.5rem minmax(0, 1fr);
     grid-template-areas:
