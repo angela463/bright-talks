@@ -1301,6 +1301,8 @@
     }
     if (el.audio) {
       el.audio.pause();
+      el.audio.muted = true;
+      el.audio.volume = 0;
       try { el.audio.currentTime = 0; } catch (err3) {}
     }
     pauseWelcomePromo();
@@ -1309,6 +1311,29 @@
       welcomePromoInstance = null;
     }
     pauseEmbedVideo();
+  }
+
+  function lockWatchModeLessonAudio(active) {
+    if (!el.audio) return;
+    if (active) {
+      el.audio.pause();
+      el.audio.muted = true;
+      el.audio.volume = 0;
+      return;
+    }
+    el.audio.muted = false;
+    el.audio.volume = 1;
+  }
+
+  function disableExtraVideoAudioTracks() {
+    if (!el.heroVisual) return;
+    try {
+      var tracks = el.heroVisual.audioTracks;
+      if (!tracks || tracks.length < 2) return;
+      for (var i = 0; i < tracks.length; i++) {
+        tracks[i].enabled = i === 0;
+      }
+    } catch (err) {}
   }
 
   function cancelTitleSplash() {
@@ -2266,6 +2291,8 @@
     var lesson = getCurrentLesson();
     if (isPlainHtmlTalkVideo(lesson)) {
       silenceAuxiliaryMedia();
+      lockWatchModeLessonAudio(true);
+      disableExtraVideoAudioTracks();
     }
     if (isUnifiedTalkLesson(lesson)) {
       if (el.videoStage && el.videoStage.classList.contains('is-splash-active')) {
@@ -2324,6 +2351,13 @@
   function handleVideoPauseClick() {
     if (el.videoBarPause && el.videoBarPause.disabled) return;
     var lesson = getCurrentLesson();
+    if (isPlainHtmlTalkVideo(lesson)) {
+      if (el.heroVisual) el.heroVisual.pause();
+      silenceAuxiliaryMedia();
+      lockWatchModeLessonAudio(true);
+      updateVideoUI();
+      return;
+    }
     if (isUnifiedTalkLesson(lesson)) {
       if (talk1Phase === 'intro' || (el.videoStage && el.videoStage.classList.contains('is-splash-active'))) {
         pauseIntroPlayback();
@@ -2422,14 +2456,18 @@
       cancelTitleSplash();
       pauseWelcomePromo();
       if (el.heroVisual) el.heroVisual.pause();
+      lockWatchModeLessonAudio(false);
       if (isWelcomeLesson(lesson) && el.audio) el.audio.pause();
       if (el.listenTitle) el.listenTitle.textContent = displayLessonTitle(lesson.title);
+      ensureLessonAudio(lesson);
       buildWaveform();
       updateVideoUI();
       updateAudioUI();
       return;
     }
 
+    silenceAuxiliaryMedia();
+    lockWatchModeLessonAudio(true);
     if (el.audio) el.audio.pause();
     updateAudioUI();
 
@@ -2457,8 +2495,9 @@
         } else if (!el.videoStage || !el.videoStage.classList.contains('is-splash-active')) {
           forceHeroVideo(lesson.heroVisual.src, lesson);
         }
+      } else if (isPlainHtmlTalkVideo(lesson)) {
+        prepareHeroVideoPaused(lesson);
       } else if (el.heroVisual.paused) {
-        // applyHeroVisual already started playback; only resume if still paused
         playHeroVideoWhenReady(lesson);
       }
       updateVideoUI();
@@ -2484,6 +2523,12 @@
           showPosterFrame();
         });
       }
+      return;
+    }
+
+    // Plain talk videos stay paused until the learner presses Play.
+    if (isPlainHtmlTalkVideo(lesson)) {
+      prepareHeroVideoPaused(lesson);
       return;
     }
 
@@ -2514,6 +2559,37 @@
       });
       tryPlay();
     }
+  }
+
+  function prepareHeroVideoPaused(lesson) {
+    if (!el.heroVisual || el.heroVisual.hidden) return;
+    silenceAuxiliaryMedia();
+    lockWatchModeLessonAudio(true);
+    configureHeroVideoPlayback(lesson);
+    el.heroVisual.classList.remove('is-splash-hidden');
+    el.heroVisual.hidden = false;
+    el.heroVisual.setAttribute('playsinline', '');
+    el.heroVisual.setAttribute('webkit-playsinline', '');
+    el.heroVisual.pause();
+
+    function showFirstFrame() {
+      try {
+        if (el.heroVisual.readyState >= 1) el.heroVisual.currentTime = 0.001;
+      } catch (err) {}
+      el.heroVisual.pause();
+      disableExtraVideoAudioTracks();
+      updateVideoUI();
+    }
+
+    if (el.heroVisual.readyState >= 1) {
+      showFirstFrame();
+      return;
+    }
+    el.heroVisual.addEventListener('loadeddata', function onData() {
+      el.heroVisual.removeEventListener('loadeddata', onData);
+      showFirstFrame();
+    }, { once: true });
+    updateVideoUI();
   }
 
   function forceHeroEmbed(src, lesson) {
@@ -2571,6 +2647,10 @@
     }
 
     cancelTitleSplash();
+    if (isPlainHtmlTalkVideo(lesson)) {
+      prepareHeroVideoPaused(lesson);
+      return;
+    }
     playHeroVideoWhenReady(lesson);
   }
 
@@ -2691,11 +2771,41 @@
     if (!el.heroVisual) return;
 
     el.heroVisual.addEventListener('timeupdate', updateVideoUI);
-    el.heroVisual.addEventListener('loadedmetadata', updateVideoUI);
-    el.heroVisual.addEventListener('play', updateVideoUI);
-    el.heroVisual.addEventListener('pause', updateVideoUI);
+    el.heroVisual.addEventListener('loadedmetadata', function () {
+      disableExtraVideoAudioTracks();
+      updateVideoUI();
+    });
+    el.heroVisual.addEventListener('play', function () {
+      if (isPlainHtmlTalkVideo(getCurrentLesson())) {
+        if (el.audio) {
+          el.audio.pause();
+          el.audio.muted = true;
+          el.audio.volume = 0;
+        }
+        if (el.splashAudio) el.splashAudio.pause();
+        if (el.outroAudio) el.outroAudio.pause();
+        pauseWelcomePromo();
+        pauseEmbedVideo();
+        disableExtraVideoAudioTracks();
+        lockWatchModeLessonAudio(true);
+      }
+      updateVideoUI();
+    });
+    el.heroVisual.addEventListener('pause', function () {
+      if (isPlainHtmlTalkVideo(getCurrentLesson())) {
+        if (el.audio) el.audio.pause();
+        if (el.splashAudio) el.splashAudio.pause();
+        if (el.outroAudio) el.outroAudio.pause();
+      }
+      updateVideoUI();
+    });
     el.heroVisual.addEventListener('ended', function () {
       var lesson = getCurrentLesson();
+      if (isPlainHtmlTalkVideo(lesson)) {
+        silenceAuxiliaryMedia();
+        updateVideoUI();
+        return;
+      }
       if (!isUnifiedHtmlVideo(lesson)) return;
       talk1Phase = 'ended';
       talk1MainPaused = true;
@@ -3013,8 +3123,11 @@
 
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) return;
+      var lesson = getCurrentLesson();
+      // Never auto-resume plain talk videos — learner controls play/pause.
+      if (isPlainHtmlTalkVideo(lesson)) return;
       if (lessonMode === 'watch' && el.heroVisual && !el.heroVisual.hidden) {
-        playHeroVideoWhenReady(getCurrentLesson());
+        playHeroVideoWhenReady(lesson);
       }
     });
 
