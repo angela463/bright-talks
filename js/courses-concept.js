@@ -44,6 +44,7 @@
     {
       id: 'ages-3-6',
       courseId: 'bt-foundations-early-years',
+      moduleIdPrefix: 'm-ey-',
       label: 'Ages 3 to 6',
       title: 'Body Safety Foundations',
       blurb: 'Welcome plus five parent talks on bodies, boundaries, reproduction, online images, and keeping conversations going.',
@@ -51,7 +52,8 @@
     },
     {
       id: 'ages-6-8',
-      courseId: 'bt-middle-childhood',
+      courseId: 'bt-foundations-early-years',
+      moduleIdPrefix: 'm-mc-',
       label: 'Ages 6 to 8',
       title: 'Growing Up',
       blurb: 'Five parent talks for growing curiosity, friends’ voices, bigger questions, boundaries, and keeping the door open.',
@@ -97,9 +99,10 @@
     return !!(lesson && lesson.availability === 'soon');
   }
 
-  function flattenCourseLessons(course) {
+  function flattenCourseLessons(course, moduleIdPrefix) {
     var items = [];
     (course.modules || []).forEach(function (module, mIndex) {
+      if (moduleIdPrefix && String(module.id || '').indexOf(moduleIdPrefix) !== 0) return;
       (module.lessons || []).forEach(function (lesson, lIndex) {
         items.push({ module: mIndex, lesson: lIndex, lessonData: lesson });
       });
@@ -151,7 +154,7 @@
       var course = common.getCourseById(band.courseId);
       if (!course) return '';
 
-      var items = flattenCourseLessons(course);
+      var items = flattenCourseLessons(course, band.moduleIdPrefix);
       var talkCount = items.filter(function (entry) {
         return !/^welcome video$/i.test(String(entry.lessonData.title || '').trim());
       }).length;

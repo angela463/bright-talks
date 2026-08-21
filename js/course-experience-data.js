@@ -1527,6 +1527,7 @@
 
     var welcomeLesson = lessons[0];
     var talkLessons = lessons.slice(1);
+    var ages68 = buildAges68CourseParts(sa);
 
     return {
       id: 'bt-foundations-early-years',
@@ -1539,7 +1540,7 @@
       outcome:
         'Leave with practical language, handbooks, and scripts you can use this week to build trust and body safety at home.',
       duration: '1h 42m',
-      lessonCount: lessons.length,
+      lessonCount: lessons.length + 1 + ages68.talkLessons.length,
       progress: 17,
       completed: false,
       heroImage: courseHeroImages.earlyYears,
@@ -1555,22 +1556,35 @@
       modules: [
         {
           id: 'm-ey-getting-started',
-          title: 'Getting Started',
+          title: 'Ages 3–6 · Getting Started',
           objective: 'Meet Bright Talks and see how this early-years path is organized.',
           lessons: [welcomeLesson]
         },
         {
           id: 'm-ey-parent-talks',
-          title: 'Parent Talks',
+          title: 'Ages 3–6 · Parent Talks',
           objective:
             'Move through bodies, boundaries, reproduction, online safety, and keeping conversations going.',
           lessons: talkLessons
+        },
+        {
+          id: 'm-mc-getting-started',
+          title: 'Ages 6–8 · Getting Started',
+          objective: 'Orient to the Ages 6–8 path and how to use each talk.',
+          lessons: [ages68.welcomeLesson]
+        },
+        {
+          id: 'm-mc-parent-talks',
+          title: 'Ages 6–8 · Parent Talks',
+          objective:
+            'Walk through curiosity, peer conversations, reproduction questions, safety, and ongoing trust.',
+          lessons: ages68.talkLessons
         }
       ]
     };
   }
 
-  function buildMiddleChildhoodCourse(sa) {
+  function buildAges68CourseParts(sa) {
     var welcomeLesson = splitLesson({
       id: 'mc-welcome',
       title: 'Welcome Video',
@@ -1605,7 +1619,7 @@
           paragraphs: [
             'Watch the welcome, then work through the talks in order or jump to what your family needs now.',
             'Practice small check-ins in ordinary moments—the car, bedtime, after school.',
-            'Talk videos currently use a temporary Ages 3–5 stand-in so you can preview the player layout. Final Ages 6–8 videos will replace them when ready.'
+            'Ages 6–8 talk videos will appear in Watch mode as soon as Heidi’s encodes are linked. Until then, use Read mode for the full script.'
           ]
         }
       ]
@@ -1618,6 +1632,7 @@
         summary:
           'Respond calmly when children notice body differences, ask new questions, and want more privacy.',
         readScript: mcTalk1ReadScript,
+        image: middleChildhoodLessonImages[0],
         objectives: [
           'Treat growing curiosity as connection, not a problem to shut down.',
           'Give simple, matter-of-fact answers about body differences and change.',
@@ -1630,6 +1645,7 @@
         summary:
           'Respond with curiosity—not panic—when a child brings home unexpected words or ideas.',
         readScript: mcTalk2ReadScript,
+        image: middleChildhoodLessonImages[1],
         objectives: [
           'Pause and learn what your child actually heard and understands.',
           'Correct gently when something is inaccurate or too mature.',
@@ -1642,6 +1658,7 @@
         summary:
           'Answer reproduction questions simply and truthfully without oversharing or shutting down.',
         readScript: mcTalk3ReadScript,
+        image: middleChildhoodLessonImages[2],
         objectives: [
           'Match the depth of your answer to the question being asked.',
           'Use calm, accurate language about babies and growing up.',
@@ -1654,6 +1671,7 @@
         summary:
           'Strengthen body safety language: privacy, surprises vs secrets, and telling a trusted adult.',
         readScript: mcTalk4ReadScript,
+        image: middleChildhoodLessonImages[3],
         objectives: [
           'Practice speak up, step away, and tell a trusted adult.',
           'Distinguish surprises from unsafe secrets.',
@@ -1666,6 +1684,7 @@
         summary:
           'Build everyday habits of listening and trust so bigger preteen conversations still come to you.',
         readScript: mcTalk5ReadScript,
+        image: middleChildhoodLessonImages[4],
         objectives: [
           'Use small moments to reinforce “you can tell me.”',
           'Listen before reacting when something unexpected comes up.',
@@ -1680,14 +1699,14 @@
         availability: 'ready',
         title: talk.title,
         summary: talk.summary,
-        duration: '6m',
-        audioDuration: '05:54',
-        audioUrl: talk1ListenAudio,
-        audioVoice: 'Heidi Cooper',
+        duration: 'Soon',
+        audioDuration: '00:00',
         readScript: talk.readScript,
         heroVisual: {
-          type: 'video',
-          src: talk1VideoSrc
+          type: 'image',
+          src: talk.image,
+          alt: talk.title,
+          pendingVideo: true
         },
         sections: [
           {
@@ -1700,12 +1719,21 @@
             type: 'prose',
             paragraphs: [
               talk.summary,
-              'Layout preview: Watch mode currently plays the Ages 3–5 Talk 1 video as a stand-in until Heidi’s Ages 6–8 encodes are linked. Use Read mode for the full Ages 6–8 script.'
+              'Watch mode shows a placeholder until Heidi’s Ages 6–8 video is uploaded. Use Read mode for the full script now.'
             ]
           }
         ]
       });
     });
+
+    return {
+      welcomeLesson: welcomeLesson,
+      talkLessons: talkLessons
+    };
+  }
+
+  function buildMiddleChildhoodCourse(sa) {
+    var ages68 = buildAges68CourseParts(sa);
 
     return {
       id: 'bt-middle-childhood',
@@ -1717,8 +1745,8 @@
         'Five parent talks for ages 6 to 8: growing curiosity, friends’ voices, reproduction questions, boundaries, and keeping trust open.',
       outcome:
         'Build confidence leading age-appropriate talks as your child’s world expands beyond home.',
-      duration: 'About 30m (preview)',
-      lessonCount: 1 + talkLessons.length,
+      duration: 'Coming soon',
+      lessonCount: 1 + ages68.talkLessons.length,
       progress: 0,
       completed: false,
       heroImage: courseHeroImages.middleChildhood,
@@ -1726,16 +1754,16 @@
       modules: [
         {
           id: 'm-mc-getting-started',
-          title: 'Getting Started',
+          title: 'Ages 6–8 · Getting Started',
           objective: 'Orient to the Ages 6–8 path and how to use each talk.',
-          lessons: [welcomeLesson]
+          lessons: [ages68.welcomeLesson]
         },
         {
           id: 'm-mc-parent-talks',
-          title: 'Ages 6–8 Parent Talks',
+          title: 'Ages 6–8 · Parent Talks',
           objective:
             'Walk through curiosity, peer conversations, reproduction questions, safety, and ongoing trust.',
-          lessons: talkLessons
+          lessons: ages68.talkLessons
         }
       ]
     };

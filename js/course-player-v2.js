@@ -107,7 +107,9 @@
     videoBarVolume: document.getElementById('player-v2-video-bar-volume'),
     videoBarVolumeWrap: document.getElementById('player-v2-video-bar-volume-wrap'),
     videoBarFullscreen: document.getElementById('player-v2-video-bar-fullscreen'),
+    videoOverlayLabel: document.getElementById('player-v2-video-overlay-label'),
     videoNowTitle: document.getElementById('player-v2-video-now-title'),
+    pendingVideo: document.getElementById('player-v2-pending-video'),
     sidebarCourseNav: document.getElementById('player-v2-sidebar-course-nav'),
     progressFill: document.getElementById('player-v2-progress-fill'),
     progressCount: document.getElementById('player-v2-progress-count'),
@@ -2111,12 +2113,19 @@
     }
   }
 
+  function isPendingVideoLesson(lesson) {
+    return !!(lesson && lesson.heroVisual && lesson.heroVisual.pendingVideo);
+  }
+
   function lessonStatusBadgeHtml(lesson, isDone) {
     if (isDone) {
       return '<span class="player-v2-lesson-card__completed">Completed</span>';
     }
     if (isLessonSoon(lesson)) {
       return '<span class="player-v2-lesson-card__badge player-v2-lesson-card__badge--soon">Coming soon</span>';
+    }
+    if (isPendingVideoLesson(lesson)) {
+      return '<span class="player-v2-lesson-card__badge player-v2-lesson-card__badge--soon">Video soon</span>';
     }
     if (isLessonReady(lesson)) {
       return '<span class="player-v2-lesson-card__badge player-v2-lesson-card__badge--ready">Ready to start</span>';
@@ -2699,11 +2708,17 @@
     if (!el.heroVisual || !el.heroSource || !el.heroImage) return;
 
     if (hv && hv.type === 'promo') {
+      if (el.pendingVideo) el.pendingVideo.hidden = true;
+      if (el.videoStage) el.videoStage.classList.remove('is-pending-video');
+      if (el.videoOverlayLabel) el.videoOverlayLabel.textContent = 'Now watching';
       applyPromoHero(lesson);
       return;
     }
 
     if (!hv || !hv.src) {
+      if (el.pendingVideo) el.pendingVideo.hidden = true;
+      if (el.videoStage) el.videoStage.classList.remove('is-pending-video');
+      if (el.videoOverlayLabel) el.videoOverlayLabel.textContent = 'Now watching';
       if (el.videoStage) el.videoStage.classList.add('is-no-video');
       forceHeroVideo(el.heroSource.src || 'videos/hero-home-loop.mp4', lesson);
       return;
@@ -2720,9 +2735,18 @@
       if (el.videoStage) {
         el.videoStage.classList.add('is-image-mode');
         el.videoStage.classList.remove('is-embed-mode');
+        el.videoStage.classList.toggle('is-pending-video', !!hv.pendingVideo);
+      }
+      if (el.pendingVideo) el.pendingVideo.hidden = !hv.pendingVideo;
+      if (el.videoOverlayLabel) {
+        el.videoOverlayLabel.textContent = hv.pendingVideo ? 'Coming soon' : 'Now watching';
       }
       return;
     }
+
+    if (el.pendingVideo) el.pendingVideo.hidden = true;
+    if (el.videoStage) el.videoStage.classList.remove('is-pending-video');
+    if (el.videoOverlayLabel) el.videoOverlayLabel.textContent = 'Now watching';
 
     if (hv.type === 'embed') {
       applyEmbedHero(lesson);

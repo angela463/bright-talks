@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/course-experience.css?v=mc68-scripts" />
-  <link rel="stylesheet" href="css/course-player-layout.css?v=mc68-scripts" />
+  <link rel="stylesheet" href="css/course-experience.css?v=ages68-player" />
+  <link rel="stylesheet" href="css/course-player-layout.css?v=ages68-player" />
 </head>
 <body class="page-course-player-v2 player-v2-layout-revamp page-landing" id="top">
   <div id="player-v2-preloader" class="player-v2-preloader" aria-live="polite">
@@ -165,8 +165,13 @@
             <div class="player-v2-video-stage__glow" aria-hidden="true"></div>
             <div class="player-v2-video-stage__shade" aria-hidden="true"></div>
             <div class="player-v2-video-overlay">
-              <span class="player-v2-video-overlay__label">Now watching</span>
+              <span class="player-v2-video-overlay__label" id="player-v2-video-overlay-label">Now watching</span>
               <span id="player-v2-video-now-title" class="player-v2-video-overlay__title"></span>
+            </div>
+            <div id="player-v2-pending-video" class="player-v2-pending-video" hidden>
+              <p class="player-v2-pending-video__kicker">Video placeholder</p>
+              <p class="player-v2-pending-video__title">Talk video coming soon</p>
+              <p class="player-v2-pending-video__copy">Heidi’s Ages 6–8 recording will play here once uploaded. Use Read for the full script.</p>
             </div>
             <div id="player-v2-playing-badge" class="player-v2-playing-badge" hidden>
               <span class="player-v2-playing-badge__dot" aria-hidden="true"></span>
@@ -353,10 +358,10 @@
   </footer>
 
   <script src="//assets.mediadelivery.net/playerjs/playerjs-latest.min.js"></script>
-  <script src="js/course-experience-data.js?v=mc68-scripts"></script>
+  <script src="js/course-experience-data.js?v=ages68-player"></script>
   <script src="js/course-experience-common.js"></script>
-  <script src="js/promo-slideshow.js?v=mc68-scripts"></script>
-  <script src="js/course-player-v2.js?v=mc68-scripts"></script>
+  <script src="js/promo-slideshow.js?v=ages68-player"></script>
+  <script src="js/course-player-v2.js?v=ages68-player"></script>
   <script src="js/auth-modal.js"></script>
 </body>
 </html>
