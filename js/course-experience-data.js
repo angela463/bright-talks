@@ -914,6 +914,9 @@
       })
     ];
 
+    var welcomeLesson = lessons[0];
+    var talkLessons = lessons.slice(1);
+
     return {
       id: 'bt-foundations-early-years',
       title: 'Body Safety Foundations (Ages 3 to 6)',
@@ -940,73 +943,186 @@
       },
       modules: [
         {
-          id: 'm-early-years-core',
-          title: 'Early Years Course',
+          id: 'm-ey-getting-started',
+          title: 'Getting Started',
+          objective: 'Meet Bright Talks and see how this early-years path is organized.',
+          lessons: [welcomeLesson]
+        },
+        {
+          id: 'm-ey-parent-talks',
+          title: 'Parent Talks',
           objective:
-            'Move from introduction through bodies, boundaries, reproduction, online safety, and keeping conversations going over time.',
-          lessons: lessons
+            'Move through bodies, boundaries, reproduction, online safety, and keeping conversations going.',
+          lessons: talkLessons
         }
       ]
     };
   }
 
   function buildMiddleChildhoodCourse(sa) {
-    var lessonTitles = [
-      'Understanding Growing Bodies',
-      'Privacy & Personal Space',
-      'Answering Curious Questions',
-      'Friendships & Boundaries',
-      'Media & Online Curiosity',
-      'Emotions & Self-Esteem',
-      'Family Values & Rules',
-      'Preparing for Puberty Talks',
-      'Keeping Conversations Open'
-    ];
-    var durations = ['12 min', '10 min', '11 min', '9 min', '13 min', '10 min', '8 min', '12 min', '9 min'];
+    var welcomeLesson = splitLesson({
+      id: 'mc-welcome',
+      title: 'Welcome Video',
+      summary:
+        'Meet the Ages 6–8 path and see how growing curiosity, friendships, and bigger questions open the door for ongoing conversations.',
+      duration: '3 min',
+      audioDuration: '03:00',
+      audioUrl: welcomeAudio,
+      heroVisual: { type: 'promo' },
+      sections: [
+        {
+          title: 'Talk Objectives',
+          type: 'objectives',
+          bullets: [
+            'Understand what this middle-childhood course covers for ages 6 to 8.',
+            'See how each talk builds trust as children hear more voices outside the home.',
+            'Feel ready to keep answering questions with calm honesty.'
+          ]
+        },
+        {
+          title: 'What You Will Learn',
+          type: 'prose',
+          paragraphs: [
+            'This course walks through five parent talks: growing bodies and curiosity, things kids hear from friends, questions about babies and sex, boundaries and secrets, and keeping the door open.',
+            'Each talk includes short video (as published), parent-friendly guidance, optional audio, and a readable script. Move at your child’s pace—there is no perfect one-time conversation.',
+            'Your goal is a relationship where hard questions still feel safe to bring home.'
+          ]
+        },
+        {
+          title: 'How to Use This Course',
+          type: 'prose',
+          paragraphs: [
+            'Watch the welcome, then work through the talks in order or jump to what your family needs now.',
+            'Practice small check-ins in ordinary moments—the car, bedtime, after school.',
+            'When Heidi’s Ages 6–8 videos are linked here, they will play in the same Watch player you already use.'
+          ]
+        }
+      ]
+    });
 
-    var lessons = lessonTitles.map(function (title, i) {
-      return {
-        id: 'mc-l' + (i + 1),
-        title: 'Lesson ' + (i + 1) + ': ' + title,
-        summary: 'Practical guidance for parents of children ages 6 to 9.',
-        duration: durations[i],
+    var talks = [
+      {
+        id: 'mc-talk-1',
+        title: 'Talk 1: Growing Bodies & Growing Curiosity',
+        summary:
+          'Respond calmly when children notice body differences, ask new questions, and want more privacy.',
+        image: middleChildhoodLessonImages[0],
+        objectives: [
+          'Treat growing curiosity as connection, not a problem to shut down.',
+          'Give simple, matter-of-fact answers about body differences and change.',
+          'Ask follow-up questions that keep the conversation open.'
+        ]
+      },
+      {
+        id: 'mc-talk-2',
+        title: 'Talk 2: When Kids Hear Things From Friends',
+        summary:
+          'Respond with curiosity—not panic—when a child brings home unexpected words or ideas.',
+        image: middleChildhoodLessonImages[1],
+        objectives: [
+          'Pause and learn what your child actually heard and understands.',
+          'Correct gently when something is inaccurate or too mature.',
+          'Teach peer boundaries without teaching fear of friends.'
+        ]
+      },
+      {
+        id: 'mc-talk-3',
+        title: 'Talk 3: Questions About Babies, Sex & Where We Come From',
+        summary:
+          'Answer reproduction questions simply and truthfully without oversharing or shutting down.',
+        image: middleChildhoodLessonImages[2],
+        objectives: [
+          'Match the depth of your answer to the question being asked.',
+          'Use calm, accurate language about babies and growing up.',
+          'Leave the door open for follow-up questions.'
+        ]
+      },
+      {
+        id: 'mc-talk-4',
+        title: 'Talk 4: Boundaries, Secrets & Staying Safe',
+        summary:
+          'Strengthen body safety language: privacy, surprises vs secrets, and telling a trusted adult.',
+        image: middleChildhoodLessonImages[3],
+        objectives: [
+          'Practice speak up, step away, and tell a trusted adult.',
+          'Distinguish surprises from unsafe secrets.',
+          'Respond with calm support if a child shares something hard.'
+        ]
+      },
+      {
+        id: 'mc-talk-5',
+        title: 'Talk 5: Keeping the Door Open',
+        summary:
+          'Build everyday habits of listening and trust so bigger preteen conversations still come to you.',
+        image: middleChildhoodLessonImages[4],
+        objectives: [
+          'Use small moments to reinforce “you can tell me.”',
+          'Listen before reacting when something unexpected comes up.',
+          'Prepare the relationship that will carry into the next stage.'
+        ]
+      }
+    ];
+
+    var talkLessons = talks.map(function (talk) {
+      return splitLesson({
+        id: talk.id,
+        availability: 'soon',
+        title: talk.title,
+        summary: talk.summary,
+        duration: '—',
+        audioDuration: '00:00',
         heroVisual: {
           type: 'image',
-          src: middleChildhoodLessonImages[i % middleChildhoodLessonImages.length],
-          alt: title
+          src: talk.image,
+          alt: talk.title
         },
-        audio: {
-          audioUrl: sa,
-          transcript: title + ': parent-friendly guidance for middle childhood.',
-          voice: 'Warm Guide v2',
-          duration: durations[i].replace(' min', ':00'),
-          status: 'ready'
-        }
-      };
+        sections: [
+          {
+            title: 'Talk Objectives',
+            type: 'objectives',
+            bullets: talk.objectives
+          },
+          {
+            title: 'Parent-Facing Guidance',
+            type: 'prose',
+            paragraphs: [
+              talk.summary,
+              'Heidi’s Ages 6–8 video for this talk will appear in Watch mode once the encode is linked. Until then, use the Read tab and these objectives to prepare.'
+            ]
+          }
+        ]
+      });
     });
 
     return {
       id: 'bt-middle-childhood',
       title: 'Growing Up: Middle Childhood',
       topic: 'Growing Up',
-      audience: 'Parents of Ages 6 to 9',
+      audience: 'Parents of Ages 6 to 8',
       level: 'Core',
       description:
-        'Friendships, curiosity, and honest answers as your child grows more independent.',
+        'Five parent talks for ages 6 to 8: growing curiosity, friends’ voices, reproduction questions, boundaries, and keeping trust open.',
       outcome:
-        'Build confidence leading age-appropriate talks about bodies, boundaries, and growing up.',
-      duration: '1h 34m',
-      lessonCount: lessons.length,
+        'Build confidence leading age-appropriate talks as your child’s world expands beyond home.',
+      duration: 'Coming soon',
+      lessonCount: 1 + talkLessons.length,
       progress: 0,
       completed: false,
       heroImage: courseHeroImages.middleChildhood,
       playerEntry: { module: 0, lesson: 0 },
       modules: [
         {
-          id: 'm-middle-childhood',
-          title: 'Middle Childhood Course',
-          objective: 'Guide children ages 6 to 9 through curiosity, boundaries, and growing independence.',
-          lessons: lessons
+          id: 'm-mc-getting-started',
+          title: 'Getting Started',
+          objective: 'Orient to the Ages 6–8 path and how to use each talk.',
+          lessons: [welcomeLesson]
+        },
+        {
+          id: 'm-mc-parent-talks',
+          title: 'Parent Talks',
+          objective:
+            'Walk through curiosity, peer conversations, reproduction questions, safety, and ongoing trust.',
+          lessons: talkLessons
         }
       ]
     };

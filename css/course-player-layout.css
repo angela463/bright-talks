@@ -244,49 +244,129 @@
   text-wrap: pretty;
 }
 
-/* ─── Sidebar lesson cards ─── */
+/* ─── Sidebar lesson cards (accordion chapters) ─── */
 .player-v2-layout-revamp .player-v2-sidebar-lessons {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 6px;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter {
+  border: 1.5px solid #EBE1D0;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 12px 12px 14px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--pv2-navy);
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__toggle:hover {
+  background: #FBF7F1;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__mark {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #D9CBB6;
+  background: #fff;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter.is-open .player-v2-nav-chapter__mark {
+  border-color: var(--pv2-orange);
+  background: radial-gradient(circle at center, var(--pv2-orange) 0 38%, #fff 40%);
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__title {
+  font-family: 'Mulish', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--pv2-navy);
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__meta {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: #A2917A;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__chevron {
+  flex: none;
+  color: #A2917A;
+  transition: transform 0.18s ease;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter.is-open .player-v2-nav-chapter__chevron {
+  transform: rotate(180deg);
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter__lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 8px 10px;
+}
+
+.player-v2-layout-revamp .player-v2-nav-chapter:not(.is-open) .player-v2-nav-chapter__lessons {
+  display: none;
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  padding: 15px;
-  border-radius: 16px;
-  border: 1.5px solid #EBE1D0;
-  background: #fff;
+  padding: 10px 11px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: #FBF7F1;
   text-align: left;
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
   font-family: inherit;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
-}
-
-.player-v2-layout-revamp .player-v2-lesson-card:has(.player-v2-lesson-card__subtitle:not(:empty)) {
-  padding: 13px 15px;
+  box-shadow: none;
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card:hover:not(.is-soon) {
   border-color: var(--pv2-orange);
   background: #fff;
-  box-shadow: 0 4px 14px rgba(224, 139, 60, 0.14);
+  box-shadow: 0 4px 14px rgba(224, 139, 60, 0.12);
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card.is-active {
   border-color: var(--pv2-orange);
   background: #fff;
-  box-shadow: 0 6px 18px rgba(224, 139, 60, 0.16);
+  box-shadow: 0 4px 14px rgba(224, 139, 60, 0.14);
 }
 
 .player-v2-layout-revamp .player-v2-lesson-card__ring {
   flex: none;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 1.5px solid #E7BB8B;
   background: transparent;
@@ -339,9 +419,9 @@
 .player-v2-layout-revamp .player-v2-lesson-card__title {
   display: block;
   font-family: 'Caveat', cursive;
-  font-size: 25px;
+  font-size: 21px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.05;
   color: var(--pv2-orange);
 }
 

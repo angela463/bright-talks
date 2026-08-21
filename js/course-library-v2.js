@@ -92,7 +92,7 @@
 
   function audienceBadge(course) {
     if (course.id === 'bt-foundations-early-years') return 'Ages 3 to 5';
-    if (course.id === 'bt-middle-childhood') return 'Ages 6 to 9';
+    if (course.id === 'bt-middle-childhood') return 'Ages 6 to 8';
     if (course.id === 'bt-puberty-conversations') return 'Ages 10 to 13';
     if (course.id === 'bt-teen-digital-safety') return 'Teens';
     if (/early/i.test(course.audience)) return 'Ages 3 to 5';

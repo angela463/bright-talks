@@ -2124,34 +2124,70 @@
     return '';
   }
 
+  function sidebarLessonCardHtml(entry, absoluteIndex, doneCount) {
+    var lesson = entry.lessonData;
+    var active = entry.module === moduleIndex && entry.lesson === lessonIndex;
+    var isDone = absoluteIndex < doneCount;
+    var soon = isLessonSoon(lesson);
+    var isWelcome = /^welcome video$/i.test(String(lesson.title || '').trim());
+    var cls = 'player-v2-lesson-card' +
+      (active ? ' is-active' : '') +
+      (isDone ? ' is-done' : '') +
+      (isWelcome ? ' is-welcome' : '') +
+      (soon ? ' is-soon' : '');
+
+    return '' +
+      '<button type="button" class="' + cls + '" data-module="' + entry.module + '" data-lesson="' + entry.lesson + '"' +
+        (soon ? ' disabled aria-disabled="true"' : '') + '>' +
+        '<span class="player-v2-lesson-card__ring" aria-hidden="true"></span>' +
+        '<span class="player-v2-lesson-card__body">' +
+          sidebarTitleHtml(lesson.title) +
+          lessonStatusBadgeHtml(lesson, isDone) +
+        '</span>' +
+        '<span class="player-v2-lesson-card__duration">' + escText(lesson.duration) + '</span>' +
+      '</button>';
+  }
+
   function renderSidebarCourseNav(all, progressPct) {
     if (!el.sidebarCourseNav) return;
     var done = doneLessonCount(progressPct, all.length);
+    var modules = course.modules || [];
+    var absoluteIndex = 0;
+    var html = '';
 
-    el.sidebarCourseNav.innerHTML = all.map(function (entry, index) {
-      var lesson = entry.lessonData;
-      var active = entry.module === moduleIndex && entry.lesson === lessonIndex;
-      var isDone = index < done;
-      var soon = isLessonSoon(lesson);
-      var isWelcome = /^welcome video$/i.test(String(lesson.title || '').trim());
-      var cls = 'player-v2-lesson-card' +
-        (active ? ' is-active' : '') +
-        (isDone ? ' is-done' : '') +
-        (isWelcome ? ' is-welcome' : '') +
-        (soon ? ' is-soon' : '');
+    modules.forEach(function (module, mIndex) {
+      var lessons = module.lessons || [];
+      if (!lessons.length) return;
 
-      return '' +
-        '<button type="button" class="' + cls + '" data-module="' + entry.module + '" data-lesson="' + entry.lesson + '"' +
-          (soon ? ' disabled aria-disabled="true"' : '') + '>' +
-          '<span class="player-v2-lesson-card__ring" aria-hidden="true"></span>' +
-          '<span class="player-v2-lesson-card__body">' +
-            sidebarTitleHtml(lesson.title) +
-            '<span class="player-v2-lesson-card__subtitle">' + escText(truncate(lesson.summary, 72)) + '</span>' +
-            lessonStatusBadgeHtml(lesson, isDone) +
-          '</span>' +
-          '<span class="player-v2-lesson-card__duration">' + escText(lesson.duration) + '</span>' +
-        '</button>';
-    }).join('');
+      var moduleDone = 0;
+      var lessonCards = '';
+      lessons.forEach(function (lesson, lIndex) {
+        if (absoluteIndex < done) moduleDone += 1;
+        lessonCards += sidebarLessonCardHtml(
+          { module: mIndex, lesson: lIndex, lessonData: lesson },
+          absoluteIndex,
+          done
+        );
+        absoluteIndex += 1;
+      });
+
+      var isOpen = mIndex === moduleIndex || modules.length === 1;
+      html += '' +
+        '<section class="player-v2-nav-chapter' + (isOpen ? ' is-open' : '') + '" data-module="' + mIndex + '">' +
+          '<button type="button" class="player-v2-nav-chapter__toggle" data-toggle-module="' + mIndex + '"' +
+            ' aria-expanded="' + (isOpen ? 'true' : 'false') + '">' +
+            '<span class="player-v2-nav-chapter__mark" aria-hidden="true"></span>' +
+            '<span class="player-v2-nav-chapter__copy">' +
+              '<span class="player-v2-nav-chapter__title">' + escText(module.title) + '</span>' +
+              '<span class="player-v2-nav-chapter__meta">' + moduleDone + '/' + lessons.length + '</span>' +
+            '</span>' +
+            '<svg class="player-v2-nav-chapter__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+          '</button>' +
+          '<div class="player-v2-nav-chapter__lessons">' + lessonCards + '</div>' +
+        '</section>';
+    });
+
+    el.sidebarCourseNav.innerHTML = html;
   }
 
   function renderPills(lesson) {
@@ -3105,6 +3141,17 @@
 
     if (el.sidebarCourseNav) {
       el.sidebarCourseNav.addEventListener('click', function (e) {
+        var toggle = e.target.closest('[data-toggle-module]');
+        if (toggle) {
+          e.preventDefault();
+          var chapter = toggle.closest('.player-v2-nav-chapter');
+          if (!chapter) return;
+          var willOpen = !chapter.classList.contains('is-open');
+          chapter.classList.toggle('is-open', willOpen);
+          toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+          return;
+        }
+
         var lessonBtn = e.target.closest('.player-v2-lesson-card[data-lesson]');
         if (!lessonBtn || lessonBtn.disabled || lessonBtn.classList.contains('is-soon')) return;
         if (lessonBtn.hasAttribute('data-module')) {
