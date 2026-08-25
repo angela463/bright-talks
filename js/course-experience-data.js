@@ -1353,7 +1353,7 @@
         availability: 'ready',
         title: 'Talk 3: Reproduction',
         summary:
-          'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3 to 6.',
+          'Answer “where do babies come from?” with simple, factual, warm language suited to ages 3 to 5.',
         duration: '5m',
         audioDuration: '04:35',
         readScript: talk3ReadScript,
@@ -1396,7 +1396,7 @@
               {
                 label: 'Reproduction Q&A Guide (PDF)',
                 href: '#reproduction-guide-placeholder',
-                description: 'Sample phrases for ages 3 to 6 (placeholder. Full PDF coming soon).'
+                description: 'Sample phrases for ages 3 to 5 (placeholder. Full PDF coming soon).'
               }
             ]
           }
@@ -1531,7 +1531,7 @@
 
     return {
       id: 'bt-foundations-early-years',
-      title: 'Body Safety Foundations (Ages 3 to 6)',
+      title: 'Body Safety Foundations (Ages 3 to 5)',
       topic: 'Body Safety',
       audience: 'Parents of Early Learners',
       level: 'Starter',
@@ -1556,13 +1556,13 @@
       modules: [
         {
           id: 'm-ey-getting-started',
-          title: 'Ages 3–6 · Getting Started',
+          title: 'Ages 3–5 · Getting Started',
           objective: 'Meet Bright Talks and see how this early-years path is organized.',
           lessons: [welcomeLesson]
         },
         {
           id: 'm-ey-parent-talks',
-          title: 'Ages 3–6 · Parent Talks',
+          title: 'Ages 3–5 · Parent Talks',
           objective:
             'Move through bodies, boundaries, reproduction, online safety, and keeping conversations going.',
           lessons: talkLessons

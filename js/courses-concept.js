@@ -10,7 +10,7 @@
       courseId: 'bt-foundations-early-years',
       num: '01',
       title: 'Body Safety Foundations',
-      age: 'Ages 3 to 6',
+      age: 'Ages 3 to 5',
       status: 'available',
       statusLabel: 'Available'
     },
@@ -42,10 +42,10 @@
 
   var ageBands = [
     {
-      id: 'ages-3-6',
+      id: 'ages-3-5',
       courseId: 'bt-foundations-early-years',
       moduleIdPrefix: 'm-ey-',
-      label: 'Ages 3 to 6',
+      label: 'Ages 3 to 5',
       title: 'Body Safety Foundations',
       blurb: 'Welcome plus five parent talks on bodies, boundaries, reproduction, online images, and keeping conversations going.',
       openByDefault: true
